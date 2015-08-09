@@ -4,13 +4,15 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 
 	<body>
 		<div id="container">
-		
-			<div id="bar">
+			
+			<div id="toolbar">
 				<img src="images/logo.png" style="width:auto;height:inherit;float:left;">
 			</div>
 			
@@ -20,37 +22,41 @@
 			  <span>Posición:</span><br>
 			  X: <input type="number" id="posX"><br>
 			  Y: <input type="number" id="posY"><br>
-			  Z: <input type="number" id="posZ"><br><br>
-			  <button class="ietfem-button" onclick="IETFEM.addPoint()">Agregar punto</button><br><br>
+			  Z: <input type="number" id="posZ"><br>
+			  <button class="ietfem-button" onclick="IETFEM.addPoint()">Agregar punto</button><br>
 			  
-			  <span>Lineas en X:</span>
-			  <input type="number" id="largoX"><br>
-			  <span>Separación:</span>
-			  <input type="number" id="separatorX"><br><br>
+			  <div class="gridMenu">
+				  <span>Lineas en X:</span>
+				  <input type="number" id="largoX"><br>
+				  <span>Separación:</span>
+				  <input type="number" id="separatorX"><br><br>
+				  
+				  <span>Lineas en Y:</span>
+				  <input type="number" id="largoY"><br>
+				  <span>Separación:</span>
+				  <input type="number" id="separatorY"><br><br>
+				  
+				  <span>Lineas en Z:</span>
+				  <input type="number" id="largoZ"><br>
+				  <span>Separación:</span>
+				  <input type="number" id="separatorZ"><br>
+			  </div>
 			  
-			  <span>Lineas en Y:</span>
-			  <input type="number" id="largoY"><br>
-			  <span>Separación:</span>
-			  <input type="number" id="separatorY"><br><br>
-			  
-			  <span>Lineas en Z:</span>
-			  <input type="number" id="largoZ"><br>
-			  <span>Separación:</span>
-			  <input type="number" id="separatorZ"><br><br>
-			  
-			  <button class="ietfem-button" onclick="IETFEM.addGrid()">Agregar grilla</button><br><br>
-			  <button id="linesButton" class="ietfem-button" onclick="Space.activateLinesDrawing()">Agregar líneas</button><br><br>
-			  <button class="ietfem-button" onclick="Model.getText()">Obtener texto</button><br><br>
+			  <button class="ietfem-button" onclick="IETFEM.addGrid()">Agregar grilla</button><br>
+			  <button id="linesButton" class="ietfem-button" onclick="Space.activateLinesDrawing()">Agregar líneas</button><br>
+			  <button class="ietfem-button" onclick="Model.getText()">Obtener texto</button><br>
 			  
 			  <textarea id="textModel" rows="7" cols="40"></textarea> 
 			  
 			</div>
 		</div>
 
-		<script src="js/three.min.js"></script>
-		<script src="js/angular.min.js"></script>
-		<script src="js/OrbitControls.js"></script>
+		<script src="lib/three.min.js"></script>
+		<script src="lib/jquery-2.1.4.min.js"></script>
+		<script src="lib/bootstrap.min.js"></script>
+		<script src="lib/angular.min.js"></script>
 		
+		<script src="js/OrbitControls.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/IETFEM.js"></script>
 		<script src="js/Model.js"></script>
