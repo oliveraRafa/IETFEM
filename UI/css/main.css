@@ -2,7 +2,6 @@ body {
 	color: #000;
 	font-family:palatino;
 	font-size:13px;
-	text-align:center;
 	font-weight: bold;
 	background-color: #E6E6E6;
 	color: #848484;
@@ -15,15 +14,6 @@ body {
 	position: absolute;
 	top: 0px; width: 100%;
 	padding: 5px;
-}
-
-#toolbar {
-	display:block;
-	width:100%;
-	height: 40px;
-	background-color:#D8D8D8;
-	border-bottom: 2px solid #BDBDBD;
-	box-sizing: content-box;
 }
 
 #container {
@@ -73,4 +63,68 @@ body {
 	border: 2px solid #BDBDBD;
 	color: #848484;
 	margin-top:3px;
+}
+
+#toolbar {
+	display:block;
+	width:100%;
+	height: 40px;
+	background-color:#D8D8D8;
+	border-bottom: 2px solid #BDBDBD;
+	box-sizing: content-box;
+}
+
+#toolbar ul {
+  text-align: left;
+  display: inline;
+  margin: 0;
+  padding: 15px 4px 17px 5px;
+  list-style: none;
+}
+#toolbar ul li {
+  font: bold 12px/18px sans-serif;
+  display: inline-block;
+  margin-right: -4px;
+  position: relative;
+  padding: 12px 25px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+#toolbar ul li:hover {
+  background: #555;
+  color: #fff;
+}
+#toolbar ul li ul {
+  padding: 0;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 150px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s;
+}
+#toolbar ul li ul li { 
+  background: #555; 
+  display: block; 
+  color: #fff;
+  text-shadow: 0 -1px 0 #000;
+}
+#toolbar ul li ul li:hover { background: #666; }
+#toolbar ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
 }
