@@ -1,0 +1,101 @@
+Input for a Truss 1D with small deformation (You must respect line breaks):
+
+Force Magnitude
+kN
+
+Length Magnitude
+m
+
+Number of degrees of freedom per node
+1
+
+Number of nodes per element
+2
+
+Number of materials
+1
+
+Materials:
+Young Modulus      Gamma    alpha (1/C)
+210000000            0           0
+
+Number of temperature cases
+0
+
+Temperature cases:
+Value
+
+Number of sections
+2
+
+Sections:
+Area  
+0.001
+0.002
+
+Number of nodes
+3
+
+Node matrix
+Xs    
+0     
+3.28  
+6.56  
+      
+Number of elements
+2
+
+Conectivity matrix
+material  section  Tempcase start end
+1            1         0      1    2
+1            1         0      2    3
+
+Number of displacement conditions nodes
+1
+
+Displacement conditions nodes matrix
+Displacement node  X condition 
+1                       0      
+
+Number of puntual load conditions
+1
+
+Puntual loads conditions nodes matrix
+Load node       FX      
+3                -1      
+
+Number of dead volume load conditions
+0
+
+Dead volume loads conditions matrix
+Element           bx             
+
+Number of springs conditions nodes
+0
+
+Springs conditions nodes matrix
+Spring node  X condition 
+
+Scale Factor
+SD_Deformed   Supports    Areas    Forces    Frames    Numbers  
+   50000          2         1         1         1         1       
+
+What you wanna see? (Yes=1, No=0)
+Indeformed   SD_Deformed   SD_Axial  
+1                 1            1     
+
+Wich of the plots selected above do you want to print (.png image)? (Yes=1, No=0)
+Indeformed   SD_Deformed  SD_Axial   
+1                 1            1    
+
+How many images do you wanna see for small deformation?
+SD_Deformed   SD_Axial  
+5                 5          
+
+What you wanna see in plots? (Yes=1, No=0)
+Supports   Node_Numbers   Elements_Numbers   Forces     Axial_Force_Value
+1               1                1              1               1
+
+Text output format (Yes=1, No=0)
+TXT  TEX
+1     1

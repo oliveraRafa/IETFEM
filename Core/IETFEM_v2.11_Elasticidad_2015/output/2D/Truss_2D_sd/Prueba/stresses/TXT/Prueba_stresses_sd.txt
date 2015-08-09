@@ -1,0 +1,26 @@
+================== STRESSES IETFEM v2.11 ===========================
+
+
+Inputfile: ../../input/2D/Truss_2D_sd/Prueba.txt  ... 
+
+Solve time:  5.811 seconds
+
+Problem type: Truss 2D small deformation and displacement
+
+Force magnitude: kN 
+
+Length magnitude: m 
+
+Number of elements: 2 
+
+Sigma_lin = N_lin/A  
+
+------------------------- 
+  Stresses (kN/m^2)              
+------------------------- 
+| Elem |    Sigma_lin   | 
+------------------------- 
+|    1 |    3.54e-003   |
+|    2 |    7.07e-001   |
+------------------------- 
+

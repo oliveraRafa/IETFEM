@@ -1,0 +1,24 @@
+================== Linear Displacement IETFEM v2.11 ===========================
+
+
+Inputfile: ../../input/2D/Truss_2D_sd/Prueba.txt  ... 
+
+Solve time:  5.811 seconds
+
+Problem type: Truss 2D small deformation and displacement
+
+Length magnitude: m 
+
+Number of nodes: 3 
+
+---------------------------------------- 
+           Displacements (m)         
+---------------------------------------- 
+| Node |       u_x      |        u_y   |
+---------------------------------------- 
+|    1 |     0.00e+000  |    0.00e+000 |
+|    2 |    -7.04e-001  |   -7.11e-001 |
+|    3 |     0.00e+000  |    0.00e+000 |
+---------------------------------------- 
+
+

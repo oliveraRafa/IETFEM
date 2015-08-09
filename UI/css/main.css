@@ -1,0 +1,58 @@
+body {
+	color: #000;
+	font-family:palatino;
+	font-size:13px;
+	text-align:center;
+	font-weight: bold;
+	background-color: #E6E6E6;
+	color: #848484;
+	margin: 0px;
+}
+
+#info {
+	color:#000;
+	position: absolute;
+	top: 0px; width: 100%;
+	padding: 5px;
+}
+
+#bar {
+	display:block;
+	width:100%;
+	height: 40px;
+	background-color:#D8D8D8;
+	border-bottom: 2px solid #BDBDBD;
+}
+
+#container {
+	overflow:hidden;
+}
+
+#menu {
+	text-align:center;
+	padding-top:10px;
+}
+
+#viewport {
+	display:inline-block;
+	float:left;
+	border-right: 2px solid #BDBDBD;
+}
+
+#largoX, #largoY, #largoZ {
+	margin-bottom: 3px;
+}
+
+#posX, #posY, #posZ {
+	margin-bottom: 3px;
+}
+
+.ietfem-button{
+	height: 30px;
+	width: 130px;
+	font-size: medium;
+	font-family:palatino;
+	background-color: #D8D8D8;
+	border: 2px solid #BDBDBD;
+	color: #848484;
+}

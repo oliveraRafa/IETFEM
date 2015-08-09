@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+
+	<body>
+		<div id="container">
+		
+			<div id="bar">
+				<img src="images/logo.png" style="width:auto;height:inherit;float:left;">
+			</div>
+			
+			<div id="viewport"></div>
+			
+			<div id="menu">
+			  <span>Posición:</span><br>
+			  X: <input type="number" id="posX"><br>
+			  Y: <input type="number" id="posY"><br>
+			  Z: <input type="number" id="posZ"><br><br>
+			  <button class="ietfem-button" onclick="IETFEM.addPoint()">Agregar punto</button><br><br>
+			  
+			  <span>Lineas en X:</span>
+			  <input type="number" id="largoX"><br>
+			  <span>Separación:</span>
+			  <input type="number" id="separatorX"><br><br>
+			  
+			  <span>Lineas en Y:</span>
+			  <input type="number" id="largoY"><br>
+			  <span>Separación:</span>
+			  <input type="number" id="separatorY"><br><br>
+			  
+			  <span>Lineas en Z:</span>
+			  <input type="number" id="largoZ"><br>
+			  <span>Separación:</span>
+			  <input type="number" id="separatorZ"><br><br>
+			  
+			  <button class="ietfem-button" onclick="IETFEM.addGrid()">Agregar grilla</button><br><br>
+			  <button id="linesButton" class="ietfem-button" onclick="Space.activateLinesDrawing()">Agregar líneas</button><br><br>
+			  <button class="ietfem-button" onclick="Model.getText()">Obtener texto</button><br><br>
+			  
+			  <textarea id="textModel" rows="7" cols="40"></textarea> 
+			  
+			</div>
+		</div>
+
+		<script src="js/three.min.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		
+		<script src="js/main.js"></script>
+		<script src="js/IETFEM.js"></script>
+		<script src="js/Model.js"></script>
+		<script src="js/Space.js"></script>
+
+		<script>
+		
+			// Inicializa variables
+			var viewport;
+			var camera, controls, scene, renderer, tridimensional, grid;
+			var mouseX, mouseY;
+			var addingLines = false;
+			var firstPointLine = null;
+			var idFirstPoint = 0;
+			var helpObjects = [];
+			var model = {};
+			model.points = [];
+			model.lines = [];
+				
+			init();
+			render();
+		
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,23 @@
+================== Linear Support Reactions IETFEM v2.11 ===========================
+
+
+Inputfile: ../../input/2D/Truss_2D_sd/Prueba.txt  ... 
+
+Solve time:  5.811 seconds
+
+Problem type: Truss 2D small deformation and displacement
+
+Force magnitude: kN 
+
+Number of supports: 2 
+
+--------------------------------------- 
+           Support reaction (kN)         
+--------------------------------------- 
+| Node |       Rx      |       Ry     | 
+--------------------------------------- 
+|    1 |   -5.00e-001 |    5.00e-001  | 
+|    3 |    5.00e-001 |    5.00e-001  | 
+--------------------------------------- 
+
+
