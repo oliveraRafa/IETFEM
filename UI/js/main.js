@@ -26,7 +26,6 @@ function init() {
 	renderer.setSize( window.innerWidth/4*3, window.innerHeight-46 );
 	renderer.setClearColor( 0xEEEEEE, 1 );
 
-	viewport = document.getElementById( 'viewport' );
 	viewport.appendChild( renderer.domElement );
 
 	//Agrego eventos del usuario

@@ -10,11 +10,11 @@
 	</head>
 
 	<body>
-		<div id="container">
+		<div id="container" ng-app="IETFEM" ng-controller="IetfemCtrl">
 			
 			<div id="toolbar">
 				<img src="images/logo.png" style="width:auto;height:inherit;float:left;">
-
+				{{prueba}}	
 				<ul>
 					<li>Estructura
 						<ul>
@@ -94,6 +94,13 @@
 
 		<script>
 		
+		var app = angular.module('IETFEM', []);
+		app.controller(
+		    'IetfemCtrl',
+		        function($scope){
+		    		$scope.prueba = "HOLA";
+		        }
+		    );  
 			// Inicializa variables
 			var viewport;
 			var camera, controls, scene, renderer, tridimensional, grid;
