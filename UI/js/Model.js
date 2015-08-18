@@ -7,7 +7,8 @@ var Model = {
 		var point = {};
 		point.id = this.newIdentifier('POINT');
 		point.sceneId = Space.getScenePointIdByCoords(pX,pY,pZ);
-		point.properties = [];
+		//Displacemente conditions
+		point.xCondition=0;
 		point.coords = {
 			x: pX,
 			y: pY,
@@ -36,6 +37,16 @@ var Model = {
 				return true
 		};
 		return false;
+	},
+	
+	//Obtener objeto por id
+	getPointById: function(id) {
+			
+		for (var i = 0; i < model.points.length ;i++){
+			if (model.points[i].sceneId==id){
+				return model.points[i];
+			}
+		};
 	},
 	
 	//Obtiene un punto del modelo dadas sus coordenadas
