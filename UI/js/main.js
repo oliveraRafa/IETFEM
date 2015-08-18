@@ -63,32 +63,45 @@ function onMouseDown( event ) {
 		mouseY = event.clientY;
 	}
 }
-
+//Pone la informacion del punto en los controles de la UI
+function getInfoPuntoInterfaz( ) {
+	  $("#puntoId").val(puntoSeleccionado.id);
+	  $("#xCondition").val(puntoSeleccionado.xCondition);
+}
 //Cuando se levanta el click izquierdo
 function onMouseUp( event ) {  
-
+	
 	viewportWidth=$("#viewportContainer").width();
 	viewportHeight=(window.innerHeight-46);
 	
 	if ((event.button == 0) && (mouseX == event.clientX) && (mouseY == event.clientY)){
-	
+
 	 var vector = new THREE.Vector3( ( 
 		event.clientX / viewportWidth) * 2 - 1, 
 		- ( (event.clientY-46) / (viewportHeight) ) * 2 + 1, 
 		0.5 
 	);
-
+	
 	vector.unproject( camera );
 
 	var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 	
-	var intersects = ray.intersectObjects( helpObjects );
-
-	if ( intersects.length > 0 ) {
+	//FUNCION OBTENGO punto seleccionado
+	var pointIntersection = ray.intersectObjects(puntosEscena);
 	
+	if(pointIntersection.length > 0){
+		puntoSeleccionado= Model.getPointById(pointIntersection[0].object.id);
+		alert(puntoSeleccionado.sceneId);
+	}
+	//----------------------------------
+	var intersects = ray.intersectObjects( helpObjects );
+	if ( intersects.length > 0 ) {
+		
 		if (!addingLines){
+			//Agrego el punto
 			intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 			Model.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z);
+			puntosEscena.push(intersects[0].object);	
 		} else {
 			if (Model.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z)){
 				if (firstPointLine == null){
