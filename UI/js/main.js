@@ -2,9 +2,12 @@ function init() {
 
 	//Obtengo el viewport (donde se dibuja)
 	viewport = document.getElementById( 'viewport' );
-
+	
+	viewportWidth=$("#viewportContainer").width();
+	viewportHeight=(window.innerHeight-46);
+	
 	//Seteo la camara
-	camera = new THREE.PerspectiveCamera( 60, window.innerWidth/4*3 / (window.innerHeight-46), 1, 1000 );
+	camera = new THREE.PerspectiveCamera( 60, viewportWidth / viewportHeight, 1, 1000 );
 	camera.position.y = 10;
 
 	//Asigno controles de la camara
@@ -23,7 +26,7 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer( { antialias: false } );
 	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( window.innerWidth/4*3, window.innerHeight-46 );
+	renderer.setSize( viewportWidth, viewportHeight );
 	renderer.setClearColor( 0xEEEEEE, 1 );
 
 	viewport.appendChild( renderer.domElement );
@@ -40,11 +43,14 @@ function init() {
 
 //Cuando se cambia el tamaño de la ventana
 function onWindowResize() {
+	
+	viewportWidth=$("#viewportContainer").width();
+	viewportHeight=(window.innerHeight-46);
 
-	camera.aspect = window.innerWidth/4*3 / (window.innerHeight-46);
+	camera.aspect = viewportWidth / viewportHeight;
 	camera.updateProjectionMatrix();
 
-	renderer.setSize( window.innerWidth/4*3, window.innerHeight-46 );
+	renderer.setSize( $("#viewportContainer").width(), window.innerHeight-46 );
 
 	render();
 
@@ -61,11 +67,14 @@ function onMouseDown( event ) {
 //Cuando se levanta el click izquierdo
 function onMouseUp( event ) {  
 
+	viewportWidth=$("#viewportContainer").width();
+	viewportHeight=(window.innerHeight-46);
+	
 	if ((event.button == 0) && (mouseX == event.clientX) && (mouseY == event.clientY)){
 	
 	 var vector = new THREE.Vector3( ( 
-		event.clientX / (window.innerWidth/4*3)) * 2 - 1, 
-		- ( (event.clientY-46) / (window.innerHeight-46) ) * 2 + 1, 
+		event.clientX / viewportWidth) * 2 - 1, 
+		- ( (event.clientY-46) / (viewportHeight) ) * 2 + 1, 
 		0.5 
 	);
 
