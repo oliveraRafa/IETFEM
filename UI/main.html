@@ -10,75 +10,130 @@
 	</head>
 
 	<body>
-		<div id="container" ng-app="IETFEM" ng-controller="IetfemCtrl">
+		<div id="container">
 			
-			<div id="toolbar">
-				<img src="images/logo.png" style="width:auto;height:inherit;float:left;">
+			<nav class="navbar navbar-default" id="toolbar" style="padding-bottom:0px;margin-bottom:0px">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<img src="images/logo.png" style="height:45px;width:auto;">
+					</div>
+					<ul>
+						<li>Estructura
+							<ul>
+								<li>Agregar nodos</li>
+								<li>Agregar barras</li>
+								<li>Agregar grilla auxiliar</li>
+							</ul>
+						</li>
+						<li>Edición
+							<ul>
+								<li>Modo nodos/barras</li>
+							</ul>
+						</li>
+						<li>Core
+							<ul>
+								<li>Generar archivo</li>
+								<li>Leer salidas</li>
+							</ul>
+						</li>
+						<li>Visualización
+							<ul>
+								<li>Tipo de cámara</li>
+								<li>Setear modo 3D</li>
+								<li>Setear modo 2D</li>
+							</ul>
+						</li>
+						<li>Ayuda</li>
+					</ul>
+				</div>	
+			</nav>
 
-				<ul>
-					<li>Estructura
-						<ul>
-							<li>Agregar nodos</li>
-							<li>Agregar barras</li>
-							<li>Agregar grilla auxiliar</li>
-						</ul>
-					</li>
-					<li>Edición
-						<ul>
-							<li>Modo nodos/barras</li>
-						</ul>
-					</li>
-					<li>Core
-						<ul>
-							<li>Generar archivo</li>
-							<li>Leer salidas</li>
-						</ul>
-					</li>
-					<li>Visualización
-						<ul>
-							<li>Tipo de cámara</li>
-							<li>Setear modo 3D</li>
-							<li>Setear modo 2D</li>
-						</ul>
-					</li>
-					<li>Ayuda</li>
-				</ul>
-
+			
+			<div class="row">
+				<div id="viewportContainer" class="col-md-9">
+					<div id="viewport"></div>
+				</div>
+				
+				<div id="menu" class="col-md-3" style="padding:0px">
+					<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						Actions +
+					</a><br/>
+				<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto" aria-expanded="false" aria-controls="collapseInfoPunto">
+						Info Punto +
+					</a>
+				<div class="collapse" id="collapseInfoPunto">
+					<form>
+						<div class="form-group">
+							<label for="puntoId">Id del punto:</label>
+							<input type="text"" id="puntoId" value="">
+						</div>
+						<div class="form-group">
+							<label for="xCondition">X condition:</label>
+							<input type="number" id="xCondition">
+						</div>
+						<div class="form-group">
+							<button id="linesButton" class="btn btn-success" onclick="main.getInfoPuntoInterfaz()">Refresh info!</button>
+						</div>
+					</form>
+				</div>
+				<div class="collapse" id="collapseExample">
+					
+					<span>Posición:</span>
+					<div class="form-group">
+						 <label for="posX">X</label>
+						 <input type="number" id="posX">
+					</div>
+					<div class="form-group">
+						<label for="posY">Y</label>
+						<input type="number" id="posY">
+					</div>
+					<div class="form-group">
+						<label for="posZ">Z</label>
+						<input type="number" id="posZ">
+					</div>
+					
+					<div class="form-group">
+						  <button class="btn btn-success" onclick="IETFEM.addPoint()">Agregar punto</button>
+					</div>
+					
+					<div class="form-group">
+						  <label for="largoX">Lineas en X:</label>
+						  <input type="number" id="largoX">
+						  <label for="separatorX">Separacion:</label>
+						  <input type="number" id="separatorX">
+					</div>
+					<div class="form-group">
+						  <label for="largoY">Lineas en Y:</label>
+						  <input type="number" id="largoY">
+						  <label for="separatorY">Separacion:</label>
+						  <input type="number" id="separatorY">
+					</div>
+					<div class="form-group">	  
+						  <label for="largoZ">Lineas en Z:</label>
+						  <input type="number" id="largoZ">
+						  <label for="separatorZ">Separacion:</label>
+						  <input type="number" id="separatorZ">
+					</div>  
+					  
+					<div class="btn-group btn-group-justified" role="group">
+						<div class="btn-group" role="group">
+							<button class="btn btn-info" onclick="IETFEM.addGrid()">Agregar grilla</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button id="linesButton" class="btn btn-warning" onclick="Space.activateLinesDrawing()">Agregar líneas</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button class="btn btn-default" onclick="Model.getText()">Obtener texto</button>
+						</div>
+					</div>
+					<div class="form-group">  
+					  <textarea id="textModel" rows="15" cols="50"></textarea>
+					</div>
+					
+				  </div>
+				</div>
 			</div>
 			
-			<div id="viewport"></div>
-			
-			<div id="menu">
-			  <span>Posición:</span><br>
-			  X: <input type="number" id="posX"><br>
-			  Y: <input type="number" id="posY"><br>
-			  Z: <input type="number" id="posZ"><br>
-			  <button class="ietfem-button" onclick="IETFEM.addPoint()">Agregar punto</button><br>
-			  
-			  <div class="gridMenu">
-				  <span>Lineas en X:</span>
-				  <input type="number" id="largoX"><br>
-				  <span>Separación:</span>
-				  <input type="number" id="separatorX"><br><br>
-				  
-				  <span>Lineas en Y:</span>
-				  <input type="number" id="largoY"><br>
-				  <span>Separación:</span>
-				  <input type="number" id="separatorY"><br><br>
-				  
-				  <span>Lineas en Z:</span>
-				  <input type="number" id="largoZ"><br>
-				  <span>Separación:</span>
-				  <input type="number" id="separatorZ"><br>
-			  </div>
-			  
-			  <button class="ietfem-button" onclick="IETFEM.addGrid()">Agregar grilla</button><br>
-			  <button id="linesButton" class="ietfem-button" onclick="Space.activateLinesDrawing()">Agregar líneas</button><br>
-			  <button class="ietfem-button" onclick="Model.getText()">Obtener texto</button><br>
-			  
-			  <textarea id="textModel" rows="7" cols="40"></textarea> 
-			  
-			</div>
 		</div>
 
 		<script src="lib/three.min.js"></script>
@@ -109,9 +164,16 @@
 			var firstPointLine = null;
 			var idFirstPoint = 0;
 			var helpObjects = [];
+			var puntosEscena = [];
 			var model = {};
 			model.points = [];
 			model.lines = [];
+			
+			//Selected
+			var puntoSeleccionado;
+			
+			var viewportWidth;
+			var viewportHeight;
 				
 			init();
 			render();
