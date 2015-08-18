@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+	</head>
+
+	<body ng-app="IETFEM">
+		<div id="container" ng-controller="IetfemCtrl">
+			
+			<nav class="navbar navbar-default" id="toolbar" style="padding-bottom:0px;margin-bottom:0px">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<img src="assets/img/logo.png" style="height:45px;width:auto;">
+					</div>
+					<ul>
+						<li>Estructura
+							<ul>
+								<li>Agregar nodos</li>
+								<li>Agregar barras</li>
+								<li>Agregar grilla auxiliar</li>
+							</ul>
+						</li>
+						<li>Edición
+							<ul>
+								<li>Modo nodos/barras</li>
+							</ul>
+						</li>
+						<li>Core
+							<ul>
+								<li>Generar archivo</li>
+								<li>Leer salidas</li>
+							</ul>
+						</li>
+						<li>Visualización
+							<ul>
+								<li>Tipo de cámara</li>
+								<li>Setear modo 3D</li>
+								<li>Setear modo 2D</li>
+							</ul>
+						</li>
+						<li>Ayuda</li>
+					</ul>
+				</div>	
+			</nav>
+
+			
+			<div class="row">
+				<div id="viewportContainer" class="col-md-9">
+					<div id="viewport"></div>
+				</div>
+				
+				<div id="menu" class="col-md-3" style="padding:0px">
+					<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						Actions +
+					</a><br/>
+				<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto" aria-expanded="false" aria-controls="collapseInfoPunto">
+						Info Punto +
+					</a>
+				<div class="collapse" id="collapseInfoPunto">
+					<form>
+						<div class="form-group">
+							<label for="puntoId">Id del punto:</label>
+							<input type="text"" id="puntoId" value="">
+						</div>
+						<div class="form-group">
+							<label for="xCondition">X condition:</label>
+							<input type="number" id="xCondition">
+						</div>
+						<div class="form-group">
+							<button id="linesButton" class="btn btn-success" onclick="main.getInfoPuntoInterfaz()">Refresh info!</button>
+						</div>
+					</form>
+				</div>
+				<div class="collapse" id="collapseExample">
+					
+					<span>Posición:</span>
+					<div class="form-group">
+						 <label for="posX">X</label>
+						 <input type="number" id="posX">
+					</div>
+					<div class="form-group">
+						<label for="posY">Y</label>
+						<input type="number" id="posY">
+					</div>
+					<div class="form-group">
+						<label for="posZ">Z</label>
+						<input type="number" id="posZ">
+					</div>
+					
+					<div class="form-group">
+						  <button class="btn btn-success" onclick="IETFEM.addPoint()">Agregar punto</button>
+					</div>
+					
+					<div class="form-group">
+						  <label for="largoX">Lineas en X:</label>
+						  <input type="number" id="largoX">
+						  <label for="separatorX">Separacion:</label>
+						  <input type="number" id="separatorX">
+					</div>
+					<div class="form-group">
+						  <label for="largoY">Lineas en Y:</label>
+						  <input type="number" id="largoY">
+						  <label for="separatorY">Separacion:</label>
+						  <input type="number" id="separatorY">
+					</div>
+					<div class="form-group">	  
+						  <label for="largoZ">Lineas en Z:</label>
+						  <input type="number" id="largoZ">
+						  <label for="separatorZ">Separacion:</label>
+						  <input type="number" id="separatorZ">
+					</div>  
+					  
+					<div class="btn-group btn-group-justified" role="group">
+						<div class="btn-group" role="group">
+							<button class="btn btn-info" onclick="IETFEM.addGrid()">Agregar grilla</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button id="linesButton" class="btn btn-warning" onclick="Space.activateLinesDrawing()">Agregar líneas</button>
+						</div>
+						<div class="btn-group" role="group">
+							<button class="btn btn-default" onclick="Model.getText()">Obtener texto</button>
+						</div>
+					</div>
+					<div class="form-group">  
+					  <textarea id="textModel" rows="15" cols="50"></textarea>
+					</div>
+					
+				  </div>
+				</div>
+			</div>
+			
+		</div>
+
+		<script src="assets/lib/three.min.js"></script>
+		<script src="assets/lib/jquery-2.1.4.min.js"></script>
+		<script src="assets/lib/bootstrap.min.js"></script>
+		<script src="assets/lib/angular.min.js"></script>
+		
+		<script src="app/ietfem.controller.js"></script>
+		<script src="app/controllers/OrbitControls.js"></script>
+		<script src="app/controllers/main.js"></script>
+		<script src="app/controllers/IETFEM.js"></script>
+		<script src="app/controllers/Model.js"></script>
+		<script src="app/controllers/Space.js"></script>
+		
+		<script>
+		
+		    		// Inicializa variables
+			var viewport;
+			
+			var camera;
+			var controls;
+			var scene;
+			var renderer;
+			var tridimensional;
+			var grid;
+			
+			var mouseX;
+			var mouseY;
+			
+			var addingLines = false;
+			var firstPointLine = null;
+			var idFirstPoint = 0;
+			var helpObjects = [];
+			var puntosEscena = [];
+			var model = {};
+			model.points = [];
+			model.lines = [];
+			
+			//Selected
+			var puntoSeleccionado;
+			
+			var viewportWidth;
+			var viewportHeight;
+			
+			init();
+			render();
+			
+			function init() {
+
+				//Obtengo el viewport (donde se dibuja)
+				viewport = document.getElementById( 'viewport' );
+				
+				viewportWidth=$("#viewportContainer").width();
+				viewportHeight=(window.innerHeight-46);
+				
+				//Seteo la camara
+				camera = new THREE.PerspectiveCamera( 60, viewportWidth / viewportHeight, 1, 1000 );
+				camera.position.y = 10;
+
+				//Asigno controles de la camara
+				controls = new THREE.OrbitControls( camera, viewport );
+				controls.damping = 0.1;
+				controls.addEventListener( 'change', render );
+
+				//Creo la escena dentro del viewport, pongo grilla auxiliar
+				scene = new THREE.Scene();
+				grid = new THREE.GridHelper( 1000, 1 );
+				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
+				grid.position.set(0,0,0);
+				scene.add(grid);
+				
+				// Seteo el renderer(manejador de objetos en la escena)
+
+				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( viewportWidth, viewportHeight );
+				renderer.setClearColor( 0xEEEEEE, 1 );
+
+				viewport.appendChild( renderer.domElement );
+
+				//Agrego eventos del usuario
+				window.addEventListener( 'resize', onWindowResize, false );
+				window.addEventListener( 'mouseup', onMouseUp, false );
+				window.addEventListener( 'mousedown', onMouseDown, false );
+				
+				//Agrego el origen
+				IETFEM.addParticle(0,0,0);
+
+			}
+
+			//Cuando se cambia el tamaño de la ventana
+			function onWindowResize() {
+				
+				viewportWidth=$("#viewportContainer").width();
+				viewportHeight=(window.innerHeight-46);
+
+				camera.aspect = viewportWidth / viewportHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( $("#viewportContainer").width(), window.innerHeight-46 );
+
+				render();
+
+			}
+
+			//Cuando se presiona el click izquierdo
+			function onMouseDown( event ) {
+				if (event.button == 0){
+					mouseX = event.clientX;
+					mouseY = event.clientY;
+				}
+			}
+			
+			//Pone la informacion del punto en los controles de la UI
+			function getInfoPuntoInterfaz( ) {
+				  $("#puntoId").val(puntoSeleccionado.id);
+				  $("#xCondition").val(puntoSeleccionado.xCondition);
+			}
+			//Cuando se levanta el click izquierdo
+			function onMouseUp( event ) {  
+				
+				viewportWidth=$("#viewportContainer").width();
+				viewportHeight=(window.innerHeight-46);
+				
+				if ((event.button == 0) && (mouseX == event.clientX) && (mouseY == event.clientY)){
+
+				 var vector = new THREE.Vector3( ( 
+					event.clientX / viewportWidth) * 2 - 1, 
+					- ( (event.clientY-46) / (viewportHeight) ) * 2 + 1, 
+					0.5 
+				);
+				
+				vector.unproject( camera );
+
+				var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+				
+				//FUNCION OBTENGO punto seleccionado
+				var pointIntersection = ray.intersectObjects(puntosEscena);
+				
+				if(pointIntersection.length > 0){
+					puntoSeleccionado= Model.getPointById(pointIntersection[0].object.id);
+					alert(puntoSeleccionado.sceneId);
+				}
+				//----------------------------------
+				var intersects = ray.intersectObjects( helpObjects );
+				if ( intersects.length > 0 ) {
+					
+					if (!addingLines){
+						//Agrego el punto
+						intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+						Model.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z);
+						puntosEscena.push(intersects[0].object);	
+					} else {
+						if (Model.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z)){
+							if (firstPointLine == null){
+								firstPointLine = {};
+								firstPointLine.x = intersects[0].object.position.x;
+								firstPointLine.y = intersects[0].object.position.y;
+								firstPointLine.z = intersects[0].object.position.z;
+								idFirstPoint = intersects[0].object.id;
+								intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x8B0000} );
+								intersects[0].object.geometry = new THREE.SphereGeometry( 0.1, 50, 50 );
+								
+							} else {
+								Space.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}));
+								Model.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z);
+								Space.getScenePointById(idFirstPoint).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+								Space.getScenePointById(idFirstPoint).geometry = new THREE.SphereGeometry( 0.05, 50, 50 );
+								idFirstPoint = 0;
+								firstPointLine = null;
+							}
+						}
+					}
+				}
+				
+				render();
+				}
+			}
+
+			//Renderiza la escena
+			function render() {
+
+				renderer.render( scene, camera );
+					
+			}  
+		
+		</script>
+		
+	</body>
+</html>
