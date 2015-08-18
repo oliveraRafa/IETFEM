@@ -2,11 +2,9 @@ var Space = {
 
 	//Dibuja una linea entre 2 puntos
 	drawLine: function(xi, yi, zi, xf, yf, zf, material){
-		geometry = new THREE.Geometry();
-		geometry.vertices.push(new THREE.Vector3(xi, yi, zi));
-		geometry.vertices.push(new THREE.Vector3(xf, yf, zf));
-		line = new THREE.Line(geometry, material);
-		scene.add(line);			
+		var cylinderMaterial = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		var cylinder = this.cylinderMesh(new THREE.Vector3(xi, yi, zi), new THREE.Vector3(xf, yf, zf), cylinderMaterial);
+		scene.add( cylinder );
 	},
 
 	//Dibuja un punto
@@ -52,5 +50,34 @@ var Space = {
 				obj = scene.children[i]
 		};
 		return obj;
-	}
+	},
+	
+		cylinderMesh : function( point1, point2 ){
+
+		/* edge from X to Y */
+		var direction = new THREE.Vector3().subVectors( point2, point1 );
+		var orientation = new THREE.Matrix4();
+		/* THREE.Object3D().up (=Y) default orientation for all objects */
+		orientation.lookAt(point1, point2, new THREE.Object3D().up);
+		/* rotation around axis X by -90 degrees 
+		 * matches the default orientation Y 
+		 * with the orientation of looking Z */
+		var matrix4 = new THREE.Matrix4();
+		matrix4.set(1,0,0,0,
+					0,0,1,0, 
+					0,-1,0,0,
+					0,0,0,1);
+		orientation.multiply(matrix4);
+
+		/* cylinder: radiusAtTop, radiusAtBottom, 
+			height, radiusSegments, heightSegments */
+		var edgeGeometry = new THREE.CylinderGeometry( 0.015, 0.015, direction.length(), 8, 1);
+		
+		var edge = new THREE.Mesh( edgeGeometry, 
+				new THREE.MeshBasicMaterial( { color: 0x000000 } ) );
+
+		edge.applyMatrix(orientation)
+		edge.applyMatrix( new THREE.Matrix4().makeTranslation((point1.x + point2.x)/2,(point1.y + point2.y)/2,(point1.z + point2.z)/2) );
+		return edge;
+	},
 };

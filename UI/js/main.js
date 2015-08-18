@@ -92,14 +92,11 @@ function onMouseUp( event ) {
 					intersects[0].object.geometry = new THREE.SphereGeometry( 0.1, 50, 50 );
 					
 				} else {
-					if (firstPointLine.x != intersects[0].object.position.x || firstPointLine.y != intersects[0].object.position.y || firstPointLine.z != intersects[0].object.position.z){
-						Space.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}));
-						Model.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z);
-						Space.getScenePointById(idFirstPoint).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
-						Space.getScenePointById(idFirstPoint).geometry = new THREE.SphereGeometry( 0.05, 50, 50 );
-						idFirstPoint = 0;
-						firstPointLine = null;
-					}
+					Space.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}));
+					Model.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z);
+					Space.getScenePointById(idFirstPoint).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+					Space.getScenePointById(idFirstPoint).geometry = new THREE.SphereGeometry( 0.05, 50, 50 );
+					idFirstPoint = 0;
 					firstPointLine = null;
 				}
 			}
