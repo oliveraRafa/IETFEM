@@ -15,7 +15,9 @@ var Space = {
 		sphere.position.x = x
 		sphere.position.y = y
 		sphere.position.z = z
-		scene.add(sphere);	
+		scene.add(sphere);
+		
+		puntosEscena.push(sphere);	
 		helpObjects.push(sphere);		
 	},
 	
@@ -36,7 +38,7 @@ var Space = {
 	getScenePointIdByCoords: function(x,y,z) {
 		var id = 0;
 		for (var i = 0; i < scene.children.length ;i++){
-			if (scene.children[i] instanceof THREE.Mesh && Model.isInModel(x,y,z) && scene.children[i].position.x == x && scene.children[i].position.y == y && scene.children[i].position.z == z)
+			if (scene.children[i] instanceof THREE.Mesh && !Model.isInModel(x,y,z) && scene.children[i].position.x == x && scene.children[i].position.y == y && scene.children[i].position.z == z)
 				id = scene.children[i].id;
 		};
 		return id;
