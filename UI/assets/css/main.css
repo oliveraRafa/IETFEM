@@ -38,18 +38,6 @@ body {
 	box-sizing: content-box;
 }
 
-#largoX, #largoY, #largoZ {
-	margin-bottom: 3px;
-}
-
-#posX, #posY, #posZ {
-	margin-bottom: 3px;
-}
-
-#textModel {
-	margin-top:5px;
-}
-
 .gridMenu {
 	margin:15px
 }
@@ -63,6 +51,18 @@ body {
 	border: 2px solid #BDBDBD;
 	color: #848484;
 	margin-top:3px;
+}
+
+.long-grid {
+	margin-bottom: 3px;
+}
+
+.position {
+	margin-bottom: 3px;
+}
+
+.textModel {
+	margin-top:5px;
 }
 
 #toolbar {
