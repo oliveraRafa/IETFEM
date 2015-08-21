@@ -117,6 +117,13 @@
 					  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
 					</div>
 					
+					<input type="file" accept='text/plain' onchange="setFile(this)">
+					{{theFile.name}}
+	
+					<div class="btn-group" role="group">
+						<button class="btn btn-default" ng-click="importModel()">Importar Modelo</button>
+					</div>
+					
 				  </div>
 				</div>
 			</div>

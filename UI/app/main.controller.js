@@ -239,6 +239,30 @@ app.controller(
 			$scope.modelToText = function(){
 				$scope.modelText = ModelService.getText(model)
 			}
+
+			$scope.importModel = function(){
+				var reader = new FileReader();
+				reader.onload = function(){
+					var text = reader.result;
+					
+					var beginNodeMatrix = text.search("Zs")+3;
+					var endNodeMatrix = text.search("Conectivity")-3;
+					var nodeMatrix = text.slice(beginNodeMatrix, endNodeMatrix);
+					
+					var beginConectivityMatrix = text.search("end")+4;
+					var endConectivityMatrix = text.length;
+					var conectivityMatrix = text.slice(beginConectivityMatrix, endConectivityMatrix);
+									
+					console.log(nodeMatrix);
+					console.log(conectivityMatrix);
+				};
+				reader.readAsText($scope.theFile);
+			}
+			
+			setFile = function(element) {
+					$scope.theFile = element.files[0];
+					console.log($scope.theFile)
+			};
 			
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight, puntoSeleccionado;	
