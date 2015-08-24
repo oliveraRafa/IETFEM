@@ -42,90 +42,160 @@
 				</div>
 				
 				<div id="menu" class="col-md-3" style="padding:0px">
+					<!-- Links del menu! -->
+					<div class="row">
+						<div class="col-md-offset-2 col-md-8">
 					<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 						Actions +
-					</a><br/>
-				<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto" aria-expanded="false" aria-controls="collapseInfoPunto">
-						Info Punto +
-					</a>
-				<div class="collapse" id="collapseInfoPunto">
-					<form>
-						<div class="form-group">
-							<label for="puntoId">Id del punto:</label>
-							<input type="text"" id="puntoId" ng-model="puntoId">
+							</a>
 						</div>
+					</div>
+
+					<div class="collapse" id="collapseExample">
+					
+						<span>Posición:</span>
 						<div class="form-group">
-							<label for="xCondition">X condition:</label>
-							<input type="number" id="xCondition" ng-model="xCondition">
+							 <label>X</label>
+							 <input type="number" class="position" ng-model="posX">
 						</div>
 						<div class="form-group">
-							<button id="linesButton" class="btn btn-success" onclick="getInfoPuntoInterfaz()">Refresh info!</button>
+							<label>Y</label>
+							<input type="number" class="position" ng-model="posY">
 						</div>
-					</form>
-				</div>
-				<div class="collapse" id="collapseExample">
-					
-					<span>Posición:</span>
-					<div class="form-group">
-						 <label>X</label>
-						 <input type="number" class="position" ng-model="posX">
-					</div>
-					<div class="form-group">
-						<label>Y</label>
-						<input type="number" class="position" ng-model="posY">
-					</div>
-					<div class="form-group">
-						<label>Z</label>
-						<input type="number" class="position" ng-model="posZ">
-					</div>
-					
-					<div class="form-group">
-						  <button class="btn btn-success" ng-click="addPoint()">Agregar punto</button>
-					</div>
-					
-					<div class="form-group">
-						  <label>Lineas en X:</label>
-						  <input type="number" class="longGrid" ng-model="largoX">
-						  <label>Separacion:</label>
-						  <input type="number" ng-model="separatorX">
-					</div>
-					<div class="form-group">
-						  <label>Lineas en Y:</label>
-						  <input type="number" class="longGrid" ng-model="largoY">
-						  <label>Separacion:</label>
-						  <input type="number" ng-model="separatorY">
-					</div>
-					<div class="form-group">	  
-						  <label>Lineas en Z:</label>
-						  <input type="number" class="longGrid" ng-model="largoZ">
-						  <label>Separacion:</label>
-						  <input type="number" ng-model="separatorZ">
-					</div>  
-					  
-					<div class="btn-group btn-group-justified" role="group">
-						<div class="btn-group" role="group">
-							<button class="btn btn-info" ng-click="addGrid()">Agregar grilla</button>
+						<div class="form-group">
+							<label>Z</label>
+							<input type="number" class="position" ng-model="posZ">
 						</div>
-						<div class="btn-group" role="group">
-							<button id="linesButton" class="btn btn-warning" ng-click="alternateLinesPoints()">{{linesButton}}</button>
+						
+						<div class="form-group">
+							  <button class="btn btn-success" ng-click="addPoint()">Agregar punto</button>
 						</div>
-						<div class="btn-group" role="group">
-							<button class="btn btn-default" ng-click="modelToText()">Obtener texto</button>
+						
+						<div class="form-group">
+							  <label>Lineas en X:</label>
+							  <input type="number" class="longGrid" ng-model="largoX">
+							  <label>Separacion:</label>
+							  <input type="number" ng-model="separatorX">
 						</div>
-					</div>
-					<div class="form-group">  
-					  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
-					</div>
-					
-					<input type="file" accept='text/plain' onchange="setFile(this)">
-					{{theFile.name}}
-	
-					<div class="btn-group" role="group">
-						<button class="btn btn-default" ng-click="importModel()">Importar Modelo</button>
-					</div>
+						<div class="form-group">
+							  <label>Lineas en Y:</label>
+							  <input type="number" class="longGrid" ng-model="largoY">
+							  <label>Separacion:</label>
+							  <input type="number" ng-model="separatorY">
+						</div>
+						<div class="form-group">	  
+							  <label>Lineas en Z:</label>
+							  <input type="number" class="longGrid" ng-model="largoZ">
+							  <label>Separacion:</label>
+							  <input type="number" ng-model="separatorZ">
+						</div>  
+						  
+						<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group" role="group">
+								<button class="btn btn-info" ng-click="addGrid()">Agregar grilla</button>
+							</div>
+							<div class="btn-group" role="group">
+								<button id="linesButton" class="btn btn-warning" ng-click="alternateLinesPoints()">{{linesButton}}</button>
+							</div>
+							<div class="btn-group" role="group">
+								<button class="btn btn-default" ng-click="modelToText()">Obtener texto</button>
+							</div>
+						</div>
+						<div class="form-group">  
+						  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
+						</div>
 					
 				  </div>
+					
+					<div class="row"> 
+						<div class="col-md-offset-2 col-md-8">
+
+							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto" aria-expanded="false" aria-controls="collapseInfoPunto">
+								Info Punto +
+							</a>
+
+						</div>
+					</div>
+
+					<div class="collapse" id="collapseInfoPunto" ng-controller="editPointCtrl as editCntrl"><!-- Edicion punto seleccionado -->
+						<div class="row">	
+							<div class="col-md-offset-2 col-md-8">	
+									<div class="panel panel-primary">
+										<div class="panel-heading">Info punto seleccionado:</div>
+										<div class="panel-body">
+											    ID: {{ " " + miPunto.id }}
+										</div>
+										<div class="table-responsive">
+											<table id="infoPuntoTable" class="table">
+												<tr>
+													<th>Coords</th>
+													<td>x</td>
+													<td>y</td>
+													<td>z</td>
+												</tr>
+												<tr>
+													<th></th>
+													<td>{{ miPunto.coords.x }}</td>
+													<td>{{ miPunto.coords.y }}</td>
+													<td>{{ miPunto.coords.z }}</td>
+												</tr>
+												
+											</table> 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-offset-2 col-md-8">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Edicion propiedades punto</div>
+									<div class="panel-body">
+										 Condiciones de desplazamiento
+									</div>	
+									<form name="infoPuntoForm" ng-submit="infoPuntoForm.$valid && editCntrl.updatePoint()" novalidate>
+										<div class="form-group">
+											<label for="xCondition">condicion X:</label>
+											<input type="number" id="xCondition" ng-model="miPunto.xCondicion" required>
+										</div>
+										<div class="form-group">
+											<label for="yCondition">condicion: Y</label>
+											<input type="number" id="yCondition" ng-model="miPunto.yCondicion" required>
+										</div>
+										<div class="form-group">
+											<label for="zCondition">condicion: Z</label>
+											<input type="number" id="zCondition" ng-model="miPunto.zCondicion" required>
+										</div>
+										<div class="panel-body">
+										 Fuerzas aplicadas
+										</div>
+										<div class="form-group">
+											<label for="xCondition">fuerza en X:</label>
+											<input type="number" id="xCondition" ng-model="miPunto.xForce" required>
+										</div>
+										<div class="form-group">
+											<label for="yCondition">fuerza en Y:</label>
+											<input type="number" id="yCondition" ng-model="miPunto.yForce" required>
+										</div>
+										<div class="form-group">
+											<label for="zCondition">fuerza en Z:</label>
+											<input type="number" id="zCondition" ng-model="miPunto.zForce" required>
+										</div>
+										<div class="form-group">
+											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>
+											<div ng-show="!editCntrl.updated()" style="color:red">UnSync</div>
+
+											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoPuntoForm.$valid" >Actualizar!</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+				
+					</div>
+
+						
 				</div>
+				
 			</div>
 			
 		</div>

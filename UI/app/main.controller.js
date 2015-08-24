@@ -1,10 +1,12 @@
+(function(){
 var app = angular.module('IETFEM', []);
 app.controller(
     'mainCtrl',
 	[	'$scope',
 		'ModelService',
 		'SpaceService',
-        function($scope, ModelService, SpaceService){
+		'PtoSelecService',
+        function($scope, ModelService, SpaceService,PtoSelecService){
 		
 			//--- Defino función de inicialización
 			function init() {
@@ -85,7 +87,7 @@ app.controller(
 			//Pone la informacion del punto en los controles de la UI
 			$scope.getInfoPuntoInterfaz = function() {
 				  $scope.puntoId = puntoSeleccionado.id;
-				  $scope.xCondition =puntoSeleccionado.xCondition;
+				  $scope.xCondicion =puntoSeleccionado.xCondicion;
 			}
 			//Cuando se levanta el click izquierdo
 			function onMouseUp( event ) {  
@@ -109,8 +111,10 @@ app.controller(
 				var pointIntersection = ray.intersectObjects(puntosEscena);
 				
 				if(pointIntersection.length > 0){
-					puntoSeleccionado= ModelService.getPointById(pointIntersection[0].object.id,model);
-					//Salert(puntoSeleccionado.sceneId);
+					PtoSelecService.setPunto(ModelService.getPointById(pointIntersection[0].object.id,model));
+					PtoSelecService.resetForm();
+					$scope.$apply();//Es necesario avisarle a angular que cambiamos el puntoSeleccionado
+					alert('Seleccionado!! id: ' + PtoSelecService.getPunto().id);
 				}
 				//----------------------------------
 				var intersects = ray.intersectObjects( helpObjects );
@@ -287,3 +291,91 @@ app.controller(
 			
 		}
 	]);
+	
+	app.controller('editPointCtrl',['$scope','ModelService','PtoSelecService',function($scope,ModelService,PtoSelecService){
+		$scope.miPunto=PtoSelecService.getPunto();//Es una copia del punto del modelo!
+		this.updated= function(){
+			var puntoModelo= PtoSelecService.getPuntoReal();
+			if( typeof puntoModelo != 'undefined' &&
+				puntoModelo.xCondicion== $scope.miPunto.xCondicion &&
+				puntoModelo.yCondicion== $scope.miPunto.yCondicion &&
+				puntoModelo.zCondicion== $scope.miPunto.zCondicion &&
+				puntoModelo.xForce== $scope.miPunto.xForce &&
+				puntoModelo.yForce== $scope.miPunto.yForce &&
+				puntoModelo.zForce== $scope.miPunto.zForce
+			){
+				return true;
+			}else{
+				
+				return false;
+			}
+		};
+		
+		this.updatePoint= function(){
+			var puntoModelo= PtoSelecService.getPuntoReal();
+			PtoSelecService.setInfoPuntoForm($scope.infoPuntoForm);
+			if(typeof puntoModelo != 'undefined'){
+				puntoModelo.xCondicion= $scope.miPunto.xCondicion;
+				puntoModelo.yCondicion= $scope.miPunto.yCondicion;
+				puntoModelo.zCondicion= $scope.miPunto.zCondicion;
+
+				puntoModelo.xForce= $scope.miPunto.xForce;
+				puntoModelo.yForce= $scope.miPunto.yForce;
+				puntoModelo.zForce= $scope.miPunto.zForce;
+			}
+		};		
+
+	}]);
+	
+	app.service('PtoSelecService', function(){
+  		var puntoSeleccionado={
+			  id:0,
+			  sceneId:0,
+			  xCondicion:0,
+			  yCondicion:0,
+			  zCondicion:0,
+			  xForce:0,
+			  yForce:0,
+			  zForce:0,
+			  coords: {
+					x: 0,
+					y: 0,
+					z: 0
+				}
+		  };
+
+		var puntoReal;
+		var infoPuntoForm;
+    	return {
+    		getPuntoReal: function() {
+            	return puntoReal;
+       		},
+        	getPunto: function() {
+            	return puntoSeleccionado;
+       		},
+			setPunto: function(value,ptoReal) {
+				puntoReal=value;
+
+				puntoSeleccionado.id=value.id;
+				puntoSeleccionado.sceneId=value.sceneId;
+				puntoSeleccionado.xCondicion=value.xCondicion;
+				puntoSeleccionado.yCondicion=value.yCondicion;
+				puntoSeleccionado.zCondicion=value.zCondicion;
+				puntoSeleccionado.xForce=value.xForce;
+				puntoSeleccionado.yForce=value.yForce;
+				puntoSeleccionado.zForce=value.zForce;
+				puntoSeleccionado.coords=value.coords;
+			},
+			setInfoPuntoForm: function(f){
+				infoPuntoForm=f;
+			},
+			resetForm: function(){
+				if(typeof infoPuntoForm != 'undefined'){
+				    infoPuntoForm.$setPristine();
+			   }
+			}
+		}
+	});
+	
+	
+})();

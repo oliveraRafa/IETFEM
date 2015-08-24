@@ -31,14 +31,13 @@ angular.module('IETFEM')
 	};
 	//--- Fin internas
 	
-	//Obtener objeto por id
+	//Obtener objeto por id de escena
 	var getPointById = function(id, model) {
-			
-		for (var i = 0; i < model.points.length ;i++){
-			if (model.points[i].sceneId==id){
-				return model.points[i];
-			}
-		};
+			for (var i = 0; i < model.points.length ;i++){
+				if (model.points[i].sceneId==id){
+					return model.points[i];
+				}
+			};
 	};
 	
 	//Agrega un punto al modelo
@@ -49,7 +48,14 @@ angular.module('IETFEM')
 		point.id = newIdentifier('POINT', model);
 		point.sceneId = sceneId;
 		//Displacement conditions
-		point.xCondition=0;
+		point.xCondicion=0;
+		point.yCondicion=0;
+		point.zCondicion=0;
+		//Forces applied
+		point.xForce=0;
+		point.yForce=0;
+		point.zForce=0;
+
 		point.coords = {
 			x: pX,
 			y: pY,

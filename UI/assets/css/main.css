@@ -1,12 +1,26 @@
 body {
 	color: #000;
 	font-family:palatino;
-	font-size:13px;
+	font-size:15px;
 	font-weight: bold;
 	background-color: #E6E6E6;
-	color: #848484;
 	margin: 0px;
 	box-sizing: content-box;
+}
+
+#infoPuntoTable td{
+	text-align: center;
+}
+
+#infoPuntoTable{
+	table-layout:auto;
+}
+
+.ng-dirty.ng-invalid{
+	border-color:red;
+}
+.ng-dirty.ng-valid{
+	border-color:green;
 }
 
 #info {
