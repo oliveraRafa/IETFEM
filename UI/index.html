@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<!--<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
@@ -37,66 +37,120 @@
 
 			
 			<div class="row">
-				<div id="viewportContainer" class="col-md-9">
-					<div id="viewport"></div>
+
+				<div class="col-md-9">
+					<div id="menuIzquierda" class="col-md-1" ng-controller="leftMenusCtrl">
+						<br/>
+						<br/>
+						<br/>
+						<div class="btn-group-vertical" role="group">
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="seleccionar()" ng-class="{active: seleccionando()}" data-toggle="tooltip" data-placement="right" title="Seleccionar"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarGrillas()" ng-class="{active: dibujandoGrillas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Grilla"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarNodos()" ng-class="{active: dibujandoNodos()}" data-toggle="tooltip" data-placement="right" title="Dibujar Nodos"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarLineas()" ng-class="{active: dibujandoLineas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Lineas"><span class="glyphicon glyphicon-resize-horizontal"  aria-hidden="true"></span></button>
+						</div>
+					</div>
+					<div id="viewportContainer" class="col-md-11" style="padding:0px">
+						<div id="viewport"></div>
+					</div>
 				</div>
-				
+
 				<div id="menu" class="col-md-3" style="padding:0px">
+					<br/>
+					<br/>
+					<br/>
+					<br/>
 					<!-- Links del menu! -->
 					<div class="row">
 						<div class="col-md-offset-2 col-md-8">
-					<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-						Actions +
+							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+								Actions +
 							</a>
 						</div>
 					</div>
 
+					<!-- FORMULARIO DE NODOS POR COORDENADA-->
+					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos()" ng-submit="nodoCoordenadaForm.$valid && addPoint()" novalidate>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Info nodo seleccionado:</div>
+							<div class="panel-body">
+								<span>Coordenadas:</span>
+							</div>
+							<div class="form-group">
+								 <label>X</label>
+								 <input type="number" ng-model="posX" required>
+							</div>
+							<div class="form-group">
+								<label>Y</label>
+								<input type="number" ng-model="posY" required>
+							</div>
+							<div class="form-group">
+								<label>Z</label>
+								<input type="number" ng-model="posZ" required>
+							</div>
+							
+							<div class="form-group">
+								  <button class="btn btn-success" type="submit" ng-disabled="!nodoCoordenadaForm.$valid">Agregar nodo</button>
+							</div>
+						</div>
+					</form>
+
+					<!-- FORMULARIO DE GRILLAS-->
+					<form name="grillaForm" ng-show="dibujandoGrillas()" ng-submit="grillaForm.$valid && addGrid()" novalidate>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Nodo Origen</div>
+							<div class="panel-body">
+								<span>Coordenadas:</span>
+							</div>
+							<div class="form-group">
+								 <label>X</label>
+								 <input type="number" ng-model="posX" required>
+							</div>
+							<div class="form-group">
+								<label>Y</label>
+								<input type="number" ng-model="posY" required>
+							</div>
+							<div class="form-group">
+								<label>Z</label>
+								<input type="number" ng-model="posZ" required>
+							</div>
+						</div>	
+						<div class="panel panel-primary">
+							<div class="panel-heading">Datos nueva grilla:</div>
+							<div class="panel-body">
+								Lineas y separaciones
+							</div>
+							<div class="form-group">
+								  <label>Lineas en X:</label>
+								  <input type="number" class="longGrid" ng-model="largoX" required>
+								  <label>Separacion:</label>
+								  <input type="number" ng-model="separatorX" required>
+							</div>
+							<div class="form-group">
+								  <label>Lineas en Y:</label>
+								  <input type="number" class="longGrid" ng-model="largoY" required>
+								  <label>Separacion:</label>
+								  <input type="number" ng-model="separatorY" required>
+							</div>
+							<div class="form-group">	  
+								  <label>Lineas en Z:</label>
+								  <input type="number" class="longGrid" ng-model="largoZ" required>
+								  <label>Separacion:</label>
+								  <input type="number" ng-model="separatorZ" required>
+							</div>
+
+							<div class="btn-group" role="group">
+								<button class="btn btn-info" type="submit" ng-disabled="!grillaForm.$valid">Agregar grilla</button>
+							</div> 
+						</div> 
+					</form>
+
 					<div class="collapse" id="collapseExample">
-					
-						<span>Posición:</span>
-						<div class="form-group">
-							 <label>X</label>
-							 <input type="number" class="position" ng-model="posX">
-						</div>
-						<div class="form-group">
-							<label>Y</label>
-							<input type="number" class="position" ng-model="posY">
-						</div>
-						<div class="form-group">
-							<label>Z</label>
-							<input type="number" class="position" ng-model="posZ">
-						</div>
 						
-						<div class="form-group">
-							  <button class="btn btn-success" ng-click="addPoint()">Agregar punto</button>
-						</div>
-						
-						<div class="form-group">
-							  <label>Lineas en X:</label>
-							  <input type="number" class="longGrid" ng-model="largoX">
-							  <label>Separacion:</label>
-							  <input type="number" ng-model="separatorX">
-						</div>
-						<div class="form-group">
-							  <label>Lineas en Y:</label>
-							  <input type="number" class="longGrid" ng-model="largoY">
-							  <label>Separacion:</label>
-							  <input type="number" ng-model="separatorY">
-						</div>
-						<div class="form-group">	  
-							  <label>Lineas en Z:</label>
-							  <input type="number" class="longGrid" ng-model="largoZ">
-							  <label>Separacion:</label>
-							  <input type="number" ng-model="separatorZ">
-						</div>  
-						  
 						<div class="btn-group btn-group-justified" role="group">
-							<div class="btn-group" role="group">
-								<button class="btn btn-info" ng-click="addGrid()">Agregar grilla</button>
-							</div>
-							<div class="btn-group" role="group">
-								<button id="linesButton" class="btn btn-warning" ng-click="alternateLinesPoints()">{{linesButton}}</button>
-							</div>
 							<div class="btn-group" role="group">
 								<button class="btn btn-default" ng-click="modelToText()">Obtener texto</button>
 							</div>
@@ -107,21 +161,21 @@
 					
 				  </div>
 					
-					<div class="row"> 
+					<div class="row" ng-show="seleccionando()"> 
 						<div class="col-md-offset-2 col-md-8">
 
-							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto" aria-expanded="false" aria-controls="collapseInfoPunto">
-								Info Punto +
+							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto">
+								Info Nodo +
 							</a>
 
 						</div>
 					</div>
 
-					<div class="collapse" id="collapseInfoPunto" ng-controller="editPointCtrl as editCntrl"><!-- Edicion punto seleccionado -->
+					<div class="collapse in" id="collapseInfoPunto" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl"><!-- Edicion punto seleccionado -->
 						<div class="row">	
 							<div class="col-md-offset-2 col-md-8">	
 									<div class="panel panel-primary">
-										<div class="panel-heading">Info punto seleccionado:</div>
+										<div class="panel-heading">Info nodo seleccionado:</div>
 										<div class="panel-body">
 											    ID: {{ " " + miPunto.id }}
 										</div>
@@ -148,7 +202,7 @@
 						<div class="row">
 							<div class="col-md-offset-2 col-md-8">
 								<div class="panel panel-primary">
-									<div class="panel-heading">Edicion propiedades punto</div>
+									<div class="panel-heading">Edicion propiedades nodo</div>
 									<div class="panel-body">
 										 Condiciones de desplazamiento
 									</div>	

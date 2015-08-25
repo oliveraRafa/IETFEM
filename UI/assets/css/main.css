@@ -45,12 +45,6 @@ body {
 	box-sizing: content-box;
 }
 
-#viewport {
-	display:inline-block;
-	float:left;
-	border-right: 2px solid #BDBDBD;
-	box-sizing: content-box;
-}
 
 .gridMenu {
 	margin:15px

@@ -43,7 +43,7 @@ angular.module('IETFEM')
 	//Agrega un punto al modelo
 	var addPointToModel = function(pX,pY,pZ, sceneId, model) {
 			
-		if (pX != 0 && pY != 0 && pZ != 0){
+		if (pX != 0 || pY != 0 || pZ != 0){
 		var point = {};
 		point.id = newIdentifier('POINT', model);
 		point.sceneId = sceneId;

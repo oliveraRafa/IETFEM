@@ -5,8 +5,9 @@ app.controller(
 	[	'$scope',
 		'ModelService',
 		'SpaceService',
+		'leftMenuService',
 		'PtoSelecService',
-        function($scope, ModelService, SpaceService,PtoSelecService){
+        function($scope, ModelService, SpaceService,leftMenuService,PtoSelecService){
 		
 			//--- Defino función de inicialización
 			function init() {
@@ -16,7 +17,7 @@ app.controller(
 				
 				viewportWidth=$("#viewportContainer").width();
 				viewportHeight=(window.innerHeight-46);
-				
+
 				//Seteo la camara
 				camera = new THREE.PerspectiveCamera( 60, viewportWidth / viewportHeight, 1, 1000 );
 				camera.position.y = 10;
@@ -50,6 +51,12 @@ app.controller(
 				//Agrego el origen
 				$scope.addParticle(0,0,0);
 
+				//UI staff
+				setMenuIzqSize();
+				$(function () {// Activa el plugin de los ToolTips
+				  $('[data-toggle="tooltip"]').tooltip()
+				})
+
 			}
 
 			//--- Defino función de Render
@@ -57,7 +64,15 @@ app.controller(
 
 				renderer.render( scene, camera );
 					
-			}  
+			} 
+
+			// Auxiliares de UI
+			function setMenuIzqSize(){
+				
+				$(".botonMenuIzq").css("padding","0");
+				$(".botonMenuIzq").width($("#menuIzquierda").width());
+				$(".botonMenuIzq").height($("#menuIzquierda").width());
+			} 
 			
 			//--- Defino Eventos de usuario
 			
@@ -74,6 +89,7 @@ app.controller(
 
 				render();
 
+				setMenuIzqSize();
 			}
 
 			//Cuando se presiona el click izquierdo
@@ -88,17 +104,20 @@ app.controller(
 			$scope.getInfoPuntoInterfaz = function() {
 				  $scope.puntoId = puntoSeleccionado.id;
 				  $scope.xCondicion =puntoSeleccionado.xCondicion;
-			}
+			}  
+
 			//Cuando se levanta el click izquierdo
 			function onMouseUp( event ) {  
 				
 				viewportWidth=$("#viewportContainer").width();
 				viewportHeight=(window.innerHeight-46);
+				offsetIzq=$("#menuIzquierda").outerWidth(true);
 				
-				if ((event.button == 0) && (mouseX == event.clientX) && (mouseY == event.clientY)){
 
+				if ((event.button == 0) && (mouseX == event.clientX) && (mouseY == event.clientY)){
+					
 				 var vector = new THREE.Vector3( ( 
-					event.clientX / viewportWidth) * 2 - 1, 
+					(event.clientX-offsetIzq) / viewportWidth) * 2 - 1, 
 					- ( (event.clientY-46) / (viewportHeight) ) * 2 + 1, 
 					0.5 
 				);
@@ -106,26 +125,29 @@ app.controller(
 				vector.unproject( camera );
 
 				var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
-				
+
 				//FUNCION OBTENGO punto seleccionado
-				var pointIntersection = ray.intersectObjects(puntosEscena);
-				
-				if(pointIntersection.length > 0){
-					PtoSelecService.setPunto(ModelService.getPointById(pointIntersection[0].object.id,model));
-					PtoSelecService.resetForm();
-					$scope.$apply();//Es necesario avisarle a angular que cambiamos el puntoSeleccionado
-					alert('Seleccionado!! id: ' + PtoSelecService.getPunto().id);
+				if(leftMenuService.getSelecting()){
+					var pointIntersection = ray.intersectObjects(puntosEscena);
+					
+					if(pointIntersection.length > 0){
+						PtoSelecService.setPunto(ModelService.getPointById(pointIntersection[0].object.id,model));
+						PtoSelecService.resetForm();
+						$scope.$apply();//Es necesario avisarle a angular que cambiamos el puntoSeleccionado
+						alert('Seleccionado!! id: ' + PtoSelecService.getPunto().id);
+					}
 				}
 				//----------------------------------
+				
 				var intersects = ray.intersectObjects( helpObjects );
 				if ( intersects.length > 0 ) {
 					
-					if (!addingLines){
+					if (!leftMenuService.getAddingLines() && leftMenuService.getAddingNodes()){
 						//Agrego el punto
 						intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 						ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, intersects[0].object.id, model);
 						puntosEscena.push(intersects[0].object);	
-					} else {
+					} else if(leftMenuService.getAddingLines() && !leftMenuService.getAddingNodes()){
 						if (ModelService.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z, model)){
 							if (firstPointLine == null){
 								firstPointLine = {};
@@ -156,7 +178,7 @@ app.controller(
 			
 			//Agrega una grilla
 			$scope.addGrid = function() {
-						
+				
 				var line, geometry, i, j;
 
 				var material = new THREE.LineBasicMaterial({color: 0xFF0000, transparent: true, opacity: 0.15});
@@ -183,7 +205,18 @@ app.controller(
 					}
 				}
 
-				render()
+				render();
+				//Reseteo form
+				$scope.grillaForm.$setPristine();
+				$scope.posX=undefined;
+				$scope.posY=undefined;
+				$scope.posZ=undefined;
+				$scope.largoX=undefined;
+				$scope.separatorX=undefined;
+				$scope.largoY=undefined;
+				$scope.separatorY=undefined;
+				$scope.largoZ=undefined;
+				$scope.separatorZ=undefined;
 			
 			};
 			
@@ -194,6 +227,11 @@ app.controller(
 				var sceneId = SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, scene);
 				ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, model);
 				render();
+				//Reseteo form
+				$scope.nodoCoordenadaForm.$setPristine();
+				$scope.posX=undefined;
+				$scope.posY=undefined;
+				$scope.posZ=undefined;
 			};
 			
 			//Agrega una partícula
@@ -207,16 +245,6 @@ app.controller(
 				render();
 			},
 			
-			$scope.alternateLinesPoints = function(){
-				if (addingLines) {
-					addingLines = false;
-					firsPointLine = null;
-					$scope.linesButton = "Agregar líneas"
-				} else {
-					addingLines = true;
-					$scope.linesButton = "Agregar puntos"
-				}
-			};
 			
 			//Setea vista 2D
 			$scope.set2D = function(){
@@ -267,13 +295,26 @@ app.controller(
 					$scope.theFile = element.files[0];
 					console.log($scope.theFile)
 			};
+
+			// Ver si dejamos estas funciones aca o hacemos otro controlador o algo
+			$scope.dibujandoNodos = function(){
+				return leftMenuService.getAddingNodes();
+			};
+
+			$scope.dibujandoGrillas = function(){
+				return leftMenuService.getAddingGrillas();
+			};
+
+			$scope.seleccionando = function(){
+				return leftMenuService.getSelecting();
+			};
 			
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight, puntoSeleccionado;	
 			var camera, controls, scene, renderer, tridimensional, grid;
 			var mouseX,  mouseY;
 			
-			var addingLines = false;
+			
 			var firstPointLine = null;
 			var idFirstPoint = 0;
 			var helpObjects = [];
@@ -282,7 +323,6 @@ app.controller(
 			model.points = [];
 			model.lines = [];
 			
-			$scope.linesButton = "Agregar líneas"
 			
 			// --- Inicializa escena
 			
@@ -291,6 +331,89 @@ app.controller(
 			
 		}
 	]);
+
+	app.controller('leftMenusCtrl',['$scope','leftMenuService',function($scope,leftMenuService){
+		
+		$scope.dibujarNodos = function(){
+			leftMenuService.setAddingLines(false);
+			leftMenuService.setAddingNodes(true);
+			leftMenuService.setAddingGrillas(false);
+			leftMenuService.setSelecting(false);
+		};
+
+		$scope.dibujarLineas = function(){
+			leftMenuService.setAddingLines(true);
+			leftMenuService.setAddingNodes(false);
+			leftMenuService.setAddingGrillas(false);
+			leftMenuService.setSelecting(false);
+		};
+
+		$scope.dibujarGrillas = function(){
+			leftMenuService.setAddingLines(false);
+			leftMenuService.setAddingNodes(false);
+			leftMenuService.setAddingGrillas(true);
+			leftMenuService.setSelecting(false);
+		};
+
+		$scope.seleccionar = function(){
+			leftMenuService.setAddingLines(false);
+			leftMenuService.setAddingNodes(false);
+			leftMenuService.setAddingGrillas(false);
+			leftMenuService.setSelecting(true);
+		};
+
+		$scope.seleccionando = function(){
+			return leftMenuService.getSelecting();
+		};
+
+		$scope.dibujandoGrillas = function(){
+			return leftMenuService.getAddingGrillas();
+		};
+
+		$scope.dibujandoNodos = function(){
+			return leftMenuService.getAddingNodes();
+		};
+
+		$scope.dibujandoLineas = function(){
+			return leftMenuService.getAddingLines();
+		};
+
+
+	}]);
+
+	app.service('leftMenuService',function(){
+		var addingLines = false;
+		var addingNodes=false;
+		var addingGrillas=false;
+		var selecting=false;
+
+		return {
+			getAddingLines: function(){
+				return addingLines;
+			},
+			getAddingNodes: function(){
+				return addingNodes;
+			},
+			getAddingGrillas: function(){
+				return addingGrillas;
+			},
+			getSelecting: function(){
+				return selecting;
+			},
+			setSelecting: function(val){
+				selecting=val;
+			},
+			setAddingGrillas: function(val){
+				addingGrillas=val;
+			},
+			setAddingLines: function(val){
+				addingLines=val;
+			},
+			setAddingNodes: function(val){
+				addingNodes=val;
+			}
+		}
+	});
 	
 	app.controller('editPointCtrl',['$scope','ModelService','PtoSelecService',function($scope,ModelService,PtoSelecService){
 		$scope.miPunto=PtoSelecService.getPunto();//Es una copia del punto del modelo!
@@ -322,6 +445,7 @@ app.controller(
 				puntoModelo.xForce= $scope.miPunto.xForce;
 				puntoModelo.yForce= $scope.miPunto.yForce;
 				puntoModelo.zForce= $scope.miPunto.zForce;
+				PtoSelecService.resetForm();
 			}
 		};		
 
