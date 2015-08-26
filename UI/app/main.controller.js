@@ -36,11 +36,11 @@ app.controller(
 				
 				// Seteo el renderer(manejador de objetos en la escena)
 
-				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer = new THREE.WebGLRenderer( { antialiasing: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( viewportWidth, viewportHeight );
 				renderer.setClearColor( 0xEEEEEE, 1 );
-
+				
 				viewport.appendChild( renderer.domElement );
 
 				//Agrego eventos del usuario
@@ -50,7 +50,7 @@ app.controller(
 				
 				//Agrego el origen
 				$scope.addParticle(0,0,0);
-
+				
 				//UI staff
 				setMenuIzqSize();
 				$(function () {// Activa el plugin de los ToolTips
@@ -275,18 +275,49 @@ app.controller(
 			$scope.importModel = function(){
 				var reader = new FileReader();
 				reader.onload = function(){
+				
 					var text = reader.result;
 					
-					var beginNodeMatrix = text.search("Zs")+3;
+					var nodeMatrix = [];
+					var beginNodeMatrix = text.search("Zs")+4;
 					var endNodeMatrix = text.search("Conectivity")-3;
-					var nodeMatrix = text.slice(beginNodeMatrix, endNodeMatrix);
+					var temp = text.slice(beginNodeMatrix, endNodeMatrix).split("\n");
+					for (i = 0; i < temp.length; i++) { 
+						var row = temp[i].split("\t")
+						nodeMatrix.push(row);
+					}
 					
-					var beginConectivityMatrix = text.search("end")+4;
+					var conectivityMatrix = [];
+					var beginConectivityMatrix = text.search("end")+5;
 					var endConectivityMatrix = text.length;
-					var conectivityMatrix = text.slice(beginConectivityMatrix, endConectivityMatrix);
-									
-					console.log(nodeMatrix);
-					console.log(conectivityMatrix);
+					temp = text.slice(beginConectivityMatrix, endConectivityMatrix).split("\n");
+					for (i = 0; i < temp.length; i++) { 
+						row = temp[i].split("\t")
+						conectivityMatrix.push(row);
+					}
+					
+					for (i = 0; i < nodeMatrix.length; i++) {
+						SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], scene, puntosEscena, helpObjects);
+						var sceneId = SpaceService.getScenePointIdByCoords(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], scene);
+						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, model);
+						console.log(i+'/'+nodeMatrix.length);
+					}
+					
+					for (i = 0; i < conectivityMatrix.length; i++) {
+					
+						var a1 = parseInt(nodeMatrix[conectivityMatrix[i][3]-1][0]);
+						var a2 = parseInt(nodeMatrix[conectivityMatrix[i][3]-1][2]);
+						var a3 = parseInt(nodeMatrix[conectivityMatrix[i][3]-1][1]);
+						var b1 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][0]);
+						var b2 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][2]);
+						var b3 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][1]);
+						SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, scene);
+						
+						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3, model);
+						console.log(i+'/'+conectivityMatrix.length);
+					}
+						
+					render();
 				};
 				reader.readAsText($scope.theFile);
 			}

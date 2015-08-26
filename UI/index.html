@@ -13,26 +13,24 @@
 		<div id="container" ng-controller="mainCtrl">
 			
 			<nav class="navbar navbar-default" id="toolbar" style="padding-bottom:0px;margin-bottom:0px">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<img src="assets/img/logo.png" style="height:45px;width:auto;">
-					</div>
-					<ul>
-						<li>Archivo
-							<ul>
-								<li>Nuevo</li>
-								<li>Abrir</li>
-								<li>Guardar</li>
-							</ul>
-						</li>
-						<li>Definir
-							<ul>
-								<li>Materiales</li>
-								<li>Secciones</li>
-							</ul>
-						</li>
-					</ul>
-				</div>	
+				<div class="navbar-header">
+					<img src="assets/img/logo.png" style="height:45px;width:auto;">
+				</div>
+				<ul>
+					<li>Archivo
+						<ul>
+							<li>Nuevo</li>
+							<li>Abrir</li>
+							<li>Guardar</li>
+						</ul>
+					</li>
+					<li>Definir
+						<ul>
+							<li>Materiales</li>
+							<li>Secciones</li>
+						</ul>
+					</li>
+				</ul>
 			</nav>
 
 			
@@ -71,7 +69,7 @@
 							</a>
 						</div>
 					</div>
-
+						
 					<!-- FORMULARIO DE NODOS POR COORDENADA-->
 					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos()" ng-submit="nodoCoordenadaForm.$valid && addPoint()" novalidate>
 						<div class="panel panel-primary">
@@ -169,6 +167,7 @@
 							</a>
 
 						</div>
+						
 					</div>
 
 					<div class="collapse in" id="collapseInfoPunto" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl"><!-- Edicion punto seleccionado -->
@@ -244,7 +243,14 @@
 								</div>
 							</div>
 						</div>
-				
+						
+						<!--Carga de archivo-->
+						<input type="file" accept='text/plain' onchange="setFile(this)">
+		
+						<div class="btn-group" role="group">
+							<button class="btn btn-default" ng-click="importModel()">Importar Modelo</button>
+						</div>
+						<!-------------------->
 					</div>
 
 						
