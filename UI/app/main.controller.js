@@ -7,7 +7,8 @@ app.controller(
 		'SpaceService',
 		'leftMenuService',
 		'PtoSelecService',
-        function($scope, ModelService, SpaceService,leftMenuService,PtoSelecService){
+		'LineaSelecService',
+        function($scope, ModelService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService){
 		
 			//--- Defino función de inicialización
 			function init() {
@@ -127,28 +128,62 @@ app.controller(
 				var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
 				//FUNCION OBTENGO punto seleccionado
-				if(leftMenuService.getSelecting()){
+				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
 					var pointIntersection = ray.intersectObjects(puntosEscena);
-					
+					var puntoModeloSelec;
 					if(pointIntersection.length > 0){
-						PtoSelecService.setPunto(ModelService.getPointById(pointIntersection[0].object.id,model));
+						puntoModeloSelec=ModelService.getPointById(pointIntersection[0].object.id,$scope.model);
+						if(PtoSelecService.getPunto().id != puntoModeloSelec.id){// Si el punto no esta seleccionado lo prendo
+							if(PtoSelecService.getPunto().sceneId != 0){// Si habia un punto seleccionado lo apago
+								SpaceService.getScenePointById(PtoSelecService.getPunto().sceneId,scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+							}
+							PtoSelecService.setPunto(puntoModeloSelec);
+							pointIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x088A08} );
+						}else{// Si el punto estaba seleccionado lo des selecciono
+							PtoSelecService.resetPuntoSeleccionado();
+							pointIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+						}
 						PtoSelecService.resetForm();
 						$scope.$apply();//Es necesario avisarle a angular que cambiamos el puntoSeleccionado
-						alert('Seleccionado!! id: ' + PtoSelecService.getPunto().id);
+						//alert('Seleccionado!! id: ' + PtoSelecService.getPunto().id);
 					}
 				}
-				//----------------------------------
-				
+				//-----------------------------------------------------------------------------------------------------
+
+				//FUNCION OBTENGO linea seleccionada
+				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
+					var lineIntersection = ray.intersectObjects(lineasEscena);
+					var lineaModeloSelec;
+					if(lineIntersection.length >0){
+						lineaModeloSelec=ModelService.getLineById(lineIntersection[0].object.id,$scope.model);
+						if(LineaSelecService.getLinea().id != lineaModeloSelec.id){// Si la linea no esta seleccionado lo prendo
+							if(LineaSelecService.getLinea().sceneId != 0){// Si habia una linea seleccionada la apago
+								SpaceService.getSceneLineById(LineaSelecService.getLinea().sceneId,scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+							}
+							LineaSelecService.setLinea(lineaModeloSelec);
+							lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x088A08} );
+						
+						}else{// Si la linea estaba seleccionada la des selecciono
+							LineaSelecService.resetLineaSeleccionada();
+							lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+						}
+					LineaSelecService.resetForm();
+					$scope.$apply();
+					}
+				}
+
+				//-------------------------------------------------------------------------------------------------------
+
 				var intersects = ray.intersectObjects( helpObjects );
 				if ( intersects.length > 0 ) {
 					
 					if (!leftMenuService.getAddingLines() && leftMenuService.getAddingNodes()){
 						//Agrego el punto
 						intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
-						ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, intersects[0].object.id, model);
+						ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, intersects[0].object.id, $scope.model);
 						puntosEscena.push(intersects[0].object);	
 					} else if(leftMenuService.getAddingLines() && !leftMenuService.getAddingNodes()){
-						if (ModelService.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z, model)){
+						if (ModelService.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z, $scope.model)){
 							if (firstPointLine == null){
 								firstPointLine = {};
 								firstPointLine.x = intersects[0].object.position.x;
@@ -159,8 +194,8 @@ app.controller(
 								intersects[0].object.geometry = new THREE.SphereGeometry( 0.1, 50, 50 );
 								
 							} else {
-								SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.015, scene);
-								ModelService.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, model);
+								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.015, scene,lineasEscena);
+								ModelService.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, lineSceneId,$scope.model);
 								SpaceService.getScenePointById(idFirstPoint, scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 								SpaceService.getScenePointById(idFirstPoint, scene).geometry = new THREE.SphereGeometry( 0.05, 50, 50 );
 								idFirstPoint = 0;
@@ -185,10 +220,10 @@ app.controller(
 				
 				for (i=0; i < $scope.largoY * $scope.separatorY ; i = i + $scope.separatorY){
 					for (j=0; j < $scope.largoX * $scope.separatorX; j = j + $scope.separatorX){
-						SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, scene)
+						SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, scene,null)
 					}
 					for (j=0; j < $scope.largoZ * $scope.separatorZ; j = j + $scope.separatorZ){
-						SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, scene)
+						SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, scene,null)
 						for (k=0; k < $scope.largoX * $scope.separatorX; k = k + $scope.separatorX){
 							var sphereGeometry = new THREE.SphereGeometry( 0.05, 10, 10 );
 							var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xFF0000, transparent: true, opacity: 0.15} );
@@ -199,7 +234,7 @@ app.controller(
 							scene.add(sphere);
 							helpObjects.push(sphere);
 							if (i > 0){
-								SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, scene)
+								SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, scene,null)
 							}
 						}
 					}
@@ -222,10 +257,9 @@ app.controller(
 			
 			//Agrega un punto
 			$scope.addPoint = function(){
-				SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, scene, puntosEscena, helpObjects);
+				var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, scene, puntosEscena, helpObjects);
 				
-				var sceneId = SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, scene);
-				ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, model);
+				ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
 				render();
 				//Reseteo form
 				$scope.nodoCoordenadaForm.$setPristine();
@@ -269,10 +303,11 @@ app.controller(
 			}
 			
 			$scope.modelToText = function(){
-				$scope.modelText = ModelService.getText(model)
+				$scope.modelText = ModelService.getText($scope.model)
 			}
 
 			$scope.importModel = function(){
+
 				var reader = new FileReader();
 				reader.onload = function(){
 				
@@ -297,9 +332,8 @@ app.controller(
 					}
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], scene, puntosEscena, helpObjects);
-						var sceneId = SpaceService.getScenePointIdByCoords(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], scene);
-						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, model);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], scene, puntosEscena, helpObjects);
+						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
 						console.log(i+'/'+nodeMatrix.length);
 					}
 					
@@ -311,9 +345,10 @@ app.controller(
 						var b1 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][0]);
 						var b2 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][2]);
 						var b3 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][1]);
-						SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, scene);
 						
-						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3, model);
+						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, scene,lineasEscena);
+						
+						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3,sceneId, $scope.model);
 						console.log(i+'/'+conectivityMatrix.length);
 					}
 						
@@ -341,7 +376,7 @@ app.controller(
 			};
 			
 			// --- Inicializa variables
-			var viewport, viewportWidth, viewportHeight, puntoSeleccionado;	
+			var viewport, viewportWidth, viewportHeight;	
 			var camera, controls, scene, renderer, tridimensional, grid;
 			var mouseX,  mouseY;
 			
@@ -350,26 +385,31 @@ app.controller(
 			var idFirstPoint = 0;
 			var helpObjects = [];
 			var puntosEscena = [];
-			var model = {};
-			model.points = [];
-			model.lines = [];
-			
+			var lineasEscena = [];
+			$scope.model = {};
+			$scope.model.points = [];
+			$scope.model.lines = [];
+			$scope.model.materiales = [];
+			$scope.model.secciones= [];
+
+			ModelService.addMaterial("Oro",1,1,1,1,$scope.model);
+			ModelService.addMaterial("Plata",0,0,0,0,$scope.model);
 			
 			// --- Inicializa escena
-			
 			init();
 			render();
 			
 		}
 	]);
 
-	app.controller('leftMenusCtrl',['$scope','leftMenuService',function($scope,leftMenuService){
+	app.controller('leftMenusCtrl',['$scope','leftMenuService','PtoSelecService',function($scope,leftMenuService,PtoSelecService){
 		
 		$scope.dibujarNodos = function(){
 			leftMenuService.setAddingLines(false);
 			leftMenuService.setAddingNodes(true);
 			leftMenuService.setAddingGrillas(false);
 			leftMenuService.setSelecting(false);
+
 		};
 
 		$scope.dibujarLineas = function(){
@@ -417,6 +457,7 @@ app.controller(
 		var addingNodes=false;
 		var addingGrillas=false;
 		var selecting=false;
+		
 
 		return {
 			getAddingLines: function(){
@@ -500,7 +541,7 @@ app.controller(
 		  };
 
 		var puntoReal;
-		var infoPuntoForm;
+		var infoPuntoForm;// Es el formulario, para poder resetearlo
     	return {
     		getPuntoReal: function() {
             	return puntoReal;
@@ -524,13 +565,193 @@ app.controller(
 			setInfoPuntoForm: function(f){
 				infoPuntoForm=f;
 			},
+			resetPuntoSeleccionado: function(){
+				puntoSeleccionado.id=0;
+				puntoSeleccionado.sceneId=0;
+				puntoSeleccionado.xCondicion=0;
+				puntoSeleccionado.yCondicion=0;
+				puntoSeleccionado.zCondicion=0;
+				puntoSeleccionado.xForce=0;
+				puntoSeleccionado.yForce=0;
+				puntoSeleccionado.zForce=0;
+				puntoSeleccionado.coords={
+											x: 0,
+											y: 0,
+											z: 0
+										};
+			},
 			resetForm: function(){
 				if(typeof infoPuntoForm != 'undefined'){
-				    infoPuntoForm.$setPristine();
+				    infoPuntoForm.$setPristine();    
 			   }
 			}
 		}
 	});
-	
+
+	app.controller('MaterialesCtrl',['$scope','ModelService',function($scope,ModelService){
+		$scope.materiales = $scope.model.materiales;
+		$scope.nuevoMaterial={
+			name:"Nuevo Material",
+			youngModule:0,
+			gamma:0,
+			alpha:0,
+			e:0
+		};
+
+		$scope.nameToRemove="";
+		$scope.selectedIndex=null;
+
+		$scope.existeMaterial = function(){
+			if($scope.materiales.length > 0){
+				for(var i = 0; i < $scope.materiales.length ;i++){
+					if($scope.materiales[i].name == $scope.nuevoMaterial.name){
+						return true;
+					}
+				}
+			}
+			return false;
+		};
+
+		$scope.addMaterial= function(){
+			if(!$scope.existeMaterial()){
+				ModelService.addMaterial($scope.nuevoMaterial.name,$scope.nuevoMaterial.youngModule,$scope.nuevoMaterial.gamma,$scope.nuevoMaterial.alpha,$scope.nuevoMaterial.e,$scope.model);
+				$scope.nuevoMaterial={
+					name:"Nuevo Material",
+					youngModule:0,
+					gamma:0,
+					alpha:0,
+					e:0
+				};
+				$scope.materialForm.$setPristine();
+			}
+		};
+
+		var getIndex= function(){
+			for(var i = 0; i < $scope.materiales.length ;i++){
+				if($scope.materiales[i].name === $scope.nameToRemove){
+					return i;
+				}
+			}
+			return -1;
+		};
+
+		$scope.removeMaterial= function(){
+			if($scope.selectedIndex != null){	
+				$scope.materiales.splice(getIndex($scope.nameToRemove),1);
+			}
+		};
+
+		$scope.setMaterialToRemove= function(m,indexOfTable){
+			if($scope.selectedIndex != indexOfTable){// Si seleccione otra entrada
+				$scope.nameToRemove=m.name;
+				$scope.selectedIndex= indexOfTable;
+			}else{// Si seleccione el q ya estaba seleccionado
+				$scope.nameToRemove=null;
+				$scope.selectedIndex= null;
+			}
+		};
+
+		$scope.getSelectedIndex= function(){
+			return $scope.selectedIndex;
+		};
+
+	}]);
+
+	app.service('LineaSelecService', function(){
+  		var lineaSeleccionada={
+			id: 0,
+			sceneId: 0,
+			material:null,
+			section:null,
+			start: 0,
+			end: 0
+		  };
+
+		var lineaReal;// La que esta en el modelo
+		var infoLineaForm;// Es el formulario, para poder resetearlo
+    	return {
+    		getLineaReal: function() {
+            	return lineaReal;
+       		},
+        	getLinea: function() {
+            	return lineaSeleccionada;
+       		},
+			setLinea: function(value) {
+				lineaReal=value;
+
+				lineaSeleccionada.id=value.id;
+				lineaSeleccionada.sceneId=value.sceneId;
+				lineaSeleccionada.material=value.material;
+				lineaSeleccionada.sections=value.section;
+				lineaSeleccionada.start=value.start;
+				lineaSeleccionada.end=value.end;
+				
+			},
+			setInfoLineaForm: function(f){
+				infoLineaForm=f;
+			},
+			resetLineaSeleccionada: function(){
+				lineaSeleccionada.id=0;
+				lineaSeleccionada.sceneId=0;
+				lineaSeleccionada.materiales=null;
+				lineaSeleccionada.sections=null;
+				lineaSeleccionada.start=0;
+				lineaSeleccionada.end=0;
+			},
+			resetForm: function(){
+				if(typeof infoLineaForm != 'undefined'){
+				    infoLineaForm.$setPristine();    
+			   }
+			}
+		}
+	});
+
+	app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService',function($scope,ModelService,LineaSelecService){
+		$scope.miLinea=LineaSelecService.getLinea();//Es una copia del punto del modelo!
+		$scope.misMateriales= $scope.model.materiales;
+
+		/*$scope.miLineaRealModelo=LineaSelecService.lineaReal;
+
+		$scope.$watch(function(){return LineaSelecService.lineaReal }, 
+						function(newVal,oldVal){ ;
+						if(newVal!==oldVal){
+						alert('llamado!')
+						$scope.miLineaRealModelo= newVal;}},true);*/
+
+		this.updated= function(){
+			var lineaModelo= LineaSelecService.getLineaReal();
+			if( typeof lineaModelo != 'undefined' &&
+				lineaModelo.material == $scope.miLinea.material //&&
+				//lineaModelo.section == $scope.miLinea.section
+			){
+				return true;
+			}else{
+				
+				return false;
+			}
+		};
+
+		/*var obtenerMaterialByNombre= function(nombre){
+			for(var i = 0; i < $scope.misMateriales.length ;i++){
+				if($scope.misMateriales[i].name == nombre){
+					return $scope.misMateriales[i];
+				}
+			}
+			return null;
+		}*/
+
+		
+		this.updateLine= function(){
+			
+			var lineaModelo= LineaSelecService.getLineaReal();
+			LineaSelecService.setInfoLineaForm($scope.infoLineaForm);
+			if(typeof lineaModelo != 'undefined'){
+				lineaModelo.material= $scope.miLinea.material;
+				lineaModelo.section= $scope.miLinea.section;
+				LineaSelecService.resetForm();
+			}
+		};		
+
+	}]);
 	
 })();

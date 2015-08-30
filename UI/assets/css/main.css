@@ -17,7 +17,7 @@ body {
 }
 
 .ng-dirty.ng-invalid{
-	border-color:red;
+	border-color:#a94442;
 }
 .ng-dirty.ng-valid{
 	border-color:green;

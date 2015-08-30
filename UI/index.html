@@ -22,16 +22,120 @@
 							<li>Nuevo</li>
 							<li>Abrir</li>
 							<li>Guardar</li>
+							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
 						</ul>
 					</li>
 					<li>Definir
 						<ul>
-							<li>Materiales</li>
+							<li data-toggle="modal" data-target="#materialesModal">Materiales</li>
 							<li>Secciones</li>
 						</ul>
 					</li>
 				</ul>
 			</nav>
+
+			<!-- MODALS----------------------------------------- -->
+			<div class="modal fade" id="importModelModal" tabindex="-1" role="dialog" aria-labelledby="Importar Modelo">
+				<div class="modal-dialog" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Importar Modelo</h4>
+			      		</div>
+			      		<form name="importModelForm" ng-submit="importModel()">
+				      		<div class="modal-body">
+						        <!--Carga de archivo-->
+								<input type="file" accept='text/plain' onchange="setFile(this)">
+						    </div>
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">Importar</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="materialesModal" tabindex="-1" role="dialog" aria-labelledby="Materiales Modal">
+				<div class="modal-dialog modal-lg" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Materiales</h4>
+			      		</div>
+			      		<div class="modal-body" ng-controller="MaterialesCtrl">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-6">
+										<form name="materialForm" ng-submit="addMaterial()" novalidate>
+											<div class="form-group">
+												 <label class="control-label">Nombre</label>
+												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevoMaterial.name" required>
+											</div>
+											<div class="form-group">
+												 <label>Modula Young</label>
+												 <input name="ymInput" type="number" class="form-control" ng-model="nuevoMaterial.youngModule" min="0" required>
+											</div>
+											<div class="form-group">
+												 <label class="control-label">Gamma</label>
+												 <input name="gInput" type="number" class="form-control" ng-model="nuevoMaterial.gamma" min="0"required>
+											</div>
+											<div class="form-group">
+												 <label class="control-label">alpha (1/C)</label>
+												 <input name="aInput" type="number" class="form-control" ng-model="nuevoMaterial.alpha" min="0" required>
+											</div>
+											<div class="form-group">
+												 <label class="control-label">E</label>
+												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.e" min="0"required>
+											</div>
+											<div class="form-group" style="color:#a94442" ng-show="existeMaterial()">
+												 <p type="number" ng-model="nuevoMaterial.e" min="0"required>
+												 	Ya existe un material con el nombre: {{ nuevoMaterial.name +"  "}} <span class="glyphicon glyphicon-remove"></span>
+												 </p>
+											</div>
+											<div class="form-group">
+												  <button class="btn btn-primary" type="submit"  ng-disabled="!materialForm.$valid || existeMaterial()">Agregar Material</button>
+											</div>
+											
+										</form>
+									</div>
+									<div class="col-md-6">Tabla materiales
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<td>Nombre</td>
+													<td>Y</td>
+													<td>G</td>
+													<td>A</td>
+													<td>E</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="material in materiales" ng-click="setMaterialToRemove(material,$index)" ng-class="{active: $index == getSelectedIndex()}">
+													<td> {{material.name}} </td>
+													<td> {{material.youngModule}} </td>
+													<td> {{material.gamma}} </td>
+													<td> {{material.alpha}} </td>
+													<td> {{material.e}} </td>
+												</tr>
+											</tbody>
+										</table>
+										<form name="removeMaterialForm" ng-submit="removeMaterial()" novalidate>
+											<div class="form-group">
+												  <button class="btn btn-primary" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Material</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Fin Modals ----------------------------------- -->
 
 			
 			<div class="row">
@@ -123,21 +227,21 @@
 							</div>
 							<div class="form-group">
 								  <label>Lineas en X:</label>
-								  <input type="number" class="longGrid" ng-model="largoX" required>
+								  <input type="number" class="longGrid" ng-model="largoX" ng-pattern="/^[0-9]{1,7}$/" required>
 								  <label>Separacion:</label>
-								  <input type="number" ng-model="separatorX" required>
+								  <input type="number" ng-model="separatorX" ng-pattern="/^[0-9]{1,7}$/" required>
 							</div>
 							<div class="form-group">
 								  <label>Lineas en Y:</label>
-								  <input type="number" class="longGrid" ng-model="largoY" required>
+								  <input type="number" class="longGrid" ng-model="largoY" ng-pattern="/^[0-9]{1,7}$/" required>
 								  <label>Separacion:</label>
-								  <input type="number" ng-model="separatorY" required>
+								  <input type="number" ng-model="separatorY" ng-pattern="/^[0-9]{1,7}$/" required>
 							</div>
 							<div class="form-group">	  
 								  <label>Lineas en Z:</label>
-								  <input type="number" class="longGrid" ng-model="largoZ" required>
+								  <input type="number" class="longGrid" ng-model="largoZ" ng-pattern="/^[0-9]{1,7}$/" required>
 								  <label>Separacion:</label>
-								  <input type="number" ng-model="separatorZ" required>
+								  <input type="number" ng-model="separatorZ" ng-pattern="/^[0-9]{1,7}$/" required>
 							</div>
 
 							<div class="btn-group" role="group">
@@ -157,7 +261,7 @@
 						  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
 						</div>
 					
-				  </div>
+				  	</div>
 					
 					<div class="row" ng-show="seleccionando()"> 
 						<div class="col-md-offset-2 col-md-8">
@@ -170,7 +274,8 @@
 						
 					</div>
 
-					<div class="collapse in" id="collapseInfoPunto" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl"><!-- Edicion punto seleccionado -->
+					<!-- Edicion punto seleccionado -->
+					<div class="collapse in" id="collapseInfoPunto" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
 						<div class="row">	
 							<div class="col-md-offset-2 col-md-8">	
 									<div class="panel panel-primary">
@@ -208,30 +313,30 @@
 									<form name="infoPuntoForm" ng-submit="infoPuntoForm.$valid && editCntrl.updatePoint()" novalidate>
 										<div class="form-group">
 											<label for="xCondition">condicion X:</label>
-											<input type="number" id="xCondition" ng-model="miPunto.xCondicion" required>
+											<input type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group">
 											<label for="yCondition">condicion: Y</label>
-											<input type="number" id="yCondition" ng-model="miPunto.yCondicion" required>
+											<input type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group">
 											<label for="zCondition">condicion: Z</label>
-											<input type="number" id="zCondition" ng-model="miPunto.zCondicion" required>
+											<input type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="panel-body">
 										 Fuerzas aplicadas
 										</div>
 										<div class="form-group">
 											<label for="xCondition">fuerza en X:</label>
-											<input type="number" id="xCondition" ng-model="miPunto.xForce" required>
+											<input type="text" id="xCondition" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group">
 											<label for="yCondition">fuerza en Y:</label>
-											<input type="number" id="yCondition" ng-model="miPunto.yForce" required>
+											<input type="text" id="yCondition" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group">
 											<label for="zCondition">fuerza en Z:</label>
-											<input type="number" id="zCondition" ng-model="miPunto.zForce" required>
+											<input type="text" id="zCondition" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group">
 											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>
@@ -243,14 +348,46 @@
 								</div>
 							</div>
 						</div>
-						
-						<!--Carga de archivo-->
-						<input type="file" accept='text/plain' onchange="setFile(this)">
-		
-						<div class="btn-group" role="group">
-							<button class="btn btn-default" ng-click="importModel()">Importar Modelo</button>
+							
+					</div>
+
+					<div class="row" ng-show="seleccionando()"> 
+						<div class="col-md-offset-2 col-md-8">
+
+							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoLinea">
+								Info Barras +
+							</a>
+
 						</div>
-						<!-------------------->
+						
+					</div>
+
+					<!-- Edicion linea seleccionada -->
+					<div class="collapse in" id="collapseInfoLinea" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">
+						<div class="row">
+							<div class="col-md-offset-2 col-md-8">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Edicion propiedades de la barra</div>
+									<div class="panel-body">
+										 Caracteristicas
+									</div>	
+									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.updateLine()" novalidate>
+										<div class="form-group">
+											<label>Material:</label>
+											<select ng-model="miLinea.material" ng-options="material.name for material in misMateriales track by material.name" required>
+												<option></option>
+											</select>
+										</div>
+										<div class="form-group">
+											<div ng-show="miLinea.id == 0" style="color:red">No hay linea seleccionada <span class="glyphicon glyphicon-remove"></span></div>
+											<div ng-show="lineCtrl.updated()" style="color:green">Sync</div>
+											<div ng-show="!lineCtrl.updated()" style="color:red">UnSync</div>
+											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoLineaForm.$valid" >Actualizar!</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 
 						

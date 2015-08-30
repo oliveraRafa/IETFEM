@@ -33,14 +33,20 @@ angular.module('IETFEM')
 	//--- Fin internas
 	
 	//Dibuja una linea entre 2 puntos
-	var drawLine = function(xi, yi, zi, xf, yf, zf, material, width, scene){
+	var drawLine = function(xi, yi, zi, xf, yf, zf, material, width, scene,lineasEscena){
 		var cylinder = cylinderMesh(new THREE.Vector3(xi, yi, zi), new THREE.Vector3(xf, yf, zf), material, width);
 		scene.add( cylinder );
+
+		if(lineasEscena != null){//Se pasa null en la grilla x ejemplo
+			lineasEscena.push(cylinder);
+		}
+
+		return cylinder.id;
 	};
 
 	//Dibuja un punto
 	var drawPoint = function(x, y, z, scene, puntosEscena, helpObjects){
-		var sphereGeometry = new THREE.SphereGeometry( 0.05, 20, 20 );
+		var sphereGeometry = new THREE.SphereGeometry( 0.1, 20, 20 );
 		var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0x000000} );
 		var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 		sphere.position.x = x
@@ -49,7 +55,9 @@ angular.module('IETFEM')
 		scene.add(sphere);
 		
 		puntosEscena.push(sphere);	
-		helpObjects.push(sphere);		
+		helpObjects.push(sphere);	
+
+		return sphere.id;	
 	};
 	
 	//Obtiene un punto dibujado dado el id
@@ -60,6 +68,15 @@ angular.module('IETFEM')
 				obj = scene.children[i]
 		};
 		return obj;
+	};
+
+	//Obtiene una linea dibujada dado el id
+	var getSceneLineById = function(id, scene) {
+		var obj = null;
+		for (var i = 0; i < scene.children.length ;i++){
+			if (scene.children[i] instanceof THREE.Mesh && scene.children[i].id == id)
+				return scene.children[i]
+		};
 	};
 	
 	//Obtiene el Id de un punto dibujado dadas sus coordenadas
@@ -75,6 +92,7 @@ angular.module('IETFEM')
 	return {
 		drawLine: drawLine,
 		drawPoint: drawPoint,
+		getSceneLineById:getSceneLineById,
 		getScenePointById: getScenePointById,
 		getScenePointIdByCoords: getScenePointIdByCoords,
 	};

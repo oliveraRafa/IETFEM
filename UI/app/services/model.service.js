@@ -31,11 +31,20 @@ angular.module('IETFEM')
 	};
 	//--- Fin internas
 	
-	//Obtener objeto por id de escena
+	//Obtener punto del modelo por id de escena
 	var getPointById = function(id, model) {
 			for (var i = 0; i < model.points.length ;i++){
 				if (model.points[i].sceneId==id){
 					return model.points[i];
+				}
+			};
+	};
+
+	//Obtener linea del modelo por id de escena
+	var getLineById = function(id, model) {
+			for (var i = 0; i < model.lines.length ;i++){
+				if (model.lines[i].sceneId==id){
+					return model.lines[i];
 				}
 			};
 	};
@@ -66,14 +75,29 @@ angular.module('IETFEM')
 	};
 	
 	//Agrega una línea al modelo
-	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, model) {		
+	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,model) {		
 		var line = {};
 		line.id = newIdentifier('LINE', model);
-		line.properties = [];
+		line.sceneId= lineSceneId;
+		line.material=null;
+		line.section=null;
 		line.start = getPointIdByCoords(pX1, pY1, pZ1,model);
 		line.end = getPointIdByCoords(pX2, pY2, pZ2, model);
 		
 		model.lines.push(line);
+	};
+
+	//Agrega una línea al modelo
+	var addMaterial = function(name,ym,g,a,e,model) {		
+		var material = {};
+		//material.id = model.materials.length;
+		material.name=name;
+		material.youngModule=ym;
+		material.gamma=g;
+		material.alpha=a;
+		material.e=e;
+		
+		model.materiales.push(material);
 	};
 	
 	//Verifica si un punto está en el modelo
@@ -103,7 +127,9 @@ angular.module('IETFEM')
 	};
 
 	return {
+		addMaterial: addMaterial,
 		getPointById: getPointById,
+		getLineById: getLineById,
 		addPointToModel: addPointToModel,
 		addLineToModel: addLineToModel,
 		isInModel: isInModel,
