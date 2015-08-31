@@ -179,9 +179,11 @@ app.controller(
 					
 					if (!leftMenuService.getAddingLines() && leftMenuService.getAddingNodes()){
 						//Agrego el punto
-						intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
-						ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, intersects[0].object.id, $scope.model);
-						puntosEscena.push(intersects[0].object);	
+						if(!$scope.yaExistePuntoCoords(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z)){
+							intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, intersects[0].object.id, $scope.model);
+							puntosEscena.push(intersects[0].object);	
+						}
 					} else if(leftMenuService.getAddingLines() && !leftMenuService.getAddingNodes()){
 						if (ModelService.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z, $scope.model)){
 							if (firstPointLine == null){
@@ -257,15 +259,33 @@ app.controller(
 			
 			//Agrega un punto
 			$scope.addPoint = function(){
-				var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, scene, puntosEscena, helpObjects);
-				
-				ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
-				render();
-				//Reseteo form
-				$scope.nodoCoordenadaForm.$setPristine();
-				$scope.posX=undefined;
-				$scope.posY=undefined;
-				$scope.posZ=undefined;
+				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, scene)==0){// Se podria usar una funcion mas performante
+					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, scene, puntosEscena, helpObjects);
+					
+					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
+					render();
+					//Reseteo form
+					$scope.nodoCoordenadaForm.$setPristine();
+					$scope.posX=undefined;
+					$scope.posY=undefined;
+					$scope.posZ=undefined;
+				}
+			};
+
+			$scope.yaExistePunto= function(){
+				if(ModelService.getPointIdByCoords($scope.posX, $scope.posY, $scope.posZ, $scope.model)==0){
+					return false;
+				}else{
+					return true;
+				}
+			};
+
+			$scope.yaExistePuntoCoords= function(x,y,z){
+				if(ModelService.getPointIdByCoords(x, y, z, $scope.model)==0){
+					return false;
+				}else{
+					return true;
+				}
 			};
 			
 			//Agrega una partícula
@@ -379,7 +399,7 @@ app.controller(
 			var viewport, viewportWidth, viewportHeight;	
 			var camera, controls, scene, renderer, tridimensional, grid;
 			var mouseX,  mouseY;
-			
+
 			
 			var firstPointLine = null;
 			var idFirstPoint = 0;

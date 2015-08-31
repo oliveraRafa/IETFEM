@@ -130,6 +130,7 @@ angular.module('IETFEM')
 		addMaterial: addMaterial,
 		getPointById: getPointById,
 		getLineById: getLineById,
+		getPointIdByCoords: getPointIdByCoords,
 		addPointToModel: addPointToModel,
 		addLineToModel: addLineToModel,
 		isInModel: isInModel,
