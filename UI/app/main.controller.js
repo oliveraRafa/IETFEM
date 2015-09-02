@@ -48,6 +48,7 @@ app.controller(
 				window.addEventListener( 'resize', onWindowResize, false );
 				window.addEventListener( 'mouseup', onMouseUp, false );
 				window.addEventListener( 'mousedown', onMouseDown, false );
+				window.addEventListener( 'keyup', onEscapeUp, false );
 				
 				//Agrego el origen
 				$scope.addParticle(0,0,0);
@@ -91,6 +92,23 @@ app.controller(
 				render();
 
 				setMenuIzqSize();
+			}
+
+			//Cuando se presione escape
+			function onEscapeUp( event ) {
+				if (event.keyCode == 27) {
+					var tuMadre=leftMenuService.getSelecting();
+					if(tuMadre){//Si esta en modo seleccion quito la seleccion actual
+
+
+					}else{// Si esta en otro modo paso al de seleccion
+						leftMenuService.setAddingLines(false);
+						leftMenuService.setAddingNodes(false);
+						leftMenuService.setAddingGrillas(false);
+						leftMenuService.setSelecting(true);
+						$scope.$apply();
+					}
+				}
 			}
 
 			//Cuando se presiona el click izquierdo
@@ -677,6 +695,67 @@ app.controller(
 
 	}]);
 
+	app.controller('SeccionesCtrl',['$scope','ModelService',function($scope,ModelService){
+		$scope.secciones = $scope.model.secciones;
+		$scope.nuevaSeccion={
+			section:0
+		};
+
+		$scope.sectionToRemove=0;
+		$scope.selectedIndex=null;
+
+		$scope.existeSeccion = function(){
+			if($scope.secciones.length > 0){
+				for(var i = 0; i < $scope.secciones.length ;i++){
+					if($scope.secciones[i].section == $scope.nuevaSeccion.section){
+						return true;
+					}
+				}
+			}
+			return false;
+		};
+
+		$scope.addSection= function(){
+			if(!$scope.existeSeccion()){
+				ModelService.addSection($scope.nuevaSeccion.section,$scope.model);
+				$scope.nuevaSeccion={
+					section:0
+				};
+				$scope.seccionForm.$setPristine();
+			}
+		};
+
+		var getIndex= function(){
+			for(var i = 0; i < $scope.secciones.length ;i++){
+				if($scope.secciones[i].section === $scope.sectionToRemove){
+					return i;
+				}
+			}
+			return -1;
+		};
+
+		$scope.removeSection= function(){
+			if($scope.selectedIndex != null){	
+				$scope.secciones.splice(getIndex($scope.sectionToRemove),1);
+			}
+		};
+
+		$scope.setSectionToRemove= function(m,indexOfTable){
+			if($scope.selectedIndex != indexOfTable){// Si seleccione otra entrada
+				$scope.sectionToRemove=m.section;
+				$scope.selectedIndex= indexOfTable;
+			}else{// Si seleccione el q ya estaba seleccionado
+				$scope.sectionToRemove=null;
+				$scope.selectedIndex= null;
+			}
+		};
+
+		$scope.getSelectedIndex= function(){
+			return $scope.selectedIndex;
+		};
+
+	}]);
+
 	app.service('LineaSelecService', function(){
   		var lineaSeleccionada={
 			id: 0,
@@ -702,7 +781,7 @@ app.controller(
 				lineaSeleccionada.id=value.id;
 				lineaSeleccionada.sceneId=value.sceneId;
 				lineaSeleccionada.material=value.material;
-				lineaSeleccionada.sections=value.section;
+				lineaSeleccionada.section=value.section;
 				lineaSeleccionada.start=value.start;
 				lineaSeleccionada.end=value.end;
 				
@@ -729,20 +808,14 @@ app.controller(
 	app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService',function($scope,ModelService,LineaSelecService){
 		$scope.miLinea=LineaSelecService.getLinea();//Es una copia del punto del modelo!
 		$scope.misMateriales= $scope.model.materiales;
+		$scope.misSecciones= $scope.model.secciones;
 
-		/*$scope.miLineaRealModelo=LineaSelecService.lineaReal;
-
-		$scope.$watch(function(){return LineaSelecService.lineaReal }, 
-						function(newVal,oldVal){ ;
-						if(newVal!==oldVal){
-						alert('llamado!')
-						$scope.miLineaRealModelo= newVal;}},true);*/
 
 		this.updated= function(){
 			var lineaModelo= LineaSelecService.getLineaReal();
 			if( typeof lineaModelo != 'undefined' &&
-				lineaModelo.material == $scope.miLinea.material //&&
-				//lineaModelo.section == $scope.miLinea.section
+				lineaModelo.material == $scope.miLinea.material &&
+				lineaModelo.section == $scope.miLinea.section
 			){
 				return true;
 			}else{
@@ -751,14 +824,6 @@ app.controller(
 			}
 		};
 
-		/*var obtenerMaterialByNombre= function(nombre){
-			for(var i = 0; i < $scope.misMateriales.length ;i++){
-				if($scope.misMateriales[i].name == nombre){
-					return $scope.misMateriales[i];
-				}
-			}
-			return null;
-		}*/
 
 		
 		this.updateLine= function(){

@@ -87,10 +87,10 @@ angular.module('IETFEM')
 		model.lines.push(line);
 	};
 
-	//Agrega una línea al modelo
+	//Agrega un material al modelo
 	var addMaterial = function(name,ym,g,a,e,model) {		
 		var material = {};
-		//material.id = model.materials.length;
+		
 		material.name=name;
 		material.youngModule=ym;
 		material.gamma=g;
@@ -98,6 +98,15 @@ angular.module('IETFEM')
 		material.e=e;
 		
 		model.materiales.push(material);
+	};
+
+	//Agrega un material al modelo
+	var addSection = function(s,model) {		
+		var section = {};
+		
+		section.section=s;
+		
+		model.secciones.push(section);
 	};
 	
 	//Verifica si un punto está en el modelo
@@ -128,6 +137,7 @@ angular.module('IETFEM')
 
 	return {
 		addMaterial: addMaterial,
+		addSection: addSection,
 		getPointById: getPointById,
 		getLineById: getLineById,
 		getPointIdByCoords: getPointIdByCoords,
