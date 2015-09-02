@@ -34,8 +34,16 @@ app.controller(
 				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
 				grid.position.set(0,0,0);
 				scene.add(grid);
-				
-				// Seteo el renderer(manejador de objetos en la escena)
+			
+				var dir = new THREE.Vector3( 1, 0, 0 );
+				var origin = new THREE.Vector3( 0, 0, 0 );
+				var length = 3;
+				var hex = 0xff0000;
+
+				// pongo los ejes
+				scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
+				scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
+				scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
 
 				renderer = new THREE.WebGLRenderer( { antialiasing: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
