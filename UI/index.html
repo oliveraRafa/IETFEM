@@ -23,6 +23,7 @@
 							<li>Abrir</li>
 							<li>Guardar</li>
 							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
+							<li data-toggle="modal" data-target="#obtenerTextoModal">Obtener Salida</li>
 						</ul>
 					</li>
 					<li>Definir
@@ -72,20 +73,20 @@
 												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevoMaterial.name" required>
 											</div>
 											<div class="form-group">
-												 <label>Modula Young</label>
+												 <label>Modula Young &epsilon;</label>
 												 <input name="ymInput" type="number" class="form-control" ng-model="nuevoMaterial.youngModule" min="0" required>
 											</div>
 											<div class="form-group">
-												 <label class="control-label">Gamma</label>
+												 <label class="control-label">Gamma &gamma;</label>
 												 <input name="gInput" type="number" class="form-control" ng-model="nuevoMaterial.gamma" min="0"required>
 											</div>
 											<div class="form-group">
-												 <label class="control-label">alpha (1/C)</label>
+												 <label class="control-label">Alpha (1/C) &alpha;</label>
 												 <input name="aInput" type="number" class="form-control" ng-model="nuevoMaterial.alpha" min="0" required>
 											</div>
 											<div class="form-group">
-												 <label class="control-label">E</label>
-												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.e" min="0"required>
+												 <label class="control-label">Nu &nu;</label>
+												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.nu" min="-1" max="0.5" required>
 											</div>
 											<div class="form-group" style="color:#a94442" ng-show="existeMaterial()">
 												 <p>
@@ -103,10 +104,10 @@
 											<thead>
 												<tr>
 													<td>Nombre</td>
-													<td>Y</td>
-													<td>G</td>
-													<td>A</td>
-													<td>E</td>
+													<td>&epsilon;</td>
+													<td>&gamma;</td>
+													<td>&alpha;</td>
+													<td>&nu;</td>
 												</tr>
 											</thead>
 											<tbody>
@@ -115,7 +116,7 @@
 													<td> {{material.youngModule}} </td>
 													<td> {{material.gamma}} </td>
 													<td> {{material.alpha}} </td>
-													<td> {{material.e}} </td>
+													<td> {{material.nu}} </td>
 												</tr>
 											</tbody>
 										</table>
@@ -193,6 +194,28 @@
 				</div>
 			</div>
 
+			<div class="modal fade" id="obtenerTextoModal" tabindex="-1" role="dialog" aria-labelledby="Obtener texto Modal">
+				<div class="modal-dialog modal-lg" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Obtener salida</h4>
+			      		</div>
+			      		
+			      		<div class="modal-body">	
+
+							<div class="btn-group btn-group-justified" role="group">
+								<div class="btn-group" role="group">
+									<button class="btn btn-default" ng-click="modelToText()">Obtener texto</button>
+								</div>
+							</div>
+							<div class="form-group">  
+							  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
+							</div>
+						</div>
+					</div>
+				</div>		
+			</div>
+
 			<!-- Fin Modals ----------------------------------- -->
 
 			
@@ -225,13 +248,6 @@
 					<br/>
 					<br/>
 					<!-- Links del menu! -->
-					<div class="row">
-						<div class="col-md-offset-2 col-md-8">
-							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-								Actions +
-							</a>
-						</div>
-					</div>
 						
 					<!-- FORMULARIO DE NODOS POR COORDENADA-->
 					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos()" ng-submit="nodoCoordenadaForm.$valid && addPoint()" novalidate>
@@ -310,18 +326,7 @@
 						</div> 
 					</form>
 
-					<div class="collapse" id="collapseExample">
-						
-						<div class="btn-group btn-group-justified" role="group">
-							<div class="btn-group" role="group">
-								<button class="btn btn-default" ng-click="modelToText()">Obtener texto</button>
-							</div>
-						</div>
-						<div class="form-group">  
-						  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
-						</div>
 					
-				  	</div>
 					
 					<div class="row" ng-show="seleccionando()"> 
 						<div class="col-md-offset-2 col-md-8">
@@ -335,7 +340,7 @@
 					</div>
 
 					<!-- Edicion punto seleccionado -->
-					<div class="collapse in" id="collapseInfoPunto" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
+					<div class="collapse" id="collapseInfoPunto" ng-class="{in: ultimoSeleccionado()=='NODO'}" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
 						<div class="row">	
 							<div class="col-md-offset-2 col-md-8">	
 									<div class="panel panel-primary">
@@ -423,7 +428,7 @@
 					</div>
 
 					<!-- Edicion linea seleccionada -->
-					<div class="collapse in" id="collapseInfoLinea" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">
+					<div class="collapse" id="collapseInfoLinea" ng-class="{in: ultimoSeleccionado()=='LINEA'}" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">
 						<div class="row">
 							<div class="col-md-offset-2 col-md-8">
 								<div class="panel panel-primary">

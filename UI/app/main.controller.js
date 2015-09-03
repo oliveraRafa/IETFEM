@@ -105,10 +105,23 @@ app.controller(
 			//Cuando se presione escape
 			function onEscapeUp( event ) {
 				if (event.keyCode == 27) {
-					var tuMadre=leftMenuService.getSelecting();
-					if(tuMadre){//Si esta en modo seleccion quito la seleccion actual
-
-
+					if(leftMenuService.getSelecting()){//Si esta en modo seleccion quito la seleccion actual
+						var miPuntoSelec= PtoSelecService.getPuntoReal();
+						var miLineaSelec= LineaSelecService.getLineaReal();
+						if(miPuntoSelec != null){
+							var miPuntoEscena= SpaceService.getScenePointById(miPuntoSelec.sceneId,scene);
+							miPuntoEscena.material= new THREE.MeshBasicMaterial( {color: 0x000000} );
+							PtoSelecService.resetPuntoSeleccionado();
+						}
+						if(miLineaSelec != null){
+							var miLineaEscena= SpaceService.getSceneLineById(miLineaSelec.sceneId,scene);
+							miLineaEscena.material= new THREE.MeshBasicMaterial( {color: 0x000000} );
+							LineaSelecService.resetLineaSeleccionada();
+						}
+						render();
+						leftMenuService.setLastSelected(null);
+						$scope.$apply();
+						
 					}else{// Si esta en otro modo paso al de seleccion
 						leftMenuService.setAddingLines(false);
 						leftMenuService.setAddingNodes(false);
@@ -420,6 +433,10 @@ app.controller(
 			$scope.seleccionando = function(){
 				return leftMenuService.getSelecting();
 			};
+
+			$scope.ultimoSeleccionado = function(){
+				return leftMenuService.getLastSelected();
+			};
 			
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight;	
@@ -503,6 +520,7 @@ app.controller(
 		var addingNodes=false;
 		var addingGrillas=false;
 		var selecting=false;
+		var lastSelected=null;//Puede ser "LINEA" o "NODO"
 		
 
 		return {
@@ -529,6 +547,12 @@ app.controller(
 			},
 			setAddingNodes: function(val){
 				addingNodes=val;
+			},
+			getLastSelected: function(){
+				return lastSelected;
+			},
+			setLastSelected: function(val){
+				lastSelected=val;
 			}
 		}
 	});
@@ -569,7 +593,7 @@ app.controller(
 
 	}]);
 	
-	app.service('PtoSelecService', function(){
+	app.service('PtoSelecService', ['leftMenuService',function(leftMenuService){
   		var puntoSeleccionado={
 			  id:0,
 			  sceneId:0,
@@ -607,6 +631,8 @@ app.controller(
 				puntoSeleccionado.yForce=value.yForce;
 				puntoSeleccionado.zForce=value.zForce;
 				puntoSeleccionado.coords=value.coords;
+
+				leftMenuService.setLastSelected("NODO");
 			},
 			setInfoPuntoForm: function(f){
 				infoPuntoForm=f;
@@ -632,7 +658,7 @@ app.controller(
 			   }
 			}
 		}
-	});
+	}]);
 
 	app.controller('MaterialesCtrl',['$scope','ModelService',function($scope,ModelService){
 		$scope.materiales = $scope.model.materiales;
@@ -641,7 +667,7 @@ app.controller(
 			youngModule:0,
 			gamma:0,
 			alpha:0,
-			e:0
+			nu:0
 		};
 
 		$scope.nameToRemove="";
@@ -660,13 +686,13 @@ app.controller(
 
 		$scope.addMaterial= function(){
 			if(!$scope.existeMaterial()){
-				ModelService.addMaterial($scope.nuevoMaterial.name,$scope.nuevoMaterial.youngModule,$scope.nuevoMaterial.gamma,$scope.nuevoMaterial.alpha,$scope.nuevoMaterial.e,$scope.model);
+				ModelService.addMaterial($scope.nuevoMaterial.name,$scope.nuevoMaterial.youngModule,$scope.nuevoMaterial.gamma,$scope.nuevoMaterial.alpha,$scope.nuevoMaterial.nu,$scope.model);
 				$scope.nuevoMaterial={
 					name:"Nuevo Material",
 					youngModule:0,
 					gamma:0,
 					alpha:0,
-					e:0
+					nu:0
 				};
 				$scope.materialForm.$setPristine();
 			}
@@ -764,7 +790,7 @@ app.controller(
 
 	}]);
 
-	app.service('LineaSelecService', function(){
+	app.service('LineaSelecService', ['leftMenuService',function(leftMenuService){
   		var lineaSeleccionada={
 			id: 0,
 			sceneId: 0,
@@ -792,6 +818,7 @@ app.controller(
 				lineaSeleccionada.section=value.section;
 				lineaSeleccionada.start=value.start;
 				lineaSeleccionada.end=value.end;
+				leftMenuService.setLastSelected("LINEA");
 				
 			},
 			setInfoLineaForm: function(f){
@@ -811,7 +838,7 @@ app.controller(
 			   }
 			}
 		}
-	});
+	}]);
 
 	app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService',function($scope,ModelService,LineaSelecService){
 		$scope.miLinea=LineaSelecService.getLinea();//Es una copia del punto del modelo!

@@ -88,14 +88,14 @@ angular.module('IETFEM')
 	};
 
 	//Agrega un material al modelo
-	var addMaterial = function(name,ym,g,a,e,model) {		
+	var addMaterial = function(name,ym,g,a,nu,model) {		
 		var material = {};
 		
 		material.name=name;
 		material.youngModule=ym;
 		material.gamma=g;
 		material.alpha=a;
-		material.e=e;
+		material.nu=nu;
 		
 		model.materiales.push(material);
 	};
