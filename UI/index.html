@@ -461,6 +461,36 @@
 						</div>
 					</div>
 
+					<div class="row" ng-show="seleccionando()"> 
+						<div class="col-md-offset-2 col-md-8">
+
+							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseEliminacionComponentes">
+								Eliminacion +
+							</a>
+
+						</div>
+						
+					</div>
+
+					<!-- Eliminacion de componentes -->
+					<div class="collapse" id="collapseEliminacionComponentes" ng-show="seleccionando()" ng-controller="deleteCtrl as deleteCtrl">
+						<div class="row">
+							<div class="col-md-offset-2 col-md-8">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Eliminacion de componentes</div>
+									<div class="panel-body">
+										 Elija el elemento seleccionado a eliminar..
+									</div>
+									<form name="eliminacionForm" novalidate>
+										<div class="form-group">
+											<button id="deleteNodeButton" class="btn btn-primary" ng-click="deleteCtrl.deleteNode()" ng-disabled="!deleteCtrl.existsPointToRemove()" > Borrar Nodo</button>
+											<button id="deleteLineButton" class="btn btn-primary" ng-click="deleteCtrl.deleteLine()" ng-disabled="!deleteCtrl.existsLineToRemove()" > Borrar Barra</button>
+										</div>
+									<form>	
+								</div>
+							</div>
+						</div>
+					</div>
 						
 				</div>
 				

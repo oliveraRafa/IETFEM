@@ -87,6 +87,32 @@ angular.module('IETFEM')
 		model.lines.push(line);
 	};
 
+	var removeLineFromModel = function(lineId,model){
+		var index=null;
+		for (var i = 0; i < model.lines.length ;i++){
+			if(model.lines[i].id== lineId){
+				index=i;
+				break;
+			}
+		}
+		if(index != null){
+			model.lines.splice(index,1);
+		}
+	};
+
+	var removePointFromModel = function(pointId,model){
+		var index=null;
+		for (var i = 0; i < model.points.length ;i++){
+			if(model.points[i].id== pointId){
+				index=i;
+				break;
+			}
+		}
+		if(index != null){
+			model.lines.splice(index,1);
+		}
+	};
+
 	//Agrega un material al modelo
 	var addMaterial = function(name,ym,g,a,nu,model) {		
 		var material = {};
@@ -190,6 +216,8 @@ angular.module('IETFEM')
 		getPointById: getPointById,
 		getLineById: getLineById,
 		getPointIdByCoords: getPointIdByCoords,
+		removeLineFromModel: removeLineFromModel,
+		removePointFromModel: removePointFromModel,
 		addPointToModel: addPointToModel,
 		addLineToModel: addLineToModel,
 		isInModel: isInModel,

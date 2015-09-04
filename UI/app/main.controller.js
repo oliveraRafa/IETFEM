@@ -29,11 +29,11 @@ app.controller(
 				controls.addEventListener( 'change', render );
 
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
-				scene = new THREE.Scene();
+				$scope.scene = new THREE.Scene();
 				grid = new THREE.GridHelper( 1000, 1 );
 				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
 				grid.position.set(0,0,0);
-				scene.add(grid);
+				$scope.scene.add(grid);
 			
 				var dir = new THREE.Vector3( 1, 0, 0 );
 				var origin = new THREE.Vector3( 0, 0, 0 );
@@ -41,9 +41,9 @@ app.controller(
 				var hex = 0xff0000;
 
 				// pongo los ejes
-				scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
-				scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
-				scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
 
 				renderer = new THREE.WebGLRenderer( { antialiasing: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -70,11 +70,12 @@ app.controller(
 			}
 
 			//--- Defino función de Render
-			function render() {
+			var render=function render() {
 
-				renderer.render( scene, camera );
+				renderer.render( $scope.scene, camera );
 					
 			} 
+
 
 			// Auxiliares de UI
 			function setMenuIzqSize(){
@@ -109,12 +110,12 @@ app.controller(
 						var miPuntoSelec= PtoSelecService.getPuntoReal();
 						var miLineaSelec= LineaSelecService.getLineaReal();
 						if(miPuntoSelec != null){
-							var miPuntoEscena= SpaceService.getScenePointById(miPuntoSelec.sceneId,scene);
+							var miPuntoEscena= SpaceService.getScenePointById(miPuntoSelec.sceneId,$scope.scene);
 							miPuntoEscena.material= new THREE.MeshBasicMaterial( {color: 0x000000} );
 							PtoSelecService.resetPuntoSeleccionado();
 						}
 						if(miLineaSelec != null){
-							var miLineaEscena= SpaceService.getSceneLineById(miLineaSelec.sceneId,scene);
+							var miLineaEscena= SpaceService.getSceneLineById(miLineaSelec.sceneId,$scope.scene);
 							miLineaEscena.material= new THREE.MeshBasicMaterial( {color: 0x000000} );
 							LineaSelecService.resetLineaSeleccionada();
 						}
@@ -147,8 +148,8 @@ app.controller(
 			}  
 
 			//Cuando se levanta el click izquierdo
-			function onMouseUp( event ) {  
-				
+			function onMouseUp( event ) { 
+
 				viewportWidth=$("#viewportContainer").width();
 				viewportHeight=(window.innerHeight-46);
 				offsetIzq=$("#menuIzquierda").outerWidth(true);
@@ -174,7 +175,7 @@ app.controller(
 						puntoModeloSelec=ModelService.getPointById(pointIntersection[0].object.id,$scope.model);
 						if(PtoSelecService.getPunto().id != puntoModeloSelec.id){// Si el punto no esta seleccionado lo prendo
 							if(PtoSelecService.getPunto().sceneId != 0){// Si habia un punto seleccionado lo apago
-								SpaceService.getScenePointById(PtoSelecService.getPunto().sceneId,scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+								SpaceService.getScenePointById(PtoSelecService.getPunto().sceneId,$scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 							}
 							PtoSelecService.setPunto(puntoModeloSelec);
 							pointIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x088A08} );
@@ -197,7 +198,7 @@ app.controller(
 						lineaModeloSelec=ModelService.getLineById(lineIntersection[0].object.id,$scope.model);
 						if(LineaSelecService.getLinea().id != lineaModeloSelec.id){// Si la linea no esta seleccionado lo prendo
 							if(LineaSelecService.getLinea().sceneId != 0){// Si habia una linea seleccionada la apago
-								SpaceService.getSceneLineById(LineaSelecService.getLinea().sceneId,scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+								SpaceService.getSceneLineById(LineaSelecService.getLinea().sceneId,$scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 							}
 							LineaSelecService.setLinea(lineaModeloSelec);
 							lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x088A08} );
@@ -235,10 +236,10 @@ app.controller(
 								intersects[0].object.geometry = new THREE.SphereGeometry( 0.1, 50, 50 );
 								
 							} else {
-								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.015, scene,lineasEscena);
+								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.015, $scope.scene,lineasEscena);
 								ModelService.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, lineSceneId,$scope.model);
-								SpaceService.getScenePointById(idFirstPoint, scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
-								SpaceService.getScenePointById(idFirstPoint, scene).geometry = new THREE.SphereGeometry( 0.05, 50, 50 );
+								SpaceService.getScenePointById(idFirstPoint, $scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+								SpaceService.getScenePointById(idFirstPoint, $scope.scene).geometry = new THREE.SphereGeometry( 0.05, 50, 50 );
 								idFirstPoint = 0;
 								firstPointLine = null;
 							}
@@ -261,10 +262,10 @@ app.controller(
 				
 				for (i=0; i < $scope.largoY * $scope.separatorY ; i = i + $scope.separatorY){
 					for (j=0; j < $scope.largoX * $scope.separatorX; j = j + $scope.separatorX){
-						SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, scene,null)
+						SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, $scope.scene,null)
 					}
 					for (j=0; j < $scope.largoZ * $scope.separatorZ; j = j + $scope.separatorZ){
-						SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, scene,null)
+						SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null)
 						for (k=0; k < $scope.largoX * $scope.separatorX; k = k + $scope.separatorX){
 							var sphereGeometry = new THREE.SphereGeometry( 0.05, 10, 10 );
 							var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xFF0000, transparent: true, opacity: 0.15} );
@@ -272,10 +273,10 @@ app.controller(
 							sphere.position.x = $scope.posX+k
 							sphere.position.y = $scope.posY+i
 							sphere.position.z = $scope.posZ+j
-							scene.add(sphere);
+							$scope.scene.add(sphere);
 							helpObjects.push(sphere);
 							if (i > 0){
-								SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, scene,null)
+								SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null)
 							}
 						}
 					}
@@ -298,8 +299,8 @@ app.controller(
 			
 			//Agrega un punto
 			$scope.addPoint = function(){
-				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, scene)==0){// Se podria usar una funcion mas performante
-					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, scene, puntosEscena, helpObjects);
+				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, $scope.scene)==0){// Se podria usar una funcion mas performante
+					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, helpObjects);
 					
 					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
 					render();
@@ -334,7 +335,7 @@ app.controller(
 				particleGeometry.vertices.push(point);
 				var particleMaterial = new THREE.PointCloudMaterial({color: 0x000000,size: 0.2});
 				var particle = new THREE.PointCloud(particleGeometry, particleMaterial);	
-				scene.add(particle);
+				$scope.scene.add(particle);
 				render();
 			},
 			
@@ -391,7 +392,7 @@ app.controller(
 					}
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], scene, puntosEscena, helpObjects);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, helpObjects);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
 						console.log(i+'/'+nodeMatrix.length);
 					}
@@ -405,7 +406,7 @@ app.controller(
 						var b2 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][2]);
 						var b3 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][1]);
 						
-						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, scene,lineasEscena);
+						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, $scope.scene,lineasEscena);
 						
 						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3,sceneId, $scope.model);
 						console.log(i+'/'+conectivityMatrix.length);
@@ -440,9 +441,10 @@ app.controller(
 			
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight;	
-			var camera, controls, scene, renderer, tridimensional, grid;
+			var camera, controls, renderer, tridimensional, grid;
 			var mouseX,  mouseY;
 
+			$scope.scene;
 			
 			var firstPointLine = null;
 			var idFirstPoint = 0;
@@ -454,6 +456,8 @@ app.controller(
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
 			$scope.model.secciones= [];
+
+			$scope.render=render;
 
 			ModelService.addMaterial("Oro",1,1,1,1,$scope.model);
 			ModelService.addMaterial("Plata",0,0,0,0,$scope.model);
@@ -871,6 +875,60 @@ app.controller(
 				LineaSelecService.resetForm();
 			}
 		};		
+
+	}]);
+
+	app.controller('deleteCtrl',['$scope','ModelService','SpaceService','LineaSelecService','PtoSelecService',function($scope,ModelService,SpaceService,LineaSelecService,PtoSelecService){
+		this.existsLineToRemove= function(){
+			return LineaSelecService.getLinea().id != 0;
+		};
+
+		this.existsPointToRemove= function(){
+			return PtoSelecService.getPunto().id != 0;
+		};
+
+		this.deleteLine = function(){
+			var lineToRemove= LineaSelecService.getLinea();
+			var sceneObject =$scope.scene.getObjectById(lineToRemove.sceneId);
+			
+			ModelService.removeLineFromModel(lineToRemove.id,$scope.model);
+			LineaSelecService.resetLineaSeleccionada();
+			$scope.scene.remove(sceneObject);
+
+			$scope.render();
+		};
+
+		this.deleteNode = function(){
+			var nodeToRemove= PtoSelecService.getPunto();
+			var sceneObjectFirst = $scope.scene.getObjectById(nodeToRemove.sceneId);
+
+			var lineasImplicadas= getLinesByNode(nodeToRemove.id);
+			for (var i = 0; i < lineasImplicadas.length ;i++){//Elimino tambien lineas que tenian ese nodo
+				var lineToRemove= lineasImplicadas[i];
+				var sceneObject =$scope.scene.getObjectById(lineToRemove.sceneId);
+				
+				ModelService.removeLineFromModel(lineToRemove.id,$scope.model);
+				$scope.scene.remove(sceneObject);
+			}
+
+			PtoSelecService.resetPuntoSeleccionado();
+			ModelService.removePointFromModel(nodeToRemove.id,$scope.model);
+			$scope.scene.remove(sceneObjectFirst);
+			$scope.render();
+
+		};
+
+		function getLinesByNode(nodeId){
+			var allLines=[];
+			for (var i = 0; i < $scope.model.lines.length ;i++){
+				if($scope.model.lines[i].start == nodeId || $scope.model.lines[i].end == nodeId){
+					allLines.push($scope.model.lines[i]);	
+				}
+			}
+			return allLines;
+		};
+
+		
 
 	}]);
 	
