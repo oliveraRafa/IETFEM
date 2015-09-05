@@ -29,6 +29,22 @@ app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService',funct
 				lineaModelo.section= $scope.miLinea.section;
 				LineaSelecService.resetForm();
 			}
-		};		
+		};	
+
+		this.existsLineToRemove= function(){
+			console.log(PtoSelecService.getPunto().id);
+			return LineaSelecService.getLinea().id != 0;
+		};	
+
+		this.deleteLine = function(){
+			var lineToRemove= LineaSelecService.getLinea();
+			var sceneObject =$scope.scene.getObjectById(lineToRemove.sceneId);
+			
+			ModelService.removeLineFromModel(lineToRemove.id,$scope.model);
+			LineaSelecService.resetLineaSeleccionada();
+			$scope.scene.remove(sceneObject);
+
+			$scope.render();
+		};
 
 	}]);

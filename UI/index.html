@@ -234,7 +234,7 @@
 
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarLineas()" ng-class="{active: dibujandoLineas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Lineas"><span class="glyphicon glyphicon-resize-horizontal"  aria-hidden="true"></span></button>
 						</div>
-						<img src="assets/img/axis.png" style="width:56px;height:56px;border-style: solid;border-width: 2px;border-radius: 5px;position: fixed;bottom:15px;">
+						<img src="assets/img/axis.png" style="width:56px;height:56px;border-style: solid;border-width: 2px;border-radius: 5px;border-color:#BDBDBD;position: fixed;bottom:15px;">
 					</div>
 					<div id="viewportContainer" class="col-md-11" style="padding:0px">
 						<div id="viewport"></div>
@@ -326,7 +326,7 @@
 						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto">
-								Info Nodo +
+								Editar Nodo
 							</a>
 
 						</div>
@@ -391,7 +391,7 @@
 										<div class="form-group-last">
 											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>
 											<div ng-show="!editCntrl.updated()" style="color:red">UnSync</div>
-
+											<button id="deleteNodeButton" class="btn btn-danger" ng-click="editCntrl.deleteNode()" ng-disabled="!editCntrl.existsPointToRemove()" > Borrar Nodo</button>
 											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoPuntoForm.$valid" >Actualizar!</button>
 										</div>
 									</form>
@@ -405,7 +405,7 @@
 						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoLinea">
-								Info Barras +
+								Editar Barra
 							</a>
 
 						</div>
@@ -436,45 +436,14 @@
 											<div ng-show="miLinea.id == 0" style="color:red">No hay linea seleccionada <span class="glyphicon glyphicon-remove"></span></div>
 											<div ng-show="lineCtrl.updated()" style="color:green">Sync</div>
 											<div ng-show="!lineCtrl.updated()" style="color:red">UnSync</div>
+											<button id="deleteLineButton" class="btn btn-danger" ng-click="lineCtrl.deleteLine()" ng-disabled="!lineCtrl.existsLineToRemove()" > Borrar Barra</button>
 											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoLineaForm.$valid" >Actualizar!</button>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="row" ng-show="seleccionando()"> 
-						<div class="col-md-11">
-
-							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseEliminacionComponentes">
-								Eliminacion +
-							</a>
-
-						</div>
-						
-					</div>
-
-					<!-- Eliminacion de componentes -->
-					<div class="collapse" id="collapseEliminacionComponentes" ng-show="seleccionando()" ng-controller="deleteCtrl as deleteCtrl">
-						<div class="row">
-							<div class="col-md-11">
-								<div class="panel panel-primary">
-									<div class="panel-heading">Eliminacion de componentes</div>
-									<div class="panel-body">
-										 Elija el elemento seleccionado a eliminar..
-									</div>
-									<form name="eliminacionForm" novalidate>
-										<div class="form-group">
-											<button id="deleteNodeButton" class="btn btn-primary" ng-click="deleteCtrl.deleteNode()" ng-disabled="!deleteCtrl.existsPointToRemove()" > Borrar Nodo</button>
-											<button id="deleteLineButton" class="btn btn-primary" ng-click="deleteCtrl.deleteLine()" ng-disabled="!deleteCtrl.existsLineToRemove()" > Borrar Barra</button>
-										</div>
-									<form>	
-								</div>
-							</div>
-						</div>
-					</div>
-						
+					</div>						
 				</div>
 				
 			</div>

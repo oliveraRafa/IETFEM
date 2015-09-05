@@ -235,7 +235,7 @@ app.controller(
 								intersects[0].object.geometry = new THREE.SphereGeometry( 0.15, 10, 10 );
 								
 							} else {
-								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.015, $scope.scene,lineasEscena);
+								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.035, $scope.scene,lineasEscena);
 								ModelService.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, lineSceneId,$scope.model);
 								SpaceService.getScenePointById(idFirstPoint, $scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 								SpaceService.getScenePointById(idFirstPoint, $scope.scene).geometry = new THREE.SphereGeometry( 0.1, 10, 10 );

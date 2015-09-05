@@ -9,6 +9,10 @@ body {
 	overflow: hidden;
 }
 
+canvas{
+	border-right: 2px solid #BDBDBD;
+}
+
 #infoPuntoTable td{
 	text-align: center;
 }
@@ -39,6 +43,7 @@ body {
 #viewport {
 	z-index:0;
 	cursor:crosshair;
+	border-left: 2px solid #BDBDBD;
 }
 
 #menu {
@@ -92,6 +97,11 @@ body {
 
 
 //-------------- Clases para el toolbar
+
+.navbar{
+	border-bottom: 2px solid #BDBDBD;
+}
+
 #toolbar {
 	display:block;
 	width:100%;
