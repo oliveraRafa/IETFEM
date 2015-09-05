@@ -19,11 +19,10 @@
 				<ul>
 					<li>Archivo
 						<ul>
-							<li>Nuevo</li>
-							<li>Abrir</li>
-							<li>Guardar</li>
+							<li>Abrir Modelo</li>
+							<li>Guardar Modelo</li>
 							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
-							<li data-toggle="modal" data-target="#obtenerTextoModal">Obtener Salida</li>
+							<li data-toggle="modal" data-target="#obtenerTextoModal">Exportar Modelo</li>
 						</ul>
 					</li>
 					<li>Definir
@@ -243,33 +242,28 @@
 				</div>
 
 				<div id="menu" class="col-md-3" style="padding:0px">
-					<br/>
-					<br/>
-					<br/>
-					<br/>
+
 					<!-- Links del menu! -->
 						
 					<!-- FORMULARIO DE NODOS POR COORDENADA-->
-					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos()" ng-submit="nodoCoordenadaForm.$valid && addPoint()" novalidate>
+					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos()" ng-submit="nodoCoordenadaForm.$valid && addPoint()" class="col-md-11" novalidate>
 						<div class="panel panel-primary">
-							<div class="panel-heading">Info nodo seleccionado:</div>
-							<div class="panel-body">
-								<span>Coordenadas:</span>
-							</div>
+							<div class="panel-heading">Agregar nodo</div>
+							<div class="panel-body"></div>
 							<div class="form-group">
-								 <label>X</label>
+								 <label>X:</label>
 								 <input type="number" ng-model="posX" required>
 							</div>
 							<div class="form-group">
-								<label>Y</label>
+								<label>Y:</label>
 								<input type="number" ng-model="posY" required>
 							</div>
 							<div class="form-group">
-								<label>Z</label>
+								<label>Z:</label>
 								<input type="number" ng-model="posZ" required>
 							</div>
 							
-							<div class="form-group">
+							<div class="form-group-last">
 									<div ng-show="yaExistePunto()" style="color:red">Ya existe un nodo en estas coordenadas <span class="glyphicon glyphicon-remove"></span></div>
 								  <button class="btn btn-success" type="submit" ng-disabled="!nodoCoordenadaForm.$valid || yaExistePunto()">Agregar nodo</button>
 							</div>
@@ -277,50 +271,50 @@
 					</form>
 
 					<!-- FORMULARIO DE GRILLAS-->
-					<form name="grillaForm" ng-show="dibujandoGrillas()" ng-submit="grillaForm.$valid && addGrid()" novalidate>
+					<form name="grillaForm" ng-show="dibujandoGrillas()" ng-submit="grillaForm.$valid && addGrid()" class="col-md-11" novalidate>
 						<div class="panel panel-primary">
-							<div class="panel-heading">Nodo Origen</div>
-							<div class="panel-body">
-								<span>Coordenadas:</span>
-							</div>
+							<div class="panel-heading">Origen</div>
+							<div class="panel-body"></div>
 							<div class="form-group">
-								 <label>X</label>
+								 <label>X:</label>
 								 <input type="number" ng-model="posX" required>
 							</div>
 							<div class="form-group">
-								<label>Y</label>
+								<label>Y:</label>
 								<input type="number" ng-model="posY" required>
 							</div>
-							<div class="form-group">
-								<label>Z</label>
+							<div class="form-group-last">
+								<label>Z:</label>
 								<input type="number" ng-model="posZ" required>
 							</div>
 						</div>	
 						<div class="panel panel-primary">
-							<div class="panel-heading">Datos nueva grilla:</div>
+							<div class="panel-heading">Grilla</div>
 							<div class="panel-body">
-								Lineas y separaciones
+								<div class="col-md-offset-2 col-md-4">
+									Lineas
+								</div>
+								<div class="col-md-offset-1 col-md-4">
+									Separaciones
+								</div>
 							</div>
-							<div class="form-group">
-								  <label>Lineas en X:</label>
-								  <input type="number" class="longGrid" ng-model="largoX" ng-pattern="/^[0-9]{1,7}$/" required>
-								  <label>Separación:</label>
-								  <input type="number" ng-model="separatorX" ng-pattern="/^[0-9]{1,7}$/" required>
+							<div class="row form-group">
+								  <label class="col-md-2">X:</label>
+								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoX" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorX" ng-pattern="/^[0-9]{1,7}$/" required>
 							</div>
-							<div class="form-group">
-								  <label>Lineas en Y:</label>
-								  <input type="number" class="longGrid" ng-model="largoY" ng-pattern="/^[0-9]{1,7}$/" required>
-								  <label>Separación:</label>
-								  <input type="number" ng-model="separatorY" ng-pattern="/^[0-9]{1,7}$/" required>
+							<div class="row form-group">
+								  <label class="col-md-2">Y:</label>
+								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoY" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorY" ng-pattern="/^[0-9]{1,7}$/" required>
 							</div>
-							<div class="form-group">	  
-								  <label>Lineas en Z:</label>
-								  <input type="number" class="longGrid" ng-model="largoZ" ng-pattern="/^[0-9]{1,7}$/" required>
-								  <label>Separación:</label>
-								  <input type="number" ng-model="separatorZ" ng-pattern="/^[0-9]{1,7}$/" required>
+							<div class="row form-group">	  
+								  <label class="col-md-2">Z:</label>
+								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoZ" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorZ" ng-pattern="/^[0-9]{1,7}$/" required>
 							</div>
 
-							<div class="btn-group" role="group">
+							<div class="form-group-last btn-group" role="group">
 								<button class="btn btn-info" type="submit" ng-disabled="!grillaForm.$valid">Agregar grilla</button>
 							</div> 
 						</div> 
@@ -329,7 +323,7 @@
 					
 					
 					<div class="row" ng-show="seleccionando()"> 
-						<div class="col-md-offset-2 col-md-8">
+						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto">
 								Info Nodo +
@@ -342,22 +336,18 @@
 					<!-- Edicion punto seleccionado -->
 					<div class="collapse" id="collapseInfoPunto" ng-class="{in: ultimoSeleccionado()=='NODO'}" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
 						<div class="row">	
-							<div class="col-md-offset-2 col-md-8">	
+							<div class="col-md-11">	
 									<div class="panel panel-primary">
-										<div class="panel-heading">Info nodo seleccionado:</div>
-										<div class="panel-body">
-											    ID: {{ " " + miPunto.id }}
-										</div>
+										<div class="panel-heading">Coordenadas</div>
+										<div class="panel-body"></div>
 										<div class="table-responsive">
 											<table id="infoPuntoTable" class="table">
 												<tr>
-													<th>Coords</th>
-													<td>x</td>
-													<td>y</td>
-													<td>z</td>
+													<td>X</td>
+													<td>Y</td>
+													<td>Z</td>
 												</tr>
 												<tr>
-													<th></th>
 													<td>{{ miPunto.coords.x }}</td>
 													<td>{{ miPunto.coords.y }}</td>
 													<td>{{ miPunto.coords.z }}</td>
@@ -369,41 +359,36 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-offset-2 col-md-8">
+							<div class="col-md-11">
 								<div class="panel panel-primary">
-									<div class="panel-heading">Edicion propiedades nodo</div>
+									<div class="panel-heading">Propiedades</div>
 									<div class="panel-body">
-										 Condiciones de desplazamiento
+										<div class="col-md-offset-2 col-md-4">
+											Condiciones Desplazamiento
+										</div>
+										<div class="col-md-offset-1 col-md-4">
+											Fuerzas Aplicadas
+										</div>
 									</div>	
 									<form name="infoPuntoForm" ng-submit="infoPuntoForm.$valid && editCntrl.updatePoint()" novalidate>
-										<div class="form-group">
-											<label for="xCondition">condicion X:</label>
-											<input type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+
+										<div class="row form-group">
+											<label class="col-md-2" for="xCondition">X:</label>
+											<input class="col-md-4" type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-4" type="text" id="xForce" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
-										<div class="form-group">
-											<label for="yCondition">condicion: Y</label>
-											<input type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+
+										<div class="row form-group">
+											<label class="col-md-2" for="yCondition">Y:</label>
+											<input class="col-md-4" type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-4" type="text" id="yForce" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
-										<div class="form-group">
-											<label for="zCondition">condicion: Z</label>
-											<input type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+										<div class="row form-group">
+											<label class="col-md-2"for="zCondition">Z:</label>
+											<input class="col-md-4" type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-4" type="text" id="zForce" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
-										<div class="panel-body">
-										 Fuerzas aplicadas
-										</div>
-										<div class="form-group">
-											<label for="xCondition">fuerza en X:</label>
-											<input type="text" id="xCondition" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
-										</div>
-										<div class="form-group">
-											<label for="yCondition">fuerza en Y:</label>
-											<input type="text" id="yCondition" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
-										</div>
-										<div class="form-group">
-											<label for="zCondition">fuerza en Z:</label>
-											<input type="text" id="zCondition" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
-										</div>
-										<div class="form-group">
+										<div class="form-group-last">
 											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>
 											<div ng-show="!editCntrl.updated()" style="color:red">UnSync</div>
 
@@ -417,7 +402,7 @@
 					</div>
 
 					<div class="row" ng-show="seleccionando()"> 
-						<div class="col-md-offset-2 col-md-8">
+						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoLinea">
 								Info Barras +
@@ -430,26 +415,24 @@
 					<!-- Edicion linea seleccionada -->
 					<div class="collapse" id="collapseInfoLinea" ng-class="{in: ultimoSeleccionado()=='LINEA'}" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">
 						<div class="row">
-							<div class="col-md-offset-2 col-md-8">
+							<div class="col-md-11">
 								<div class="panel panel-primary">
-									<div class="panel-heading">Edicion propiedades de la barra</div>
-									<div class="panel-body">
-										 Caracteristicas
-									</div>	
+									<div class="panel-heading">Propiedades</div>
+									<div class="panel-body"></div>	
 									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.updateLine()" novalidate>
-										<div class="form-group">
-											<label>Material:</label>
-											<select ng-model="miLinea.material" ng-options="material.name for material in misMateriales track by material.name" required>
+										<div class="row form-group">
+											<label class="col-md-offset-1 col-md-2">Material:</label>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.material" ng-options="material.name for material in misMateriales track by material.name" required>
 												<option></option>
 											</select>
 										</div>
-										<div class="form-group">
-											<label>Seccion:</label>
-											<select ng-model="miLinea.section" ng-options="seccion.section for seccion in misSecciones track by seccion.section" required>
+										<div class="row form-group">
+											<label class="col-md-offset-1 col-md-2">Seccion:</label>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.section" ng-options="seccion.section for seccion in misSecciones track by seccion.section" required>
 												<option></option>
 											</select>
 										</div>
-										<div class="form-group">
+										<div class="form-group-last">
 											<div ng-show="miLinea.id == 0" style="color:red">No hay linea seleccionada <span class="glyphicon glyphicon-remove"></span></div>
 											<div ng-show="lineCtrl.updated()" style="color:green">Sync</div>
 											<div ng-show="!lineCtrl.updated()" style="color:red">UnSync</div>
@@ -462,7 +445,7 @@
 					</div>
 
 					<div class="row" ng-show="seleccionando()"> 
-						<div class="col-md-offset-2 col-md-8">
+						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseEliminacionComponentes">
 								Eliminacion +
@@ -475,7 +458,7 @@
 					<!-- Eliminacion de componentes -->
 					<div class="collapse" id="collapseEliminacionComponentes" ng-show="seleccionando()" ng-controller="deleteCtrl as deleteCtrl">
 						<div class="row">
-							<div class="col-md-offset-2 col-md-8">
+							<div class="col-md-11">
 								<div class="panel panel-primary">
 									<div class="panel-heading">Eliminacion de componentes</div>
 									<div class="panel-body">
@@ -504,10 +487,19 @@
 		<script src="assets/lib/angular.min.js"></script>
 		<script src="assets/js/OrbitControls.js"></script>
 		
-		<script src="app/main.controller.js"></script>
+		<script src="app/controllers/main.controller.js"></script>
+		<script src="app/controllers/leftMenu.controller.js"></script>
+		<script src="app/controllers/editPoint.controller.js"></script>
+		<script src="app/controllers/editLine.controller.js"></script>
+		<script src="app/controllers/materials.controller.js"></script>
+		<script src="app/controllers/seccions.controller.js"></script>
+		<script src="app/controllers/delete.controller.js"></script>
 		
 		<script src="app/services/model.service.js"></script>
 		<script src="app/services/space.service.js"></script>
+		<script src="app/services/leftMenu.service.js"></script>
+		<script src="app/services/ptoSelec.service.js"></script>
+		<script src="app/services/lineSelec.service.js"></script>
 		
 	</body>
 </html>

@@ -6,6 +6,7 @@ body {
 	background-color: #E6E6E6;
 	margin: 0px;
 	box-sizing: content-box;
+	overflow: hidden;
 }
 
 #infoPuntoTable td{
@@ -37,13 +38,13 @@ body {
 
 #viewport {
 	z-index:0;
+	cursor:crosshair;
 }
 
 #menu {
 	text-align:center;
-	padding-top:10px;
+	margin-top: 1%;
 	font-size:12px;
-	box-sizing: content-box;
 	background-color: #E6E6E6;
 	height:100%;
 	box-sizing: content-box;
@@ -77,6 +78,20 @@ body {
 	margin-top:5px;
 }
 
+.form-group {
+	margin-bottom: 5px;
+}
+
+.panel-body{
+	padding: 7px;
+}
+
+.form-group-last {
+	margin-bottom: 10px;
+}
+
+
+//-------------- Clases para el toolbar
 #toolbar {
 	display:block;
 	width:100%;

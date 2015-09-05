@@ -181,8 +181,8 @@ angular.module('IETFEM')
 		}
 		var displacementNodes = [];
 		for (var i = 0; i < model.points.length ;i++){
-			if (model.points[i].xCondicion == 'F' || model.points[i].yCondicion == 'F' || model.points[i].zCondicion == 'F'){
-				displacementNodes.add(model.points[i]);
+			if (model.points[i].xCondicion != 'F' || model.points[i].yCondicion != 'F' || model.points[i].zCondicion != 'F'){
+				displacementNodes.push(model.points[i]);
 			}
 		}
 		text += '\n' + 'Number of displacement conditions nodes' + '\n' + displacementNodes.length + '\n' + 'Load node       FX            FY           FZ' + '\n'
@@ -192,8 +192,8 @@ angular.module('IETFEM')
 		
 		var loadNodes = [];
 		for (var i = 0; i < model.points.length ;i++){
-			if (model.points[i].xFrorce == 0 || model.points[i].yForce == 0 || model.points[i].zForce == 'F'){
-				loadNodes.add(model.points[i]);
+			if (model.points[i].xFrorce != 0 || model.points[i].yForce != 0 || model.points[i].zForce != 0){
+				loadNodes.push(model.points[i]);
 			}
 		}
 		text += '\n' + 'vNumber of displacement conditions nodes' + '\n' + loadNodes.length + '\n' + 'Displacement node  X condition   Y condition   Z condition' + '\n'
