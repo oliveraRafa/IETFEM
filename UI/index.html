@@ -37,7 +37,7 @@
 			<!-- MODALS----------------------------------------- -->
 			<div class="modal fade" id="importModelModal" tabindex="-1" role="dialog" aria-labelledby="Importar Modelo">
 				<div class="modal-dialog" role="document">
-			    	<div class="modal-content">
+			    	<div class="define-modal modal-content">
 			      		<div class="modal-header">
 			      			<h4 class="modal-title" id="myModalLabel">Importar Modelo</h4>
 			      		</div>
@@ -58,34 +58,34 @@
 
 			<div class="modal fade" id="materialesModal" tabindex="-1" role="dialog" aria-labelledby="Materiales Modal">
 				<div class="modal-dialog modal-lg" role="document">
-			    	<div class="modal-content">
+			    	<div class="define-modal modal-content">
 			      		<div class="modal-header">
 			      			<h4 class="modal-title" id="myModalLabel">Materiales</h4>
 			      		</div>
 			      		<div class="modal-body" ng-controller="MaterialesCtrl">
 							<div class="container-fluid">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6 define-mod">
 										<form name="materialForm" ng-submit="addMaterial()" novalidate>
 											<div class="form-group">
 												 <label class="control-label">Nombre</label>
-												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevoMaterial.name" required>
+												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevoMaterial.name" placeholder="Nombre" required>
 											</div>
 											<div class="form-group">
-												 <label>Modula Young &epsilon;</label>
-												 <input name="ymInput" type="number" class="form-control" ng-model="nuevoMaterial.youngModule" min="0" required>
+												 <label>Modulo de Young (&epsilon;)</label>
+												 <input name="ymInput" type="number" class="form-control" ng-model="nuevoMaterial.youngModule" min="0" placeholder="0" required>
 											</div>
 											<div class="form-group">
-												 <label class="control-label">Gamma &gamma;</label>
-												 <input name="gInput" type="number" class="form-control" ng-model="nuevoMaterial.gamma" min="0"required>
+												 <label class="control-label">Gamma (&gamma;)</label>
+												 <input name="gInput" type="number" class="form-control" ng-model="nuevoMaterial.gamma" min="0" placeholder="0" required>
 											</div>
 											<div class="form-group">
-												 <label class="control-label">Alpha (1/C) &alpha;</label>
-												 <input name="aInput" type="number" class="form-control" ng-model="nuevoMaterial.alpha" min="0" required>
+												 <label class="control-label">Alpha (&alpha;)</label>
+												 <input name="aInput" type="number" class="form-control" ng-model="nuevoMaterial.alpha" min="0" placeholder="0" required>
 											</div>
 											<div class="form-group">
-												 <label class="control-label">Nu &nu;</label>
-												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.nu" min="-1" max="0.5" required>
+												 <label class="control-label">Nu (&nu;)</label>
+												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.nu" min="-1" max="0.5" placeholder="0" required>
 											</div>
 											<div class="form-group" style="color:#a94442" ng-show="existeMaterial()">
 												 <p>
@@ -98,32 +98,35 @@
 											
 										</form>
 									</div>
-									<div class="col-md-6">Tabla materiales
-										<table class="table table-hover">
-											<thead>
-												<tr>
-													<td>Nombre</td>
-													<td>&epsilon;</td>
-													<td>&gamma;</td>
-													<td>&alpha;</td>
-													<td>&nu;</td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr ng-repeat="material in materiales" ng-click="setMaterialToRemove(material,$index)" ng-class="{active: $index == getSelectedIndex()}">
-													<td> {{material.name}} </td>
-													<td> {{material.youngModule}} </td>
-													<td> {{material.gamma}} </td>
-													<td> {{material.alpha}} </td>
-													<td> {{material.nu}} </td>
-												</tr>
-											</tbody>
-										</table>
-										<form name="removeMaterialForm" ng-submit="removeMaterial()" novalidate>
-											<div class="form-group">
-												  <button class="btn btn-primary" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Material</button>
-											</div>
-										</form>
+									<div class="col-md-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Materiales definidos</div>
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<td>Nombre</td>
+														<td>&epsilon;</td>
+														<td>&gamma;</td>
+														<td>&alpha;</td>
+														<td>&nu;</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="material in materiales" ng-click="setMaterialToRemove(material,$index)" ng-class="{active: $index == getSelectedIndex()}">
+														<td> {{material.name}} </td>
+														<td> {{material.youngModule}} </td>
+														<td> {{material.gamma}} </td>
+														<td> {{material.alpha}} </td>
+														<td> {{material.nu}} </td>
+													</tr>
+												</tbody>
+											</table>
+											<form name="removeMaterialForm" ng-submit="removeMaterial()" class="define-delete-button" novalidate>
+												<div class="form-group-last">
+													  <button class="btn btn-danger" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Material</button>
+												</div>
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -138,17 +141,17 @@
 
 			<div class="modal fade" id="seccionesModal" tabindex="-1" role="dialog" aria-labelledby="Secciones Modal">
 				<div class="modal-dialog modal-lg" role="document">
-			    	<div class="modal-content">
+			    	<div class="define-modal modal-content">
 			      		<div class="modal-header">
 			      			<h4 class="modal-title" id="myModalLabel2">Secciones</h4>
 			      		</div>
 			      		<div class="modal-body" ng-controller="SeccionesCtrl">
 							<div class="container-fluid">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="define-mod col-md-6">
 										<form name="seccionForm" ng-submit="addSection()" novalidate>
 											<div class="form-group">
-												 <label class="control-label">Sección</label>
+												 <label class="control-label">Area</label>
 												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" required>
 											</div>
 											<div class="form-group" style="color:#a94442" ng-show="existeSeccion()">
@@ -162,26 +165,29 @@
 											
 										</form>
 									</div>
-									<div class="col-md-6">Tabla secciones
-										<table class="table table-hover">
-											<thead>
-												<tr>
-													<td>Index</td>
-													<td>Seccion</td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr ng-repeat="seccion in secciones" ng-click="setSectionToRemove(seccion,$index)" ng-class="{active: $index == getSelectedIndex()}">
-													<td> {{ $index}} </td>
-													<td> {{seccion.section}} </td>
-												</tr>
-											</tbody>
-										</table>
-										<form name="removeSectionForm" ng-submit="removeSection()" novalidate>
-											<div class="form-group">
-												  <button class="btn btn-primary" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Seccion</button>
-											</div>
-										</form>
+									<div class="col-md-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Secciones definidos</div>
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<td>Index</td>
+														<td>Seccion</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="seccion in secciones" ng-click="setSectionToRemove(seccion,$index)" ng-class="{active: $index == getSelectedIndex()}">
+														<td> {{ $index}} </td>
+														<td> {{seccion.section}} </td>
+													</tr>
+												</tbody>
+											</table>
+											<form name="removeSectionForm" ng-submit="removeSection()" class="define-delete-button" novalidate>
+												<div class="form-group">
+													  <button class="btn btn-danger" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Seccion</button>
+												</div>
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -195,7 +201,7 @@
 
 			<div class="modal fade" id="obtenerTextoModal" tabindex="-1" role="dialog" aria-labelledby="Obtener texto Modal">
 				<div class="modal-dialog modal-lg" role="document">
-			    	<div class="modal-content">
+			    	<div class="define-modal modal-content">
 			      		<div class="modal-header">
 			      			<h4 class="modal-title" id="myModalLabel">Obtener salida</h4>
 			      		</div>
@@ -208,7 +214,7 @@
 								</div>
 							</div>
 							<div class="form-group">  
-							  <textarea class="textModel" rows="15" cols="50" ng-model="modelText" readonly></textarea>
+							  <textarea class="textModel" rows="15" cols="141" ng-model="modelText" readonly></textarea>
 							</div>
 						</div>
 					</div>
@@ -322,7 +328,7 @@
 
 					
 					
-					<div class="row" ng-show="seleccionando()"> 
+					<!-- <div class="row" ng-show="seleccionando()"> 
 						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto">
@@ -331,7 +337,7 @@
 
 						</div>
 						
-					</div>
+					</div> -->
 
 					<!-- Edicion punto seleccionado -->
 					<div class="collapse" id="collapseInfoPunto" ng-class="{in: ultimoSeleccionado()=='NODO'}" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
@@ -401,7 +407,7 @@
 							
 					</div>
 
-					<div class="row" ng-show="seleccionando()"> 
+					<!-- <div class="row" ng-show="seleccionando()"> 
 						<div class="col-md-11">
 
 							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoLinea">
@@ -410,7 +416,7 @@
 
 						</div>
 						
-					</div>
+					</div> -->
 
 					<!-- Edicion linea seleccionada -->
 					<div class="collapse" id="collapseInfoLinea" ng-class="{in: ultimoSeleccionado()=='LINEA'}" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">

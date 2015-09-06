@@ -1,13 +1,7 @@
 var app = angular.module('IETFEM');
 app.controller('MaterialesCtrl',['$scope','ModelService',function($scope,ModelService){
 		$scope.materiales = $scope.model.materiales;
-		$scope.nuevoMaterial={
-			name:"Nuevo Material",
-			youngModule:0,
-			gamma:0,
-			alpha:0,
-			nu:0
-		};
+		$scope.nuevoMaterial={};
 
 		$scope.nameToRemove="";
 		$scope.selectedIndex=null;

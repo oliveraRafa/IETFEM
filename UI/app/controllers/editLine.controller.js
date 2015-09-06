@@ -32,7 +32,6 @@ app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService',funct
 		};	
 
 		this.existsLineToRemove= function(){
-			console.log(PtoSelecService.getPunto().id);
 			return LineaSelecService.getLinea().id != 0;
 		};	
 

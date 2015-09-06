@@ -95,6 +95,20 @@ canvas{
 	margin-bottom: 10px;
 }
 
+.define-mod{
+	border: 1px solid #337ab7;
+    border-radius: 4px;
+    padding-top: 10px;
+}
+
+.define-modal{
+    font: 12px sans-serif;
+}
+
+.define-delete-button{
+	margin-left: 10px;
+	margin-top: 5px;
+}
 
 //-------------- Clases para el toolbar
 

@@ -16,7 +16,7 @@ app.controller(
 				viewport = document.getElementById( 'viewport' );
 				
 				viewportWidth=$("#viewportContainer").width();
-				viewportHeight=(window.innerHeight-46);
+				viewportHeight=(window.innerHeight-53);
 
 				//Seteo la camara
 				camera = new THREE.PerspectiveCamera( 60, viewportWidth / viewportHeight, 1, 1000 );
@@ -90,12 +90,12 @@ app.controller(
 			function onWindowResize() {
 				
 				viewportWidth=$("#viewportContainer").width();
-				viewportHeight=(window.innerHeight-46);
+				viewportHeight=(window.innerHeight-53);
 
 				camera.aspect = viewportWidth / viewportHeight;
 				camera.updateProjectionMatrix();
 
-				renderer.setSize( $("#viewportContainer").width(), window.innerHeight-46 );
+				renderer.setSize( $("#viewportContainer").width(), window.innerHeight-53 );
 
 				render();
 
@@ -150,7 +150,7 @@ app.controller(
 			function onMouseUp( event ) { 
 
 				viewportWidth=$("#viewportContainer").width();
-				viewportHeight=(window.innerHeight-46);
+				viewportHeight=(window.innerHeight-53);
 				offsetIzq=$("#menuIzquierda").outerWidth(true);
 				
 
@@ -158,7 +158,7 @@ app.controller(
 					
 				 var vector = new THREE.Vector3( ( 
 					(event.clientX-offsetIzq) / viewportWidth) * 2 - 1, 
-					- ( (event.clientY-46) / (viewportHeight) ) * 2 + 1, 
+					- ( (event.clientY-53) / (viewportHeight) ) * 2 + 1, 
 					0.5 
 				);
 				
