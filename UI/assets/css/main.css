@@ -28,6 +28,35 @@ canvas{
 	border-color:green;
 }
 
+#splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #D8D8D8;
+    z-index: 50;
+}
+
+#splashImage{
+	position:fixed;
+	top:100px;
+	left:25%;
+	width:50%;
+	height:auto;
+}
+
+#splashText{
+	position:fixed;
+	bottom:100px;
+	left:25%;
+	width:50%;
+	height:auto;
+	font-family:monospace;
+	font-size:25px;
+	color:#555;
+}
+
 #info {
 	color:#000;
 	position: absolute;

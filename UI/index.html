@@ -6,11 +6,16 @@
 		<!--<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 	</head>
 
 	<body ng-app="IETFEM">
-		<div id="container" ng-controller="mainCtrl">
+		<div id="splash">
+			<img src="assets/img/logo.png" id="splashImage">
+			<span id="splashText">Powered by IET-INCO, FING, UdelaR</span>
+		</div>
+		<div id="container animate enter" ng-controller="mainCtrl">
 			
 			<nav class="navbar navbar-default" id="toolbar" style="padding-bottom:0px;margin-bottom:0px">
 				<div class="navbar-header">
@@ -19,8 +24,6 @@
 				<ul>
 					<li>Archivo
 						<ul>
-							<li>Abrir Modelo</li>
-							<li>Guardar Modelo</li>
 							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
 							<li data-toggle="modal" data-target="#obtenerTextoModal">Exportar Modelo</li>
 						</ul>

@@ -79,8 +79,8 @@ angular.module('IETFEM')
 		var line = {};
 		line.id = newIdentifier('LINE', model);
 		line.sceneId= lineSceneId;
-		line.material=null;
-		line.section=null;
+		line.material=0;
+		line.section=0;
 		line.start = getPointIdByCoords(pX1, pY1, pZ1,model);
 		line.end = getPointIdByCoords(pX2, pY2, pZ2, model);
 		
@@ -186,18 +186,18 @@ angular.module('IETFEM')
 		}
 		text += '\n' + 'Number of displacement conditions nodes' + '\n' + displacementNodes.length + '\n\n' + 'Displacement node  X condition   Y condition   Z condition' + '\n'
 		for (var i = 0; i < displacementNodes.length ;i++){
-			text += i + '     ' + loadNodes[i].xForce + '     ' + loadNodes[i].yForce + '     ' + loadNodes[i].zForce + '\n'; 
+			text += i + '     ' + displacementNodes[i].xCondicion + '     ' + displacementNodes[i].yCondicion + '     ' + displacementNodes[i].zCondicion + '\n'; 
 		}
 		
 		var loadNodes = [];
 		for (var i = 0; i < model.points.length ;i++){
-			if (model.points[i].xFrorce != 0 || model.points[i].yForce != 0 || model.points[i].zForce != 0){
+			if (model.points[i].xForce != 0 || model.points[i].yForce != 0 || model.points[i].zForce != 0){
 				loadNodes.push(model.points[i]);
 			}
 		}
 		text += '\n' + 'Puntual loads conditions nodes matrix' + '\n' + loadNodes.length + '\n\n' + 'Load node       FX            FY           FZ' + '\n'
-		for (var i = 0; i < displacementNodes.length ;i++){
-			text += i + '     ' + displacementNodes[i].xCondicion + '     ' + displacementNodes[i].yCondicion + '     ' + displacementNodes[i].zCondicion + '\n'; 
+		for (var i = 0; i < loadNodes.length ;i++){
+			text += i + '     ' + loadNodes[i].xForce + '     ' + loadNodes[i].yForce + '     ' + loadNodes[i].zForce + '\n'; 
 		}
 	
 		

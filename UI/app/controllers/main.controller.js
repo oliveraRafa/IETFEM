@@ -9,6 +9,14 @@ app.controller(
 		'LineaSelecService',
         function($scope, ModelService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService){
 		
+			//--- splash-screen
+			setTimeout(function() {
+			   document.getElementById("splash").className += "fadeOut animated";
+			}, 3000);
+			setTimeout(function() {
+			   document.getElementById("splash").style.display = "none";
+			}, 4000);
+
 			//--- Defino función de inicialización
 			function init() {
 
