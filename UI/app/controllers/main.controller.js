@@ -472,7 +472,7 @@ app.controller(
 					render();
 				};
 
-				outputReader.readAsText($scope.theFile);
+
 			}
 
 			$scope.importModel = function(){
