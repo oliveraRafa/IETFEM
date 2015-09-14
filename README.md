@@ -1,2 +1,0 @@
-# IETFEM
-Proyecto de grado
