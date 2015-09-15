@@ -25,7 +25,6 @@
 					<li>Archivo
 						<ul>
 							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
-							<li data-toggle="modal" data-target="#obtenerTextoModal">Exportar Modelo</li>
 						</ul>
 					</li>
 					<li>Definir
@@ -35,7 +34,7 @@
 						</ul>
 					</li>
 				</ul>
-				<button class="btn btn-default" style="float:right;margin-top: 7px;margin-right: 7px;font: bold 12px/18px sans-serif;">Deformar!</button>
+				<button class="btn btn-default" style="float:right;margin-top: 7px;margin-right: 7px;font: bold 12px/18px sans-serif;"  data-toggle="modal" data-target="#obtenerTextoModal">Deformar</button>
 			</nav>
 
 			<!-- MODALS----------------------------------------- -->
@@ -53,6 +52,49 @@
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
 									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">Importar</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="transitionModal" tabindex="-1" role="dialog" aria-labelledby="Elige una opción" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Elige una opción</h4>
+			      		</div>
+			      		<form name="transition" ng-submit="importModel()">
+				      		<div class="modal-body">
+							    <div class="btn-group btn-group-justified" role="group">
+								    <div class="btn-group" role="group">
+										<button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#transitionModal">Seguir editando</button>
+									</div>
+									<div class="btn-group" role="group">
+										<button class="btn btn-primary" type="submit" ng-click="goToProcessOutput()">Procesar resultado</button>
+									</div>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="processOutputModal" tabindex="-1" role="dialog" aria-labelledby="Procesar resultado">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Procesar resultado</h4>
+			      		</div>
+			      		<form name="processOutputForm" ng-submit="processOutput()">
+				      		<div class="modal-body">
+						        <!--Carga de archivo-->
+								<input type="file" accept='text/plain' onchange="setFile(this)">
+						    </div>
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit" ng-disabled="!processOutputForm.$valid">Procesar</button>
 								</div>
 							</div>
 						</form>
@@ -207,14 +249,14 @@
 				<div class="modal-dialog modal-lg" role="document">
 			    	<div class="define-modal modal-content">
 			      		<div class="modal-header">
-			      			<h4 class="modal-title" id="myModalLabel">Obtener salida</h4>
+			      			<h4 class="modal-title" id="myModalLabel">Obtener modelo</h4>
 			      		</div>
 			      		
 			      		<div class="modal-body">	
 
 							<div class="btn-group btn-group-justified" role="group">
 								<div class="btn-group" role="group">
-									<button class="btn btn-default" ng-click="modelToText()">Obtener texto</button>
+									<button class="btn btn-primary" ng-click="modelToText()">Obtener</button>
 								</div>
 							</div>
 							<div class="form-group">  
@@ -235,7 +277,10 @@
 						<br/>
 						<br/>
 						<br/>
-						<div class="btn-group-vertical" role="group">
+						<div class="btn-group-vertical" role="group" ng-if="programMode==='CROSSLINK_OUTPUT'">
+							<button class="btn btn-default btn-lg botonMenuIzq" data-placement="right" disabled><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></button>
+						</div>	
+						<div class="btn-group-vertical" role="group" ng-if="programMode==='CROSSLINK_INPUT'">
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="seleccionar()" ng-class="{active: seleccionando()}" data-toggle="tooltip" data-placement="right" title="Seleccionar"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span></button>
 
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarGrillas()" ng-class="{active: dibujandoGrillas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Grilla"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></button>
@@ -472,7 +517,6 @@
 		<script src="app/controllers/editLine.controller.js"></script>
 		<script src="app/controllers/materials.controller.js"></script>
 		<script src="app/controllers/seccions.controller.js"></script>
-		<script src="app/controllers/delete.controller.js"></script>
 		
 		<script src="app/services/model.service.js"></script>
 		<script src="app/services/space.service.js"></script>

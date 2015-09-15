@@ -12,10 +12,10 @@ app.controller(
 			//--- splash-screen
 			setTimeout(function() {
 			   document.getElementById("splash").className += "fadeOut animated";
-			}, 3000);
+			}, 500);
 			setTimeout(function() {
 			   document.getElementById("splash").style.display = "none";
-			}, 4000);
+			}, 1000);
 
 			//--- Defino función de inicialización
 			function init() {
@@ -371,6 +371,34 @@ app.controller(
 			
 			$scope.modelToText = function(){
 				$scope.modelText = ModelService.getText($scope.model)
+
+				var a = window.document.createElement('a');
+				a.href = window.URL.createObjectURL(new Blob([$scope.modelText], {type: 'text/txt'}));
+				a.download = 'model.txt';
+
+				// Append anchor to body.
+				document.body.appendChild(a)
+				a.click();
+
+				// Remove anchor from body
+				document.body.removeChild(a)
+
+				$('#obtenerTextoModal').modal('hide');
+				$('#transitionModal').modal('show');
+			}
+
+			$scope.goToProcessOutput = function(){
+				$('#transitionModal').modal('hide');
+				$('#processOutputModal').modal('show');
+			}
+
+			$scope.processOutput = function(){
+
+				//Aca hay que hacer la importacion
+
+				$scope.programMode = 'CROSSLINK_OUTPUT';
+
+				$('#processOutputModal').modal('hide');
 			}
 
 			$scope.importModel = function(){
@@ -463,6 +491,7 @@ app.controller(
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
 			$scope.model.secciones= [];
+			$scope.programMode = 'CROSSLINK_INPUT';
 
 			$scope.render=render;
 
