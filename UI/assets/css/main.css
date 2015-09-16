@@ -130,6 +130,13 @@ canvas{
     padding-top: 10px;
 }
 
+.info-mod {
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 .define-modal{
     font: 12px sans-serif;
 }
@@ -137,6 +144,20 @@ canvas{
 .define-delete-button{
 	margin-left: 10px;
 	margin-top: 5px;
+}
+
+.options-button{
+	height: 150px
+	border-radius: 4px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.error-msg{
+	color: red;
+}
+.error-icon{
+	padding-right: 5px;
 }
 
 //-------------- Clases para el toolbar

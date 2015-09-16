@@ -204,9 +204,27 @@ angular.module('IETFEM')
 		//Agrega las opciones de salida al final
 		text += '\n' + 'Number of dead volume load conditions' + '\n' + '0' +'\n\n' + 'Dead volume loads conditions matrix' + '\n' + 'Element           bx                  by                  bz' + '\n\n' + 'Number of springs conditions nodes' + '\n' + '0' + '\n\n' + 'Springs conditions nodes matrix' + '/n' + 'Spring node  X condition   Y condition   Z condition' + '\n\n' + 'Scale Factor' + '\n' + 'SD_Deformed   Supports    Areas    Forces    Frames    Numbers' + '\n' + '   70           1         1         1         0.05         1' + '\n\n' + 'What you wanna see? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed   SD_Axial' + '\n' + '1                 1            1' + '\n\n' + 'Wich of the plots selected above do you want to print (.png image)? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed  SD_Axial' + '\n' + '1                 1            1' + '\n\n' + 'How many images do you wanna see for small deformation?' + '\n' + 'SD_Deformed   SD_Axial' + '\n' + '1                 1            1' + '\n\n' + 'What you wanna see in plots? (Yes=1, No=0)' + '\n' + 'Supports   Node_Numbers   Elements_Numbers   Forces          Axial_Force_Value' + '1               0                0              1                   0' + '\n\n' + 'For 3D plots, what you wanna see? (Yes=1, No=0)' + '\n' + 'If you choose Dif_View=1 IETFEM use default AZIMUTH and ELEVATION, if you choose Dif_View=0 you must type aximuth and elevation in degrees.' + '\n' + 'XY_plane    XZ_plane    YZ_plane    Dif_View   AZIMUTH(degree)   ELEVATION(degree)' + '\n' + '1            1           1           0           150               15' + '\n\n' + 'Text output format (Yes=1, No=0)' + '\n' + 'TXT  TEX' + '\n' + '1     1' + '\n';
 
-		//window.open("data:text/json;charset=utf-8," + escape("Ur String Object goes here"));
 		return text;
 		
+	};
+
+	var validModel = function(model) {
+		var validObj = {
+			valid:true,
+			emptyStructure:false,
+			invalidStructure:false
+		};
+		if (model.lines.length == 0){
+			validObj.emptyStructure = true
+			validObj.valid = false
+		}
+		for (var i = 0; i < model.lines.length ;i++){
+			if(!model.lines[i].material || !model.lines[i].section) {
+				validObj.invalidStructure = true;
+				validObj.valid = false
+			}
+		}
+		return validObj;
 	};
 
 	return {
@@ -221,5 +239,6 @@ angular.module('IETFEM')
 		addLineToModel: addLineToModel,
 		isInModel: isInModel,
 		getText: getText,
+		validModel: validModel,
 	};
 });

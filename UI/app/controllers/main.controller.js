@@ -370,21 +370,25 @@ app.controller(
 			}
 			
 			$scope.modelToText = function(){
-				$scope.modelText = ModelService.getText($scope.model)
+				$scope.validModel = ModelService.validModel($scope.model);
+				if ($scope.validModel.valid){
+					$scope.modelText = ModelService.getText($scope.model)
 
-				var a = window.document.createElement('a');
-				a.href = window.URL.createObjectURL(new Blob([$scope.modelText], {type: 'text/txt'}));
-				a.download = 'model.txt';
+					var a = window.document.createElement('a');
+					a.href = window.URL.createObjectURL(new Blob([$scope.modelText], {type: 'text/txt'}));
+					a.download = 'model.txt';
+					document.body.appendChild(a)
+					a.click();
+					document.body.removeChild(a)
 
-				// Append anchor to body.
-				document.body.appendChild(a)
-				a.click();
+					$('#obtenerTextoModal').modal('hide');
+					$('#transitionModal').modal('show');
+				}		
+			}
 
-				// Remove anchor from body
-				document.body.removeChild(a)
-
-				$('#obtenerTextoModal').modal('hide');
-				$('#transitionModal').modal('show');
+			$scope.goToDownloadModel = function(){
+				$scope.validModel = {};
+				$('#obtenerTextoModal').modal('show');
 			}
 
 			$scope.goToProcessOutput = function(){
@@ -454,7 +458,6 @@ app.controller(
 			
 			setFile = function(element) {
 					$scope.theFile = element.files[0];
-					console.log($scope.theFile)
 			};
 
 			// Ver si dejamos estas funciones aca o hacemos otro controlador o algo
