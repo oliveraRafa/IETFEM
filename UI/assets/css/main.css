@@ -234,3 +234,61 @@ canvas{
   opacity: 1;
   visibility: visible;
 }
+
+.has-spinner.active {
+    cursor: progress;
+}
+
+.has-spinner.btn.active .spinner {
+    width: 16px;
+}
+.has-spinner.active .spinner {
+    opacity: 1;
+    width: auto;
+}
+.spinner {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    -webkit-transition: opacity .25s, width .25s;
+    -moz-transition: opacity .25s, width .25s;
+    -o-transition: opacity .25s, width .25s;
+    transition: opacity .25s, width .25s;
+}
+
+.icon-spin {
+  -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+     -webkit-transform-origin: 50% 58%;
+         transform-origin:50% 58%;
+         -ms-transform-origin:50% 58%; /* IE 9 */
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

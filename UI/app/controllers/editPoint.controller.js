@@ -34,7 +34,6 @@ var app = angular.module('IETFEM');
 		};		
 
 		this.existsPointToRemove= function(){
-			console.log(PtoSelecService.getPunto().id);
 			return PtoSelecService.getPunto().id != 0;
 		};
 

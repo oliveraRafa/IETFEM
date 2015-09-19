@@ -3,11 +3,12 @@ app.controller(
     'mainCtrl',
 	[	'$scope',
 		'ModelService',
+		'DeformedService',
 		'SpaceService',
 		'leftMenuService',
 		'PtoSelecService',
 		'LineaSelecService',
-        function($scope, ModelService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService){
+        function($scope, ModelService, DeformedService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService){
 		
 			//--- splash-screen
 			setTimeout(function() {
@@ -179,7 +180,7 @@ app.controller(
 					var pointIntersection = ray.intersectObjects(puntosEscena);
 					var puntoModeloSelec;
 					if(pointIntersection.length > 0){
-						puntoModeloSelec=ModelService.getPointById(pointIntersection[0].object.id,$scope.model);
+						puntoModeloSelec=ModelService.getPointBySceneId(pointIntersection[0].object.id,$scope.model);
 						if(PtoSelecService.getPunto().id != puntoModeloSelec.id){// Si el punto no esta seleccionado lo prendo
 							if(PtoSelecService.getPunto().sceneId != 0){// Si habia un punto seleccionado lo apago
 								SpaceService.getScenePointById(PtoSelecService.getPunto().sceneId,$scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
@@ -202,7 +203,7 @@ app.controller(
 					var lineIntersection = ray.intersectObjects(lineasEscena);
 					var lineaModeloSelec;
 					if(lineIntersection.length >0){
-						lineaModeloSelec=ModelService.getLineById(lineIntersection[0].object.id,$scope.model);
+						lineaModeloSelec=ModelService.getLineBySceneId(lineIntersection[0].object.id,$scope.model);
 						if(LineaSelecService.getLinea().id != lineaModeloSelec.id){// Si la linea no esta seleccionado lo prendo
 							if(LineaSelecService.getLinea().sceneId != 0){// Si habia una linea seleccionada la apago
 								SpaceService.getSceneLineById(LineaSelecService.getLinea().sceneId,$scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
@@ -306,8 +307,9 @@ app.controller(
 			
 			//Agrega un punto
 			$scope.addPoint = function(){
+				var material= new THREE.MeshBasicMaterial( {color: 0x000000} );
 				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, $scope.scene)==0){// Se podria usar una funcion mas performante
-					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, helpObjects);
+					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, material, helpObjects);
 					
 					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
 					render();
@@ -370,8 +372,8 @@ app.controller(
 			}
 			
 			$scope.modelToText = function(){
-				$scope.validModel = ModelService.validModel($scope.model);
-				if ($scope.validModel.valid){
+				//$scope.validModel = ModelService.validModel($scope.model);
+				//if ($scope.validModel.valid){
 					$scope.modelText = ModelService.getText($scope.model)
 
 					var a = window.document.createElement('a');
@@ -383,7 +385,7 @@ app.controller(
 
 					$('#obtenerTextoModal').modal('hide');
 					$('#transitionModal').modal('show');
-				}		
+				//}		
 			}
 
 			$scope.goToDownloadModel = function(){
@@ -398,18 +400,87 @@ app.controller(
 
 			$scope.processOutput = function(){
 
-				//Aca hay que hacer la importacion
+				var outputReader = new FileReader();
+				outputReader.onload = function(){
+				
+					var material = new THREE.LineBasicMaterial({color: 0x29088A, transparent: true, opacity: 0.15});
+					var text = outputReader.result;
+			
+					var input = text.slice(0,text.search("RESULTADOS")-1);
+					
+					//Validacion de que el input sea igual al texto generado
+					//var generatedInput = ModelService.getText($scope.model);
+					//if (input === generatedInput){
+					//		
+					//}
 
-				$scope.programMode = 'CROSSLINK_OUTPUT';
+					var displacementMatrix = [];
+					var beginDisplacementMatrix = text.search("u_z")+4;
+					var endDisplacementeMatrix = text.search("Parametros en barras")-3;
+					var temp = text.slice(beginDisplacementMatrix, endDisplacementeMatrix).split("\n");
 
-				$('#processOutputModal').modal('hide');
+					for (i = 0; i < temp.length; i++) { 
+						var row = temp[i].split("\t")
+						displacementMatrix.push(row);
+					}
+
+					var forcesMatrix = [];
+					var beginForcesMatrix = text.search("Tension")+8;
+					var endForcesMatrix = text.length;
+					temp = text.slice(beginForcesMatrix, endForcesMatrix).split("\n");
+					for (i = 0; i < temp.length; i++) { 
+						row = temp[i].split("\t")
+						forcesMatrix.push(row);
+					}
+					
+					for (i = 0; i < displacementMatrix.length; i++) {
+						var point = ModelService.getPointById(i+1, $scope.model);
+
+						var displacementX = parseFloat(displacementMatrix[i][0].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][0].split("e")[1]))*1000;
+						var displacementY = parseFloat(displacementMatrix[i][1].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][1].split("e")[1]))*1000;
+						var displacementZ = parseFloat(displacementMatrix[i][2].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][2].split("e")[1]))*1000;
+
+						var pointX = parseFloat(point.coords.x) + displacementX
+						var pointY = parseFloat(point.coords.y) + displacementY
+						var pointZ = parseFloat(point.coords.z) + displacementZ
+						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, puntosEscena, material, helpObjects);
+						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
+					}
+
+					for (i = 0; i < forcesMatrix.length; i++) {
+						var line = $scope.model.lines[i];
+						var point1 = DeformedService.getDeformedPointById(line.start, $scope.deformed);
+						var point2 = DeformedService.getDeformedPointById(line.end, $scope.deformed);
+
+						var a1 = parseFloat(point1.coords.x) + parseFloat(point1.displacements.x);
+						var a2 = parseFloat(point1.coords.z) + parseFloat(point1.displacements.z);
+						var a3 = parseFloat(point1.coords.y) + parseFloat(point1.displacements.y);
+						var b1 = parseFloat(point2.coords.x) + parseFloat(point2.displacements.x);
+						var b2 = parseFloat(point2.coords.z) + parseFloat(point2.displacements.z);
+						var b3 = parseFloat(point2.coords.y) + parseFloat(point2.displacements.y);
+						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,lineasEscena);
+
+						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, forcesMatrix[0], forcesMatrix[1], forcesMatrix[2],$scope.deformed);
+					}
+						
+					render();
+
+					$scope.programMode = 'CROSSLINK_OUTPUT';
+
+					$('#processOutputModal').modal('hide');
+				};
+
+				outputReader.readAsText($scope.theFile);
 			}
 
 			$scope.importModel = function(){
 
+				$scope.importing = true;
+
 				var reader = new FileReader();
 				reader.onload = function(){
 				
+					var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 					var text = reader.result;
 					
 					var nodeMatrix = [];
@@ -431,27 +502,29 @@ app.controller(
 					}
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, helpObjects);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, material, helpObjects);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
-						console.log(i+'/'+nodeMatrix.length);
 					}
 					
 					for (i = 0; i < conectivityMatrix.length; i++) {
 					
-						var a1 = parseInt(nodeMatrix[conectivityMatrix[i][3]-1][0]);
-						var a2 = parseInt(nodeMatrix[conectivityMatrix[i][3]-1][2]);
-						var a3 = parseInt(nodeMatrix[conectivityMatrix[i][3]-1][1]);
-						var b1 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][0]);
-						var b2 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][2]);
-						var b3 = parseInt(nodeMatrix[conectivityMatrix[i][4]-1][1]);
+						var a1 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][0]);
+						var a2 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][2]);
+						var a3 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][1]);
+						var b1 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][0]);
+						var b2 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][2]);
+						var b3 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][1]);
 						
 						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, $scope.scene,lineasEscena);
 						
 						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3,sceneId, $scope.model);
-						console.log(i+'/'+conectivityMatrix.length);
 					}
 						
 					render();
+
+					$('#importModelModal').modal('hide');
+					$scope.importing = false;
+
 				};
 				reader.readAsText($scope.theFile);
 			}
@@ -481,8 +554,6 @@ app.controller(
 			var viewport, viewportWidth, viewportHeight;	
 			var camera, controls, renderer, tridimensional, grid;
 			var mouseX,  mouseY;
-
-			$scope.scene;
 			
 			var firstPointLine = null;
 			var idFirstPoint = 0;
@@ -494,12 +565,18 @@ app.controller(
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
 			$scope.model.secciones= [];
+			$scope.model.transparent= false;
+
+			$scope.deformed = {};
+			$scope.deformed.points = [];
+			$scope.deformed.lines = [];
+
 			$scope.programMode = 'CROSSLINK_INPUT';
 
 			$scope.render=render;
 
-			ModelService.addMaterial("Oro",1,1,1,1,$scope.model);
-			ModelService.addMaterial("Plata",0,0,0,0,$scope.model);
+			ModelService.addMaterial("Hormigon",1,1,1,1,$scope.model);
+			ModelService.addMaterial("Metal",0,0,0,0,$scope.model);
 			
 			// --- Inicializa escena
 			init();

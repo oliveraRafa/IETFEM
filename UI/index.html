@@ -37,7 +37,7 @@
 						</ul>
 					</li>
 				</ul>
-				<button class="btn btn-primary" style="float:right;margin-top: 7px;margin-right: 7px;font: bold 12px/18px sans-serif;"  ng-click="goToDownloadModel()">Ejecutar IETFEM</button>
+				<button class="btn btn-primary" style="float:right;margin-top: 7px;margin-right: 7px;font: bold 12px/18px sans-serif;"  ng-click="goToDownloadModel()" ng-disabled="programMode =='CROSSLINK_OUTPUT'">Ejecutar IETFEM</button>
 			</nav>
 
 			<!-- MODALS----------------------------------------- -->
@@ -54,7 +54,12 @@
 						    </div>
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
-									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">Importar</button>
+									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">
+										<span class="spinner">
+											<i class="glyphicon glyphicon-refresh icon-spin"></i>
+										</span>
+										Importar
+									</button>
 								</div>
 							</div>
 						</form>
@@ -520,6 +525,7 @@
 		<script src="app/controllers/seccions.controller.js"></script>
 		
 		<script src="app/services/model.service.js"></script>
+		<script src="app/services/deformed.service.js"></script>
 		<script src="app/services/space.service.js"></script>
 		<script src="app/services/leftMenu.service.js"></script>
 		<script src="app/services/ptoSelec.service.js"></script>

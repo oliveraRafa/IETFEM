@@ -45,9 +45,8 @@ angular.module('IETFEM')
 	};
 
 	//Dibuja un punto
-	var drawPoint = function(x, y, z, scene, puntosEscena, helpObjects){
+	var drawPoint = function(x, y, z, scene, puntosEscena, sphereMaterial, helpObjects){
 		var sphereGeometry = new THREE.SphereGeometry( 0.1, 20, 20 );
-		var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0x000000} );
 		var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 		sphere.position.x = x
 		sphere.position.y = y

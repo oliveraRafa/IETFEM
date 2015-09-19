@@ -4,19 +4,21 @@ angular.module('IETFEM')
 	// Funciones internas
 
 	//Genera un nuevo identificador
-	var newIdentifier = function(type, model) {
+	var newPointIdentifier = function(model) {
 		var id = 0;
-		if (type == 'POINT'){
-			for (var i = 0; i < model.points.length; i++){
-				if (model.points[i].id > id)
-					id = model.points[i].id
-			}
-		} else { 
-			for (var i = 0; i < model.lines.length; i++){
-				if (model.lines[i].id > id)
-					id = model.lines[i].id
-			}					
+		for (var i = 0; i < model.points.length; i++){
+			if (model.points[i].id > id)
+				id = model.points[i].id
 		}
+		return id+1;
+	};
+
+	var newLineIdentifier = function(model) {
+		var id = 0;
+		for (var i = 0; i < model.lines.length; i++){
+			if (model.lines[i].id > id)
+				id = model.lines[i].id
+		}					
 		return id+1;
 	};
 	
@@ -30,9 +32,26 @@ angular.module('IETFEM')
 		return id;
 	};
 	//--- Fin internas
-	
-	//Obtener punto del modelo por id de escena
+
+	//Obtener punto del modelo por id
 	var getPointById = function(id, model) {
+			for (var i = 0; i < model.points.length ;i++){
+				if (model.points[i].id==id){
+					return model.points[i];
+				}
+			};
+	};
+
+	//Obtener linea del modelo por id
+	var getLineById = function(id, model) {
+			for (var i = 0; i < model.lines.length ;i++){
+				if (model.lines[i].id==id){
+					return model.lines[i];
+				}
+			};
+	};
+	//Obtener punto del modelo por id de escena
+	var getPointBySceneId = function(id, model) {
 			for (var i = 0; i < model.points.length ;i++){
 				if (model.points[i].sceneId==id){
 					return model.points[i];
@@ -41,7 +60,7 @@ angular.module('IETFEM')
 	};
 
 	//Obtener linea del modelo por id de escena
-	var getLineById = function(id, model) {
+	var getLineBySceneId = function(id, model) {
 			for (var i = 0; i < model.lines.length ;i++){
 				if (model.lines[i].sceneId==id){
 					return model.lines[i];
@@ -54,7 +73,7 @@ angular.module('IETFEM')
 			
 		if (pX != 0 || pY != 0 || pZ != 0){
 		var point = {};
-		point.id = newIdentifier('POINT', model);
+		point.id = newPointIdentifier( model);
 		point.sceneId = sceneId;
 		//Displacement conditions
 		point.xCondicion=0;
@@ -77,7 +96,7 @@ angular.module('IETFEM')
 	//Agrega una línea al modelo
 	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,model) {		
 		var line = {};
-		line.id = newIdentifier('LINE', model);
+		line.id = newLineIdentifier(model);
 		line.sceneId= lineSceneId;
 		line.material=0;
 		line.section=0;
@@ -232,6 +251,8 @@ angular.module('IETFEM')
 		addSection: addSection,
 		getPointById: getPointById,
 		getLineById: getLineById,
+		getPointBySceneId: getPointBySceneId,
+		getLineBySceneId: getLineBySceneId,
 		getPointIdByCoords: getPointIdByCoords,
 		removeLineFromModel: removeLineFromModel,
 		removePointFromModel: removePointFromModel,
