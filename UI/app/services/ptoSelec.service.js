@@ -3,9 +3,9 @@ angular.module('IETFEM')
   		var puntoSeleccionado={
 			  id:0,
 			  sceneId:0,
-			  xCondicion:0,
-			  yCondicion:0,
-			  zCondicion:0,
+			  xCondicion:'F',
+			  yCondicion:'F',
+			  zCondicion:'F',
 			  xForce:0,
 			  yForce:0,
 			  zForce:0,
@@ -46,9 +46,9 @@ angular.module('IETFEM')
 			resetPuntoSeleccionado: function(){
 				puntoSeleccionado.id=0;
 				puntoSeleccionado.sceneId=0;
-				puntoSeleccionado.xCondicion=0;
-				puntoSeleccionado.yCondicion=0;
-				puntoSeleccionado.zCondicion=0;
+				puntoSeleccionado.xCondicion='F';
+				puntoSeleccionado.yCondicion='F';
+				puntoSeleccionado.zCondicion='F';
 				puntoSeleccionado.xForce=0;
 				puntoSeleccionado.yForce=0;
 				puntoSeleccionado.zForce=0;

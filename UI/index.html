@@ -195,7 +195,7 @@
 												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevoMaterial.name" placeholder="Nombre" required>
 											</div>
 											<div class="form-group">
-												 <label>Modulo de Young (&epsilon;)</label>
+												 <label>Modulo de Young (E)</label>
 												 <input name="ymInput" type="number" class="form-control" ng-model="nuevoMaterial.youngModule" min="0" placeholder="0" required>
 											</div>
 											<div class="form-group">
@@ -275,7 +275,7 @@
 										<form name="seccionForm" ng-submit="addSection()" novalidate>
 											<div class="form-group">
 												 <label class="control-label">Area</label>
-												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" required>
+												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" min="0.0000000001" required>
 											</div>
 											<div class="form-group" style="color:#a94442" ng-show="existeSeccion()">
 												 <p>
@@ -445,17 +445,17 @@
 							<div class="row form-group">
 								  <label class="col-md-2">X:</label>
 								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoX" ng-pattern="/^[0-9]{1,7}$/" required>
-								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorX" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorX" min="0.0000000001" required>
 							</div>
 							<div class="row form-group">
 								  <label class="col-md-2">Y:</label>
 								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoY" ng-pattern="/^[0-9]{1,7}$/" required>
-								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorY" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorY" min="0.0000000001" required>
 							</div>
 							<div class="row form-group">	  
 								  <label class="col-md-2">Z:</label>
 								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoZ" ng-pattern="/^[0-9]{1,7}$/" required>
-								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorZ" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorZ" min="0.0000000001" required>
 							</div>
 
 							<div class="form-group-last btn-group" role="group">
@@ -518,18 +518,18 @@
 
 										<div class="row form-group">
 											<label class="col-md-2" for="xCondition">X:</label>
-											<input class="col-md-4" type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-4" type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 											<input class="col-md-offset-1 col-md-4" type="text" id="xForce" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 
 										<div class="row form-group">
 											<label class="col-md-2" for="yCondition">Y:</label>
-											<input class="col-md-4" type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-4" type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 											<input class="col-md-offset-1 col-md-4" type="text" id="yForce" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="row form-group">
 											<label class="col-md-2"for="zCondition">Z:</label>
-											<input class="col-md-4" type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-4" type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 											<input class="col-md-offset-1 col-md-4" type="text" id="zForce" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group-last">

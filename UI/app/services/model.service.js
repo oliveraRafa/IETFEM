@@ -76,9 +76,9 @@ angular.module('IETFEM')
 		point.id = newPointIdentifier( model);
 		point.sceneId = sceneId;
 		//Displacement conditions
-		point.xCondicion=0;
-		point.yCondicion=0;
-		point.zCondicion=0;
+		point.xCondicion='F';
+		point.yCondicion='F';
+		point.zCondicion='F';
 		//Forces applied
 		point.xForce=0;
 		point.yForce=0;
