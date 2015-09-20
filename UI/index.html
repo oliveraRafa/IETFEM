@@ -24,6 +24,7 @@
 				<ul>
 					<li>Archivo
 						<ul>
+							<li data-toggle="modal" data-target="#newModelModal">Nuevo Modelo</li>
 							<li data-toggle="modal" data-target="#openModelModal">Abrir Modelo</li>
 							<li data-toggle="modal" data-target="#saveModelModal">Guardar Modelo</li>
 							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
@@ -54,7 +55,7 @@
 						    </div>
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
-									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">
+									<button class="btn btn-primary" type="submit">
 										<span class="spinner">
 											<i class="glyphicon glyphicon-refresh icon-spin"></i>
 										</span>
@@ -63,6 +64,84 @@
 								</div>
 							</div>
 						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="openModelModal" tabindex="-1" role="dialog" aria-labelledby="Abrir Modelo">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Abrir Modelo</h4>
+			      		</div>
+			      		<form name="openModelForm" ng-submit="openModel()">
+				      		<div class="modal-body">
+						        <!--Carga de archivo-->
+								<input type="file" onchange="setFile(this)">
+						    </div>
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit">
+										<span class="spinner">
+											<i class="glyphicon glyphicon-refresh icon-spin"></i>
+										</span>
+										Abrir
+									</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="saveModelModal" tabindex="-1" role="dialog" aria-labelledby="Guardar Modelo">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Guardar Modelo</h4>
+			      		</div>
+			      		<form name="importModelForm" ng-submit="saveModel()">
+				      		<div class="modal-body col-md-12">
+									<div class="col-md-2">
+										<label class="control-label" style='padding-top:15%'>Nombre:</label>
+									</div>
+									<div class="col-md-10">
+										<input name="nombreInput" type="text" class="form-control col-md-9" ng-model="modelName" placeholder="Nombre" required>
+									</div>
+							</div>
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">
+										<span class="spinner">
+											<i class="glyphicon glyphicon-refresh icon-spin"></i>
+										</span>
+										Guardar
+									</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="newModelModal" tabindex="-1" role="dialog" aria-labelledby="Atención" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Atención</h4>
+			      		</div>
+			      		<div class="modal-body col-md-12">
+				     		<p>Se limpiará la escena para comenzar un nuevo modelo. ¿Deseas guardar la estructura actual?</p>
+						</div>
+			      		<div class="modal-footer">
+						    <div class="col-md-12 btn-group" role="group">
+								<button class="col-md-2 btn btn-default" type="submit" data-toggle="modal" data-target="#newModelModal">Cancelar</button>
+								<div class="col-md-3"></div>
+								<button class="col-md-2 btn btn-default" type="submit" data-toggle="modal" ng-click="newModel('#newModelModal')">Descartar</button>	
+								<div class="col-md-3"></div>
+								<button class="col-md-2 btn btn-primary" type="submit" ng-click="goToSaveModel()">Guardar</button>
+							</div>
+						</div>
 			      	</div>
 			    </div>
 			</div>

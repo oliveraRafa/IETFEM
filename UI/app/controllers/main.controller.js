@@ -38,7 +38,7 @@ app.controller(
 
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
 				$scope.scene = new THREE.Scene();
-				grid = new THREE.GridHelper( 1000, 1 );
+				grid = new THREE.GridHelper( 100, 1 );
 				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
 				grid.position.set(0,0,0);
 				$scope.scene.add(grid);
@@ -222,7 +222,7 @@ app.controller(
 
 				//-------------------------------------------------------------------------------------------------------
 
-				var intersects = ray.intersectObjects( helpObjects );
+				var intersects = ray.intersectObjects( $scope.model.helpObjects );
 				if ( intersects.length > 0 ) {
 					
 					if (!leftMenuService.getAddingLines() && leftMenuService.getAddingNodes()){
@@ -282,7 +282,7 @@ app.controller(
 							sphere.position.y = $scope.posY+i
 							sphere.position.z = $scope.posZ+j
 							$scope.scene.add(sphere);
-							helpObjects.push(sphere);
+							$scope.model.helpObjects.push(sphere);
 							if (i > 0){
 								SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null)
 							}
@@ -309,7 +309,7 @@ app.controller(
 			$scope.addPoint = function(){
 				var material= new THREE.MeshBasicMaterial( {color: 0x000000} );
 				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, $scope.scene)==0){// Se podria usar una funcion mas performante
-					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, material, helpObjects);
+					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, material, $scope.model.helpObjects);
 					
 					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
 					render();
@@ -443,7 +443,7 @@ app.controller(
 						var pointX = parseFloat(point.coords.x) + displacementX
 						var pointY = parseFloat(point.coords.y) + displacementY
 						var pointZ = parseFloat(point.coords.z) + displacementZ
-						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, puntosEscena, material, helpObjects);
+						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, puntosEscena, material, $scope.model.helpObjects);
 						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
 					}
 
@@ -502,7 +502,7 @@ app.controller(
 					}
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, material, helpObjects);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, material, $scope.model.helpObjects);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
 					}
 					
@@ -533,6 +533,94 @@ app.controller(
 					$scope.theFile = element.files[0];
 			};
 
+			$scope.goToSaveModel = function(){
+				$scope.saveModelOnExit = true;
+				$('#newModelModal').modal('hide');
+				$('#saveModelModal').modal('show');
+			};
+
+			$scope.saveModel = function(){
+
+				var textModel = angular.toJson($scope.model);
+				var a = window.document.createElement('a');
+				a.href = window.URL.createObjectURL(new Blob([textModel], {type: 'text/txt'}));
+				a.download = $scope.modelName+'.iet';
+				document.body.appendChild(a)
+				a.click();
+				document.body.removeChild(a)
+
+				if ($scope.saveModelOnExit){
+					$scope.saveModelOnExit = false;
+					$scope.newModel('#saveModelModal');
+				} else {
+					$('#saveModelModal').modal('hide');						
+				}
+			};
+
+			$scope.newModel = function(modal){
+
+				var firstPointLine = null;
+				var idFirstPoint = 0;
+				var puntosEscena = [];
+				var lineasEscena = [];
+				$scope.model = {};
+				$scope.model.points = [];
+				$scope.model.lines = [];
+				$scope.model.materiales = [];
+				$scope.model.secciones= [];
+				$scope.model.helpObjects = [];
+				$scope.model.transparent= false;
+
+				$scope.deformed = {};
+				$scope.deformed.points = [];
+				$scope.deformed.lines = [];
+
+				$scope.programMode = 'CROSSLINK_INPUT';
+
+				ModelService.addMaterial("Hormigon",1,1,1,1,$scope.model);
+				ModelService.addMaterial("Metal",0,0,0,0,$scope.model);
+
+				$(modal).modal('hide');
+
+				//Creo la escena dentro del viewport, pongo grilla auxiliar
+				$scope.scene = new THREE.Scene();
+				grid = new THREE.GridHelper( 100, 1 );
+				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
+				grid.position.set(0,0,0);
+				$scope.scene.add(grid);
+			
+				var dir = new THREE.Vector3( 1, 0, 0 );
+				var origin = new THREE.Vector3( 0, 0, 0 );
+				var length = 3;
+				var hex = 0xff0000;
+
+				// pongo los ejes
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
+
+				render();
+			};
+
+			$scope.openModel = function(){
+
+				var reader = new FileReader();
+				reader.onload = function(){
+				
+					$scope.newModel();
+					var text = reader.result;
+					$scope.model = angular.fromJson(text);
+					
+					SpaceService.drawModel($scope.scene,$scope.model, puntosEscena, lineasEscena);
+
+					render();
+
+					$('#openModelModal').modal('hide');
+
+				};
+				reader.readAsText($scope.theFile);
+			}
+
 			// Ver si dejamos estas funciones aca o hacemos otro controlador o algo
 			$scope.dibujandoNodos = function(){
 				return leftMenuService.getAddingNodes();
@@ -557,14 +645,14 @@ app.controller(
 			
 			var firstPointLine = null;
 			var idFirstPoint = 0;
-			var helpObjects = [];
 			var puntosEscena = [];
 			var lineasEscena = [];
 			$scope.model = {};
 			$scope.model.points = [];
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
-			$scope.model.secciones= [];
+			$scope.model.secciones= [];			
+			$scope.model.helpObjects= [];			
 			$scope.model.transparent= false;
 
 			$scope.deformed = {};

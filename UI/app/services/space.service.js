@@ -46,7 +46,7 @@ angular.module('IETFEM')
 
 	//Dibuja un punto
 	var drawPoint = function(x, y, z, scene, puntosEscena, sphereMaterial, helpObjects){
-		var sphereGeometry = new THREE.SphereGeometry( 0.1, 20, 20 );
+		var sphereGeometry = new THREE.SphereGeometry( 0.1, 10, 10 );
 		var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 		sphere.position.x = x
 		sphere.position.y = y
@@ -57,6 +57,35 @@ angular.module('IETFEM')
 		helpObjects.push(sphere);	
 
 		return sphere.id;	
+	};
+
+	//Dibuja el modelo entero
+	var drawModel = function(scene, model, puntosEscena, lineasEscena){
+
+		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		var start = {};
+		var end = {};
+
+		for (i=0; i<model.points.length; i++){
+			drawPoint(model.points[i].coords.x, model.points[i].coords.y, model.points[i].coords.z, scene, puntosEscena, material, model.helpObjects);
+		}
+
+		for (i=0; i<model.lines.length; i++){
+
+			for (j=0; j<model.points.length; j++){
+				if (model.lines[i].start==model.points[j].id){
+					start.x = model.points[j].coords.x;
+					start.y = model.points[j].coords.y;
+					start.z = model.points[j].coords.z;
+				}
+				if (model.lines[i].end==model.points[j].id){
+					end.x = model.points[j].coords.x;
+					end.y = model.points[j].coords.y;
+					end.z = model.points[j].coords.z;
+				}
+			};
+			drawLine(start.x, start.y, start.z, end.x, end.y, end.z, material, 0.05, scene ,lineasEscena);
+		}
 	};
 	
 	//Obtiene un punto dibujado dado el id
@@ -91,6 +120,7 @@ angular.module('IETFEM')
 	return {
 		drawLine: drawLine,
 		drawPoint: drawPoint,
+		drawModel: drawModel,
 		getSceneLineById:getSceneLineById,
 		getScenePointById: getScenePointById,
 		getScenePointIdByCoords: getScenePointIdByCoords,
