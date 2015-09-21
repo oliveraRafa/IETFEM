@@ -638,8 +638,12 @@ app.controller(
 
 			$scope.ultimoSeleccionado = function(){
 				return leftMenuService.getLastSelected();
-			};	
+			};
 
+			$scope.dibujandoLineas = function(){
+				return leftMenuService.getAddingLines();
+			};
+			
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight;	
 			var camera, controls, renderer, tridimensional, grid;

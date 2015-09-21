@@ -1,5 +1,5 @@
 angular.module('IETFEM')
-.factory('ModelService', function(SpaceService) {
+.factory('ModelService',['DefaultsService',function(DefaultsService) {
 
 	// Funciones internas
 
@@ -98,8 +98,8 @@ angular.module('IETFEM')
 		var line = {};
 		line.id = newLineIdentifier(model);
 		line.sceneId= lineSceneId;
-		line.material=0;
-		line.section=0;
+		line.material=DefaultsService.getLineMaterial();
+		line.section=DefaultsService.getLineSection();
 		line.start = getPointIdByCoords(pX1, pY1, pZ1,model);
 		line.end = getPointIdByCoords(pX2, pY2, pZ2, model);
 		
@@ -300,4 +300,4 @@ angular.module('IETFEM')
 		setModelTransparent: setModelTransparent,
 		setModelOpaque: setModelOpaque,
 	};
-});
+}]);

@@ -1,9 +1,26 @@
 var app = angular.module('IETFEM');
-app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService',function($scope,ModelService,LineaSelecService){
+app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService','DefaultsService',function($scope,ModelService,LineaSelecService,DefaultsService){
+		
 		$scope.miLinea=LineaSelecService.getLinea();//Es una copia del punto del modelo!
 		$scope.misMateriales= $scope.model.materiales;
 		$scope.misSecciones= $scope.model.secciones;
 
+		$scope.materialDefecto==null;
+		$scope.seccionDefecto==null;
+
+		this.updateDefaults = function(){
+			DefaultsService.setLineMaterial($scope.materialDefecto);
+			DefaultsService.setLineSection($scope.seccionDefecto);
+		};
+
+		this.updatedDefaults = function(){
+			if($scope.materialDefecto == DefaultsService.getLineMaterial() &&
+				$scope.seccionDefecto == DefaultsService.getLineSection()){
+				return true;
+			}else{
+				return false;
+			}
+		};
 
 		this.updated= function(){
 			var lineaModelo= LineaSelecService.getLineaReal();
