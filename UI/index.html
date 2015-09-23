@@ -56,9 +56,6 @@
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
 									<button class="btn btn-primary" type="submit">
-										<span class="spinner">
-											<i class="glyphicon glyphicon-refresh icon-spin"></i>
-										</span>
 										Importar
 									</button>
 								</div>
@@ -82,9 +79,6 @@
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
 									<button class="btn btn-primary" type="submit">
-										<span class="spinner">
-											<i class="glyphicon glyphicon-refresh icon-spin"></i>
-										</span>
 										Abrir
 									</button>
 								</div>
@@ -112,9 +106,6 @@
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
 									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">
-										<span class="spinner">
-											<i class="glyphicon glyphicon-refresh icon-spin"></i>
-										</span>
 										Guardar
 									</button>
 								</div>
@@ -410,6 +401,19 @@
 						</div>
 					</form>
 
+					<!-- FORMULARIO DE EDICION DE SALIDA-->
+					<form name="processOutputForm" ng-show="programMode === 'CROSSLINK_OUTPUT'" class="col-md-11" ng-controller="editOutputCtrl" novalidate>
+						<div class="col-md-12">
+							<input type="radio" name="structureView" value="normal" ng-model="structureView">Indeformada
+							<input type="radio" name="structureView" value="deform" ng-model="structureView">Deformada
+						</div>
+						<div class="col-md-12">
+							<span once-text="Escalamiento:"></span>
+							<input class="col-md-10" type="range"  ng-model="scaleStructure" min="1" max="1000"></input>
+							<input type="number" ng-value="scaleStructure" disabled></input>
+						</div>
+					</form>
+
 					<!-- FORMULARIO DE GRILLAS-->
 					<form name="grillaForm" ng-show="dibujandoGrillas()" ng-submit="grillaForm.$valid && addGrid()" class="col-md-11" novalidate>
 						<div class="panel panel-primary">
@@ -600,6 +604,7 @@
 		<script src="app/controllers/leftMenu.controller.js"></script>
 		<script src="app/controllers/editPoint.controller.js"></script>
 		<script src="app/controllers/editLine.controller.js"></script>
+		<script src="app/controllers/editOutput.controller.js"></script>
 		<script src="app/controllers/materials.controller.js"></script>
 		<script src="app/controllers/seccions.controller.js"></script>
 		

@@ -436,14 +436,14 @@ app.controller(
 					for (i = 0; i < displacementMatrix.length; i++) {
 						var point = ModelService.getPointById(i+1, $scope.model);
 
-						var displacementX = parseFloat(displacementMatrix[i][0].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][0].split("e")[1]))*1000;
-						var displacementY = parseFloat(displacementMatrix[i][1].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][1].split("e")[1]))*1000;
-						var displacementZ = parseFloat(displacementMatrix[i][2].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][2].split("e")[1]))*1000;
+						var displacementX = parseFloat(displacementMatrix[i][0].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][0].split("e")[1]));
+						var displacementY = parseFloat(displacementMatrix[i][1].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][1].split("e")[1]));
+						var displacementZ = parseFloat(displacementMatrix[i][2].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][2].split("e")[1]));
 
 						var pointX = parseFloat(point.coords.x) + displacementX
 						var pointY = parseFloat(point.coords.y) + displacementY
 						var pointZ = parseFloat(point.coords.z) + displacementZ
-						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, puntosEscena, material, $scope.model.helpObjects);
+						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, [], material, $scope.model.helpObjects);
 						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
 					}
 
@@ -458,16 +458,18 @@ app.controller(
 						var b1 = parseFloat(point2.coords.x) + parseFloat(point2.displacements.x);
 						var b2 = parseFloat(point2.coords.z) + parseFloat(point2.displacements.z);
 						var b3 = parseFloat(point2.coords.y) + parseFloat(point2.displacements.y);
-						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,lineasEscena);
+						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,[]);
 
 						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, forcesMatrix[0], forcesMatrix[1], forcesMatrix[2],$scope.deformed);
 					}
-						
-					render();
-
+					
 					$scope.programMode = 'CROSSLINK_OUTPUT';
+					$scope.structureView = 'normal';
+					$scope.scaleStructure = 1
 
 					$('#processOutputModal').modal('hide');
+
+					render();
 				};
 
 				outputReader.readAsText($scope.theFile);
@@ -636,8 +638,8 @@ app.controller(
 
 			$scope.ultimoSeleccionado = function(){
 				return leftMenuService.getLastSelected();
-			};
-			
+			};	
+
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight;	
 			var camera, controls, renderer, tridimensional, grid;
@@ -652,8 +654,7 @@ app.controller(
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
 			$scope.model.secciones= [];			
-			$scope.model.helpObjects= [];			
-			$scope.model.transparent= false;
+			$scope.model.helpObjects= [];	
 
 			$scope.deformed = {};
 			$scope.deformed.points = [];

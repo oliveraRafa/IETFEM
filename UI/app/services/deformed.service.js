@@ -72,10 +72,44 @@ angular.module('IETFEM')
 		model.lines.push(line);
 	};
 
+	var setDeformedMaterial = function(scene, deformed, material){
+		for (var i = 0; i < deformed.points.length ;i++){
+			SpaceService.setMaterial(deformed.points[i].sceneId, scene, material);
+		};
+		for (var i = 0; i < deformed.lines.length ;i++){
+			SpaceService.setMaterial(deformed.lines[i].sceneId, scene, material);
+		};
+	};
+
+	var scaleDeformed = function(scene, deformed, model, scaleFactor){
+		//var material = SpaceService.getMaterial(deformed.points[0].sceneId, scene, scaleFactor) || null;
+		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		for (var i = 0; i < deformed.points.length ;i++){
+			deformed.points[i].sceneId
+
+			var x = parseFloat(deformed.points[i].coords.x) + parseFloat(deformed.points[i].displacements.x)*parseFloat(scaleFactor);
+			var y = parseFloat(deformed.points[i].coords.y) + parseFloat(deformed.points[i].displacements.y)*parseFloat(scaleFactor);
+			var z = parseFloat(deformed.points[i].coords.z) + parseFloat(deformed.points[i].displacements.z)*parseFloat(scaleFactor);
+
+			SpaceService.movePoint(deformed.points[i].sceneId, scene, x, y, z);
+			//deformed.points[i].sceneId = SpaceService.drawPoint(deformed.points[i].coords.x+deformed.points[i].displacements.x*scaleFactor,
+															   //deformed.points[i].coords.y+deformed.points[i].displacements.y*scaleFactor,
+															   //deformed.points[i].coords.z+deformed.points[i].displacements.z*scaleFactor,
+															   //scene, [], material, model.helpObjects);
+
+		};
+		for (var i = 0; i < deformed.lines.length ;i++){
+			//SpaceService.removeFromScene(deformed.lines[i].sceneId, scene);
+
+		};
+	};
+
 	return {
 		getDeformedPointById: getDeformedPointById,
 		getDeformedLineById: getDeformedLineById,
 		addPointToDeformed: addPointToDeformed,
 		addLineToDeformed: addLineToDeformed,
+		setDeformedMaterial: setDeformedMaterial,
+		scaleDeformed: scaleDeformed,
 	};
 })

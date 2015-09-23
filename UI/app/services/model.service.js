@@ -246,6 +246,15 @@ angular.module('IETFEM')
 		return validObj;
 	};
 
+	var setModelMaterial = function(scene, model, material){
+		for (var i = 0; i < model.points.length ;i++){
+			SpaceService.setMaterial(model.points[i].sceneId, scene, material);
+		};
+		for (var i = 0; i < model.lines.length ;i++){
+			SpaceService.setMaterial(model.lines[i].sceneId, scene, material);
+		};
+	};
+
 	return {
 		addMaterial: addMaterial,
 		addSection: addSection,
@@ -261,5 +270,6 @@ angular.module('IETFEM')
 		isInModel: isInModel,
 		getText: getText,
 		validModel: validModel,
+		setModelMaterial: setModelMaterial,
 	};
 });

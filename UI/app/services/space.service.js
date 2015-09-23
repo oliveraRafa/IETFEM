@@ -116,6 +116,20 @@ angular.module('IETFEM')
 		};
 		return id;
 	};
+
+	var getMaterial = function(id, scene) {
+		return getScenePointById(id, scene).material;
+	};
+
+	var setMaterial = function(id, scene, material) {
+		getScenePointById(id, scene).material = material;
+	};
+
+	var movePoint = function(id, scene, x, y, z) {
+		getScenePointById(id, scene).position.x = x;
+		getScenePointById(id, scene).position.y = z;
+		getScenePointById(id, scene).position.z = y;
+	};
 	
 	return {
 		drawLine: drawLine,
@@ -124,6 +138,9 @@ angular.module('IETFEM')
 		getSceneLineById:getSceneLineById,
 		getScenePointById: getScenePointById,
 		getScenePointIdByCoords: getScenePointIdByCoords,
+		getMaterial: getMaterial,
+		setMaterial: setMaterial,
+		movePoint: movePoint,
 	};
 
 });
