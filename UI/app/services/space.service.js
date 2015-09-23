@@ -2,7 +2,7 @@ angular.module('IETFEM')
 .factory('SpaceService', function() {
 
 	// Funciones internas
-		var	cylinderMesh = function( point1, point2, material, width){
+	var	cylinderMesh = function( point1, point2, material, width){
 
 		/* edge from X to Y */
 		var direction = new THREE.Vector3().subVectors( point2, point1 );
@@ -29,6 +29,28 @@ angular.module('IETFEM')
 		edge.applyMatrix(orientation)
 		edge.applyMatrix( new THREE.Matrix4().makeTranslation((point1.x + point2.x)/2,(point1.y + point2.y)/2,(point1.z + point2.z)/2) );
 		return edge;
+	};
+
+	var	rotateCylinder = function( point1, point2, material, width){
+
+		var direction = new THREE.Vector3().subVectors( point2, point1 );
+		var orientation = new THREE.Matrix4();
+
+		orientation.lookAt(point1, point2, new THREE.Object3D().up);
+
+		var matrix4 = new THREE.Matrix4();
+		 matrix4.set(1,0,0,0,
+		 			0,0,1,0, 
+		 			0,-1,0,0,
+		 			0,0,0,1);
+		 orientation.multiply(matrix4);
+
+		var edgeGeometry = new THREE.CylinderGeometry( width, width, direction.length(), 8, 1);
+
+		return {
+				geometry: edgeGeometry, 
+				orientation: orientation
+			};
 	};
 	//--- Fin internas
 	
@@ -130,6 +152,23 @@ angular.module('IETFEM')
 		getScenePointById(id, scene).position.y = z;
 		getScenePointById(id, scene).position.z = y;
 	};
+
+	var moveLine = function(id, scene, x1, y1, z1, x2, y2, z2) {
+
+		var material = getMaterial(id, scene);
+		var rotated = cylinderMesh(new THREE.Vector3(x1, z1, y1), new THREE.Vector3(x2, z2, y2), material, 0.05);
+		
+		scene.add(rotated);
+
+		for (var i = 0; i < scene.children.length ;i++){
+			if (scene.children[i] instanceof THREE.Mesh && scene.children[i].id == id)
+				scene.remove(scene.children[i]);
+		};
+
+		return scene.children[scene.children.length-1].id;
+
+		//drawLine(x1, y1, z1, x2, y2, z2, material, 0.05, scene,[])
+	};
 	
 	return {
 		drawLine: drawLine,
@@ -141,6 +180,7 @@ angular.module('IETFEM')
 		getMaterial: getMaterial,
 		setMaterial: setMaterial,
 		movePoint: movePoint,
+		moveLine: moveLine,
 	};
 
 });

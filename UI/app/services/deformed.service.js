@@ -85,22 +85,25 @@ angular.module('IETFEM')
 		//var material = SpaceService.getMaterial(deformed.points[0].sceneId, scene, scaleFactor) || null;
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 		for (var i = 0; i < deformed.points.length ;i++){
-			deformed.points[i].sceneId
 
 			var x = parseFloat(deformed.points[i].coords.x) + parseFloat(deformed.points[i].displacements.x)*parseFloat(scaleFactor);
 			var y = parseFloat(deformed.points[i].coords.y) + parseFloat(deformed.points[i].displacements.y)*parseFloat(scaleFactor);
 			var z = parseFloat(deformed.points[i].coords.z) + parseFloat(deformed.points[i].displacements.z)*parseFloat(scaleFactor);
 
 			SpaceService.movePoint(deformed.points[i].sceneId, scene, x, y, z);
-			//deformed.points[i].sceneId = SpaceService.drawPoint(deformed.points[i].coords.x+deformed.points[i].displacements.x*scaleFactor,
-															   //deformed.points[i].coords.y+deformed.points[i].displacements.y*scaleFactor,
-															   //deformed.points[i].coords.z+deformed.points[i].displacements.z*scaleFactor,
-															   //scene, [], material, model.helpObjects);
-
 		};
 		for (var i = 0; i < deformed.lines.length ;i++){
-			//SpaceService.removeFromScene(deformed.lines[i].sceneId, scene);
 
+			var start = getDeformedPointById(deformed.lines[i].start, deformed);
+			var end = getDeformedPointById(deformed.lines[i].end, deformed);
+			var x1 = parseFloat(start.coords.x) + parseFloat(start.displacements.x)*parseFloat(scaleFactor);
+			var y1 = parseFloat(start.coords.y) + parseFloat(start.displacements.y)*parseFloat(scaleFactor);
+			var z1 = parseFloat(start.coords.z) + parseFloat(start.displacements.z)*parseFloat(scaleFactor);
+			var x2 = parseFloat(end.coords.x) + parseFloat(end.displacements.x)*parseFloat(scaleFactor);
+			var y2 = parseFloat(end.coords.y) + parseFloat(end.displacements.y)*parseFloat(scaleFactor);
+			var z2 = parseFloat(end.coords.z) + parseFloat(end.displacements.z)*parseFloat(scaleFactor);
+
+			deformed.lines[i].sceneId = SpaceService.moveLine(deformed.lines[i].sceneId, scene, x1, y1, z1, x2, y2, z2);
 		};
 	};
 
