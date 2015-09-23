@@ -255,6 +255,32 @@ angular.module('IETFEM')
 		};
 	};
 
+	var setModelOpaque = function(scene, model){
+		if (model.points.length > 0){
+			var material = SpaceService.getMaterial(model.points[0].sceneId, scene);
+			material = new THREE.MeshBasicMaterial( {color: material.color} );
+			for (var i = 0; i < model.points.length ;i++){
+				SpaceService.setMaterial(model.points[i].sceneId, scene, material);
+			};
+			for (var i = 0; i < model.lines.length ;i++){
+				SpaceService.setMaterial(model.lines[i].sceneId, scene, material);
+			};
+		};	
+	};
+
+	var setModelTransparent = function(scene, model){
+		if (model.points.length > 0){
+			var material = SpaceService.getMaterial(model.points[0].sceneId, scene);
+			material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0.15} );
+			for (var i = 0; i < model.points.length ;i++){
+				SpaceService.setMaterial(model.points[i].sceneId, scene, material);
+			};
+			for (var i = 0; i < model.lines.length ;i++){
+				SpaceService.setMaterial(model.lines[i].sceneId, scene, material);
+			};
+		};	
+	};
+
 	return {
 		addMaterial: addMaterial,
 		addSection: addSection,
@@ -271,5 +297,7 @@ angular.module('IETFEM')
 		getText: getText,
 		validModel: validModel,
 		setModelMaterial: setModelMaterial,
+		setModelTransparent: setModelTransparent,
+		setModelOpaque: setModelOpaque,
 	};
 });

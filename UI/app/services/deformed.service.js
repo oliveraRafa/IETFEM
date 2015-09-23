@@ -73,6 +73,32 @@ angular.module('IETFEM')
 	};
 
 	var setDeformedMaterial = function(scene, deformed, material){
+		if (deformed.points.length > 0){
+			for (var i = 0; i < deformed.points.length ;i++){
+				SpaceService.setMaterial(deformed.points[i].sceneId, scene, material);
+			};
+			for (var i = 0; i < deformed.lines.length ;i++){
+				SpaceService.setMaterial(deformed.lines[i].sceneId, scene, material);
+			};
+		};
+	};
+
+	var setDeformedOpaque = function(scene, deformed){
+		if (deformed.points.length > 0){
+			var material = SpaceService.getMaterial(deformed.points[0].sceneId, scene);
+			material = new THREE.MeshBasicMaterial( {color: material.color} );
+			for (var i = 0; i < deformed.points.length ;i++){
+				SpaceService.setMaterial(deformed.points[i].sceneId, scene, material);
+			};
+			for (var i = 0; i < deformed.lines.length ;i++){
+				SpaceService.setMaterial(deformed.lines[i].sceneId, scene, material);
+			};
+		};
+	};
+
+	var setDeformedTransparent = function(scene, deformed){
+		var material = SpaceService.getMaterial(deformed.points[0].sceneId, scene);
+		material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0.15} );
 		for (var i = 0; i < deformed.points.length ;i++){
 			SpaceService.setMaterial(deformed.points[i].sceneId, scene, material);
 		};
@@ -113,6 +139,8 @@ angular.module('IETFEM')
 		addPointToDeformed: addPointToDeformed,
 		addLineToDeformed: addLineToDeformed,
 		setDeformedMaterial: setDeformedMaterial,
+		setDeformedTransparent: setDeformedTransparent,
+		setDeformedOpaque: setDeformedOpaque,
 		scaleDeformed: scaleDeformed,
 	};
 })

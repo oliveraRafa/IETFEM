@@ -3,11 +3,11 @@ var app = angular.module('IETFEM');
 	
 	$scope.$watch('structureView', function() {
 	    if ($scope.structureView === 'normal'){
-	    	ModelService.setModelMaterial($scope.scene, $scope.model, new THREE.MeshBasicMaterial( {color: 0x000000} ));
-	    	DeformedService.setDeformedMaterial($scope.scene, $scope.deformed, new THREE.MeshBasicMaterial({color: 0x29088A, transparent: true, opacity: 0.15}));
+	    	ModelService.setModelOpaque($scope.scene, $scope.model);
+	    	DeformedService.setDeformedTransparent($scope.scene, $scope.deformed);
 	    } else {
-	    	ModelService.setModelMaterial($scope.scene, $scope.model, new THREE.MeshBasicMaterial( {color: 0x000000, transparent: true, opacity: 0.15} ));
-	    	DeformedService.setDeformedMaterial($scope.scene, $scope.deformed, new THREE.MeshBasicMaterial({color: 0x29088A}));
+	    	ModelService.setModelTransparent($scope.scene, $scope.model);
+	    	DeformedService.setDeformedOpaque($scope.scene, $scope.deformed);
 	    }
 	    $scope.render();
 	});	
