@@ -94,7 +94,7 @@ angular.module('IETFEM')
 	};
 	
 	//Agrega una línea al modelo
-	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,model) {		
+	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,modelm) {		
 		var line = {};
 		line.id = newLineIdentifier(model);
 		line.sceneId= lineSceneId;
@@ -105,6 +105,48 @@ angular.module('IETFEM')
 		
 		model.lines.push(line);
 	};
+
+	var createGridInfo = function(modelGrids){
+		//Obtengo el id del nuevo grid (max+1)
+		var miGridId=0;
+		for (var i = 0; i < modelGrids.length ;i++){
+			if(modelGrids[i].gridId >= miGridId){
+				miGridId=modelGrids[i].gridId;
+			}
+		}
+		miGridId++;
+
+		var gridInfo={};
+		gridInfo.gridId=miGridId;
+		gridInfo.viewStatus=true;
+		gridInfo.objects= [];
+
+		modelGrids.push(gridInfo);
+		return gridInfo;
+	};
+
+		//Agrega un punto al modelo de las grillas
+	var addGridPointToModel = function(pX,pY,pZ, sceneId, gridInfo) {
+		var point = {};
+		point.sceneId = sceneId;
+		point.coords = {
+			x: pX,
+			y: pY,
+			z: pZ
+		}
+
+		gridInfo.objects.push(point);
+		
+	};
+
+	//Agrega una línea al modelo
+	var addGridLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,gridInfo) {		
+		var line = {};
+		line.sceneId= lineSceneId;
+
+		gridInfo.objects.push(line);
+	};
+
 
 	var removeLineFromModel = function(lineId,model){
 		var index=null;
@@ -299,5 +341,9 @@ angular.module('IETFEM')
 		setModelMaterial: setModelMaterial,
 		setModelTransparent: setModelTransparent,
 		setModelOpaque: setModelOpaque,
+		addGridLineToModel: addGridLineToModel,
+		addGridPointToModel: addGridPointToModel,
+		createGridInfo: createGridInfo
+
 	};
 }]);

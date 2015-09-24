@@ -222,15 +222,17 @@ app.controller(
 
 				//-------------------------------------------------------------------------------------------------------
 
-				var intersects = ray.intersectObjects( $scope.model.helpObjects );
+				var intersects = ray.intersectObjects( $scope.spaceAux.helpObjects.grilla );
 				if ( intersects.length > 0 ) {
 					
 					if (!leftMenuService.getAddingLines() && leftMenuService.getAddingNodes()){
 						//Agrego el punto
 						if(!$scope.yaExistePuntoCoords(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z)){
-							intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
-							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, intersects[0].object.id, $scope.model);
-							puntosEscena.push(intersects[0].object);	
+							/*
+							intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} ); ya no es necesario*/
+							var newNodeId=SpaceService.drawPoint(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, $scope.scene, puntosEscena, new THREE.LineBasicMaterial({color: 0x000000}) , $scope.spaceAux.helpObjects.grilla);
+							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, newNodeId, $scope.model);
+							/*puntosEscena.push(intersects[0].object);	ya no es necesario creamos un nuevo nodo*/
 						}
 					} else if(leftMenuService.getAddingLines() && !leftMenuService.getAddingNodes()){
 						if (ModelService.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z, $scope.model)){
@@ -264,27 +266,33 @@ app.controller(
 			//Agrega una grilla
 			$scope.addGrid = function() {
 				
+				var miGridInfo=ModelService.createGridInfo($scope.model.helpObjects.grillas);
 				var line, geometry, i, j;
 
 				var material = new THREE.LineBasicMaterial({color: 0xFF0000, transparent: true, opacity: 0.15});
 				
 				for (i=0; i < $scope.largoY * $scope.separatorY ; i = i + $scope.separatorY){
 					for (j=0; j < $scope.largoX * $scope.separatorX; j = j + $scope.separatorX){
-						SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, $scope.scene,null)
+						var sceneIdGridLine=SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, $scope.scene,null);
+						ModelService.addGridLineToModel($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, sceneIdGridLine,miGridInfo);
 					}
 					for (j=0; j < $scope.largoZ * $scope.separatorZ; j = j + $scope.separatorZ){
-						SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null)
+						var sceneIdGridLine=SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null);
+						ModelService.addGridLineToModel($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, sceneIdGridLine,miGridInfo);
 						for (k=0; k < $scope.largoX * $scope.separatorX; k = k + $scope.separatorX){
 							var sphereGeometry = new THREE.SphereGeometry(  0.1, 10, 10  );
 							var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xFF0000, transparent: true, opacity: 0.15} );
 							var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
-							sphere.position.x = $scope.posX+k
-							sphere.position.y = $scope.posY+i
-							sphere.position.z = $scope.posZ+j
+							sphere.position.x = $scope.posX+k;
+							sphere.position.y = $scope.posY+i;
+							sphere.position.z = $scope.posZ+j;
 							$scope.scene.add(sphere);
-							$scope.model.helpObjects.push(sphere);
+
+							ModelService.addGridPointToModel($scope.posX+k,$scope.posY+i,$scope.posZ+j, sphere.id, miGridInfo);
+							$scope.spaceAux.helpObjects.grilla.push(sphere);
 							if (i > 0){
-								SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null)
+								var sceneIdGridLine= SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null);
+								ModelService.addGridLineToModel($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, sceneIdGridLine,miGridInfo);
 							}
 						}
 					}
@@ -302,6 +310,8 @@ app.controller(
 				$scope.separatorY=undefined;
 				$scope.largoZ=undefined;
 				$scope.separatorZ=undefined;
+
+				$scope.model.helpObjects.idLastGrilla++;
 			
 			};
 			
@@ -309,7 +319,7 @@ app.controller(
 			$scope.addPoint = function(){
 				var material= new THREE.MeshBasicMaterial( {color: 0x000000} );
 				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, $scope.scene)==0){// Se podria usar una funcion mas performante
-					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, material, $scope.model.helpObjects);
+					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, material, $scope.spaceAux.helpObjects.grilla);
 					
 					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
 					render();
@@ -443,7 +453,9 @@ app.controller(
 						var pointX = parseFloat(point.coords.x) + displacementX
 						var pointY = parseFloat(point.coords.y) + displacementY
 						var pointZ = parseFloat(point.coords.z) + displacementZ
-						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, [], material, $scope.model.helpObjects);
+
+						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, puntosEscena, material, $scope.spaceAux.helpObjects.grilla);
+
 						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
 					}
 
@@ -504,7 +516,7 @@ app.controller(
 					}
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, material, $scope.model.helpObjects);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, material, $scope.spaceAux.helpObjects.grilla);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
 					}
 					
@@ -570,7 +582,7 @@ app.controller(
 				$scope.model.lines = [];
 				$scope.model.materiales = [];
 				$scope.model.secciones= [];
-				$scope.model.helpObjects = [];
+				$scope.spaceAux.helpObjects.grilla = [];
 				$scope.model.transparent= false;
 
 				$scope.deformed = {};
@@ -653,12 +665,17 @@ app.controller(
 			var idFirstPoint = 0;
 			var puntosEscena = [];
 			var lineasEscena = [];
-			$scope.model = {};
+			$scope.model = {helpObjects: {}};
 			$scope.model.points = [];
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
-			$scope.model.secciones= [];			
-			$scope.model.helpObjects= [];	
+			$scope.model.secciones= [];						
+			$scope.model.transparent= false;
+
+			$scope.model.helpObjects.grillas=[];//Conjunto de infoGrid tienen info+ array de objetos del modelo
+
+			$scope.spaceAux={helpObjects: {}};
+			$scope.spaceAux.helpObjects.grilla= [];
 
 			$scope.deformed = {};
 			$scope.deformed.points = [];
@@ -666,7 +683,7 @@ app.controller(
 
 			$scope.programMode = 'CROSSLINK_INPUT';
 
-			$scope.render=render;
+			$scope.render=render;//Para re renderizar desde otros lugares
 
 			ModelService.addMaterial("Hormigon",1,1,1,1,$scope.model);
 			ModelService.addMaterial("Metal",0,0,0,0,$scope.model);

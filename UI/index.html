@@ -6,8 +6,10 @@
 		<!--<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-toggle.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		
 	</head>
 
 	<body ng-app="IETFEM">
@@ -353,10 +355,10 @@
 						<br/>
 						<br/>
 						<br/>
-						<div class="btn-group-vertical" role="group" ng-if="programMode==='CROSSLINK_OUTPUT'">
+						<div class="btn-group-vertical" role="group" ng-show="programMode==='CROSSLINK_OUTPUT'">
 							<button class="btn btn-default btn-lg botonMenuIzq" data-placement="right" disabled><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></button>
 						</div>	
-						<div class="btn-group-vertical" role="group" ng-if="programMode==='CROSSLINK_INPUT'">
+						<div class="btn-group-vertical" role="group" ng-show="programMode==='CROSSLINK_INPUT'">
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="seleccionar()" ng-class="{active: seleccionando()}" data-toggle="tooltip" data-placement="right" title="Seleccionar"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span></button>
 
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarGrillas()" ng-class="{active: dibujandoGrillas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Grilla"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></button>
@@ -464,6 +466,23 @@
 						</div> 
 					</form>
 
+					<!--  Menu Opciones visualizacion grilla -->
+					<div class="collapse in" id="collapseViewOptions" ng-show="dibujandoGrillas()" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
+						<div class="row">	
+							<div class="col-md-11">	
+								<div class="panel panel-primary">
+									<div class="panel-heading">Opciones de vista</div>
+									<div class="panel-body">
+										<div ng-repeat="gridInfo in gridInfos">
+											<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
+										    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
+										    <label>Grilla numero {{ gridInfo.gridId }}<label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					
 					
 					<!-- <div class="row" ng-show="seleccionando()"> 
@@ -622,6 +641,8 @@
 						</div>
 					</div>
 
+					
+
 				</div>
 				
 			</div>
@@ -632,6 +653,7 @@
 		<script src="assets/lib/jquery-2.1.4.min.js"></script>
 		<script src="assets/lib/bootstrap.min.js"></script>
 		<script src="assets/lib/angular.min.js"></script>
+		<script src="assets/lib/bootstrap-toggle.min.js"></script>
 		<script src="assets/js/OrbitControls.js"></script>
 		
 		<script src="app/controllers/main.controller.js"></script>
@@ -641,6 +663,7 @@
 		<script src="app/controllers/editOutput.controller.js"></script>
 		<script src="app/controllers/materials.controller.js"></script>
 		<script src="app/controllers/seccions.controller.js"></script>
+		<script src="app/controllers/viewOptionsInput.controller.js"></script>
 		
 		<script src="app/services/model.service.js"></script>
 		<script src="app/services/deformed.service.js"></script>
@@ -649,6 +672,7 @@
 		<script src="app/services/ptoSelec.service.js"></script>
 		<script src="app/services/lineSelec.service.js"></script>
 		<script src="app/services/defaults.service.js"></script>
+		
 		
 	</body>
 </html>

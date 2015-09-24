@@ -139,6 +139,7 @@ angular.module('IETFEM')
 		return id;
 	};
 
+
 	var getMaterial = function(id, scene) {
 		return getScenePointById(id, scene).material;
 	};
@@ -168,6 +169,13 @@ angular.module('IETFEM')
 		return scene.children[scene.children.length-1].id;
 
 		//drawLine(x1, y1, z1, x2, y2, z2, material, 0.05, scene,[])
+
+	var hideShowObject =  function(id,visible,scene){
+		var obj= scene.getObjectById( id, true );
+		if(obj != null){
+			obj.visible=visible;
+		}
+
 	};
 	
 	return {
@@ -181,6 +189,7 @@ angular.module('IETFEM')
 		setMaterial: setMaterial,
 		movePoint: movePoint,
 		moveLine: moveLine,
+		hideShowObject: hideShowObject
 	};
 
 });
