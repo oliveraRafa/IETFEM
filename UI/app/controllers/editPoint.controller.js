@@ -47,11 +47,13 @@ var app = angular.module('IETFEM');
 				var sceneObject =$scope.scene.getObjectById(lineToRemove.sceneId);
 				
 				ModelService.removeLineFromModel(lineToRemove.id,$scope.model);
+				ModelService.removeObjFromArray(lineToRemove.sceneId,$scope.spaceAux.sceneLines);
 				$scope.scene.remove(sceneObject);
 			}
 
 			PtoSelecService.resetPuntoSeleccionado();
 			ModelService.removePointFromModel(nodeToRemove.id,$scope.model);
+			ModelService.removeObjFromArray(nodeToRemove.sceneId,$scope.spaceAux.scenePoints);
 			$scope.scene.remove(sceneObjectFirst);
 			$scope.render();
 

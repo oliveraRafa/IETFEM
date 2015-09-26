@@ -94,7 +94,7 @@ angular.module('IETFEM')
 	};
 	
 	//Agrega una línea al modelo
-	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,modelm) {		
+	var addLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,model) {		
 		var line = {};
 		line.id = newLineIdentifier(model);
 		line.sceneId= lineSceneId;
@@ -158,6 +158,20 @@ angular.module('IETFEM')
 		}
 		if(index != null){
 			model.lines.splice(index,1);
+		}
+	};
+
+	// Para eliminar objetos de las estructuras auxiliares x sceneId (en realidad los objetos son de la scene Three)
+	var removeObjFromArray = function(sceneId,aux){
+		var index=null;
+		for (var i = 0; i < aux.length ;i++){
+			if(aux[i].id== sceneId){
+				index=i;
+				break;
+			}
+		}
+		if(index != null){
+			aux.splice(index,1);
 		}
 	};
 
@@ -332,6 +346,7 @@ angular.module('IETFEM')
 		getLineBySceneId: getLineBySceneId,
 		getPointIdByCoords: getPointIdByCoords,
 		removeLineFromModel: removeLineFromModel,
+		removeObjFromArray: removeObjFromArray,
 		removePointFromModel: removePointFromModel,
 		addPointToModel: addPointToModel,
 		addLineToModel: addLineToModel,

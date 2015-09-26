@@ -170,6 +170,7 @@ angular.module('IETFEM')
 
 		//drawLine(x1, y1, z1, x2, y2, z2, material, 0.05, scene,[])
 
+	};
 	var hideShowObject =  function(id,visible,scene){
 		var obj= scene.getObjectById( id, true );
 		if(obj != null){

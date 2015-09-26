@@ -53,14 +53,17 @@ app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService','Defa
 		};	
 
 		this.deleteLine = function(){
+			console.log($scope.scene);
 			var lineToRemove= LineaSelecService.getLinea();
 			var sceneObject =$scope.scene.getObjectById(lineToRemove.sceneId);
 			
 			ModelService.removeLineFromModel(lineToRemove.id,$scope.model);
+			ModelService.removeObjFromArray(lineToRemove.sceneId,$scope.spaceAux.sceneLines);
 			LineaSelecService.resetLineaSeleccionada();
 			$scope.scene.remove(sceneObject);
 
 			$scope.render();
+			console.log($scope.scene);
 		};
 
 	}]);

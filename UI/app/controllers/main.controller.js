@@ -177,7 +177,7 @@ app.controller(
 
 				//FUNCION OBTENGO punto seleccionado
 				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
-					var pointIntersection = ray.intersectObjects(puntosEscena);
+					var pointIntersection = ray.intersectObjects($scope.spaceAux.scenePoints);
 					var puntoModeloSelec;
 					if(pointIntersection.length > 0){
 						puntoModeloSelec=ModelService.getPointBySceneId(pointIntersection[0].object.id,$scope.model);
@@ -200,7 +200,7 @@ app.controller(
 
 				//FUNCION OBTENGO linea seleccionada
 				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
-					var lineIntersection = ray.intersectObjects(lineasEscena);
+					var lineIntersection = ray.intersectObjects($scope.spaceAux.sceneLines);
 					var lineaModeloSelec;
 					if(lineIntersection.length >0){
 						lineaModeloSelec=ModelService.getLineBySceneId(lineIntersection[0].object.id,$scope.model);
@@ -230,7 +230,7 @@ app.controller(
 						if(!$scope.yaExistePuntoCoords(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z)){
 							/*
 							intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} ); ya no es necesario*/
-							var newNodeId=SpaceService.drawPoint(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, $scope.scene, puntosEscena, new THREE.LineBasicMaterial({color: 0x000000}) , $scope.spaceAux.helpObjects.grilla);
+							var newNodeId=SpaceService.drawPoint(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, $scope.scene, $scope.spaceAux.scenePoints, new THREE.LineBasicMaterial({color: 0x000000}) , $scope.spaceAux.helpObjects.grilla);
 							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, newNodeId, $scope.model);
 							/*puntosEscena.push(intersects[0].object);	ya no es necesario creamos un nuevo nodo*/
 						}
@@ -246,7 +246,7 @@ app.controller(
 								intersects[0].object.geometry = new THREE.SphereGeometry( 0.15, 10, 10 );
 								
 							} else {
-								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.035, $scope.scene,lineasEscena);
+								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.035, $scope.scene,$scope.spaceAux.sceneLines);
 								ModelService.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, lineSceneId,$scope.model);
 								SpaceService.getScenePointById(idFirstPoint, $scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 								SpaceService.getScenePointById(idFirstPoint, $scope.scene).geometry = new THREE.SphereGeometry( 0.1, 10, 10 );
@@ -319,7 +319,7 @@ app.controller(
 			$scope.addPoint = function(){
 				var material= new THREE.MeshBasicMaterial( {color: 0x000000} );
 				if(SpaceService.getScenePointIdByCoords($scope.posX, $scope.posY, $scope.posZ, $scope.scene)==0){// Se podria usar una funcion mas performante
-					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, puntosEscena, material, $scope.spaceAux.helpObjects.grilla);
+					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
 					
 					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
 					render();
@@ -425,7 +425,7 @@ app.controller(
 					//}
 
 					var displacementMatrix = [];
-					var beginDisplacementMatrix = text.search("u_z")+4;
+					var beginDisplacementMatrix = text.search("u_z")+5;
 					var endDisplacementeMatrix = text.search("Parametros en barras")-3;
 					var temp = text.slice(beginDisplacementMatrix, endDisplacementeMatrix).split("\n");
 
@@ -435,7 +435,7 @@ app.controller(
 					}
 
 					var forcesMatrix = [];
-					var beginForcesMatrix = text.search("Tension")+8;
+					var beginForcesMatrix = text.search("Tension")+9;
 					var endForcesMatrix = text.length;
 					temp = text.slice(beginForcesMatrix, endForcesMatrix).split("\n");
 					for (i = 0; i < temp.length; i++) { 
@@ -454,7 +454,7 @@ app.controller(
 						var pointY = parseFloat(point.coords.y) + displacementY
 						var pointZ = parseFloat(point.coords.z) + displacementZ
 
-						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, puntosEscena, material, $scope.spaceAux.helpObjects.grilla);
+						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
 
 						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
 					}
@@ -483,7 +483,7 @@ app.controller(
 
 					render();
 				};
-
+				outputReader.readAsText($scope.theFile);
 
 			}
 
@@ -516,7 +516,7 @@ app.controller(
 					}
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, puntosEscena, material, $scope.spaceAux.helpObjects.grilla);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
 					}
 					
@@ -529,7 +529,7 @@ app.controller(
 						var b2 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][2]);
 						var b3 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][1]);
 						
-						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, $scope.scene,lineasEscena);
+						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, $scope.scene,$scope.spaceAux.sceneLines);
 						
 						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3,sceneId, $scope.model);
 					}
@@ -575,15 +575,18 @@ app.controller(
 
 				var firstPointLine = null;
 				var idFirstPoint = 0;
-				var puntosEscena = [];
-				var lineasEscena = [];
-				$scope.model = {};
+				
+				$scope.model = {helpObjects: {}};
 				$scope.model.points = [];
 				$scope.model.lines = [];
 				$scope.model.materiales = [];
 				$scope.model.secciones= [];
-				$scope.spaceAux.helpObjects.grilla = [];
 				$scope.model.transparent= false;
+
+				$scope.spaceAux={helpObjects: {}};
+				$scope.spaceAux.helpObjects.grilla = [];
+				$scope.spaceAux.scenePoints = [];
+				$scope.spaceAux.sceneLines = [];
 
 				$scope.deformed = {};
 				$scope.deformed.points = [];
@@ -625,7 +628,7 @@ app.controller(
 					var text = reader.result;
 					$scope.model = angular.fromJson(text);
 					
-					SpaceService.drawModel($scope.scene,$scope.model, puntosEscena, lineasEscena);
+					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines);
 
 					render();
 
@@ -663,8 +666,7 @@ app.controller(
 			
 			var firstPointLine = null;
 			var idFirstPoint = 0;
-			var puntosEscena = [];
-			var lineasEscena = [];
+
 			$scope.model = {helpObjects: {}};
 			$scope.model.points = [];
 			$scope.model.lines = [];
@@ -676,6 +678,8 @@ app.controller(
 
 			$scope.spaceAux={helpObjects: {}};
 			$scope.spaceAux.helpObjects.grilla= [];
+			$scope.spaceAux.scenePoints = [];
+			$scope.spaceAux.sceneLines = [];
 
 			$scope.deformed = {};
 			$scope.deformed.points = [];
