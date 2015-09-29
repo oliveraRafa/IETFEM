@@ -1,6 +1,30 @@
 angular.module('IETFEM')
 .factory('SpaceService', function() {
 
+	var colorRange = [
+		{index:-10, color:0x3B0B0B},
+		{index:-9, color:0x610B0B},
+		{index:-8, color:0x8A0808},
+		{index:-7, color:0xB40404},
+		{index:-6, color:0xDF0101},
+		{index:-5, color:0xFF0000},
+		{index:-4, color:0xFE2E2E},
+		{index:-3, color:0xFA5858},
+		{index:-2, color:0xF78181},
+		{index:-1, color:0xF5A9A9},
+		{index:0, color:0xFFFFFF},
+		{index:1, color:0xA9BCF5},
+		{index:2, color:0x819FF7},
+		{index:3, color:0x5882FA},
+		{index:4, color:0x2E64FE},
+		{index:5, color:0x0040FF},
+		{index:6, color:0x013ADF},
+		{index:7, color:0x0431B4},
+		{index:8, color:0x08298A},
+		{index:9, color:0x0B2161},
+		{index:10, color:0x0B173B},
+	]
+
 	// Funciones internas
 	var	cylinderMesh = function( point1, point2, material, width){
 
@@ -183,6 +207,13 @@ angular.module('IETFEM')
 		var obj= scene.getObjectById( id, true );
 		scene.remove(obj);
 	};
+
+	var getColor = function(index){
+		for (var i = 0; i < colorRange.length ;i++){
+			if (colorRange[i].index === index)
+				return colorRange[i].color;
+		};
+	}
 	
 	return {
 		drawLine: drawLine,
@@ -196,7 +227,8 @@ angular.module('IETFEM')
 		movePoint: movePoint,
 		moveLine: moveLine,
 		hideShowObject: hideShowObject,
-		removeObjectById: removeObjectById
+		removeObjectById: removeObjectById,
+		getColor: getColor
 	};
 
 });

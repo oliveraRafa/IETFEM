@@ -507,7 +507,7 @@ app.controller(
 						row = temp[i].split("\t")
 						forcesMatrix.push(row);
 					}
-				
+					
 					for (i = 0; i < displacementMatrix.length; i++) {
 						var point = ModelService.getPointById(i+1, $scope.model);
 
@@ -538,12 +538,17 @@ app.controller(
 						var b3 = parseFloat(point2.coords.y) + parseFloat(point2.displacements.y);
 						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,[]);
 
-						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, forcesMatrix[0], forcesMatrix[1], forcesMatrix[2],$scope.deformed);
+						var deformation = parseFloat(forcesMatrix[i][0].split("E")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][0].split("E")[1])); 
+						var force = parseFloat(forcesMatrix[i][1].split("E")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][1].split("E")[1])); 
+						var tension = parseFloat(forcesMatrix[i][2].split("E")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][2].split("E")[1])); 
+
+						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, deformation, force, tension,$scope.deformed);
 					}
 					
 					$scope.programMode = 'CROSSLINK_OUTPUT';
 					$scope.structureView = 'normal';
 					$scope.scaleStructure = 1
+					$scope.structureColors = 'normal';
 
 					$('#processOutputModal').modal('hide');
 					

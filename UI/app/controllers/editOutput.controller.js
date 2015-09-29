@@ -17,5 +17,10 @@ var app = angular.module('IETFEM');
 	    $scope.render();
 	});	
 
+	$scope.$watch('structureColors', function() {
+	    DeformedService.colorizeDeformed($scope.scene, $scope.deformed, $scope.structureColors, $scope.structureView === 'normal');
+	    $scope.render();
+	});	
+
 
 	}]);
