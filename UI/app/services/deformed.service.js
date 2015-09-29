@@ -113,8 +113,8 @@ angular.module('IETFEM')
 		for (var i = 0; i < deformed.points.length ;i++){
 
 			var x = parseFloat(deformed.points[i].coords.x) + parseFloat(deformed.points[i].displacements.x)*parseFloat(scaleFactor);
-			var y = parseFloat(deformed.points[i].coords.y) + parseFloat(deformed.points[i].displacements.y)*parseFloat(scaleFactor);
-			var z = parseFloat(deformed.points[i].coords.z) + parseFloat(deformed.points[i].displacements.z)*parseFloat(scaleFactor);
+			var y = parseFloat(deformed.points[i].coords.y) + parseFloat(deformed.points[i].displacements.z)*parseFloat(scaleFactor);
+			var z = parseFloat(deformed.points[i].coords.z) + parseFloat(deformed.points[i].displacements.y)*parseFloat(scaleFactor);
 
 			SpaceService.movePoint(deformed.points[i].sceneId, scene, x, y, z);
 		};
@@ -123,110 +123,16 @@ angular.module('IETFEM')
 			var start = getDeformedPointById(deformed.lines[i].start, deformed);
 			var end = getDeformedPointById(deformed.lines[i].end, deformed);
 			var x1 = parseFloat(start.coords.x) + parseFloat(start.displacements.x)*parseFloat(scaleFactor);
-			var y1 = parseFloat(start.coords.y) + parseFloat(start.displacements.y)*parseFloat(scaleFactor);
-			var z1 = parseFloat(start.coords.z) + parseFloat(start.displacements.z)*parseFloat(scaleFactor);
+			var y1 = parseFloat(start.coords.y) + parseFloat(start.displacements.z)*parseFloat(scaleFactor);
+			var z1 = parseFloat(start.coords.z) + parseFloat(start.displacements.y)*parseFloat(scaleFactor);
 			var x2 = parseFloat(end.coords.x) + parseFloat(end.displacements.x)*parseFloat(scaleFactor);
-			var y2 = parseFloat(end.coords.y) + parseFloat(end.displacements.y)*parseFloat(scaleFactor);
-			var z2 = parseFloat(end.coords.z) + parseFloat(end.displacements.z)*parseFloat(scaleFactor);
+			var y2 = parseFloat(end.coords.y) + parseFloat(end.displacements.z)*parseFloat(scaleFactor);
+			var z2 = parseFloat(end.coords.z) + parseFloat(end.displacements.y)*parseFloat(scaleFactor);
 
 			deformed.lines[i].sceneId = SpaceService.moveLine(deformed.lines[i].sceneId, scene, x1, y1, z1, x2, y2, z2);
 		};
 	};
-
-	var colorizeDeformed = function(scene, deformed, type, transparent){
-
-		var color, index, max, min;
-		var maxs = {};
-		var mins = {};
-
-		max = 0;
-		min = 9999;
-		if (type != 'normal'){
-			for (var i = 0; i < deformed.lines.length ;i++){
-				switch(type){
-					case "deformation":
-						if (deformed.lines[i].deformation > max)
-							max = deformed.lines[i].deformation;
-						if (deformed.lines[i].deformation < min)
-							min = deformed.lines[i].deformation;
-						break;
-					case "force":
-						if (deformed.lines[i].force > max)
-							max = deformed.lines[i].force;
-						if (deformed.lines[i].force > min)
-							min = deformed.lines[i].force;
-						break;
-					case "tension":
-						if (deformed.lines[i].tension > max)
-							max = deformed.lines[i].tension;
-						if (deformed.lines[i].tension > min)
-							min = deformed.lines[i].tension;
-						break;		
-				}			
-			};
-		};
-
-		for (var i = 0; i < deformed.lines.length ;i++){
-				switch(type){
-					case "normal":
-						color = 0x29088A;
-						break;
-					case "deformation":
-						index = 0;
-						if (deformed.lines[i].deformation > 0){
-							for (var j = 0; j <= max; j+=max/10){
-								if (deformed.lines[i].deformation > j)
-									index +=1
-							}
-						} else{
-							for (var j = 0; j >= min; j-=min/10){
-								if (deformed.lines[i].deformation < j)
-									index -=1
-							}
-						}
-						color = SpaceService.getColor(index);
-						break;
-					case "force":
-						index = 0;
-							if (deformed.lines[i].force > 0){
-								for (var j = 0; j <= max; j+=max/10){
-									if (deformed.lines[i].force > j)
-										index +=1
-								}
-							} else{
-								for (var j = 0; j >= min; j-=min/10){
-									if (deformed.lines[i].force < j)
-										index -=1
-								}
-							}
-							color = SpaceService.getColor(index);
-							break;
-					case "tension":
-						index = 0;
-							if (deformed.lines[i].tension > 0){
-								for (var j = 0; j <= max; j+=max/10){
-									if (deformed.lines[i].tension > j)
-										index +=1
-								}
-							} else{
-								for (var j = 0; j >= min; j-=min/10){
-									if (deformed.lines[i].tension < j)
-										index -=1
-								}
-							}
-							color = SpaceService.getColor(index);
-							break;
-				}
-				if (transparent){
-					var material = new THREE.MeshBasicMaterial( {color: color, transparent: true, opacity: 0.15} );
-				} else {
-					var material = new THREE.MeshBasicMaterial( {color: color} );
-				}
-
-				SpaceService.setMaterial(deformed.lines[i].sceneId, scene, material);
-		};
-			}
-
+	
 	return {
 		getDeformedPointById: getDeformedPointById,
 		getDeformedLineById: getDeformedLineById,
@@ -236,6 +142,5 @@ angular.module('IETFEM')
 		setDeformedTransparent: setDeformedTransparent,
 		setDeformedOpaque: setDeformedOpaque,
 		scaleDeformed: scaleDeformed,
-		colorizeDeformed: colorizeDeformed,
 	};
 })

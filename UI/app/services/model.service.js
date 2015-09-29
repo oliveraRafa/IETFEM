@@ -1,5 +1,5 @@
 angular.module('IETFEM')
-.factory('ModelService',['DefaultsService',function(DefaultsService) {
+.factory('ModelService',['DefaultsService', 'SpaceService',function(DefaultsService, SpaceService) {
 
 	// Funciones internas
 
@@ -340,6 +340,103 @@ angular.module('IETFEM')
 		};	
 	};
 
+	var colorizeModel = function(scene, model, deformed, type, transparent){
+
+		var color, index, max, min;
+		var maxs = {};
+		var mins = {};
+
+		max = 0;
+		min = 9999;
+		if (type != 'normal'){
+			for (var i = 0; i < model.lines.length ;i++){
+				switch(type){
+					case "deformation":
+						if (deformed.lines[i].deformation > max)
+							max = deformed.lines[i].deformation;
+						if (deformed.lines[i].deformation < min)
+							min = deformed.lines[i].deformation;
+						break;
+					case "force":
+						if (deformed.lines[i].force > max)
+							max = deformed.lines[i].force;
+						if (deformed.lines[i].force < min)
+							min = deformed.lines[i].force;
+						break;
+					case "tension":
+						if (deformed.lines[i].tension > max)
+							max = deformed.lines[i].tension;
+						if (deformed.lines[i].tension < min)
+							min = deformed.lines[i].tension;
+						break;		
+				}			
+			};
+		};
+
+		for (var i = 0; i < model.lines.length ;i++){
+				switch(type){
+					case "normal":
+						color = 0x000000;
+						break;
+					case "deformation":
+						index = 0;
+						if (deformed.lines[i].deformation > 0){
+							for (var j = 0; j <= max; j+=max/5){
+								if (deformed.lines[i].deformation > j)
+									index +=1
+							}
+						} else{
+							for (var j = 0; j <= -min; j+=-min/5){
+									if (-deformed.lines[i].deformation > j)
+										index +=1
+								}
+								index = -index;
+						}
+						color = SpaceService.getColor(index);
+						break;
+					case "force":
+						index = 0;
+							if (deformed.lines[i].force > 0){
+								for (var j = 0; j <= max; j+=max/5){
+									if (deformed.lines[i].force > j)
+										index +=1
+								}
+							} else{
+								for (var j = 0; j <= -min; j+=-min/5){
+									if (-deformed.lines[i].force > j)
+										index +=1
+								}
+								index = -index;
+							}
+							color = SpaceService.getColor(index);
+							break;
+					case "tension":
+						index = 0;
+							if (deformed.lines[i].tension > 0){
+								for (var j = 0; j <= max; j+=max/5){
+									if (deformed.lines[i].tension > j)
+										index +=1
+								}
+							} else{
+								for (var j = 0; j <= -min; j+=-min/5){
+									if (-deformed.lines[i].tension > j)
+										index +=1
+								}
+								index = -index;
+							}
+							color = SpaceService.getColor(index);
+							break;
+				}
+				if (transparent){
+					var material = new THREE.MeshBasicMaterial( {color: color, transparent: true, opacity: 0.15} );
+				} else {
+					var material = new THREE.MeshBasicMaterial( {color: color} );
+				}
+
+				SpaceService.setMaterial(model.lines[i].sceneId, scene, material);
+		};
+	};	
+
 	return {
 		addMaterial: addMaterial,
 		addSection: addSection,
@@ -361,7 +458,7 @@ angular.module('IETFEM')
 		setModelOpaque: setModelOpaque,
 		addGridLineToModel: addGridLineToModel,
 		addGridPointToModel: addGridPointToModel,
-		createGridInfo: createGridInfo
-
+		createGridInfo: createGridInfo,
+		colorizeModel: colorizeModel
 	};
 }]);
