@@ -89,6 +89,9 @@ angular.module('IETFEM')
 			y: pY,
 			z: pZ
 		};
+
+		point.forceArrowId=0;
+		
 		model.points.push(point);
 		}
 	};

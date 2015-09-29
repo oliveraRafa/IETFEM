@@ -178,6 +178,11 @@ angular.module('IETFEM')
 		}
 
 	};
+
+	var removeObjectById = function(id,scene){
+		var obj= scene.getObjectById( id, true );
+		scene.remove(obj);
+	};
 	
 	return {
 		drawLine: drawLine,
@@ -190,7 +195,8 @@ angular.module('IETFEM')
 		setMaterial: setMaterial,
 		movePoint: movePoint,
 		moveLine: moveLine,
-		hideShowObject: hideShowObject
+		hideShowObject: hideShowObject,
+		removeObjectById: removeObjectById
 	};
 
 });

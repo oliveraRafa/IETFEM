@@ -8,7 +8,8 @@ app.controller(
 		'leftMenuService',
 		'PtoSelecService',
 		'LineaSelecService',
-        function($scope, ModelService, DeformedService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService){
+		'$timeout',
+        function($scope, ModelService, DeformedService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService,$timeout){
 		
 			//--- splash-screen
 			setTimeout(function() {
@@ -65,6 +66,7 @@ app.controller(
 				window.addEventListener( 'mouseup', onMouseUp, false );
 				window.addEventListener( 'mousedown', onMouseDown, false );
 				window.addEventListener( 'keyup', onEscapeUp, false );
+				window.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				
 				//Agrego el origen
 				$scope.addParticle(0,0,0);
@@ -153,6 +155,60 @@ app.controller(
 			$scope.getInfoPuntoInterfaz = function() {
 				  $scope.puntoId = puntoSeleccionado.id;
 				  $scope.xCondicion =puntoSeleccionado.xCondicion;
+			}
+
+			//Efecto de resaltar al pasar por arriva
+			function onDocumentMouseMove(event){
+				if(true){//leftMenuService.getSelecting()){// Si esta en modo seleccion
+					viewportWidth=$("#viewportContainer").width();
+					viewportHeight=(window.innerHeight-53);
+					offsetIzq=$("#menuIzquierda").outerWidth(true);
+				
+								
+				 var vector = new THREE.Vector3( ( 
+					(event.clientX-offsetIzq) / viewportWidth) * 2 - 1, 
+					- ( (event.clientY-53) / (viewportHeight) ) * 2 + 1, 
+					0.5 
+				);
+
+				vector.unproject( camera );
+				var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+				var nodosBarrasEscena=$scope.spaceAux.scenePoints.concat($scope.spaceAux.sceneLines);
+
+				var intersection = ray.intersectObjects(nodosBarrasEscena);
+
+					if(intersection.length > 0){
+						idIntersected=intersection[0].object.id;
+						//Si no es el que ya esta resaltado| (nodo | barra seleccionado) | el primer punto al crear una linea
+						if(intersected != intersection[0].object && PtoSelecService.getPunto().sceneId != idIntersected 
+							&& LineaSelecService.getLinea().sceneId != idIntersected && idFirstPoint != idIntersected){ 
+							if(intersected != null){// Si tenia alguno lo paso a la normalidad
+								intersected.material=new THREE.MeshBasicMaterial( {color: 0x000000} );
+							}
+							intersected=intersection[0].object;
+							intersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x0084ca} );//Resalto
+						}
+					}else{// Si no esta intersectando ninguno desmarco el anterior
+						if(intersected !=null){
+							if(PtoSelecService.getPunto().sceneId != intersected.id
+								&& LineaSelecService.getLinea().sceneId != intersected.id && idFirstPoint != intersected.id){
+								
+								if(intersected != null){// Si tenia alguno que no este resaltado por seleccion lo paso a la normalidad
+									intersected.material=new THREE.MeshBasicMaterial( {color: 0x000000} );
+								}
+							}
+						}
+						intersected=null;
+					}
+
+				}else{
+					if(intersected != null){
+						intersected.material=new THREE.MeshBasicMaterial( {color: 0x000000} );
+					}else{
+						intersected= null;
+					}
+				}
+				render();
 			}  
 
 			//Cuando se levanta el click izquierdo
@@ -234,7 +290,12 @@ app.controller(
 							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, newNodeId, $scope.model);
 							/*puntosEscena.push(intersects[0].object);	ya no es necesario creamos un nuevo nodo*/
 						}
-					} else if(leftMenuService.getAddingLines() && !leftMenuService.getAddingNodes()){
+					} 
+				}
+
+				var intersects = ray.intersectObjects($scope.spaceAux.scenePoints);
+				if ( intersects.length > 0 ) {
+					if(leftMenuService.getAddingLines() && !leftMenuService.getAddingNodes()){
 						if (ModelService.isInModel(intersects[0].object.position.x, intersects[0].object.position.y,intersects[0].object.position.z, $scope.model)){
 							if (firstPointLine == null){
 								firstPointLine = {};
@@ -256,6 +317,7 @@ app.controller(
 						}
 					}
 				}
+				
 				
 				render();
 				}
@@ -409,6 +471,7 @@ app.controller(
 			}
 
 			$scope.processOutput = function(){
+				
 
 				var outputReader = new FileReader();
 				outputReader.onload = function(){
@@ -433,6 +496,8 @@ app.controller(
 						var row = temp[i].split("\t")
 						displacementMatrix.push(row);
 					}
+					
+
 
 					var forcesMatrix = [];
 					var beginForcesMatrix = text.search("Tension")+9;
@@ -442,7 +507,7 @@ app.controller(
 						row = temp[i].split("\t")
 						forcesMatrix.push(row);
 					}
-					
+				
 					for (i = 0; i < displacementMatrix.length; i++) {
 						var point = ModelService.getPointById(i+1, $scope.model);
 
@@ -458,6 +523,7 @@ app.controller(
 
 						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
 					}
+					
 
 					for (i = 0; i < forcesMatrix.length; i++) {
 						var line = $scope.model.lines[i];
@@ -480,11 +546,19 @@ app.controller(
 					$scope.scaleStructure = 1
 
 					$('#processOutputModal').modal('hide');
-
+					
 					render();
 				};
 				outputReader.readAsText($scope.theFile);
 
+			}
+
+			$scope.startImportModel= function(){
+				if($scope.theFile!= null){
+					$scope.importing = true;
+					$scope.$apply();
+					$timeout($scope.importModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
+				}
 			}
 
 			$scope.importModel = function(){
@@ -505,7 +579,8 @@ app.controller(
 						var row = temp[i].split("\t")
 						nodeMatrix.push(row);
 					}
-					
+
+
 					var conectivityMatrix = [];
 					var beginConectivityMatrix = text.search("end")+5;
 					var endConectivityMatrix = text.length;
@@ -515,10 +590,12 @@ app.controller(
 						conectivityMatrix.push(row);
 					}
 					
+					
 					for (i = 0; i < nodeMatrix.length; i++) {
 						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
 					}
+
 					
 					for (i = 0; i < conectivityMatrix.length; i++) {
 					
@@ -533,12 +610,13 @@ app.controller(
 						
 						ModelService.addLineToModel(a1, a2, a3, b1, b2, b3,sceneId, $scope.model);
 					}
+					
 						
 					render();
 
 					$('#importModelModal').modal('hide');
 					$scope.importing = false;
-
+					$scope.$apply();
 				};
 				reader.readAsText($scope.theFile);
 			}
@@ -658,11 +736,18 @@ app.controller(
 			$scope.dibujandoLineas = function(){
 				return leftMenuService.getAddingLines();
 			};
-			
+
+			// Variables para progressBar de importar Modelo
+			$scope.progress=0;
+			//----------------------------------------------
+
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight;	
 			var camera, controls, renderer, tridimensional, grid;
 			var mouseX,  mouseY;
+
+			//objeto actual resaltado mouseover
+			var intersected=null;
 			
 			var firstPointLine = null;
 			var idFirstPoint = 0;

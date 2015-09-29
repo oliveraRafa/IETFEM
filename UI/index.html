@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-toggle.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		<link rel="stylesheet" href="http://css-spinners.com/css/spinner/spinner.css" type="text/css">
 		
 	</head>
 
@@ -50,11 +51,22 @@
 			      		<div class="modal-header">
 			      			<h4 class="modal-title" id="myModalLabel">Importar Modelo</h4>
 			      		</div>
-			      		<form name="importModelForm" ng-submit="importModel()">
+			      		<form name="importModelForm" ng-submit="startImportModel()">
 				      		<div class="modal-body">
-						        <!--Carga de archivo-->
-								<input type="file" accept='text/plain' onchange="setFile(this)">
+				      			<div class="container-fluid">
+							        <!--Carga de archivo-->
+							        <div class="row">
+										<input type="file" accept='text/plain' onchange="setFile(this)">
+									</div>
+									<br/>
+									<div class="row col-md-offset-5 col-md-2" ng-show="importing">
+										<div class="spinner-loader">
+										  Loading…
+										</div>
+									</div>
+								</div>
 						    </div>
+						    
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
 									<button class="btn btn-primary" type="submit">
@@ -482,19 +494,10 @@
 								</div>
 							</div>
 						</div>
+						<button  class="btn btn-primary" ng-click="toggleForces()" >Fuerzas</button>
 					</div>
 					
-					
-					<!-- <div class="row" ng-show="seleccionando()"> 
-						<div class="col-md-11">
 
-							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoPunto">
-								Editar Nodo
-							</a>
-
-						</div>
-						
-					</div> -->
 
 					<!-- Edicion punto seleccionado -->
 					<div class="collapse" id="collapseInfoPunto" ng-class="{in: ultimoSeleccionado()=='NODO'}" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
@@ -505,6 +508,10 @@
 										<div class="panel-body"></div>
 										<div class="table-responsive">
 											<table id="infoPuntoTable" class="table">
+												<tr>
+													<td></td>
+													<td><span class="label label-default" style="font-size:12px">ID: {{ miPunto.id}}</span></td>
+												</tr>
 												<tr>
 													<td>X</td>
 													<td>Y</td>
@@ -564,16 +571,6 @@
 							
 					</div>
 
-					<!-- <div class="row" ng-show="seleccionando()"> 
-						<div class="col-md-11">
-
-							<a role="button" style="font-size:35px" data-toggle="collapse" href="#collapseInfoLinea">
-								Editar Barra
-							</a>
-
-						</div>
-						
-					</div> -->
 
 					<!-- Edicion linea seleccionada -->
 					<div class="collapse" id="collapseInfoLinea" ng-class="{in: ultimoSeleccionado()=='LINEA'}" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">
@@ -581,8 +578,11 @@
 							<div class="col-md-11">
 								<div class="panel panel-primary">
 									<div class="panel-heading">Propiedades</div>
-									<div class="panel-body"></div>	
-									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.updateLine()" novalidate>
+									<div class="panel-body">
+										<div class="row" style="margin-bottom:6px">
+											<span class="label label-default" style="font-size:12px">ID: {{ miLinea.id}}</span>
+										</div>
+									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.update3Line()" novalidate>
 										<div class="row form-group">
 											<label class="col-md-offset-1 col-md-2">Material:</label>
 											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.material" ng-options="material.name for material in misMateriales track by material.name" required>
@@ -603,6 +603,7 @@
 											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoLineaForm.$valid" >Actualizar!</button>
 										</div>
 									</form>
+									</div>
 								</div>
 							</div>
 						</div>
