@@ -68,6 +68,31 @@ app.controller(
 				window.addEventListener( 'keyup', onEscapeUp, false );
 				window.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				
+				// dom
+				viewportAxis = document.getElementById('viewportAxis');
+
+				// renderer
+				rendererAxis = new THREE.WebGLRenderer();
+				rendererAxis.setSize( $("#viewportAxisContainer").width(), $("#viewportAxisContainer").height() );
+				rendererAxis.setClearColor( 0xf0f0f0, 1 );
+				viewportAxis.appendChild( rendererAxis.domElement );
+
+				// scene
+				$scope.sceneAxis = new THREE.Scene();
+
+				// camera
+				cameraAxis = new THREE.PerspectiveCamera( 10, $("#viewportAxisContainer").width() / $("#viewportAxisContainer").height(), 1, 1000 );
+				cameraAxis.up = camera.up; // important!
+				cameraAxis.position.y = 10;
+
+				// axes
+				axes2 = new THREE.AxisHelper( 5 );
+				$scope.sceneAxis.add( axes2 );
+
+				//$scope.sceneAxis.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), 1, 0xff0000 ) );
+				//$scope.sceneAxis.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 0 ), 1, 0x00ff00 ) );
+				//$scope.sceneAxis.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 0, 0, 0 ), 1, 0x0000ff ) );
+
 				//Agrego el origen
 				$scope.addParticle(0,0,0);
 				
@@ -82,10 +107,17 @@ app.controller(
 			//--- Defino función de Render
 			var render=function render() {
 
-				renderer.render( $scope.scene, camera );
-					
-			} 
+				cameraAxis.position.copy( camera.position );
+console.log(camera);
+				cameraAxis.position.sub( new THREE.Vector3( 0, 0, 0 ) ); // added by @libe
+				cameraAxis.position.setLength( 10 );
+				cameraAxis.up = camera.up;
 
+			    cameraAxis.lookAt( $scope.sceneAxis.position );
+
+				renderer.render( $scope.scene, camera );
+				rendererAxis.render( $scope.sceneAxis, cameraAxis );	
+			} 
 
 			// Auxiliares de UI
 			function setMenuIzqSize(){
@@ -748,7 +780,7 @@ app.controller(
 
 			// --- Inicializa variables
 			var viewport, viewportWidth, viewportHeight;	
-			var camera, controls, renderer, tridimensional, grid;
+			var camera, cameraAxis, controls, renderer, rendererAxis, tridimensional, grid;
 			var mouseX,  mouseY;
 
 			//objeto actual resaltado mouseover
