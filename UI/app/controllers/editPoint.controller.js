@@ -1,5 +1,5 @@
 var app = angular.module('IETFEM');
-	app.controller('editPointCtrl',['$scope','ModelService','PtoSelecService',function($scope,ModelService,PtoSelecService){
+	app.controller('editPointCtrl',['$scope','ModelService','PtoSelecService','SpaceService',function($scope,ModelService,PtoSelecService,SpaceService){
 		$scope.miPunto=PtoSelecService.getPunto();//Es una copia del punto del modelo!
 		this.updated= function(){
 			var puntoModelo= PtoSelecService.getPuntoReal();
@@ -38,7 +38,7 @@ var app = angular.module('IETFEM');
 		};
 
 		this.deleteNode = function(){
-			var nodeToRemove= PtoSelecService.getPunto();
+			var nodeToRemove= PtoSelecService.getPuntoReal();
 			var sceneObjectFirst = $scope.scene.getObjectById(nodeToRemove.sceneId);
 
 			var lineasImplicadas= getLinesByNode(nodeToRemove.id);
@@ -54,6 +54,9 @@ var app = angular.module('IETFEM');
 			PtoSelecService.resetPuntoSeleccionado();
 			ModelService.removePointFromModel(nodeToRemove.id,$scope.model);
 			ModelService.removeObjFromArray(nodeToRemove.sceneId,$scope.spaceAux.scenePoints);
+			if(nodeToRemove.forceArrowId != 0){
+				SpaceService.removeObjectById(nodeToRemove.forceArrowId,$scope.scene);
+			}
 			$scope.scene.remove(sceneObjectFirst);
 			$scope.render();
 

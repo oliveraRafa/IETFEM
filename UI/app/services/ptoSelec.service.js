@@ -9,6 +9,7 @@ angular.module('IETFEM')
 			  xForce:0,
 			  yForce:0,
 			  zForce:0,
+			  forceArrowId:0,
 			  coords: {
 					x: 0,
 					y: 0,
@@ -37,7 +38,8 @@ angular.module('IETFEM')
 				puntoSeleccionado.yForce=value.yForce;
 				puntoSeleccionado.zForce=value.zForce;
 				puntoSeleccionado.coords=value.coords;
-
+				puntoSeleccionado.forceArrowId= value.forceArrowId;
+				
 				leftMenuService.setLastSelected("NODO");
 			},
 			setInfoPuntoForm: function(f){

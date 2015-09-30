@@ -187,7 +187,7 @@ angular.module('IETFEM')
 			}
 		}
 		if(index != null){
-			model.lines.splice(index,1);
+			model.points.splice(index,1);
 		}
 	};
 

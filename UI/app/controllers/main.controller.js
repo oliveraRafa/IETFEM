@@ -159,7 +159,7 @@ app.controller(
 
 			//Efecto de resaltar al pasar por arriva
 			function onDocumentMouseMove(event){
-				if(true){//leftMenuService.getSelecting()){// Si esta en modo seleccion
+				if($scope.programMode == 'CROSSLINK_INPUT'){//leftMenuService.getSelecting()){// Si esta en modo seleccion
 					viewportWidth=$("#viewportContainer").width();
 					viewportHeight=(window.innerHeight-53);
 					offsetIzq=$("#menuIzquierda").outerWidth(true);
