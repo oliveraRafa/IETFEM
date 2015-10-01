@@ -495,7 +495,7 @@
 								<div class="panel panel-primary">
 									<div class="panel-heading">Grillas</div>
 									<div class="panel-body">
-										<div ng-if="!gridInfo || gridInfo.length == 0">No has ingressdo grillas</div>
+										<div ng-if="!gridInfos || gridInfos.length == 0">No has ingressdo grillas</div>
 										<div ng-repeat="gridInfo in gridInfos">
 											<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
 										    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
@@ -505,7 +505,8 @@
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-primary" ng-click="toggleForces()" ng-model="statusFuerzas.visible" >Fuerzas</button>
+						<span style="">Fuerzas:  </span>
+						<input id="toggle-event" type="checkbox" checked data-toggle="toggle">
 					</div>
 					
 

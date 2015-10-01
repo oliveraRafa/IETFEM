@@ -45,5 +45,13 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 
 	};
 
+	$(function() {
+	    $('#toggle-event').change(function() {
+	      $scope.toggleForces();
+	    })
+	  });
+	
+	$scope.toggleForces();
+
 
 }]);

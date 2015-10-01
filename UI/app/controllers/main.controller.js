@@ -697,7 +697,6 @@ app.controller(
 				$scope.model.lines = [];
 				$scope.model.materiales = [];
 				$scope.model.secciones= [];
-				$scope.model.transparent= false;
 
 				$scope.spaceAux={helpObjects: {}};
 				$scope.spaceAux.helpObjects.grilla = [];
@@ -800,8 +799,7 @@ app.controller(
 			$scope.model.points = [];
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
-			$scope.model.secciones= [];						
-			$scope.model.transparent= false;
+			$scope.model.secciones= [];		
 
 			$scope.model.helpObjects.grillas=[];//Conjunto de infoGrid tienen info+ array de objetos del modelo
 
