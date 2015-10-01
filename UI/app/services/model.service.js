@@ -91,6 +91,9 @@ angular.module('IETFEM')
 		};
 
 		point.forceArrowId=0;
+		point.supportXId=0;
+		point.supportYId=0;
+		point.supportZId=0;
 		
 		model.points.push(point);
 		}

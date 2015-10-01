@@ -2,6 +2,8 @@ var app = angular.module('IETFEM');
 	app.controller('editPointCtrl',['$scope','ModelService','PtoSelecService','SpaceService',function($scope,ModelService,PtoSelecService,SpaceService){
 		$scope.miPunto=PtoSelecService.getPunto();//Es una copia del punto del modelo!
 		$scope.statusFuerzas=$scope.fuerzas;
+		$scope.statusSupports=$scope.supports;
+
 
 		this.updated= function(){
 			var puntoModelo= PtoSelecService.getPuntoReal();
@@ -45,6 +47,37 @@ var app = angular.module('IETFEM');
 					$scope.scene.add(newArrow);
 				}
 				//-----------------------------------------------------
+				//Actualizo piramides de apoyos
+				if($scope.statusSupports.visible){
+					if(parseFloat(puntoModelo.xCondicion) == 0){
+						if(puntoModelo.supportXId != 0){// Si ya tenia una la elimino
+							SpaceService.removeObjectById(puntoModelo.supportXId,$scope.scene);
+						}
+						idSupport=SpaceService.drawPyramidSupport(puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z,true,false,false,$scope.scene);
+						puntoModelo.supportXId=idSupport;
+					}else{
+						SpaceService.removeObjectById(puntoModelo.supportXId,$scope.scene);
+					}
+					if(parseFloat(puntoModelo.yCondicion) == 0){
+						if(puntoModelo.supportYId != 0){// Si ya tenia una la elimino
+							SpaceService.removeObjectById(puntoModelo.supportYId,$scope.scene);
+						}
+						idSupport=SpaceService.drawPyramidSupport(puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z,false,true,false,$scope.scene);
+						puntoModelo.supportYId=idSupport;
+					}else{
+						SpaceService.removeObjectById(puntoModelo.supportYId,$scope.scene);
+					}
+					if(parseFloat(puntoModelo.zCondicion) == 0){
+						if(puntoModelo.supportZId != 0){// Si ya tenia una la elimino
+							SpaceService.removeObjectById(puntoModelo.supportZId,$scope.scene);
+						}
+						idSupport=SpaceService.drawPyramidSupport(puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z,false,false,true,$scope.scene);
+						puntoModelo.supportZId=idSupport;
+					}else{
+						SpaceService.removeObjectById(puntoModelo.supportZId,$scope.scene);
+					}
+				}
+				//-------------------------------------------------------------------------------------------------
 				PtoSelecService.resetForm();
 				$scope.render();
 			}

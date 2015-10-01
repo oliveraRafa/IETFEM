@@ -111,6 +111,7 @@ app.controller(
 				cameraAxis.position.copy( camera.position );
 
 				cameraAxis.position.sub( controls.target ); // added by @libe
+
 				cameraAxis.position.setLength( 10 );
 				cameraAxis.up = camera.up;
 
@@ -794,6 +795,7 @@ app.controller(
 			var idFirstPoint = 0;
 
 			$scope.fuerzas={visible:false};
+			$scope.supports={visible:false};
 
 			$scope.model = {helpObjects: {}};
 			$scope.model.points = [];

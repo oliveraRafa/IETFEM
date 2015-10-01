@@ -3,6 +3,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 
 	$scope.gridInfos= $scope.model.helpObjects.grillas; // gridInfos de las grillas del espacio
 	$scope.statusFuerzas=$scope.fuerzas;
+	$scope.statusSupports=$scope.supports;
 
 	$scope.toggleGrid= function(gridInfo){
 		for(var i = 0; i < $scope.gridInfos.length ;i++){
@@ -37,12 +38,62 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 		}else{
 			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
 				var punto=$scope.model.points[i];
-				SpaceService.hideShowObject(punto.forceArrowId,false,$scope.scene);
+				if(punto.forceArrowId!=0){
+					SpaceService.hideShowObject(punto.forceArrowId,false,$scope.scene);
+				}
 			}
 			$scope.statusFuerzas.visible=false;
 			$scope.render();
 		}
 
+	};
+	
+	$scope.toggleSupports = function(){
+		if(!$scope.statusSupports.visible){
+			for(var i = 0; i < $scope.model.points.length ;i++){
+				var punto=$scope.model.points[i];
+				var idSupport=0;
+				if(parseFloat(punto.xCondicion) == 0){
+					if(punto.supportXId != 0){// Si ya tenia una la elimino
+						SpaceService.removeObjectById(punto.supportXId,$scope.scene);
+					}
+					idSupport=SpaceService.drawPyramidSupport(punto.coords.x, punto.coords.y, punto.coords.z,true,false,false,$scope.scene);
+					punto.supportXId=idSupport;
+				}
+				if(parseFloat(punto.yCondicion) == 0){
+					if(punto.supportYId != 0){// Si ya tenia una la elimino
+						SpaceService.removeObjectById(punto.supportYId,$scope.scene);
+					}
+					idSupport=SpaceService.drawPyramidSupport(punto.coords.x, punto.coords.y, punto.coords.z,false,true,false,$scope.scene);
+					punto.supportYId=idSupport;
+				}
+				if(parseFloat(punto.zCondicion) == 0){
+					if(punto.supportZId != 0){// Si ya tenia una la elimino
+						SpaceService.removeObjectById(punto.supportZId,$scope.scene);
+					}
+					idSupport=SpaceService.drawPyramidSupport(punto.coords.x, punto.coords.y, punto.coords.z,false,false,true,$scope.scene);
+					punto.supportZId=idSupport;
+				}
+			
+			}
+			$scope.statusSupports.visible=true;
+			$scope.render();
+		}else{//Si ya estaban visible las escondo
+			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
+				var punto=$scope.model.points[i];
+				if(punto.supportXId != 0){
+					SpaceService.hideShowObject(punto.supportXId,false,$scope.scene);
+				}
+				if(punto.supportYId != 0){
+					SpaceService.hideShowObject(punto.supportYId,false,$scope.scene);
+				}
+				if(punto.supportZId != 0){
+					SpaceService.hideShowObject(punto.supportZId,false,$scope.scene);
+				}
+			}
+			$scope.statusSupports.visible=false;
+			$scope.render();
+		}
 	};
 
 	$(function() {

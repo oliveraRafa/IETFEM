@@ -45,6 +45,36 @@ angular.module('IETFEM')
 		return edge;
 	};
 
+	var	pyramidMesh = function( point1, point2, material, width){
+
+		/* edge from X to Y */
+		var direction = new THREE.Vector3().subVectors( point2, point1 );
+		var orientation = new THREE.Matrix4();
+		/* THREE.Object3D().up (=Y) default orientation for all objects */
+		orientation.lookAt(point1, point2, new THREE.Object3D().up);
+		/* rotation around axis X by -90 degrees 
+		 * matches the default orientation Y 
+		 * with the orientation of looking Z */
+		var matrix4 = new THREE.Matrix4();
+		matrix4.set(1,0,0,0,
+					0,0,1,0, 
+					0,-1,0,0,
+					0,0,0,1);
+		orientation.multiply(matrix4);
+
+		/* cylinder: radiusAtTop, radiusAtBottom, 
+			height, radiusSegments, heightSegments */
+		//var edgeGeometry = new THREE.CylinderGeometry( 1, width, 3, 4);
+		var edgeGeometry = new THREE.CylinderGeometry( 0.1, 0, direction.length(), 4);
+		
+		var edge = new THREE.Mesh( edgeGeometry, 
+				material);
+
+		edge.applyMatrix(orientation)
+		edge.applyMatrix( new THREE.Matrix4().makeTranslation((point1.x + point2.x)/2,(point1.y + point2.y)/2,(point1.z + point2.z)/2) );
+		return edge;
+	};
+
 	var	rotateCylinder = function( point1, point2, material, width){
 
 		var direction = new THREE.Vector3().subVectors( point2, point1 );
@@ -93,6 +123,36 @@ angular.module('IETFEM')
 		helpObjects.push(sphere);	
 
 		return sphere.id;	
+	};
+
+	// Se le pasa las coordenadas de un punto y un booleano para el eje que es el apoyo
+	var drawPyramidSupport = function(x,y,z,isX,isY,isZ,scene){
+		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		if(isX){
+			if(x>=0){
+				var pyramid = pyramidMesh(new THREE.Vector3(x-0.1, y, z), new THREE.Vector3(x-0.3, y, z), material,2);
+			}else{
+				var pyramid = pyramidMesh(new THREE.Vector3(x+0.1, y, z), new THREE.Vector3(x+0.3, y, z), material,2);
+			}
+			scene.add(pyramid);
+			return pyramid.id;
+		}else if(isY){
+			if(y>=0){
+				var pyramid = pyramidMesh(new THREE.Vector3(x, y-0.1, z), new THREE.Vector3(x, y-0.3, z), material,2);
+			}else{
+				var pyramid = pyramidMesh(new THREE.Vector3(x, y+0.1, z), new THREE.Vector3(x, y+0.3, z), material,2);
+			}
+			scene.add(pyramid);
+			return pyramid.id;
+		}else if(isZ){
+			if(z>=0){
+				var pyramid = pyramidMesh(new THREE.Vector3(x, y, z-0.1), new THREE.Vector3(x, y, z-0.3), material,2);
+			}else{
+				var pyramid = pyramidMesh(new THREE.Vector3(x, y, z+0.1), new THREE.Vector3(x, y, z+0.3), material,2);
+			}
+			scene.add(pyramid);
+			return pyramid.id;
+		}
 	};
 
 	//Dibuja el modelo entero
@@ -203,11 +263,14 @@ angular.module('IETFEM')
 			if (colorRange[i].index === index)
 				return colorRange[i].color;
 		};
-	}
+	};
+
+
 	
 	return {
 		drawLine: drawLine,
 		drawPoint: drawPoint,
+		drawPyramidSupport: drawPyramidSupport,
 		drawModel: drawModel,
 		getSceneLineById:getSceneLineById,
 		getScenePointById: getScenePointById,
