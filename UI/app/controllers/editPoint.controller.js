@@ -1,6 +1,8 @@
 var app = angular.module('IETFEM');
 	app.controller('editPointCtrl',['$scope','ModelService','PtoSelecService','SpaceService',function($scope,ModelService,PtoSelecService,SpaceService){
 		$scope.miPunto=PtoSelecService.getPunto();//Es una copia del punto del modelo!
+		$scope.statusFuerzas=$scope.fuerzas;
+
 		this.updated= function(){
 			var puntoModelo= PtoSelecService.getPuntoReal();
 			if( typeof puntoModelo != 'undefined' &&
@@ -29,7 +31,22 @@ var app = angular.module('IETFEM');
 				puntoModelo.xForce= parseFloat($scope.miPunto.xForce);
 				puntoModelo.yForce= parseFloat($scope.miPunto.yForce);
 				puntoModelo.zForce= parseFloat($scope.miPunto.zForce);
+
+				//Actualizo flecha de fuerzas del nodo
+				if($scope.statusFuerzas.visible){
+					var origen= new THREE.Vector3( puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z );
+					var largo= Math.sqrt( Math.pow(puntoModelo.xForce,2) + Math.pow(puntoModelo.yForce,2) + Math.pow(puntoModelo.zForce,2));
+					var direccion = new THREE.Vector3( puntoModelo.xForce/ largo, puntoModelo.yForce/largo, puntoModelo.zForce/largo );
+					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x000000);
+					if(puntoModelo.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
+						SpaceService.removeObjectById(puntoModelo.forceArrowId,$scope.scene);
+					}
+					puntoModelo.forceArrowId= newArrow.id;
+					$scope.scene.add(newArrow);
+				}
+				//-----------------------------------------------------
 				PtoSelecService.resetForm();
+				$scope.render();
 			}
 		};		
 

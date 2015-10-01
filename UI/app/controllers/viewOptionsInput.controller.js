@@ -2,7 +2,7 @@ var app = angular.module('IETFEM');
 app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',function($scope,ModelService,SpaceService){
 
 	$scope.gridInfos= $scope.model.helpObjects.grillas; // gridInfos de las grillas del espacio
-	var fuerzasVisibles=false;
+	$scope.statusFuerzas=$scope.fuerzas;
 
 	$scope.toggleGrid= function(gridInfo){
 		for(var i = 0; i < $scope.gridInfos.length ;i++){
@@ -17,7 +17,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 
 	$scope.toggleForces = function(){
 		
-		if(!fuerzasVisibles){// Genera las flechas de todos los puntos, si ya tenia la regenera
+		if(!$scope.statusFuerzas.visible){// Genera las flechas de todos los puntos, si ya tenia la regenera
 			for(var i = 0; i < $scope.model.points.length ;i++){
 				var punto=$scope.model.points[i];
 				if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
@@ -32,14 +32,14 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					$scope.scene.add(newArrow);
 				}
 			}
+			$scope.statusFuerzas.visible=true;
 			$scope.render();
-			fuerzasVisibles=true;
 		}else{
 			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
 				var punto=$scope.model.points[i];
 				SpaceService.hideShowObject(punto.forceArrowId,false,$scope.scene);
 			}
-			fuerzasVisibles=false;
+			$scope.statusFuerzas.visible=false;
 			$scope.render();
 		}
 

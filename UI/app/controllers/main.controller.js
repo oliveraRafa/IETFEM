@@ -789,6 +789,8 @@ console.log(camera);
 			var firstPointLine = null;
 			var idFirstPoint = 0;
 
+			$scope.fuerzas={visible:false};
+
 			$scope.model = {helpObjects: {}};
 			$scope.model.points = [];
 			$scope.model.lines = [];
