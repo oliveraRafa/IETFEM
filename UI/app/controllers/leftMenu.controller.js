@@ -6,7 +6,7 @@ app.controller('leftMenusCtrl',['$scope','leftMenuService','PtoSelecService',fun
 			leftMenuService.setAddingNodes(true);
 			leftMenuService.setAddingGrillas(false);
 			leftMenuService.setSelecting(false);
-
+			leftMenuService.setViewOptions(false);
 		};
 
 		$scope.dibujarLineas = function(){
@@ -14,6 +14,7 @@ app.controller('leftMenusCtrl',['$scope','leftMenuService','PtoSelecService',fun
 			leftMenuService.setAddingNodes(false);
 			leftMenuService.setAddingGrillas(false);
 			leftMenuService.setSelecting(false);
+			leftMenuService.setViewOptions(false);
 		};
 
 		$scope.dibujarGrillas = function(){
@@ -21,6 +22,7 @@ app.controller('leftMenusCtrl',['$scope','leftMenuService','PtoSelecService',fun
 			leftMenuService.setAddingNodes(false);
 			leftMenuService.setAddingGrillas(true);
 			leftMenuService.setSelecting(false);
+			leftMenuService.setViewOptions(false);
 		};
 
 		$scope.seleccionar = function(){
@@ -28,6 +30,15 @@ app.controller('leftMenusCtrl',['$scope','leftMenuService','PtoSelecService',fun
 			leftMenuService.setAddingNodes(false);
 			leftMenuService.setAddingGrillas(false);
 			leftMenuService.setSelecting(true);
+			leftMenuService.setViewOptions(false);
+		};
+
+		$scope.viewOptions = function(){
+			leftMenuService.setAddingLines(false);
+			leftMenuService.setAddingNodes(false);
+			leftMenuService.setAddingGrillas(false);
+			leftMenuService.setSelecting(false);
+			leftMenuService.setViewOptions(true);
 		};
 
 		$scope.seleccionando = function(){
@@ -44,6 +55,10 @@ app.controller('leftMenusCtrl',['$scope','leftMenuService','PtoSelecService',fun
 
 		$scope.dibujandoLineas = function(){
 			return leftMenuService.getAddingLines();
+		};
+
+		$scope.viewingOptions = function(){
+			return leftMenuService.getViewOptions();
 		};
 
 

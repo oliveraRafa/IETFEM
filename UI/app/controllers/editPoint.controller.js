@@ -34,10 +34,10 @@ var app = angular.module('IETFEM');
 
 				//Actualizo flecha de fuerzas del nodo
 				if($scope.statusFuerzas.visible){
-					var origen= new THREE.Vector3( puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z );
-					var largo= Math.sqrt( Math.pow(puntoModelo.xForce,2) + Math.pow(puntoModelo.yForce,2) + Math.pow(puntoModelo.zForce,2));
-					var direccion = new THREE.Vector3( puntoModelo.xForce/ largo, puntoModelo.yForce/largo, puntoModelo.zForce/largo );
-					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x000000);
+					var origen= new THREE.Vector3( puntoModelo.coords.x-puntoModelo.xForce, puntoModelo.coords.y-puntoModelo.yForce, puntoModelo.coords.z-puntoModelo.zForce );
+					var largo= Math.sqrt( Math.pow(puntoModelo.xForce,2) + Math.pow(puntoModelo.yForce,2) + Math.pow(puntoModelo.zForce,2))-0.1;
+					var direccion = new THREE.Vector3( puntoModelo.xForce/ (largo+0.1), puntoModelo.yForce/ (largo+0.1), puntoModelo.zForce/(largo+0.1) );
+					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(puntoModelo.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(puntoModelo.forceArrowId,$scope.scene);
 					}

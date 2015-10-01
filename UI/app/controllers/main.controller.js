@@ -31,6 +31,7 @@ app.controller(
 				//Seteo la camara
 				camera = new THREE.PerspectiveCamera( 60, viewportWidth / viewportHeight, 1, 1000 );
 				camera.position.y = 10;
+				camera.near = 0.1;
 
 				//Asigno controles de la camara
 				controls = new THREE.OrbitControls( camera, viewport );
@@ -108,8 +109,8 @@ app.controller(
 			var render=function render() {
 
 				cameraAxis.position.copy( camera.position );
-console.log(camera);
-				cameraAxis.position.sub( new THREE.Vector3( 0, 0, 0 ) ); // added by @libe
+
+				cameraAxis.position.sub( controls.target ); // added by @libe
 				cameraAxis.position.setLength( 10 );
 				cameraAxis.up = camera.up;
 
@@ -772,6 +773,10 @@ console.log(camera);
 
 			$scope.dibujandoLineas = function(){
 				return leftMenuService.getAddingLines();
+			};
+
+			$scope.viewingOptions = function(){
+				return leftMenuService.getViewOptions();
 			};
 
 			// Variables para progressBar de importar Modelo

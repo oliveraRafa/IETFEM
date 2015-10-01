@@ -378,6 +378,8 @@
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarNodos()" ng-class="{active: dibujandoNodos()}" data-toggle="tooltip" data-placement="right" title="Dibujar Nodos"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
 
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarLineas()" ng-class="{active: dibujandoLineas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Lineas"><span class="glyphicon glyphicon-resize-horizontal"  aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="viewOptions()" ng-class="{active: viewingOptions()}" data-toggle="tooltip" data-placement="right" title="Opciones de Visualiación"><span class="glyphicon glyphicon-eye-open"  aria-hidden="true"></span></button>
 						</div>
 						<div id="viewportAxisContainer" style="width:56px;height:56px;border-style: solid;border-width: 2px;border-color:#BDBDBD;border-right:none;position: fixed;bottom:15px;">
 							<div id="viewportAxis"></div>
@@ -486,13 +488,14 @@
 						</div> 
 					</form>
 
-					<!--  Menu Opciones visualizacion grilla -->
-					<div class="collapse in" id="collapseViewOptions" ng-show="dibujandoGrillas()" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
+					<!--  Menu Opciones visualizacion -->
+					<div class="collapse in" id="collapseViewOptions" ng-show="viewingOptions()" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
 						<div class="row">	
 							<div class="col-md-11">	
 								<div class="panel panel-primary">
-									<div class="panel-heading">Opciones de vista</div>
+									<div class="panel-heading">Grillas</div>
 									<div class="panel-body">
+										<div ng-if="!gridInfo || gridInfo.length == 0">No has ingressdo grillas</div>
 										<div ng-repeat="gridInfo in gridInfos">
 											<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
 										    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
@@ -502,7 +505,7 @@
 								</div>
 							</div>
 						</div>
-						<button  class="btn btn-primary" ng-click="toggleForces()" >Fuerzas</button>
+						<button class="btn btn-primary" ng-click="toggleForces()" ng-model="statusFuerzas.visible" >Fuerzas</button>
 					</div>
 					
 

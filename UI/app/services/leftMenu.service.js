@@ -3,6 +3,7 @@ angular.module('IETFEM')
 		var addingLines = false;
 		var addingNodes=false;
 		var addingGrillas=false;
+		var viewOptions=false;
 		var selecting=false;
 		var lastSelected=null;//Puede ser "LINEA" o "NODO"
 		
@@ -20,6 +21,9 @@ angular.module('IETFEM')
 			getSelecting: function(){
 				return selecting;
 			},
+			getViewOptions: function(val){
+				return viewOptions;
+			},
 			setSelecting: function(val){
 				selecting=val;
 			},
@@ -31,6 +35,9 @@ angular.module('IETFEM')
 			},
 			setAddingNodes: function(val){
 				addingNodes=val;
+			},
+			setViewOptions: function(val){
+				viewOptions=val;
 			},
 			getLastSelected: function(){
 				return lastSelected;
