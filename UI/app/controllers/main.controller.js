@@ -616,6 +616,9 @@ app.controller(
 					var temp = text.slice(beginNodeMatrix, endNodeMatrix).split("\n");
 					for (i = 0; i < temp.length; i++) { 
 						var row = temp[i].split("\t")
+						for (var j = 0; j < row.length; j++) { 
+							row[j] = parseFloat(row[j]);
+						}
 						nodeMatrix.push(row);
 					}
 

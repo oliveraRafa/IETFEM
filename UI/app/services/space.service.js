@@ -127,7 +127,7 @@ angular.module('IETFEM')
 
 	// Se le pasa las coordenadas de un punto y un booleano para el eje que es el apoyo
 	var drawPyramidSupport = function(x,y,z,isX,isY,isZ,scene){
-		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		var material = new THREE.MeshBasicMaterial( {color: 0x610B0B} );
 		if(isX){
 			if(x>=0){
 				var pyramid = pyramidMesh(new THREE.Vector3(x-0.1, y, z), new THREE.Vector3(x-0.3, y, z), material,2);
