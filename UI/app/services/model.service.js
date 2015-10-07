@@ -333,7 +333,7 @@ angular.module('IETFEM')
 	var setModelTransparent = function(scene, model){
 		if (model.points.length > 0){
 			var material = SpaceService.getMaterial(model.points[0].sceneId, scene);
-			material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0.15} );
+			material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0} );
 			for (var i = 0; i < model.points.length ;i++){
 				SpaceService.setMaterial(model.points[i].sceneId, scene, material);
 			};
