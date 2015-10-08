@@ -71,7 +71,6 @@ angular.module('IETFEM')
 	//Agrega un punto al modelo
 	var addPointToModel = function(pX,pY,pZ, sceneId, model) {
 			
-		if (pX != 0 || pY != 0 || pZ != 0){
 		var point = {};
 		point.id = newPointIdentifier( model);
 		point.sceneId = sceneId;
@@ -96,7 +95,6 @@ angular.module('IETFEM')
 		point.supportZId=0;
 		
 		model.points.push(point);
-		}
 	};
 	
 	//Agrega una línea al modelo
@@ -229,14 +227,14 @@ angular.module('IETFEM')
 	//Genera txt a partir del modelo
 	var getText = function(model) {
 		var text;
-		text = 'Input for a 3D with large deformation (You must respect line breaks):' + '\n\n' + 'Force Magnitude' + '\n' + 'N' + '\n\n' + 'Length Magnitude' + '\n' + 'm' + '\n\n'
+		text = 'Input for a 3D with large deformation (You must respect line breaks):' + '\n\n' + 'Force Magnitude' + '\n' + 'kN' + '\n\n' + 'Length Magnitude' + '\n' + 'm' + '\n\n'
 			   + 'Number of degrees of freedom per node' + '\n' + '3' + '\n\n' + 'Number of nodes per element' + '\n' + '2' + '\n\n';
 
 		text +=  'Number of materials' + '\n' + model.materiales.length + '\n\n';
 		
-		text += 'Materials:' + '\n' + 'Young Modulus        Gamma         alpha (1/C)' + '\n';
+		text += 'Materials:' + '\n' + 'Young Modulus	gamma	alpha (1/C)	nu' + '\n';
 		for (var i = 0; i < model.materiales.length ;i++){
-			text += model.materiales[i].youngModule + '     ' + model.materiales[i].gamma + '     ' + model.materiales[i].alpha + '\n'; 
+			text += model.materiales[i].youngModule + '\t' + model.materiales[i].gamma + '\t' + model.materiales[i].alpha + '\t' + model.materiales[i].nu + '\n'; 
 		}
 		text += '\n' + 'Number of temperature cases' + '\n' + '0' + '\n\n' + 'Temperature cases:' + '\n' + 'Value' + '\n\n';
 		
@@ -252,12 +250,14 @@ angular.module('IETFEM')
 		text += 'Node matrix ' + '\n';
 		text += 'Xs     Ys     Zs' + '\n';
 		for (var i = 0; i < model.points.length ;i++){
-			text += model.points[i].coords.x + '     ' + model.points[i].coords.y + '     ' + model.points[i].coords.z + '\n'; 
+			text += model.points[i].coords.x + '\t' + model.points[i].coords.y + '\t' + model.points[i].coords.z + '\n'; 
 		}
-		text += '\n' + 'Conectivity matrix' + '\n';
+		text+= 	'\n' + 'Number of elements' + '\n' + model.lines.length + '\n\n';
+
+		text += 'Conectivity matrix' + '\n';
 		text += 'material     section     tempcase     start     end' + '\n';
 		for (var i = 0; i < model.lines.length ;i++){
-			text += model.lines[i].material + '     ' + model.lines[i].section + '     ' + 0 + '     ' + model.lines[i].start + '     ' + model.lines[i].end + '\n'; 
+			text += '1' + '\t' + '1' + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
 		}
 		var displacementNodes = [];
 		for (var i = 0; i < model.points.length ;i++){
@@ -265,9 +265,9 @@ angular.module('IETFEM')
 				displacementNodes.push(model.points[i]);
 			}
 		}
-		text += '\n' + 'Number of displacement conditions nodes' + '\n' + displacementNodes.length + '\n\n' + 'Displacement node  X condition   Y condition   Z condition' + '\n'
+		text += '\n' + 'Number of displacement conditions nodes' + '\n' + displacementNodes.length + '\n\n' + 'Displacement conditions nodes matrix' + '\n' + 'Displacement node  X condition   Y condition   Z condition' + '\n'
 		for (var i = 0; i < displacementNodes.length ;i++){
-			text += i + '     ' + displacementNodes[i].xCondicion + '     ' + displacementNodes[i].yCondicion + '     ' + displacementNodes[i].zCondicion + '\n'; 
+			text += displacementNodes[i].id + '\t' + displacementNodes[i].xCondicion + '\t' + displacementNodes[i].yCondicion + '\t' + displacementNodes[i].zCondicion + '\n'; 
 		}
 		
 		var loadNodes = [];
@@ -276,14 +276,13 @@ angular.module('IETFEM')
 				loadNodes.push(model.points[i]);
 			}
 		}
-		text += '\n' + 'Puntual loads conditions nodes matrix' + '\n' + loadNodes.length + '\n\n' + 'Load node       FX            FY           FZ' + '\n'
+		text += '\n' + 'Number of puntual load conditions' + '\n' + loadNodes.length + '\n\n' + 'Puntual loads conditions nodes matrix' + '\n' + 'Load node       FX            FY           FZ' + '\n'
 		for (var i = 0; i < loadNodes.length ;i++){
-			text += i + '     ' + loadNodes[i].xForce + '     ' + loadNodes[i].yForce + '     ' + loadNodes[i].zForce + '\n'; 
+			text += loadNodes[i].id + '\t' + loadNodes[i].xForce + '\t' + loadNodes[i].yForce + '\t' + loadNodes[i].zForce + '\n'; 
 		}
-	
 		
 		//Agrega las opciones de salida al final
-		text += '\n' + 'Number of dead volume load conditions' + '\n' + '0' +'\n\n' + 'Dead volume loads conditions matrix' + '\n' + 'Element           bx                  by                  bz' + '\n\n' + 'Number of springs conditions nodes' + '\n' + '0' + '\n\n' + 'Springs conditions nodes matrix' + '/n' + 'Spring node  X condition   Y condition   Z condition' + '\n\n' + 'Scale Factor' + '\n' + 'SD_Deformed   Supports    Areas    Forces    Frames    Numbers' + '\n' + '   70           1         1         1         0.05         1' + '\n\n' + 'What you wanna see? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed   SD_Axial' + '\n' + '1                 1            1' + '\n\n' + 'Wich of the plots selected above do you want to print (.png image)? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed  SD_Axial' + '\n' + '1                 1            1' + '\n\n' + 'How many images do you wanna see for small deformation?' + '\n' + 'SD_Deformed   SD_Axial' + '\n' + '1                 1            1' + '\n\n' + 'What you wanna see in plots? (Yes=1, No=0)' + '\n' + 'Supports   Node_Numbers   Elements_Numbers   Forces          Axial_Force_Value' + '1               0                0              1                   0' + '\n\n' + 'For 3D plots, what you wanna see? (Yes=1, No=0)' + '\n' + 'If you choose Dif_View=1 IETFEM use default AZIMUTH and ELEVATION, if you choose Dif_View=0 you must type aximuth and elevation in degrees.' + '\n' + 'XY_plane    XZ_plane    YZ_plane    Dif_View   AZIMUTH(degree)   ELEVATION(degree)' + '\n' + '1            1           1           0           150               15' + '\n\n' + 'Text output format (Yes=1, No=0)' + '\n' + 'TXT  TEX' + '\n' + '1     1' + '\n';
+		text += '\n' + 'Number of dead volume load conditions' + '\n' + '0' +'\n\n' + 'Dead volume loads conditions matrix' + '\n' + 'Element           bx                  by                  bz' + '\n\n' + 'Number of springs conditions nodes' + '\n' + '0' + '\n\n' + 'Springs conditions nodes matrix' + '\n' + 'Spring node  X condition   Y condition   Z condition ' + '\n\n' + 'Scale Factor' + '\n' + 'SD_Deformed   Supports    Areas    Forces    Frames    Numbers    LD_Deformed' + '\n' + '   70           1         1         1         0.05         1         70' + '\n\n' + 'What you wanna see? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed   SD_Axial   LD_Deformed    LD_Axial     Convergence' + '\n' + '	1                 1            1          1             1              1' + '\n\n' + 'Of selectet plots, wich of them you wanna print in a .png image? (Yes=1, No=0)' + '\n' + '	Indeformed   SD_Deformed  SD_Axial   LD_Deformed   LD_Axial     Convergence' + '\n' + '	1                 1            1          1            1             1' + '\n\n' + 'How many images do you wanna see for small deformation?' + '\n' + 'SD_Deformed   SD_Axial  ' + '\n' + '	1               1' + '\n\n' + 'What you wanna see in plots? (Yes=1, No=0)' + '\n' + 'Supports   Node_Numbers   Elements_Numbers   Forces          Axial_Force_Value' + '\n' + '	1               0                0              1                   0' + '\n\n' + 'For 3D plots, what you wanna see? (Yes=1, No=0)' + '\n' + 'If you choose Dif_View=1 IETFEM use default AZIMUTH and ELEVATION, if you choose Dif_View=0 you must type aximuth and elevation in degrees.' + '\n' + 'XY_plane    XZ_plane    YZ_plane    Dif_View   AZIMUTH(degree)   ELEVATION(degree)   ' + '\n' + '	   1            1           1           0           150               15   ' + '\n\n' + 'Text output format (Yes=1, No=0)' + '\n' + 'TXT  TEX' + '\n' + '1     1' + '\n';
 
 		return text;
 		

@@ -156,14 +156,14 @@ angular.module('IETFEM')
 	};
 
 	//Dibuja el modelo entero
-	var drawModel = function(scene, model, puntosEscena, lineasEscena){
+	var drawModel = function(scene, model, puntosEscena, lineasEscena, helpObjects){
 
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 		var start = {};
 		var end = {};
 
 		for (i=0; i<model.points.length; i++){
-			drawPoint(model.points[i].coords.x, model.points[i].coords.y, model.points[i].coords.z, scene, puntosEscena, material, model.helpObjects);
+			model.points[i].sceneId = drawPoint(model.points[i].coords.x, model.points[i].coords.y, model.points[i].coords.z, scene, puntosEscena, material, helpObjects.grilla);	
 		}
 
 		for (i=0; i<model.lines.length; i++){
@@ -180,7 +180,7 @@ angular.module('IETFEM')
 					end.z = model.points[j].coords.z;
 				}
 			};
-			drawLine(start.x, start.y, start.z, end.x, end.y, end.z, material, 0.05, scene ,lineasEscena);
+			model.lines[i].sceneId = drawLine(start.x, start.y, start.z, end.x, end.y, end.z, material, 0.05, scene ,lineasEscena);
 		}
 	};
 	

@@ -39,7 +39,6 @@ angular.module('IETFEM')
 	//Agrega un punto al deformado
 	var addPointToDeformed = function(pX,pY,pZ,uX,uY,uZ, id, sceneId, deformed) {
 			
-		if (pX != 0 || pY != 0 || pZ != 0){
 		var point = {};
 		point.id = id;
 		point.sceneId = sceneId;
@@ -55,7 +54,6 @@ angular.module('IETFEM')
 			z: uZ
 		};
 		deformed.points.push(point);
-		}
 	};
 	
 	//Agrega una línea al deformado
@@ -113,8 +111,8 @@ angular.module('IETFEM')
 		for (var i = 0; i < deformed.points.length ;i++){
 
 			var x = parseFloat(deformed.points[i].coords.x) + parseFloat(deformed.points[i].displacements.x)*parseFloat(scaleFactor);
-			var y = parseFloat(deformed.points[i].coords.y) + parseFloat(deformed.points[i].displacements.z)*parseFloat(scaleFactor);
-			var z = parseFloat(deformed.points[i].coords.z) + parseFloat(deformed.points[i].displacements.y)*parseFloat(scaleFactor);
+			var y = parseFloat(deformed.points[i].coords.y) + parseFloat(deformed.points[i].displacements.y)*parseFloat(scaleFactor);
+			var z = parseFloat(deformed.points[i].coords.z) + parseFloat(deformed.points[i].displacements.z)*parseFloat(scaleFactor);
 
 			SpaceService.movePoint(deformed.points[i].sceneId, scene, x, y, z);
 		};
@@ -123,11 +121,11 @@ angular.module('IETFEM')
 			var start = getDeformedPointById(deformed.lines[i].start, deformed);
 			var end = getDeformedPointById(deformed.lines[i].end, deformed);
 			var x1 = parseFloat(start.coords.x) + parseFloat(start.displacements.x)*parseFloat(scaleFactor);
-			var y1 = parseFloat(start.coords.y) + parseFloat(start.displacements.z)*parseFloat(scaleFactor);
-			var z1 = parseFloat(start.coords.z) + parseFloat(start.displacements.y)*parseFloat(scaleFactor);
+			var y1 = parseFloat(start.coords.y) + parseFloat(start.displacements.y)*parseFloat(scaleFactor);
+			var z1 = parseFloat(start.coords.z) + parseFloat(start.displacements.z)*parseFloat(scaleFactor);
 			var x2 = parseFloat(end.coords.x) + parseFloat(end.displacements.x)*parseFloat(scaleFactor);
-			var y2 = parseFloat(end.coords.y) + parseFloat(end.displacements.z)*parseFloat(scaleFactor);
-			var z2 = parseFloat(end.coords.z) + parseFloat(end.displacements.y)*parseFloat(scaleFactor);
+			var y2 = parseFloat(end.coords.y) + parseFloat(end.displacements.y)*parseFloat(scaleFactor);
+			var z2 = parseFloat(end.coords.z) + parseFloat(end.displacements.z)*parseFloat(scaleFactor);
 
 			deformed.lines[i].sceneId = SpaceService.moveLine(deformed.lines[i].sceneId, scene, x1, y1, z1, x2, y2, z2);
 		};

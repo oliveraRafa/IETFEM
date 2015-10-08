@@ -30,8 +30,10 @@ app.controller(
 
 				//Seteo la camara
 				camera = new THREE.PerspectiveCamera( 60, viewportWidth / viewportHeight, 1, 1000 );
-				camera.position.y = 10;
+				camera.position.z = 10;
 				camera.near = 0.1;
+				camera.up = new THREE.Vector3( 0, 0, 1 );
+				camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
 
 				//Asigno controles de la camara
 				controls = new THREE.OrbitControls( camera, viewport );
@@ -41,6 +43,7 @@ app.controller(
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
 				$scope.scene = new THREE.Scene();
 				grid = new THREE.GridHelper( 100, 1 );
+				grid.rotation.x = Math.PI/2;
 				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
 				grid.position.set(0,0,0);
 				$scope.scene.add(grid);
@@ -251,9 +254,7 @@ app.controller(
 				viewportWidth=$("#viewportContainer").width();
 				viewportHeight=(window.innerHeight-53);
 				offsetIzq=$("#menuIzquierda").outerWidth(true);
-				
-
-				if ((event.button == 0) && (mouseX == event.clientX) && (mouseY == event.clientY)){
+			
 					
 				 var vector = new THREE.Vector3( ( 
 					(event.clientX-offsetIzq) / viewportWidth) * 2 - 1, 
@@ -354,7 +355,6 @@ app.controller(
 				
 				
 				render();
-				}
 			}
 			
 			// Funciones principales accesadas desde la view
@@ -522,7 +522,7 @@ app.controller(
 					//}
 
 					var displacementMatrix = [];
-					var beginDisplacementMatrix = text.search("u_z")+5;
+					var beginDisplacementMatrix = text.search("u_z")+4;
 					var endDisplacementeMatrix = text.search("Parametros en barras")-3;
 					var temp = text.slice(beginDisplacementMatrix, endDisplacementeMatrix).split("\n");
 
@@ -535,7 +535,7 @@ app.controller(
 
 					var forcesMatrix = [];
 					var beginForcesMatrix = text.search("Tension")+9;
-					var endForcesMatrix = text.length;
+					var endForcesMatrix = text.length-1;
 					temp = text.slice(beginForcesMatrix, endForcesMatrix).split("\n");
 					for (i = 0; i < temp.length; i++) { 
 						row = temp[i].split("\t")
@@ -572,9 +572,9 @@ app.controller(
 						var b3 = parseFloat(point2.coords.y) + parseFloat(point2.displacements.y);
 						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,[]);
 
-						var deformation = parseFloat(forcesMatrix[i][0].split("E")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][0].split("E")[1])); 
-						var force = parseFloat(forcesMatrix[i][1].split("E")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][1].split("E")[1])); 
-						var tension = parseFloat(forcesMatrix[i][2].split("E")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][2].split("E")[1])); 
+						var deformation = parseFloat(forcesMatrix[i][0].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][0].split("e")[1])); 
+						var force = parseFloat(forcesMatrix[i][1].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][1].split("e")[1])); 
+						var tension = parseFloat(forcesMatrix[i][2].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][2].split("e")[1])); 
 
 						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, deformation, force, tension,$scope.deformed);
 					}
@@ -609,6 +609,7 @@ app.controller(
 				
 					var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 					var text = reader.result;
+					text.replace("/r/n", "/n");
 					
 					var nodeMatrix = [];
 					var beginNodeMatrix = text.search("Zs")+4;
@@ -634,19 +635,19 @@ app.controller(
 					
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
-						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][2], nodeMatrix[i][1], sceneId, $scope.model);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
+						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], sceneId, $scope.model);
 					}
 
 					
 					for (i = 0; i < conectivityMatrix.length; i++) {
 					
 						var a1 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][0]);
-						var a2 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][2]);
-						var a3 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][1]);
+						var a2 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][1]);
+						var a3 = parseFloat(nodeMatrix[conectivityMatrix[i][3]-1][2]);
 						var b1 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][0]);
-						var b2 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][2]);
-						var b3 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][1]);
+						var b2 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][1]);
+						var b3 = parseFloat(nodeMatrix[conectivityMatrix[i][4]-1][2]);
 						
 						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, new THREE.LineBasicMaterial({color: 0x000000}), 0.05, $scope.scene,$scope.spaceAux.sceneLines);
 						
@@ -721,6 +722,7 @@ app.controller(
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
 				$scope.scene = new THREE.Scene();
 				grid = new THREE.GridHelper( 100, 1 );
+				grid.rotation.x = Math.PI/2;
 				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
 				grid.position.set(0,0,0);
 				$scope.scene.add(grid);
@@ -747,7 +749,7 @@ app.controller(
 					var text = reader.result;
 					$scope.model = angular.fromJson(text);
 					
-					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines);
+					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
 
 					render();
 
