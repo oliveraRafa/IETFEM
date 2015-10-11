@@ -421,21 +421,46 @@
 
 					<!-- FORMULARIO DE EDICION DE SALIDA-->
 					<form name="processOutputForm" ng-show="programMode === 'CROSSLINK_OUTPUT'" class="col-md-11" ng-controller="editOutputCtrl" novalidate>
-						<div class="col-md-12">
-							<input type="radio" name="structureView" value="normal" ng-model="structureView">Indeformada
-							<input type="radio" name="structureView" value="deform" ng-model="structureView">Deformada
+						<div class="panel panel-primary">
+							<div class="panel-heading">Resaltar</div>
+							<div class="panel-body">
+								<input type="radio" name="structureView" value="normal" ng-model="structureView">Indeformada
+								<input type="radio" name="structureView" value="deform" ng-model="structureView">Deformada
+							</div>
+						</div>	
+						<div class="panel panel-primary">
+							<div class="panel-heading">Factor de escala</div>
+							<div class="panel-body">
+								<input class="col-md-10" type="range"  ng-model="scaleStructure" min="1" max="1000"></input>
+								<input style="margin-top:7px;" type="number" ng-value="scaleStructure" disabled></input>
+							</div>
+						</div>	
+						<div class="panel panel-primary">
+							<div class="panel-heading">Coloración</div>
+							<div class="panel-body">
+								<div class="col-md-12">
+									<input type="radio" name="structureColors" value="normal" ng-model="structureColors" ng-disabled="structureView == 'deform'">Ninguna
+								</div>
+								<div class="col-md-12">
+									<input type="radio" name="structureColors" value="deformation" ng-model="structureColors" ng-disabled="structureView == 'deform'">Deformación
+								</div>
+								<div class="col-md-12">
+									<input type="radio" name="structureColors" value="force" ng-model="structureColors" ng-disabled="structureView == 'deform'">Fuerza
+								</div>
+								<div class="col-md-12">	
+									<input type="radio" name="structureColors" value="tension" ng-model="structureColors" ng-disabled="structureView == 'deform'">Tensión
+								</div>	
+							</div>
 						</div>
-						<div class="col-md-12">
-							<span once-text="Escalamiento:"></span>
-							<input class="col-md-10" type="range"  ng-model="scaleStructure" min="1" max="1000"></input>
-							<input type="number" ng-value="scaleStructure" disabled></input>
-						</div>
-						<div class="col-md-12">
-							<input type="radio" name="structureColors" value="normal" ng-model="structureColors">Sin coloración
-							<input type="radio" name="structureColors" value="deformation" ng-model="structureColors">Deformación
-							<input type="radio" name="structureColors" value="force" ng-model="structureColors">Fuerza
-							<input type="radio" name="structureColors" value="tension" ng-model="structureColors">Tensión
-						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Visualizar</div>
+							<div class="panel-body">
+								<span style="">Fuerzas:  </span>
+								<input id="toggle-event" type="checkbox" checked data-toggle="toggle">
+								<span style="">Apoyos:  </span>
+								<input id="toggle-event2" type="checkbox" checked data-toggle="toggle">
+							</div>
+						</div>	
 					</form>
 
 					<!-- FORMULARIO DE GRILLAS-->

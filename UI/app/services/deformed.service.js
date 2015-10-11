@@ -105,6 +105,16 @@ angular.module('IETFEM')
 		};
 	};
 
+	var hideDeformed = function(scene, deformed){
+		material = new THREE.MeshBasicMaterial( {color: 0x29088A, transparent: true, opacity: 0} );
+		for (var i = 0; i < deformed.points.length ;i++){
+			SpaceService.setMaterial(deformed.points[i].sceneId, scene, material);
+		};
+		for (var i = 0; i < deformed.lines.length ;i++){
+			SpaceService.setMaterial(deformed.lines[i].sceneId, scene, material);
+		};
+	};
+
 	var scaleDeformed = function(scene, deformed, model, scaleFactor){
 		//var material = SpaceService.getMaterial(deformed.points[0].sceneId, scene, scaleFactor) || null;
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
@@ -139,6 +149,7 @@ angular.module('IETFEM')
 		setDeformedMaterial: setDeformedMaterial,
 		setDeformedTransparent: setDeformedTransparent,
 		setDeformedOpaque: setDeformedOpaque,
+		hideDeformed: hideDeformed,
 		scaleDeformed: scaleDeformed,
 	};
 })

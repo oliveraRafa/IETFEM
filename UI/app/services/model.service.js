@@ -257,7 +257,7 @@ angular.module('IETFEM')
 		text += 'Conectivity matrix' + '\n';
 		text += 'material     section     tempcase     start     end' + '\n';
 		for (var i = 0; i < model.lines.length ;i++){
-			text += '1' + '\t' + '1' + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
+			text += model.lines[i].material + '\t' + model.lines[i].section + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
 		}
 		var displacementNodes = [];
 		for (var i = 0; i < model.points.length ;i++){
@@ -332,7 +332,7 @@ angular.module('IETFEM')
 	var setModelTransparent = function(scene, model){
 		if (model.points.length > 0){
 			var material = SpaceService.getMaterial(model.points[0].sceneId, scene);
-			material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0} );
+			material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0.15} );
 			for (var i = 0; i < model.points.length ;i++){
 				SpaceService.setMaterial(model.points[i].sceneId, scene, material);
 			};

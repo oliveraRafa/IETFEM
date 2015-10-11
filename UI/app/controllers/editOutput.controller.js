@@ -5,7 +5,7 @@ var app = angular.module('IETFEM');
 	    if ($scope.structureView === 'normal'){
 	    	ModelService.setModelOpaque($scope.scene, $scope.model);
 	    	DeformedService.setDeformedTransparent($scope.scene, $scope.deformed);
-	    	$scope.structureView = 'normal'
+	    	$scope.structureColors = 'normal'
 	    } else {
 	    	ModelService.setModelTransparent($scope.scene, $scope.model);
 	    	DeformedService.setDeformedOpaque($scope.scene, $scope.deformed);
@@ -19,6 +19,11 @@ var app = angular.module('IETFEM');
 	});	
 
 	$scope.$watch('structureColors', function() {
+		if ($scope.structureColors != 'normal'){
+			DeformedService.hideDeformed($scope.scene, $scope.deformed);
+		} else {
+			DeformedService.setDeformedTransparent($scope.scene, $scope.deformed);
+		}
 	    ModelService.colorizeModel($scope.scene, $scope.model, $scope.deformed, $scope.structureColors, $scope.structureView != 'normal');
 	    $scope.render();
 	});	

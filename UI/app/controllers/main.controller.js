@@ -8,6 +8,7 @@ app.controller(
 		'leftMenuService',
 		'PtoSelecService',
 		'LineaSelecService',
+		'LineaSelecService',
 		'$timeout',
         function($scope, ModelService, DeformedService, SpaceService,leftMenuService,PtoSelecService,LineaSelecService,$timeout){
 		
@@ -584,16 +585,17 @@ app.controller(
 						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, deformation, force, tension,$scope.deformed);
 					}
 					
-					$scope.programMode = 'CROSSLINK_OUTPUT';
-					$scope.structureView = 'normal';
-					$scope.scaleStructure = 1
-					$scope.structureColors = 'normal';
 
 					$('#processOutputModal').modal('hide');
 					
 					render();
 				};
+				
 				outputReader.readAsText($scope.theFile);
+				$scope.programMode = 'CROSSLINK_OUTPUT';
+				$scope.structureView = 'normal';
+				$scope.scaleStructure = 1
+				$scope.structureColors = 'normal';
 
 			}
 
@@ -601,7 +603,7 @@ app.controller(
 				if($scope.theFile!= null){
 					$scope.importing = true;
 					$scope.$apply();
-					$timeout($scope.importModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
+					setTimeout($scope.importModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
 				}
 			}
 
@@ -719,9 +721,6 @@ app.controller(
 
 				$scope.programMode = 'CROSSLINK_INPUT';
 
-				ModelService.addMaterial("Hormigon",1,1,1,1,$scope.model);
-				ModelService.addMaterial("Metal",0,0,0,0,$scope.model);
-
 				$(modal).modal('hide');
 
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
@@ -756,9 +755,8 @@ app.controller(
 					
 					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
 
-					render();
-
 					$('#openModelModal').modal('hide');
+					render();
 
 				};
 				reader.readAsText($scope.theFile);
@@ -828,9 +826,6 @@ app.controller(
 
 			$scope.render=render;//Para re renderizar desde otros lugares
 
-			ModelService.addMaterial("Hormigon",1,1,1,1,$scope.model);
-			ModelService.addMaterial("Metal",0,0,0,0,$scope.model);
-			
 			// --- Inicializa escena
 			init();
 			render();

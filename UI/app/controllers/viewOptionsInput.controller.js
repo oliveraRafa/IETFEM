@@ -22,9 +22,14 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 			for(var i = 0; i < $scope.model.points.length ;i++){
 				var punto=$scope.model.points[i];
 				if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
-					var origen= new THREE.Vector3( punto.coords.x-punto.xForce, punto.coords.y-punto.yForce, punto.coords.z-punto.zForce );
-					var largo= Math.sqrt( Math.pow(punto.xForce,2) + Math.pow(punto.yForce,2) + Math.pow(punto.zForce,2))-0.1;
-					var direccion = new THREE.Vector3( punto.xForce/ (largo+0.1), punto.yForce/(largo+0.1), punto.zForce/(largo+0.1) );
+
+					var xForce = punto.xForce/100;
+					var yForce = punto.yForce/100;
+					var zForce = punto.zForce/100;
+
+					var origen= new THREE.Vector3( punto.coords.x-xForce, punto.coords.y-yForce, punto.coords.z-zForce );
+					var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
+					var direccion = new THREE.Vector3(xForce/ (largo+0.1), yForce/(largo+0.1), zForce/(largo+0.1) );
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(punto.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(punto.forceArrowId,$scope.scene);
