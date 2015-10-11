@@ -266,6 +266,8 @@ app.controller(
 
 				var ray = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
 
+				var isSelectionBlocked=false;
+
 				//FUNCION OBTENGO punto seleccionado
 				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
 					var pointIntersection = ray.intersectObjects($scope.spaceAux.scenePoints);
@@ -282,6 +284,7 @@ app.controller(
 							PtoSelecService.resetPuntoSeleccionado();
 							pointIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 						}
+						isSelectionBlocked=true;
 						PtoSelecService.resetForm();
 						$scope.$apply();//Es necesario avisarle a angular que cambiamos el puntoSeleccionado
 						//alert('Seleccionado!! id: ' + PtoSelecService.getPunto().id);
@@ -290,24 +293,26 @@ app.controller(
 				//-----------------------------------------------------------------------------------------------------
 
 				//FUNCION OBTENGO linea seleccionada
-				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
-					var lineIntersection = ray.intersectObjects($scope.spaceAux.sceneLines);
-					var lineaModeloSelec;
-					if(lineIntersection.length >0){
-						lineaModeloSelec=ModelService.getLineBySceneId(lineIntersection[0].object.id,$scope.model);
-						if(LineaSelecService.getLinea().id != lineaModeloSelec.id){// Si la linea no esta seleccionado lo prendo
-							if(LineaSelecService.getLinea().sceneId != 0){// Si habia una linea seleccionada la apago
-								SpaceService.getSceneLineById(LineaSelecService.getLinea().sceneId,$scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+				if(!isSelectionBlocked){
+					if(leftMenuService.getSelecting()){// Si esta en modo seleccion
+						var lineIntersection = ray.intersectObjects($scope.spaceAux.sceneLines);
+						var lineaModeloSelec;
+						if(lineIntersection.length >0){
+							lineaModeloSelec=ModelService.getLineBySceneId(lineIntersection[0].object.id,$scope.model);
+							if(LineaSelecService.getLinea().id != lineaModeloSelec.id){// Si la linea no esta seleccionado lo prendo
+								if(LineaSelecService.getLinea().sceneId != 0){// Si habia una linea seleccionada la apago
+									SpaceService.getSceneLineById(LineaSelecService.getLinea().sceneId,$scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+								}
+								LineaSelecService.setLinea(lineaModeloSelec);
+								lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x088A08} );
+							
+							}else{// Si la linea estaba seleccionada la des selecciono
+								LineaSelecService.resetLineaSeleccionada();
+								lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
 							}
-							LineaSelecService.setLinea(lineaModeloSelec);
-							lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x088A08} );
-						
-						}else{// Si la linea estaba seleccionada la des selecciono
-							LineaSelecService.resetLineaSeleccionada();
-							lineIntersection[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+						LineaSelecService.resetForm();
+						$scope.$apply();
 						}
-					LineaSelecService.resetForm();
-					$scope.$apply();
 					}
 				}
 
