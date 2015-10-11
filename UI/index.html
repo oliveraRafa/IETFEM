@@ -604,7 +604,7 @@
 										<div class="row" style="margin-bottom:6px">
 											<span class="label label-default" style="font-size:12px">ID: {{ miLinea.id}}</span>
 										</div>
-									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.update3Line()" novalidate>
+									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.updateLine()" novalidate>
 										<div class="row form-group">
 											<label class="col-md-offset-1 col-md-2">Material:</label>
 											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.material" ng-options="material.name for material in misMateriales track by material.name" required>

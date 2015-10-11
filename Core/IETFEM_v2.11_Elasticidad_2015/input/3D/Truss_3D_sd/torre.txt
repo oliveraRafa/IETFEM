@@ -11,8 +11,8 @@ Number of degrees of freedom per node
 
 Number of nodes per element
 2
-
 Number of materials
+
 1
 
 Materials:
