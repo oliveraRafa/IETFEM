@@ -85,11 +85,16 @@
 			      		<div class="modal-header">
 			      			<h4 class="modal-title" id="myModalLabel">Abrir Modelo</h4>
 			      		</div>
-			      		<form name="openModelForm" ng-submit="openModel()">
+			      		<form name="openModelForm" ng-submit="startOpenModel()">
 				      		<div class="modal-body">
 						        <!--Carga de archivo-->
 								<input type="file" onchange="setFile(this)">
 						    </div>
+						    <div class="row col-md-offset-5 col-md-2" style="margin-top:5px" ng-show="opening">
+								<div class="spinner-loader">
+								  Loading…
+								</div>
+							</div>
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
 									<button class="btn btn-primary" type="submit">

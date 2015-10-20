@@ -9,7 +9,7 @@ app.controller('MaterialesCtrl',['$scope','ModelService',function($scope,ModelSe
 		$scope.existeMaterial = function(){
 			if($scope.materiales.length > 0){
 				for(var i = 0; i < $scope.materiales.length ;i++){
-					if($scope.materiales[i].name == $scope.nuevoMaterial.name){
+					if($scope.materiales[i].id == $scope.nuevoMaterial.id){
 						return true;
 					}
 				}
@@ -21,6 +21,7 @@ app.controller('MaterialesCtrl',['$scope','ModelService',function($scope,ModelSe
 			if(!$scope.existeMaterial()){
 				ModelService.addMaterial($scope.nuevoMaterial.name,$scope.nuevoMaterial.youngModule,$scope.nuevoMaterial.gamma,$scope.nuevoMaterial.alpha,$scope.nuevoMaterial.nu,$scope.model);
 				$scope.nuevoMaterial={
+					id: 0,
 					name:"Nuevo Material",
 					youngModule:0,
 					gamma:0,

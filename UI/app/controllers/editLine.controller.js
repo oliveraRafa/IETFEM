@@ -5,8 +5,8 @@ app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService','Defa
 		$scope.misMateriales= $scope.model.materiales;
 		$scope.misSecciones= $scope.model.secciones;
 
-		$scope.materialDefecto==null;
-		$scope.seccionDefecto==null;
+		$scope.materialDefecto==0;
+		$scope.seccionDefecto==0;
 
 		this.updateDefaults = function(){
 			DefaultsService.setLineMaterial($scope.materialDefecto);
@@ -53,7 +53,6 @@ app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService','Defa
 		};	
 
 		this.deleteLine = function(){
-			console.log($scope.scene);
 			var lineToRemove= LineaSelecService.getLinea();
 			var sceneObject =$scope.scene.getObjectById(lineToRemove.sceneId);
 			

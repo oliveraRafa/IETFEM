@@ -3,8 +3,8 @@ angular.module('IETFEM')
   		var lineaSeleccionada={
 			id: 0,
 			sceneId: 0,
-			material:null,
-			section:null,
+			material:0,
+			section:0,
 			start: 0,
 			end: 0
 		  };
@@ -36,8 +36,8 @@ angular.module('IETFEM')
 			resetLineaSeleccionada: function(){
 				lineaSeleccionada.id=0;
 				lineaSeleccionada.sceneId=0;
-				lineaSeleccionada.materiales=null;
-				lineaSeleccionada.sections=null;
+				lineaSeleccionada.materiales=0;
+				lineaSeleccionada.sections=0;
 				lineaSeleccionada.start=0;
 				lineaSeleccionada.end=0;
 			},

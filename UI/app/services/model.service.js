@@ -21,6 +21,24 @@ angular.module('IETFEM')
 		}					
 		return id+1;
 	};
+
+	var newMaterialIdentifier = function(model) {
+		var id = 0;
+		for (var i = 0; i < model.materiales.length; i++){
+			if (model.materiales[i].id > id)
+				id = model.materiales[i].id
+		}					
+		return id+1;
+	};
+
+	var newSectionIdentifier = function(model) {
+		var id = 0;
+		for (var i = 0; i < model.secciones.length; i++){
+			if (model.secciones[i].id > id)
+				id = model.secciones[i].id
+		}					
+		return id+1;
+	};
 	
 	//Obtiene un punto del modelo dadas sus coordenadas
 	var getPointIdByCoords = function(x,y,z,model) {
@@ -196,6 +214,7 @@ angular.module('IETFEM')
 	var addMaterial = function(name,ym,g,a,nu,model) {		
 		var material = {};
 		
+		material.id = newMaterialIdentifier(model)
 		material.name=name;
 		material.youngModule=ym;
 		material.gamma=g;
@@ -227,6 +246,9 @@ angular.module('IETFEM')
 	//Genera txt a partir del modelo
 	var getText = function(model) {
 		var text;
+		var materials = [];
+		var sections = [];
+
 		text = 'Input for a 3D with large deformation (You must respect line breaks):' + '\n\n' + 'Force Magnitude' + '\n' + 'kN' + '\n\n' + 'Length Magnitude' + '\n' + 'm' + '\n\n'
 			   + 'Number of degrees of freedom per node' + '\n' + '3' + '\n\n' + 'Number of nodes per element' + '\n' + '2' + '\n\n';
 
@@ -235,6 +257,7 @@ angular.module('IETFEM')
 		text += 'Materials:' + '\n' + 'Young Modulus	gamma	alpha (1/C)	nu' + '\n';
 		for (var i = 0; i < model.materiales.length ;i++){
 			text += model.materiales[i].youngModule + '\t' + model.materiales[i].gamma + '\t' + model.materiales[i].alpha + '\t' + model.materiales[i].nu + '\n'; 
+			materials[model.materiales[i].id] = i+1;
 		}
 		text += '\n' + 'Number of temperature cases' + '\n' + '0' + '\n\n' + 'Temperature cases:' + '\n' + 'Value' + '\n\n';
 		
@@ -242,7 +265,8 @@ angular.module('IETFEM')
 
 		text += 'Sections:' + '\n' + 'Area' + '\n';
 		for (var i = 0; i < model.secciones.length ;i++){
-			text += model.secciones[i].section + '\n'; 
+			text += model.secciones[i].section + '\n';
+			sections[model.secciones[i].id] = i+1;
 		}
 		
 		text += '\n' + 'Number of nodes' + '\n' + model.points.length + '\n\n';
@@ -257,7 +281,7 @@ angular.module('IETFEM')
 		text += 'Conectivity matrix' + '\n';
 		text += 'material     section     tempcase     start     end' + '\n';
 		for (var i = 0; i < model.lines.length ;i++){
-			text += model.lines[i].material + '\t' + model.lines[i].section + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
+			text += materials[model.lines[i].material.id] + '\t' + sections[model.lines[i].section.id] + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
 		}
 		var displacementNodes = [];
 		for (var i = 0; i < model.points.length ;i++){

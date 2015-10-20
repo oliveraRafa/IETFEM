@@ -704,14 +704,30 @@ app.controller(
 				var firstPointLine = null;
 				var idFirstPoint = 0;
 				
-				$scope.model = {helpObjects: {}};
+				$scope.fuerzas={visible:false};
+				$scope.supports={visible:false};
+
+				//$scope.model = {helpObjects: {}};
 				$scope.model.points = [];
 				$scope.model.lines = [];
-				$scope.model.materiales = [];
-				$scope.model.secciones= [];
+				//$scope.model.helpObjects = {};
+				//$scope.model.materiales = [];
+				//$scope.model.secciones= [];		
+
+				for (var i=0; i<$scope.model.materiales.length; i++){
+					$scope.model.materiales.pop();
+				};
+				for (var i=0; i<$scope.model.secciones.length; i++){
+					$scope.model.secciones.pop();
+				};
+				for (var i=0; i<$scope.model.helpObjects.grillas.length; i++){
+					$scope.model.helpObjects.grillas.pop();
+				};
+				//$scope.model.helpObjects.grillas=[];//Conjunto de infoGrid tienen info+ array de objetos del modelo
 
 				$scope.spaceAux={helpObjects: {}};
-				$scope.spaceAux.helpObjects.grilla = [];
+				$scope.spaceAux.helpObjects.grilla= [];
+
 				$scope.spaceAux.scenePoints = [];
 				$scope.spaceAux.sceneLines = [];
 
@@ -744,6 +760,15 @@ app.controller(
 				render();
 			};
 
+
+			$scope.startOpenModel= function(){
+				if($scope.theFile!= null){
+					$scope.opening = true;
+					$scope.$apply();
+					setTimeout($scope.openModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
+				}
+			}
+
 			$scope.openModel = function(){
 
 				var reader = new FileReader();
@@ -751,15 +776,34 @@ app.controller(
 				
 					$scope.newModel();
 					var text = reader.result;
-					$scope.model = angular.fromJson(text);
+
+
+					//Modelo importado directamente
+					var auxModel = angular.fromJson(text);
+					$scope.model.points = auxModel.points;
+					$scope.model.lines = auxModel.lines;
+
+					for (i=0; i < auxModel.materiales.length ; i++){
+						$scope.model.materiales.push(auxModel.materiales[i])
+					};
+
+					for (i=0; i < auxModel.secciones.length ; i++){
+						$scope.model.secciones.push(auxModel.secciones[i])
+					};
+
+					for (var i=0; i < auxModel.helpObjects.grillas.length; i++){
+						$scope.model.helpObjects.grillas.push(auxModel.helpObjects.grillas[i]);
+					};
 					
 					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
 
 					$('#openModelModal').modal('hide');
+					$scope.$apply();
 					render();
 
 				};
 				reader.readAsText($scope.theFile);
+				$scope.opening = false;
 			}
 
 			// Ver si dejamos estas funciones aca o hacemos otro controlador o algo

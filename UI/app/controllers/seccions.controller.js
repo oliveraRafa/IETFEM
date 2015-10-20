@@ -11,7 +11,7 @@ app.controller('SeccionesCtrl',['$scope','ModelService',function($scope,ModelSer
 		$scope.existeSeccion = function(){
 			if($scope.secciones.length > 0){
 				for(var i = 0; i < $scope.secciones.length ;i++){
-					if($scope.secciones[i].section == $scope.nuevaSeccion.section){
+					if($scope.secciones[i].id == $scope.nuevaSeccion.id){
 						return true;
 					}
 				}
@@ -23,6 +23,7 @@ app.controller('SeccionesCtrl',['$scope','ModelService',function($scope,ModelSer
 			if(!$scope.existeSeccion()){
 				ModelService.addSection($scope.nuevaSeccion.section,$scope.model);
 				$scope.nuevaSeccion={
+					id: 0,
 					section:0
 				};
 				$scope.seccionForm.$setPristine();
