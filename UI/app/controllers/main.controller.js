@@ -704,8 +704,8 @@ app.controller(
 				var firstPointLine = null;
 				var idFirstPoint = 0;
 				
-				$scope.fuerzas={visible:false};
-				$scope.supports={visible:false};
+				$scope.fuerzas.visible=false;
+				$scope.supports.visible=false;
 
 				//$scope.model = {helpObjects: {}};
 				$scope.model.points = [];
@@ -846,8 +846,8 @@ app.controller(
 			var firstPointLine = null;
 			var idFirstPoint = 0;
 
-			$scope.fuerzas={visible:false};
-			$scope.supports={visible:false};
+			$scope.fuerzas={visible:true};
+			$scope.supports={visible:true};
 
 			$scope.model = {helpObjects: {}};
 			$scope.model.points = [];

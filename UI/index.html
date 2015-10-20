@@ -247,7 +247,7 @@
 												<thead>
 													<tr>
 														<td>Nombre</td>
-														<td>&epsilon;</td>
+														<td>E</td>
 														<td>&gamma;</td>
 														<td>&alpha;</td>
 														<td>&nu;</td>
@@ -459,11 +459,11 @@
 						</div>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Visualizar</div>
-							<div class="panel-body">
+							<div class="panel-body" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
 								<span style="">Fuerzas:  </span>
-								<input id="toggle-event" type="checkbox" checked data-toggle="toggle">
+								<input id="toggle-event" type="checkbox" ng-model="statusFuerzas.visible" data-toggle="toggle" ng-change="toggleForces()">
 								<span style="">Apoyos:  </span>
-								<input id="toggle-event2" type="checkbox" checked data-toggle="toggle">
+								<input id="toggle-event2" type="checkbox" ng-model="statusSupports.visible" data-toggle="toggle" ng-change="toggleSupports()">
 							</div>
 						</div>	
 					</form>
@@ -525,7 +525,7 @@
 								<div class="panel panel-primary">
 									<div class="panel-heading">Grillas</div>
 									<div class="panel-body">
-										<div ng-if="!gridInfos || gridInfos.length == 0">No has ingressdo grillas</div>
+										<div ng-if="!gridInfos || gridInfos.length == 0">No has ingresado grillas</div>
 										<div ng-repeat="gridInfo in gridInfos">
 											<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
 										    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
@@ -540,9 +540,9 @@
 								<div class="panel-heading">Otras opciones</div>
 								<div class="panel-body">
 									<span style="">Fuerzas:  </span>
-									<input id="toggle-event" type="checkbox" checked data-toggle="toggle">
+									<input id="toggle-event" type="checkbox" ng-model="statusFuerzas.visible" ng-change="toggleForces()">
 									<span style="">Apoyos:  </span>
-									<input id="toggle-event2" type="checkbox" checked data-toggle="toggle">
+									<input id="toggle-event2" type="checkbox" ng-model="statusSupports.visible" ng-change="toggleSupports()">
 									<!-- <button  class="btn btn-primary" ng-click="toggleSupports()" >Apoyos</button> -->
 								</div>
 							</div>
@@ -637,13 +637,13 @@
 									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.updateLine()" novalidate>
 										<div class="row form-group">
 											<label class="col-md-offset-1 col-md-2">Material:</label>
-											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.material" ng-options="material.name for material in misMateriales track by material.name" required>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.material" ng-options="material.id as material.name for material in misMateriales" required>
 												<option></option>
 											</select>
 										</div>
 										<div class="row form-group">
 											<label class="col-md-offset-1 col-md-2">Seccion:</label>
-											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.section" ng-options="seccion.section for seccion in misSecciones track by seccion.section" required>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.section" ng-options="seccion.id as seccion.section for seccion in misSecciones " required>
 												<option></option>
 											</select>
 										</div>

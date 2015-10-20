@@ -9,7 +9,7 @@ app.controller('MaterialesCtrl',['$scope','ModelService',function($scope,ModelSe
 		$scope.existeMaterial = function(){
 			if($scope.materiales.length > 0){
 				for(var i = 0; i < $scope.materiales.length ;i++){
-					if($scope.materiales[i].id == $scope.nuevoMaterial.id){
+					if($scope.materiales[i].name == $scope.nuevoMaterial.name){
 						return true;
 					}
 				}

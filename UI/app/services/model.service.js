@@ -120,8 +120,12 @@ angular.module('IETFEM')
 		var line = {};
 		line.id = newLineIdentifier(model);
 		line.sceneId= lineSceneId;
-		line.material=DefaultsService.getLineMaterial();
-		line.section=DefaultsService.getLineSection();
+		if(DefaultsService.getLineMaterial()!= null){
+			line.material=DefaultsService.getLineMaterial().id;
+		}
+		if(DefaultsService.getLineSection()!= null){
+			line.section=DefaultsService.getLineSection().id;
+		}
 		line.start = getPointIdByCoords(pX1, pY1, pZ1,model);
 		line.end = getPointIdByCoords(pX2, pY2, pZ2, model);
 		
@@ -228,6 +232,7 @@ angular.module('IETFEM')
 	var addSection = function(s,model) {		
 		var section = {};
 		
+		section.id= newSectionIdentifier(model);
 		section.section=s;
 		
 		model.secciones.push(section);

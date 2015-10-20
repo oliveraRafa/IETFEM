@@ -11,7 +11,7 @@ app.controller('SeccionesCtrl',['$scope','ModelService',function($scope,ModelSer
 		$scope.existeSeccion = function(){
 			if($scope.secciones.length > 0){
 				for(var i = 0; i < $scope.secciones.length ;i++){
-					if($scope.secciones[i].id == $scope.nuevaSeccion.id){
+					if($scope.secciones[i].section == $scope.nuevaSeccion.section){
 						return true;
 					}
 				}

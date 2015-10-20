@@ -18,17 +18,18 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 
 	$scope.toggleForces = function(){
 		
-		if(!$scope.statusFuerzas.visible){// Genera las flechas de todos los puntos, si ya tenia la regenera
+		if($scope.statusFuerzas.visible){// Genera las flechas de todos los puntos, si ya tenia la regenera
 			for(var i = 0; i < $scope.model.points.length ;i++){
 				var punto=$scope.model.points[i];
 				if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
 
-					var xForce = punto.xForce/100;
-					var yForce = punto.yForce/100;
-					var zForce = punto.zForce/100;
+					var xForce = punto.xForce;
+					var yForce = punto.yForce;
+					var zForce = punto.zForce;
 
 					var origen= new THREE.Vector3( punto.coords.x-xForce, punto.coords.y-yForce, punto.coords.z-zForce );
 					var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
+
 					var direccion = new THREE.Vector3(xForce/ (largo+0.1), yForce/(largo+0.1), zForce/(largo+0.1) );
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(punto.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
@@ -38,7 +39,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					$scope.scene.add(newArrow);
 				}
 			}
-			$scope.statusFuerzas.visible=true;
+			
 			$scope.render();
 		}else{
 			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
@@ -47,14 +48,14 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					SpaceService.hideShowObject(punto.forceArrowId,false,$scope.scene);
 				}
 			}
-			$scope.statusFuerzas.visible=false;
+			
 			$scope.render();
 		}
 
 	};
 	
 	$scope.toggleSupports = function(){
-		if(!$scope.statusSupports.visible){
+		if($scope.statusSupports.visible){
 			for(var i = 0; i < $scope.model.points.length ;i++){
 				var punto=$scope.model.points[i];
 				var idSupport=0;
@@ -81,7 +82,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 				}
 			
 			}
-			$scope.statusSupports.visible=true;
+			
 			$scope.render();
 		}else{//Si ya estaban visible las escondo
 			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
@@ -96,20 +97,20 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					SpaceService.hideShowObject(punto.supportZId,false,$scope.scene);
 				}
 			}
-			$scope.statusSupports.visible=false;
+			
 			$scope.render();
 		}
 	};
 
-	$(function() {
+	/*$(function() {
 	    $('#toggle-event').change(function() {
 	      $scope.toggleForces();
 	    });
-	    $('#toggle-event2').change(function() {
+	    $(".toggle-event2").change(function() {
 	      $scope.toggleSupports();
-	    })
+	    });
 
-	  });
+	  });*/
 	
 	$scope.toggleForces();
 	$scope.toggleSupports();
