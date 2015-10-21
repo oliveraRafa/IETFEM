@@ -59,7 +59,7 @@ app.controller(
 				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
 				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
 
-				renderer = new THREE.WebGLRenderer( { antialiasing: true } );
+				renderer = new THREE.WebGLRenderer( { antialiasing: false } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( viewportWidth, viewportHeight );
 				renderer.setClearColor( 0xEEEEEE, 1 );
@@ -345,13 +345,13 @@ app.controller(
 								firstPointLine.z = intersects[0].object.position.z;
 								idFirstPoint = intersects[0].object.id;
 								intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x8B0000} );
-								intersects[0].object.geometry = new THREE.SphereGeometry( 0.15, 10, 10 );
+								intersects[0].object.geometry = new THREE.SphereGeometry( 0.15, 4, 4 );
 								
 							} else {
 								var lineSceneId = SpaceService.drawLine(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, new THREE.LineBasicMaterial({color: 0x000000}), 0.035, $scope.scene,$scope.spaceAux.sceneLines);
 								ModelService.addLineToModel(firstPointLine.x, firstPointLine.y, firstPointLine.z, intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, lineSceneId,$scope.model);
 								SpaceService.getScenePointById(idFirstPoint, $scope.scene).material = new THREE.MeshBasicMaterial( {color: 0x000000} );
-								SpaceService.getScenePointById(idFirstPoint, $scope.scene).geometry = new THREE.SphereGeometry( 0.1, 10, 10 );
+								SpaceService.getScenePointById(idFirstPoint, $scope.scene).geometry = new THREE.SphereGeometry( 0.1, 4, 4 );
 								idFirstPoint = 0;
 								firstPointLine = null;
 							}
@@ -382,7 +382,7 @@ app.controller(
 						var sceneIdGridLine=SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null);
 						ModelService.addGridLineToModel($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, sceneIdGridLine,miGridInfo);
 						for (k=0; k < $scope.largoX * $scope.separatorX; k = k + $scope.separatorX){
-							var sphereGeometry = new THREE.SphereGeometry(  0.1, 10, 10  );
+							var sphereGeometry = new THREE.SphereGeometry(  0.1, 4, 4  );
 							var sphereMaterial = new THREE.MeshBasicMaterial( {color: 0xFF0000, transparent: true, opacity: 0.15} );
 							var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 							sphere.position.x = $scope.posX+k;
@@ -768,6 +768,7 @@ app.controller(
 				if($scope.theFile!= null){
 					$scope.opening = true;
 					$scope.$apply();
+					$scope.newModel('');
 					setTimeout($scope.openModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
 				}
 			}
@@ -797,9 +798,7 @@ app.controller(
 					for (var i=0; i < auxModel.helpObjects.grillas.length; i++){
 						$scope.model.helpObjects.grillas.push(auxModel.helpObjects.grillas[i]);
 					};
-					console.log($scope.model);
 					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
-					console.log($scope.model);
 
 					$('#openModelModal').modal('hide');
 					$scope.$apply();

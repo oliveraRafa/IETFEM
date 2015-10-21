@@ -35,7 +35,7 @@ angular.module('IETFEM')
 
 		/* cylinder: radiusAtTop, radiusAtBottom, 
 			height, radiusSegments, heightSegments */
-		var edgeGeometry = new THREE.CylinderGeometry( width, width, direction.length(), 8, 1);
+		var edgeGeometry = new THREE.CylinderGeometry( width, width, direction.length(), 4, 1);
 		
 		var edge = new THREE.Mesh( edgeGeometry, 
 				material);
@@ -112,7 +112,7 @@ angular.module('IETFEM')
 
 	//Dibuja un punto
 	var drawPoint = function(x, y, z, scene, puntosEscena, sphereMaterial, helpObjects){
-		var sphereGeometry = new THREE.SphereGeometry( 0.1, 10, 10 );
+		var sphereGeometry = new THREE.SphereGeometry( 0.1, 4, 4 );
 		var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 		sphere.position.x = x
 		sphere.position.y = y
