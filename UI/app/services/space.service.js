@@ -1,5 +1,5 @@
 angular.module('IETFEM')
-.factory('SpaceService', function() {
+.factory('SpaceService', ['DefaultsService',function(DefaultsService) {
 
 	var colorRange = [
 		{index:-5, color:0x610B0B},
@@ -112,7 +112,7 @@ angular.module('IETFEM')
 
 	//Dibuja un punto
 	var drawPoint = function(x, y, z, scene, puntosEscena, sphereMaterial, helpObjects){
-		var sphereGeometry = new THREE.SphereGeometry( 0.1, 4, 4 );
+		var sphereGeometry = DefaultsService.getEsferaEstandar();
 		var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 		sphere.position.x = x
 		sphere.position.y = y
@@ -159,7 +159,7 @@ angular.module('IETFEM')
 	//Dibuja el modelo entero
 	var drawModel = function(scene, model, puntosEscena, lineasEscena, helpObjects){
 
-		var material = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		var material = DefaultsService.getMaterialNegro();
 		var start = {};
 		var end = {};
 
@@ -289,4 +289,4 @@ angular.module('IETFEM')
 		getColor: getColor
 	};
 
-});
+}]);
