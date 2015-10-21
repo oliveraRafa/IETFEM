@@ -797,8 +797,9 @@ app.controller(
 					for (var i=0; i < auxModel.helpObjects.grillas.length; i++){
 						$scope.model.helpObjects.grillas.push(auxModel.helpObjects.grillas[i]);
 					};
-					
+					console.log($scope.model);
 					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
+					console.log($scope.model);
 
 					$('#openModelModal').modal('hide');
 					$scope.$apply();
@@ -807,6 +808,33 @@ app.controller(
 				};
 				reader.readAsText($scope.theFile);
 				$scope.opening = false;
+			}
+
+			$scope.returnToEdit = function(){
+				$scope.programMode = "CROSSLINK_INPUT"
+				$scope.deformed = {};
+
+				//Creo la escena dentro del viewport, pongo grilla auxiliar
+				$scope.scene = new THREE.Scene();
+				grid = new THREE.GridHelper( 100, 1 );
+				grid.rotation.x = Math.PI/2;
+				grid.setColors( new THREE.Color(0x838383), new THREE.Color(0xD0D0D0) );
+				grid.position.set(0,0,0);
+				$scope.scene.add(grid);
+			
+				var dir = new THREE.Vector3( 1, 0, 0 );
+				var origin = new THREE.Vector3( 0, 0, 0 );
+				var length = 3;
+				var hex = 0xff0000;
+
+				// pongo los ejes
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
+				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
+
+				SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
+				
+
 			}
 
 			// Ver si dejamos estas funciones aca o hacemos otro controlador o algo

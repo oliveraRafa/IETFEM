@@ -373,7 +373,7 @@
 						<br/>
 						<br/>
 						<div class="btn-group-vertical" role="group" ng-show="programMode==='CROSSLINK_OUTPUT'">
-							<button class="btn btn-default btn-lg botonMenuIzq" data-placement="right" disabled><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></button>
+							<button class="btn btn-default btn-lg botonMenuIzq" data-placement="right" ng-click="returnToEdit()"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></button>
 						</div>	
 						<div class="btn-group-vertical" role="group" ng-show="programMode==='CROSSLINK_INPUT'">
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="seleccionar()" ng-class="{active: seleccionando()}" data-toggle="tooltip" data-placement="right" title="Seleccionar"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span></button>
