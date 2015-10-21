@@ -23,9 +23,9 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 				var punto=$scope.model.points[i];
 				if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
 
-					var xForce = punto.xForce;
-					var yForce = punto.yForce;
-					var zForce = punto.zForce;
+					var xForce = punto.xForce/$scope.statusFuerzas.escala;
+					var yForce = punto.yForce/$scope.statusFuerzas.escala;
+					var zForce = punto.zForce/$scope.statusFuerzas.escala;
 
 					var origen= new THREE.Vector3( punto.coords.x-xForce, punto.coords.y-yForce, punto.coords.z-zForce );
 					var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
@@ -55,6 +55,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 	};
 	
 	$scope.toggleSupports = function(){
+		//para sincronizar el input range y el number
 		if($scope.statusSupports.visible){
 			for(var i = 0; i < $scope.model.points.length ;i++){
 				var punto=$scope.model.points[i];

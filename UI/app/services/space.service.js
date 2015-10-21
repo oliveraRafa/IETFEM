@@ -119,9 +119,10 @@ angular.module('IETFEM')
 		sphere.position.z = z
 		scene.add(sphere);
 		
-		puntosEscena.push(sphere);	
-		helpObjects.push(sphere);	
-
+		puntosEscena.push(sphere);
+		if(helpObjects != null){
+			helpObjects.push(sphere);	
+		}
 		return sphere.id;	
 	};
 
@@ -163,7 +164,7 @@ angular.module('IETFEM')
 		var end = {};
 
 		for (i=0; i<model.points.length; i++){
-			model.points[i].sceneId = drawPoint(model.points[i].coords.x, model.points[i].coords.y, model.points[i].coords.z, scene, puntosEscena, material, helpObjects.grilla);	
+			model.points[i].sceneId = drawPoint(model.points[i].coords.x, model.points[i].coords.y, model.points[i].coords.z, scene, puntosEscena, material, null);	
 			$('#toggle-event').click();
 			$('#toggle-event').click();
 			$('#toggle-event2').click();

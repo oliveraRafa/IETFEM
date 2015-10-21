@@ -30,9 +30,9 @@ var app = angular.module('IETFEM');
 				puntoModelo.yCondicion= $scope.miPunto.yCondicion;
 				puntoModelo.zCondicion= $scope.miPunto.zCondicion;
 
-				puntoModelo.xForce= parseFloat($scope.miPunto.xForce);
-				puntoModelo.yForce= parseFloat($scope.miPunto.yForce);
-				puntoModelo.zForce= parseFloat($scope.miPunto.zForce);
+				puntoModelo.xForce= parseFloat($scope.miPunto.xForce)/$scope.statusFuerzas.escala;
+				puntoModelo.yForce= parseFloat($scope.miPunto.yForce)/$scope.statusFuerzas.escala;
+				puntoModelo.zForce= parseFloat($scope.miPunto.zForce)/$scope.statusFuerzas.escala;
 
 				//Actualizo flecha de fuerzas del nodo
 				if($scope.statusFuerzas.visible){

@@ -327,7 +327,7 @@ app.controller(
 						if(!$scope.yaExistePuntoCoords(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z)){
 							/*
 							intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} ); ya no es necesario*/
-							var newNodeId=SpaceService.drawPoint(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, $scope.scene, $scope.spaceAux.scenePoints, new THREE.LineBasicMaterial({color: 0x000000}) , $scope.spaceAux.helpObjects.grilla);
+							var newNodeId=SpaceService.drawPoint(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, $scope.scene, $scope.spaceAux.scenePoints, new THREE.LineBasicMaterial({color: 0x000000}) , null);
 							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, newNodeId, $scope.model);
 							/*puntosEscena.push(intersects[0].object);	ya no es necesario creamos un nuevo nodo*/
 						}
@@ -559,7 +559,7 @@ app.controller(
 						var pointY = parseFloat(point.coords.y) + displacementY
 						var pointZ = parseFloat(point.coords.z) + displacementZ
 
-						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
+						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, $scope.spaceAux.scenePoints, material, null);
 
 						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
 					}
@@ -642,7 +642,7 @@ app.controller(
 					
 					
 					for (i = 0; i < nodeMatrix.length; i++) {
-						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
+						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], $scope.scene, $scope.spaceAux.scenePoints, material, null);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], sceneId, $scope.model);
 					}
 
@@ -708,6 +708,7 @@ app.controller(
 				PtoSelecService.resetPuntoSeleccionado();
 
 				$scope.fuerzas.visible=false;
+				$scope.fuerzas.escala=1;
 				$scope.supports.visible=false;
 
 				//$scope.model = {helpObjects: {}};
@@ -717,13 +718,16 @@ app.controller(
 				//$scope.model.materiales = [];
 				//$scope.model.secciones= [];		
 
-				for (var i=0; i<$scope.model.materiales.length; i++){
+				var largoMateriales=$scope.model.materiales.length;
+				for (var i=0; i<largoMateriales; i++){
 					$scope.model.materiales.pop();
 				};
-				for (var i=0; i<$scope.model.secciones.length; i++){
+				var largoSecciones=$scope.model.secciones.length;
+				for (var i=0; i<largoSecciones; i++){
 					$scope.model.secciones.pop();
 				};
-				for (var i=0; i<$scope.model.helpObjects.grillas.length; i++){
+				var largoGrillas=$scope.model.helpObjects.grillas.length
+				for (var i=0; i<largoGrillas; i++){
 					$scope.model.helpObjects.grillas.pop();
 				};
 				//$scope.model.helpObjects.grillas=[];//Conjunto de infoGrid tienen info+ array de objetos del modelo
@@ -876,8 +880,9 @@ app.controller(
 			var firstPointLine = null;
 			var idFirstPoint = 0;
 
-			$scope.fuerzas={visible:true};
+			$scope.fuerzas={visible:true, escala:1};
 			$scope.supports={visible:true};
+
 
 			$scope.model = {helpObjects: {}};
 			$scope.model.points = [];
