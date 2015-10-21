@@ -704,6 +704,9 @@ app.controller(
 				var firstPointLine = null;
 				var idFirstPoint = 0;
 				
+				LineaSelecService.resetLineaSeleccionada();
+				PtoSelecService.resetPuntoSeleccionado();
+
 				$scope.fuerzas.visible=false;
 				$scope.supports.visible=false;
 
