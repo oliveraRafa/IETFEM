@@ -286,7 +286,7 @@ angular.module('IETFEM')
 		text += 'Conectivity matrix' + '\n';
 		text += 'material     section     tempcase     start     end' + '\n';
 		for (var i = 0; i < model.lines.length ;i++){
-			text += materials[model.lines[i].material.id] + '\t' + sections[model.lines[i].section.id] + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
+			text += materials[model.lines[i].material] + '\t' + sections[model.lines[i].section] + '\t' + 0 + '\t' + model.lines[i].start + '\t' + model.lines[i].end + '\n'; 
 		}
 		var displacementNodes = [];
 		for (var i = 0; i < model.points.length ;i++){
