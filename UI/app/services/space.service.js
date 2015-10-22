@@ -18,7 +18,7 @@ angular.module('IETFEM')
 	var arrayGeometriasBarras=[];
 
 	// Funciones internas
-	var	cylinderMesh = function( point1, point2, material, width){
+	var	cylinderMesh = function( point1, point2, material, width, applyCacheGeometry){
 
 		/* edge from X to Y */
 		var direction = new THREE.Vector3().subVectors( point2, point1 );
@@ -40,7 +40,7 @@ angular.module('IETFEM')
 		
 		var result=$.grep(arrayGeometriasBarras, function(e){ return e.largo == direction.length(); });
 		var edgeGeometry;
-		if(result.length > 0){
+		if(result.length > 0 && applyCacheGeometry){
 			edgeGeometry= result[0].geometry;
 		}else{
 			edgeGeometry= new THREE.CylinderGeometry( width, width, direction.length(), 3, 1);
@@ -89,8 +89,8 @@ angular.module('IETFEM')
 	//--- Fin internas
 	
 	//Dibuja una linea entre 2 puntos
-	var drawLine = function(xi, yi, zi, xf, yf, zf, material, width, scene,lineasEscena){
-		var cylinder = cylinderMesh(new THREE.Vector3(xi, yi, zi), new THREE.Vector3(xf, yf, zf), material, width);
+	var drawLine = function(xi, yi, zi, xf, yf, zf, material, width, scene,lineasEscena, applyCacheGeometry){
+		var cylinder = cylinderMesh(new THREE.Vector3(xi, yi, zi), new THREE.Vector3(xf, yf, zf), material, width, applyCacheGeometry);
 		scene.add( cylinder );
 
 		if(lineasEscena != null){//Se pasa null en la grilla x ejemplo
@@ -226,7 +226,7 @@ angular.module('IETFEM')
 	var moveLine = function(id, scene, x1, y1, z1, x2, y2, z2) {
 
 		var material = getMaterial(id, scene);
-		var rotated = cylinderMesh(new THREE.Vector3(x1, z1, y1), new THREE.Vector3(x2, z2, y2), material, 0.05);
+		var rotated = cylinderMesh(new THREE.Vector3(x1, z1, y1), new THREE.Vector3(x2, z2, y2), material, 0.05, false);
 		
 		scene.add(rotated);
 

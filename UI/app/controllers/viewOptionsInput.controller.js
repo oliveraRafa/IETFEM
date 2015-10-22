@@ -103,7 +103,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 		}
 	};
 
-	/*$(function() {
+	$(function() {
 	    $('#toggle-event').change(function() {
 	      $scope.toggleForces();
 	    });
@@ -111,7 +111,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 	      $scope.toggleSupports();
 	    });
 
-	  });*/
+	  });
 	
 	$scope.toggleForces();
 	$scope.toggleSupports();

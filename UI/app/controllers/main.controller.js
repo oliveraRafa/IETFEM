@@ -63,7 +63,7 @@ app.controller(
 				rendererStats.domElement.style.position   = 'absolute'
 				rendererStats.domElement.style.left  = '0px'
 				rendererStats.domElement.style.bottom    = '0px'
-				document.body.appendChild( rendererStats.domElement )
+				//document.body.appendChild( rendererStats.domElement )
 
 				renderer = new THREE.WebGLRenderer( { antialiasing: false } );
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -388,11 +388,11 @@ app.controller(
 
 				for (i=0; i < $scope.largoY * $scope.separatorY ; i = i + $scope.separatorY){
 					for (j=0; j < $scope.largoX * $scope.separatorX; j = j + $scope.separatorX){
-						var sceneIdGridLine=SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, $scope.scene,null);
+						var sceneIdGridLine=SpaceService.drawLine($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, material, 0.01, $scope.scene,null, true);
 						ModelService.addGridLineToModel($scope.posX + j, $scope.posY + i, $scope.posZ, $scope.posX + j, $scope.posY + i, $scope.posZ + ($scope.largoZ - 1) * $scope.separatorZ, sceneIdGridLine,miGridInfo);
 					}
 					for (j=0; j < $scope.largoZ * $scope.separatorZ; j = j + $scope.separatorZ){
-						var sceneIdGridLine=SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null);
+						var sceneIdGridLine=SpaceService.drawLine($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null, true);
 						ModelService.addGridLineToModel($scope.posX, $scope.posY + i, $scope.posZ + j, $scope.posX + ($scope.largoX - 1) * $scope.separatorX, $scope.posY + i, $scope.posZ + j, sceneIdGridLine,miGridInfo);
 						for (k=0; k < $scope.largoX * $scope.separatorX; k = k + $scope.separatorX){
 							//var sphereGeometry = new THREE.SphereGeometry(  0.1, 4, 4  );
@@ -409,7 +409,7 @@ app.controller(
 							ModelService.addGridPointToModel($scope.posX+k,$scope.posY+i,$scope.posZ+j, sphere.id, miGridInfo);
 							$scope.spaceAux.helpObjects.grilla.push(sphere);
 							if (i > 0){
-								var sceneIdGridLine= SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null);
+								var sceneIdGridLine= SpaceService.drawLine($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, material, 0.01, $scope.scene,null, true);
 								ModelService.addGridLineToModel($scope.posX + k, $scope.posY + i - $scope.separatorY, $scope.posZ + j, $scope.posX + k, $scope.posY + i, $scope.posZ + j, sceneIdGridLine,miGridInfo);
 							}
 						}
@@ -641,7 +641,7 @@ app.controller(
 					for (i = 0; i < temp.length; i++) { 
 						var row = temp[i].split("\t")
 						for (var j = 0; j < row.length; j++) { 
-							row[j] = parseFloat(row[j]);
+							row[j] = parseFloat(row[j]/3);
 						}
 						nodeMatrix.push(row);
 					}
