@@ -95,8 +95,7 @@ angular.module('IETFEM')
 	};
 
 	var setDeformedTransparent = function(scene, deformed){
-		var material = SpaceService.getMaterial(deformed.points[0].sceneId, scene);
-		material = new THREE.MeshBasicMaterial( {color: material.color, transparent: true, opacity: 0.15} );
+		var material = new THREE.MeshBasicMaterial( {color: 0x29088A, transparent: true, opacity: 0.15} );
 		for (var i = 0; i < deformed.points.length ;i++){
 			SpaceService.setMaterial(deformed.points[i].sceneId, scene, material);
 		};
