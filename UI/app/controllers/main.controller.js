@@ -683,8 +683,10 @@ app.controller(
 					$('#importModelModal').modal('hide');
 					$scope.importing = false;
 					$scope.$apply();
+					
 				};
 				reader.readAsText($scope.theFile);
+
 			}
 			
 			setFile = function(element) {
@@ -918,6 +920,8 @@ app.controller(
 			$scope.deformed.lines = [];
 
 			$scope.programMode = 'CROSSLINK_INPUT';
+
+			
 
 			$scope.render=render;//Para re renderizar desde otros lugares
 

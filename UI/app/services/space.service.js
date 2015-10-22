@@ -15,6 +15,8 @@ angular.module('IETFEM')
 		{index:5, color:0x0B610B},
 	]
 
+	var arrayGeometriasBarras=[];
+
 	// Funciones internas
 	var	cylinderMesh = function( point1, point2, material, width){
 
@@ -35,7 +37,16 @@ angular.module('IETFEM')
 
 		/* cylinder: radiusAtTop, radiusAtBottom, 
 			height, radiusSegments, heightSegments */
-		var edgeGeometry = new THREE.CylinderGeometry( width, width, direction.length(), 4, 1);
+		
+		var result=$.grep(arrayGeometriasBarras, function(e){ return e.largo == direction.length(); });
+		var edgeGeometry;
+		if(result.length > 0){
+			edgeGeometry= result[0].geometry;
+		}else{
+			edgeGeometry= new THREE.CylinderGeometry( width, width, direction.length(), 3, 1);
+			arrayGeometriasBarras.push({largo:direction.length(),geometry: edgeGeometry});
+		}
+		//var edgeGeometry = new THREE.CylinderGeometry( width, width, direction.length(), 4, 1);
 		
 		var edge = new THREE.Mesh( edgeGeometry, 
 				material);
@@ -75,27 +86,6 @@ angular.module('IETFEM')
 		return edge;
 	};
 
-	var	rotateCylinder = function( point1, point2, material, width){
-
-		var direction = new THREE.Vector3().subVectors( point2, point1 );
-		var orientation = new THREE.Matrix4();
-
-		orientation.lookAt(point1, point2, new THREE.Object3D().up);
-
-		var matrix4 = new THREE.Matrix4();
-		 matrix4.set(1,0,0,0,
-		 			0,0,1,0, 
-		 			0,-1,0,0,
-		 			0,0,0,1);
-		 orientation.multiply(matrix4);
-
-		var edgeGeometry = new THREE.CylinderGeometry( width, width, direction.length(), 8, 1);
-
-		return {
-				geometry: edgeGeometry, 
-				orientation: orientation
-			};
-	};
 	//--- Fin internas
 	
 	//Dibuja una linea entre 2 puntos
