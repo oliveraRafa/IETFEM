@@ -30,59 +30,74 @@ $\ $
 
 	\subsection {Definición del problema y motivación}
 	
-	introduccion hablando de el problema de resolucion de estructuras
+	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, fueron construidos bajo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos el comprendimiento del problema y sus posibles soluciones.
+
+	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma, lo que puede derivar en que la misma no siempre sea igual en la realidad a como se diseñó. Esto quiere decir que la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
 	
-	hablar de que los programas comerciales son diferentes
+	La Ingeniería en Computación no ha dejado este problema de lado, ya que existen diversos sistemas informáticos encargados de facilitar el diseño y cálculo de estructuras. Estos sistemas permiten, a grandes rasgos, dibujar una estructura mediante la definición de diferentes materiales, secciones, fuerzas externas, etc. Finalmente, realizan los cálculos correspondientes, mostrando la estructura en un estado de equilibrio y las deformaciones ocurridas en el proceso.
 	
-	de que trata el proyecto(agregar interfa)
+	Así como existen estos sistemas reconocidos mundialmente, la Facultad de Ingeniería cuenta también son su propio sistema de cálculo de estructuras. Su nombre es IETFEM, y fué desarrollado por los Ing. Pablo Castrillo y Jorge Pérez pertenecientes al Instituto de Estructuras y Transporte(IET). Se trata de un motor de cálculo desarrollado en Octave que recibe una estructura descripta en formato texto y genera gráficas e imágenes con la deformación de la misma.
 	
-	quienes integramos el equipo
-	
-	se busca agregar usabilidad y efucuebcua
+	En este proyecto, se realizará una interfaz gráfica acorde para ser utilizada en conjunto con el motor de cálculo antes mencionado, y lograr así un sistema completo de diseño y cálculo de estructuras. Se busca, en particular, agregar funciones de dibujado y visualización de resultados que pueden observarse en otros sistemas de la misma índole, acercando al IETFEM a los sistemas comerciales y logrando una mayor usabilidad y eficiencia para los estudiantes que lo utilizan.
 	
 	\subsection {Desarrollo previo}
 	
-	inicios del ietfem, motivacion
 	
-	tecnologias en las que esta hecho
 	
-	explicar que es lo que hace
+	Como mencionamos anteriormente, la FING cuenta con un motor de cálculo de estructuras desarrollado por los Ingenieros Pablo Castrillo y Jorge Pérez. El mismo resuelve problemas de cálculo de estructuras utilizando el Método de Elementos Finitos(MEF).
 	
-	uso en clases y criticas de estudiantes
+	El MEF es, desde mediados del siglo XX, una de las principales herramientas utilizadas por los ingenieros para el análisis de sistemas estructurales, mecánicos, eléctricos, etc. El avance de la computación y la disponibilidad creciente de computadores potentes a bajo costo ha provocado que los programas comerciales de MEF para el cálculo estructural sean utilizados masivamente. De hecho, en los últimos cuarenta años el MEF ha transformado los procedimientos de trabajo de todas las áreas de ingeniería y constituye hoy una de las herramientas indispensables con las que un ingeniero debe contar en el ejercicio de su profesión. Por otra parte, el uso del MEF por parte de profesionales no debidamente capacitados podría eventualmente producir errores en el diseño de estructuras, y por tanto, riesgos para los usuarios.
 	
+	En este contexto, la enseñanza del MEF en las carreras de Ingeniería se transforma en un desafío docente, donde además de formar a los estudiantes en el uso de diferentes programas de cálculo estructural es necesario transmitirles los conocimientos y herramientas que les permitan realizar un análisis crítico de los resultados. Es importante destacar además, que la mayoría de los programas comerciales (ej: SAP2000 y AxisVM) de MEF son de código cerrado, por lo que presentan como desventaja a nivel educativo, que no permiten a los estudiantes ver su funcionamiento interno, limitando la comprensión de los errores durante el aprendizaje.
+	
+	De esta manera surge entre docentes del Grupo de Mecánica de Sólidos Computacional (MSC) del Instituto de Estructuras y Transporte (IET) la motivación de brindar una solución al problema a través del desarrollo de un software educativo adecuado: IETFEM.
+	
+	IETFEM comenzó a desarrollarse en 2012 . El primer módulo desarrollado permitió resolver problemas de estructuras de barras articuladas o aporticadas en el plano con cargas aplicadas en los nodos. Esta primera versión fue utilizada por estudiantes del curso de Elasticidad 2013; luego se incluyó la posibilidad de generar un informe de salida en formato LaTeX. Posteriormente, la herramienta contó con el aporte del docente del IET, Agustín Spalvier, desarrollando la capacidad de ingresar cargas distribuidas uniformes en elementos de pórtico y el análisis modal de vibraciones de pórticos. Finalmente, a principios de 2014, Castrillo desarrolló un módulo para la resolución de problemas con variaciones de temperatura y fuerza de volumen en barras articuladas.
+
+Se buscó una herramienta que sin ser compleja para su aplicación en cursos de grado, permita al estudiante visualizar el funcionamiento interno del método de cálculo. Por ello se optó por la sintaxis de programación de GNUOctave (herramienta libre de alta compatibilidad con
+Matlab), ya conocida por los estudiantes. Se considera que contar con un software abierto donde los estudiantes pueden entender e incluso programar nuevos cálculos de acuerdo a sus necesidades, enriquece el trabajo desde el punto de vista didáctico.
+
+La forma de ingreso de datos se eligió de acuerdo a otros programas de cálculo de estructuras como SAP2000 donde se deben definir: materiales, secciones, estados de carga, geometrías, conectividades, etc. En el IETFEM se optó por una entrada de archivo de texto plano donde el estudiante debe ingresar esta información. La salida también es en texto plano (.txt y .tex) y gráfica, al igual que en los programas comerciales.
+	
+Sin embargo, la generación del archivo de entrada y la comunicación con el IETFEM pueden llegar a ser tediosas y complicadas para el estudiante. Debe tenerse en cuenta que debe especificarse la estructura nodo por nodo, barra por barra, describiendo los materiales, secciones y fuerzas aplicadas, entre otras cosas, respetando además un formato fijo de documento que puede derivar en diversos errores de sintaxis.
+
+Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código abierto donde el estudiante pueda dibujar la estructura de una manera sencilla e intuitiva, y que genere la entrada al IETFEM de manera automática. De esta manera, se pretende mejorar tanto la facilidad de uso como la eficiencia del mismo.
+
 	\subsection {Objetivos y resultados esperados}
 	
-	como mencionamos antes (repetir los problemas y comparar concomerciales brevemente)
+	Como mencionamos antes, a pesar de la increíble potencia en la resolución del problema del cálculo de estructuras, IETFEM presenta ciertos puntos a mejorar para ser comparado con otros sistemas del mismo rubro.
 	
-	objetivo: mejorar la usabilidad, hablar de mejorar la entrada, visualiar los resultados, manipulacion de resultados
+	A lo largo de este proyecto perseguimos 2 grandes objetivos que consideramos esenciales para el enriquecimiento del sistema: Mejorar la eficiencia y mejorar la usabilidad
 	
-	objetivo: mejorar la eficiencia, hablar de mejorar tiempos, de que queremos que el estudiante no pierda tiempo en aspectos computacionales
+	Para mejorar la usabilidad, se desarrollará una interfaz que permita al usuario dibujar la estructura de manera fluida y amigable. Se trata de un espacio 3D donde el usuario puede moverse libremente utilizando el mouse para mover y rotar la cámara. Se podrá dibujar la estructura de una manera continua e intuitiva. Además, facilitará la comunicación con el motor de cálculo previamente desarrollado y la visualización de los resultados obtenidos.
 	
-	resultados esperados: describir brevemente el sistema: queremos un sistema agil que mejore ambos aspectos, que pueda cumplir las espectativas del curso de elasticidad, y que por lo tanto se va a probar en ejercicios del curso etc etc
+	Para mejorar la eficiencia, reduciremos el tiempo de ejecución del motor de cálculo, eliminando el proceso de graficación y generación de imágenes, ya que ahora los resultados podrán verse en la nueva interfaz. Como regla básica, buscamos que el usuario pierda el menor tiempo posible en problemas tecnológicos o informáticos y que dirija sus esfuerzos al comprendimiento del problema en sí y su método de resolución.
+	
+	A modo de resumen, se busca realizar un sistema ágil, de código abierto, que mejore ambos aspectos lo suficientemente como para poder ser utilizado sin problemas en el curso de Elasticidad dictado por el IET. Con el fin de verificar el cumplimiento de los objetivos por parte del sistema, una vez finalizado, será evaluado resolviendo ejercicios del curso antes mencionado, realizando comparaciones y análisis del tiempo de ejecución.
 	
 	\subsection {Desarrollo del proyecto}
 	
-	Entendimiento del problema real y uso del core
+	El proyecto comenzó con una fase fuerte de investigación. Inicialmente se realizaron reuniones ocasionales con los clientes, donde se reunió información valiosa sobre el problema de cálculo de estructuras y el método de elementos finitos. Además se definió qué tipo de herramienta se quería, qué funcionalidades eran deseadas y qué objetivos se buscaban. Durante esta etapa se utilizó el motor de cálculo directamente para comprender su funcionamiento y compararlo con otras herramientas comerciales.
 	
-	investigar sobre herramientas similares
+	Una vez comprendido el problema, se procedió a buscar herramientas con las cuáles desarrollar la interfaz. Se investigaron librerías y lenguajes de progamación 3D, optando al final por utilizar tecnologías web por su simplicidad de uso, agilidad y portabilidad
 	
-	Fase inicial: busqueda de tecnologias
+	Posteriormente se comenzó a diseñar e implementar la herramienta, separando en diferentes módulos que serán descriptos en detalle en el capítulo 4. Se ejecutaron reuniones quincenales con los clientes para definir detalles, corregir errores, evaluar resultados y tomar decisiones en conjunto. Esta fase ocupó la mayor parte del tiempo del proyecto, debido a la dificultad técnica del mismo.
 	
-	Busqueda de herramientas similares
-	
-	decisiones sobre tecnologias, porque la elegimos brevemente, porque decidimos hacerlo eb
-	
-	definion de funcionalidades y alcance
-	
-	programacion, mencionar brevemente algun problema encontrado
-	
-	problemas de performance
-	
-	testing y escritura de tesis
+	Finalmente, una vez alcanzado un producto inicial que cumplía las espectativas planteadas, se procedió a realizar pruebas sobre el mismo, detectando ciertos errores de performance que fueron solucionados hasta un nivel considerablemente bueno(se hablará de estas medidas en el capítulo 5).
 	
 	\subsection {Organización del documento}
 	
-	mencionar tdas las secciones con una mini descripcion
+	El resto del documento se organiza de la siguiente manera: 
+	
+	En el siguiente capítulo comenzamos analizando el estado del arte, tanto del problema de cálculo de estructuras como de herramientas de programación 3D, y su posible uso en sistemas de este tipo. Se realiza un estudio de diferentes herramientas investigadas, el estado de las mismas y su posibilidad de ser utilizadas en este proyecto. También se investigan otros sistemas de cálculo de estructuras y otro proyectos académicos similares en América Latina.
+	
+	Posteriormente, en el capítulo 3, hablaremos de la organización del trabajo a lo largo del proyecto. Hablaremos del alcance del mismo, definiendo las funcionalidades y características específicas que se buscan en el producto final. Se describirá la metodología de trabajo utilizada y se realizarán estimaciones para cada tarea comprendida, comparando finalmente con el esfuerzo efectivo.
+	
+	A continuación, en el capítulo 4, se procederá a plantear la solución propuesta, detallando cada aspecto de la misma. Se describirá con exactitud su proceso de diseño e implementación, la arquitectura definida, el funcionamiento de cada componente, las herramientas utilizadas y su uso en general.
+	
+	En el capítulo 5, se especifican los resultados obtenidos, analizando diferentes casos de prueba y comparando con resultados obtenidos desde IETFEM antes de la realización de este proyecto. Se analizan además los problemas obtenidos durante esta fase y cómo fueron resueltos.
+	
+	Finalmente, el 6º capítulo, enumera las conclusiones obtenidas durante el proyecto, analizando el cumplimiento de objetivos y proponiendo posible trabajo a futuro a desarrollar sobre IETFEM.
 
 \section {Estado del Arte}
 
