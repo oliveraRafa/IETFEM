@@ -3,6 +3,7 @@ var app = angular.module('IETFEM');
 		$scope.miPunto=PtoSelecService.getPunto();//Es una copia del punto del modelo!
 		$scope.statusFuerzas=$scope.fuerzas;
 		$scope.statusSupports=$scope.supports;
+		$scope.statusSprings=$scope.resortes;
 
 
 		this.updated= function(){
@@ -13,7 +14,10 @@ var app = angular.module('IETFEM');
 				puntoModelo.zCondicion== $scope.miPunto.zCondicion &&
 				puntoModelo.xForce== $scope.miPunto.xForce &&
 				puntoModelo.yForce== $scope.miPunto.yForce &&
-				puntoModelo.zForce== $scope.miPunto.zForce
+				puntoModelo.zForce== $scope.miPunto.zForce &&
+				puntoModelo.xSpring== $scope.miPunto.xSpring &&
+				puntoModelo.ySpring== $scope.miPunto.ySpring &&
+				puntoModelo.zSpring== $scope.miPunto.zSpring
 			){
 				return true;
 			}else{
@@ -24,21 +28,33 @@ var app = angular.module('IETFEM');
 		
 		this.updatePoint= function(){
 			var puntoModelo= PtoSelecService.getPuntoReal();
+			
 			PtoSelecService.setInfoPuntoForm($scope.infoPuntoForm);
 			if(typeof puntoModelo != 'undefined'){
 				puntoModelo.xCondicion= $scope.miPunto.xCondicion;
 				puntoModelo.yCondicion= $scope.miPunto.yCondicion;
 				puntoModelo.zCondicion= $scope.miPunto.zCondicion;
 
-				puntoModelo.xForce= parseFloat($scope.miPunto.xForce)/$scope.statusFuerzas.escala;
-				puntoModelo.yForce= parseFloat($scope.miPunto.yForce)/$scope.statusFuerzas.escala;
-				puntoModelo.zForce= parseFloat($scope.miPunto.zForce)/$scope.statusFuerzas.escala;
+				puntoModelo.xSpring= parseFloat($scope.miPunto.xSpring);
+				puntoModelo.ySpring= parseFloat($scope.miPunto.ySpring);
+				puntoModelo.zSpring= parseFloat($scope.miPunto.zSpring);
+
+				//Para los calculos de las flechas
+				var auxFlecha={};
+				auxFlecha.xForce= parseFloat($scope.miPunto.xForce)/$scope.statusFuerzas.escala;
+				auxFlecha.yForce= parseFloat($scope.miPunto.yForce)/$scope.statusFuerzas.escala;
+				auxFlecha.zForce= parseFloat($scope.miPunto.zForce)/$scope.statusFuerzas.escala;
+
+				//Seteo fuerzas reales en el modelo
+				puntoModelo.xForce= parseFloat($scope.miPunto.xForce);
+				puntoModelo.yForce= parseFloat($scope.miPunto.yForce);
+				puntoModelo.zForce= parseFloat($scope.miPunto.zForce);
 
 				//Actualizo flecha de fuerzas del nodo
 				if($scope.statusFuerzas.visible){
-					var origen= new THREE.Vector3( puntoModelo.coords.x-puntoModelo.xForce, puntoModelo.coords.y-puntoModelo.yForce, puntoModelo.coords.z-puntoModelo.zForce );
-					var largo= Math.sqrt( Math.pow(puntoModelo.xForce,2) + Math.pow(puntoModelo.yForce,2) + Math.pow(puntoModelo.zForce,2))-0.1;
-					var direccion = new THREE.Vector3( puntoModelo.xForce/ (largo+0.1), puntoModelo.yForce/ (largo+0.1), puntoModelo.zForce/(largo+0.1) );
+					var origen= new THREE.Vector3( puntoModelo.coords.x-auxFlecha.xForce, puntoModelo.coords.y-auxFlecha.yForce, puntoModelo.coords.z-auxFlecha.zForce );
+					var largo= Math.sqrt( Math.pow(auxFlecha.xForce,2) + Math.pow(auxFlecha.yForce,2) + Math.pow(auxFlecha.zForce,2))-0.1;
+					var direccion = new THREE.Vector3( auxFlecha.xForce/ (largo+0.1), auxFlecha.yForce/ (largo+0.1), auxFlecha.zForce/(largo+0.1) );
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(puntoModelo.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(puntoModelo.forceArrowId,$scope.scene);
@@ -77,8 +93,55 @@ var app = angular.module('IETFEM');
 						SpaceService.removeObjectById(puntoModelo.supportZId,$scope.scene);
 					}
 				}
+
+				//Actualizo piramides de resortes
+				if($scope.statusSprings.visible){
+					if(parseFloat(puntoModelo.xSpring) != 0){
+						if(puntoModelo.springXId != 0){// Si ya tenia una la elimino
+							SpaceService.removeObjectById(puntoModelo.springXId,$scope.scene);
+						}
+						if(parseFloat(puntoModelo.xCondicion) != 0){//Si no hay un apoyo, dado que el apoyo tiene preferencia
+							idSpring=SpaceService.drawPyramidSupport(puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z,true,false,false,$scope.scene,true);
+							puntoModelo.springXId=idSpring;
+						}else{
+							puntoModelo.springXId=0;
+						}
+					}else{
+						SpaceService.removeObjectById(puntoModelo.springXId,$scope.scene);
+					}
+					if(parseFloat(puntoModelo.ySpring) != 0){
+						if(puntoModelo.springYId != 0){// Si ya tenia una la elimino
+							SpaceService.removeObjectById(puntoModelo.springYId,$scope.scene);
+						}
+						if(parseFloat(puntoModelo.yCondicion) != 0){//Si no hay un apoyo, dado que el apoyo tiene preferencia
+							idSpring=SpaceService.drawPyramidSupport(puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z,false,true,false,$scope.scene,true);
+							puntoModelo.springYId=idSpring;
+						}else{
+							puntoModelo.springYId=0;
+						}
+					}else{
+						SpaceService.removeObjectById(puntoModelo.springYId,$scope.scene);
+					}
+					if(parseFloat(puntoModelo.zSpring) != 0){
+						if(puntoModelo.springZId != 0){// Si ya tenia una la elimino
+							SpaceService.removeObjectById(puntoModelo.springZId,$scope.scene);
+						}
+						if(parseFloat(puntoModelo.zCondicion) != 0){//Si no hay un apoyo, dado que el apoyo tiene preferencia
+							idSpring=SpaceService.drawPyramidSupport(puntoModelo.coords.x, puntoModelo.coords.y, puntoModelo.coords.z,false,false,true,$scope.scene,true);
+							puntoModelo.springZId=idSpring;
+						}else{
+							puntoModelo.springZId=0;
+						}
+					}else{
+						SpaceService.removeObjectById(puntoModelo.springZId,$scope.scene);
+					}
+				}
+
+
+
 				//-------------------------------------------------------------------------------------------------
 				PtoSelecService.resetForm();
+				
 				$scope.render();
 			}
 		};		

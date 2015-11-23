@@ -728,6 +728,7 @@ app.controller(
 				$scope.fuerzas.visible=false;
 				$scope.fuerzas.escala=1;
 				$scope.supports.visible=false;
+				$scope.resortes.visible=false;
 
 				//$scope.model = {helpObjects: {}};
 				$scope.model.points = [];
@@ -900,6 +901,7 @@ app.controller(
 
 			$scope.fuerzas={visible:true, escala:1};
 			$scope.supports={visible:true};
+			$scope.resortes={visible:true};
 
 
 			$scope.model = {helpObjects: {}};

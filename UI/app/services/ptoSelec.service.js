@@ -9,6 +9,9 @@ angular.module('IETFEM')
 			  xForce:0,
 			  yForce:0,
 			  zForce:0,
+			  xSpring:0,
+			  ySpring:0,
+			  zSpring:0,
 			  forceArrowId:0,
 			  coords: {
 					x: 0,
@@ -37,6 +40,9 @@ angular.module('IETFEM')
 				puntoSeleccionado.xForce=value.xForce;
 				puntoSeleccionado.yForce=value.yForce;
 				puntoSeleccionado.zForce=value.zForce;
+				puntoSeleccionado.xSpring=value.xSpring;
+				puntoSeleccionado.ySpring=value.ySpring;
+				puntoSeleccionado.zSpring=value.zSpring;
 				puntoSeleccionado.coords=value.coords;
 				puntoSeleccionado.forceArrowId= value.forceArrowId;
 				
@@ -54,6 +60,9 @@ angular.module('IETFEM')
 				puntoSeleccionado.xForce=0;
 				puntoSeleccionado.yForce=0;
 				puntoSeleccionado.zForce=0;
+				puntoSeleccionado.xSpring=0;
+				puntoSeleccionado.ySpring=0;
+				puntoSeleccionado.zSpring=0;
 				puntoSeleccionado.coords={
 											x: 0,
 											y: 0,

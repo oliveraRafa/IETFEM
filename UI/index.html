@@ -471,6 +471,10 @@
 								</br>
 								<span style="">Apoyos:  </span>
 								<input id="toggle-event2" type="checkbox" ng-model="statusSupports.visible" data-toggle="toggle" ng-change="toggleSupports()">
+								</br>
+								</br>
+								<span style="">Resortes:  </span>
+								<input id="toggle-event3" type="checkbox" ng-model="statusSprings.visible" data-toggle="toggle" ng-change="toggleSprings()">
 							</div>
 						</div>	
 					</form>
@@ -558,6 +562,10 @@
 									<span style="">Apoyos:  </span>
 									<input id="toggle-event2" type="checkbox" ng-model="statusSupports.visible" ng-change="toggleSupports()">
 									<!-- <button  class="btn btn-primary" ng-click="toggleSupports()" >Apoyos</button> -->
+									</br>
+									</br>
+									<span style="">Resortes:  </span>
+									<input id="toggle-event3" type="checkbox" ng-model="statusSprings.visible" ng-change="toggleSprings()">
 								</div>
 							</div>
 						</div>
@@ -599,30 +607,36 @@
 								<div class="panel panel-primary">
 									<div class="panel-heading">Propiedades</div>
 									<div class="panel-body">
-										<div class="col-md-offset-2 col-md-4">
+										<div class="col-md-offset-2 col-md-2">
 											Condiciones Desplazamiento
 										</div>
-										<div class="col-md-offset-1 col-md-4">
+										<div class="col-md-offset-1 col-md-2">
 											Fuerzas Aplicadas
+										</div>
+										<div class="col-md-offset-1 col-md-2">
+											Resortes
 										</div>
 									</div>	
 									<form name="infoPuntoForm" ng-submit="infoPuntoForm.$valid && editCntrl.updatePoint()" novalidate>
 
 										<div class="row form-group">
 											<label class="col-md-2" for="xCondition">X:</label>
-											<input class="col-md-4" type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
-											<input class="col-md-offset-1 col-md-4" type="text" id="xForce" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-2" type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="xForce" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="xSpring" ng-model="miPunto.xSpring" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 
 										<div class="row form-group">
 											<label class="col-md-2" for="yCondition">Y:</label>
-											<input class="col-md-4" type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
-											<input class="col-md-offset-1 col-md-4" type="text" id="yForce" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-2" type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="yForce" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="ySpring" ng-model="miPunto.ySpring" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="row form-group">
 											<label class="col-md-2"for="zCondition">Z:</label>
-											<input class="col-md-4" type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
-											<input class="col-md-offset-1 col-md-4" type="text" id="zForce" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-2" type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="zForce" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="zSpring" ng-model="miPunto.zSpring" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
 										</div>
 										<div class="form-group-last">
 											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>

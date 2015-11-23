@@ -101,6 +101,11 @@ angular.module('IETFEM')
 		point.yForce=0;
 		point.zForce=0;
 
+		//springs
+		point.xSpring=0;
+		point.ySpring=0;
+		point.zSpring=0;
+
 		point.coords = {
 			x: pX,
 			y: pY,
@@ -111,7 +116,11 @@ angular.module('IETFEM')
 		point.supportXId=0;
 		point.supportYId=0;
 		point.supportZId=0;
-		
+
+		point.springXId=0;
+		point.springYId=0;
+		point.springZId=0;
+
 		model.points.push(point);
 	};
 	

@@ -4,6 +4,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 	$scope.gridInfos= $scope.model.helpObjects.grillas; // gridInfos de las grillas del espacio
 	$scope.statusFuerzas=$scope.fuerzas;
 	$scope.statusSupports=$scope.supports;
+	$scope.statusSprings=$scope.resortes;
 
 	$scope.toggleGrid= function(gridInfo){
 		for(var i = 0; i < $scope.gridInfos.length ;i++){
@@ -103,12 +104,61 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 		}
 	};
 
+	$scope.toggleSprings = function (){
+		if($scope.statusSprings.visible){
+			for(var i = 0; i < $scope.model.points.length ;i++){
+				var punto=$scope.model.points[i];
+				var idSpring=0;
+				if(parseFloat(punto.xSpring) != 0 && parseFloat(punto.xCondicion) !=0){
+					if(punto.springXId != 0){// Si ya tenia no hago nada
+						SpaceService.removeObjectById(punto.springXId,$scope.scene);
+					}
+					idSpring=SpaceService.drawPyramidSupport(punto.coords.x, punto.coords.y, punto.coords.z,true,false,false,$scope.scene,true);
+					punto.springXId=idSpring;
+					
+				}
+				if(parseFloat(punto.ySpring) != 0 && parseFloat(punto.yCondicion) !=0){
+					if(punto.springYId != 0){// Si ya tenia una la elimino
+						SpaceService.removeObjectById(punto.springYId,$scope.scene);
+					}
+					IdSpring=SpaceService.drawPyramidSupport(punto.coords.x, punto.coords.y, punto.coords.z,false,true,false,$scope.scene,true);
+					punto.springYId=IdSpring;
+				}
+				if(parseFloat(punto.zSpring) != 0 && parseFloat(punto.zCondicion) !=0){
+					if(punto.springZId != 0){// Si ya tenia una la elimino
+						SpaceService.removeObjectById(punto.springZId,$scope.scene);
+					}
+					IdSpring=SpaceService.drawPyramidSupport(punto.coords.x, punto.coords.y, punto.coords.z,false,false,true,$scope.scene,true);
+					punto.springZId=IdSpring;
+				}
+			}
+
+			}else{
+				for(var i = 0; i < $scope.model.points.length ;i++){//Escondo los resortes
+					var punto=$scope.model.points[i];
+					if(punto.springXId != 0){
+						SpaceService.hideShowObject(punto.springXId,false,$scope.scene);
+					}
+					if(punto.springYId != 0){
+						SpaceService.hideShowObject(punto.springYId,false,$scope.scene);
+					}
+					if(punto.springZId != 0){
+						SpaceService.hideShowObject(punto.springZId,false,$scope.scene);
+					}
+				}
+			}
+
+	};
+
 	$(function() {
 	    $('#toggle-event').change(function() {
 	      $scope.toggleForces();
 	    });
 	    $(".toggle-event2").change(function() {
 	      $scope.toggleSupports();
+	    });
+	    $(".toggle-event3").change(function() {
+	      $scope.toggleSprings();
 	    });
 
 	  });
