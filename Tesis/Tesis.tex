@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish,activeacute]{babel}
 \usepackage{mathtools}
+\usepackage{graphicx}
 
 \title{Desarrollo de una Interfaz Gráfica para una Herramienta de Cálculo de Estructuras}
 \author{Rafael Olivera - Federico García}
@@ -41,8 +42,6 @@ $\ $
 	En este proyecto, se realizará una interfaz gráfica acorde para ser utilizada en conjunto con el motor de cálculo antes mencionado, y lograr así un sistema completo de diseño y cálculo de estructuras. Se busca, en particular, agregar funciones de dibujado y visualización de resultados que pueden observarse en otros sistemas de la misma índole, acercando al IETFEM a los sistemas comerciales y logrando una mayor usabilidad y eficiencia para los estudiantes que lo utilizan.
 	
 	\subsection {Desarrollo previo}
-	
-	
 	
 	Como mencionamos anteriormente, la FING cuenta con un motor de cálculo de estructuras desarrollado por los Ingenieros Pablo Castrillo y Jorge Pérez. El mismo resuelve problemas de cálculo de estructuras utilizando el Método de Elementos Finitos(MEF).
 	
@@ -189,15 +188,44 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	Se consideró como prioridad apuntar a una herramienta académica, es decir, una herramienta libre, intuitiva para los estudiantes y aplicable en cursos dictados por el IET. En particular, se tomó como referencia el curso de Elasticidad, curso donde ya fué utilizado satisfactoriamente el IETFEM y donde será utilizado luego de la realización de este proyecto.
 	
-	La principal y más grande funcionalidad que se desarrollará será le presencia de un espacio 3D. Mediante el mismo, el usuario interactuará con el sistema, ingresando la estructura deseada 
+	La principal y más grande funcionalidad que se desarrollará será le presencia de un espacio 3D. El mismo será el elemento central de la aplicación, mediante la cual el usuario efectuará la mayor parte de las interacciones posibles. Se pretenden integrar dentro de este espacio 3D las siguientes funcionalidades:
 	
-	entrada de datos: dibujado de nodos, barras, grillas, fueras, apoyos, importacion, abrir/guardar
+	\begin{itemize}  
+
+        \item Rotación de la cámara de visualización.
+        \item Movimiento de la misma por todo el espacio 3D.
+        \item Zoom In y Zoom Out.
+				\item Dibujado de nodos y barras.
+				\item Dibujado de grillas auxiliares.
+				\item Selección de nodos y barras: Para setear propiedades en las mismas.
+				\item Eliminación de nodos y barras.
+				\item Visualización de propiedades: Fuerzas, puntos de apoyo y resortes.			
+				\item Visualización de estructura resultante: Observar la deformada y comparar con estructura original.		
+				\item Escalamiento la estructura deformada: "Exagerar" la deformación, para apreciar pequeñas deformaciones.
+				\item Visualización de las propiedades de la estructura deformada utilizando escalas de colores: Deformación, Fuerzas, Tensiones, etc.
+				
+    \end{itemize}
 	
-	procesamiento de datos y comunicacion: generar textos para el core leer salida del core
+	Más allá de que se pretende que el usuario tenga una experiencia interactiva mediante el dibujado de la estructura, es necesario definir ciertas funcionalidades fuera del espacio 3D. Ya sea tanto por comodidad como por intuición, estas opciones se encuentran en diferentes menús que rodean el espacio, similar a los demás programas comerciales dentro del rubro que se investigaron en el capítulo anterior.
 	
-	resultados: ver la deformada, colorear segun fueras, escalamiento, comparacion de resultados, etc
 	
-	hablar de que en el alcance pretendemos en general que se puedan resolver problemas del curso deelasticidad
+	\begin{itemize}  
+
+        \item Abrir y Guardar Estructuras.
+        \item Definición de Materiales.
+        \item Definición de Secciones.
+				\item Asignar propiedades a barras: Material y sección.
+				\item Asignar propiedades a nodos: Fuerzas, Apoyos y Resortes.
+				\item Selección de nodos y barras: Para setear propiedades en las mismas.
+				\item Eliminación de nodos y barras.
+				\item Prendido y apagado de elementos auxiliares
+				\item Seteo de Factor de escalamiento para la estructura deformada
+				
+    \end{itemize}
+	
+	Si bien estos elementos nos permiten estimar una interfaz gráfica completa e intuitiva, resta definir aún la funcionalidad más importante del proyecto: la comunicación con el motor de cálculo. La salida de la interfaz debe ser un archivo reconocible por el IETFEM, del cuál pueda obtener todos los datos de la estructura. Así mismo, el motor debe ofrecer como salida otro archivo, el cuál será recibido por la interfaz con el fin de mostrar los resultados obtenidos. Se hará hincapié en cómo se resolvió esta comunicación en el siguiente capítulo.
+
+En la siguiente figura se pueden apreciar las funcionalidades descriptas y el flujo deseado entre el motor y la interfaz.
 	
 	\subsection {Metodología de trabajo}
 	
@@ -207,10 +235,18 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	como nos repartimos la programacion
 	
+	metodo kanban
+	
 	la escritura de la tesis
 	
 	
 	\subsection {Estimación y esfuerzo efectivo}
+	
+	\begin{figure}
+    \centerline{\includegraphics[width=1.3\textwidth]{Graficos/Gantt}}
+  \caption{Diagrama de Gantt con la planificación del proyecto}
+  \label{Gantt}
+\end{figure}
 	
 	para cada etapa mencionada, investigacion analisis, diseño, implementacion, testing, tesis hacer diagramas y estimacinoes de tiempo mas o menos a la bartola
 
