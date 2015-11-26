@@ -320,7 +320,21 @@ angular.module('IETFEM')
 		}
 		
 		//Agrega las opciones de salida al final
-		text += '\n' + 'Number of dead volume load conditions' + '\n' + '0' +'\n\n' + 'Dead volume loads conditions matrix' + '\n' + 'Element           bx                  by                  bz' + '\n\n' + 'Number of springs conditions nodes' + '\n' + '0' + '\n\n' + 'Springs conditions nodes matrix' + '\n' + 'Spring node  X condition   Y condition   Z condition ' + '\n\n' + 'Scale Factor' + '\n' + 'SD_Deformed   Supports    Areas    Forces    Frames    Numbers    LD_Deformed' + '\n' + '   70           1         1         1         0.05         1         70' + '\n\n' + 'What you wanna see? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed   SD_Axial   LD_Deformed    LD_Axial     Convergence' + '\n' + '	1                 1            1          1             1              1' + '\n\n' + 'Of selectet plots, wich of them you wanna print in a .png image? (Yes=1, No=0)' + '\n' + '	Indeformed   SD_Deformed  SD_Axial   LD_Deformed   LD_Axial     Convergence' + '\n' + '	1                 1            1          1            1             1' + '\n\n' + 'How many images do you wanna see for small deformation?' + '\n' + 'SD_Deformed   SD_Axial  ' + '\n' + '	1               1' + '\n\n' + 'What you wanna see in plots? (Yes=1, No=0)' + '\n' + 'Supports   Node_Numbers   Elements_Numbers   Forces          Axial_Force_Value' + '\n' + '	1               0                0              1                   0' + '\n\n' + 'For 3D plots, what you wanna see? (Yes=1, No=0)' + '\n' + 'If you choose Dif_View=1 IETFEM use default AZIMUTH and ELEVATION, if you choose Dif_View=0 you must type aximuth and elevation in degrees.' + '\n' + 'XY_plane    XZ_plane    YZ_plane    Dif_View   AZIMUTH(degree)   ELEVATION(degree)   ' + '\n' + '	   1            1           1           0           150               15   ' + '\n\n' + 'Text output format (Yes=1, No=0)' + '\n' + 'TXT  TEX' + '\n' + '1     1' + '\n';
+		text += '\n' + 'Number of dead volume load conditions' + '\n' + '0' +'\n\n' + 'Dead volume loads conditions matrix' + '\n' + 'Element           bx                  by                  bz' + '\n';
+
+		var springNodes = [];
+		for (var i = 0; i < model.points.length ;i++){
+			if (model.points[i].xSpring != 0 || model.points[i].ySpring != 0 || model.points[i].zSpring != 0){
+				springNodes.push(model.points[i]);
+			}
+		}
+
+		text += '\n' + 'Number of springs conditions nodes' + '\n' + springNodes.length + '\n\n' + 'Springs conditions nodes matrix' + '\n' + 'Spring node  X condition   Y condition   Z condition ' + '\n'
+		for (var i = 0; i < springNodes.length ;i++){
+			text += springNodes[i].id + '\t' + springNodes[i].xSpring + '\t' + springNodes[i].ySpring + '\t' + springNodes[i].zSpring + '\n'; 
+		}
+
+		text +=  '\n' + 'Scale Factor' + '\n' + 'SD_Deformed   Supports    Areas    Forces    Frames    Numbers    LD_Deformed' + '\n' + '   70           1         1         1         0.05         1         70' + '\n\n' + 'What you wanna see? (Yes=1, No=0)' + '\n' + 'Indeformed   SD_Deformed   SD_Axial   LD_Deformed    LD_Axial     Convergence' + '\n' + '	1                 1            1          1             1              1' + '\n\n' + 'Of selectet plots, wich of them you wanna print in a .png image? (Yes=1, No=0)' + '\n' + '	Indeformed   SD_Deformed  SD_Axial   LD_Deformed   LD_Axial     Convergence' + '\n' + '	1                 1            1          1            1             1' + '\n\n' + 'How many images do you wanna see for small deformation?' + '\n' + 'SD_Deformed   SD_Axial  ' + '\n' + '	1               1' + '\n\n' + 'What you wanna see in plots? (Yes=1, No=0)' + '\n' + 'Supports   Node_Numbers   Elements_Numbers   Forces          Axial_Force_Value' + '\n' + '	1               0                0              1                   0' + '\n\n' + 'For 3D plots, what you wanna see? (Yes=1, No=0)' + '\n' + 'If you choose Dif_View=1 IETFEM use default AZIMUTH and ELEVATION, if you choose Dif_View=0 you must type aximuth and elevation in degrees.' + '\n' + 'XY_plane    XZ_plane    YZ_plane    Dif_View   AZIMUTH(degree)   ELEVATION(degree)   ' + '\n' + '	   1            1           1           0           150               15   ' + '\n\n' + 'Text output format (Yes=1, No=0)' + '\n' + 'TXT  TEX' + '\n' + '1     1' + '\n';
 
 		return text;
 		

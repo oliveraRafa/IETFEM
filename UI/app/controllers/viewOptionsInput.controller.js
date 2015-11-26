@@ -165,5 +165,6 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 	
 	$scope.toggleForces();
 	$scope.toggleSupports();
+	$scope.toggleSprings();
 
 }]);

@@ -18,7 +18,7 @@ app.controller(
 			}, 500);
 			setTimeout(function() {
 			   document.getElementById("splash").style.display = "none";
-			}, 1000);
+			}, 2000);
 
 			//--- Defino función de inicialización
 			function init() {
@@ -553,7 +553,6 @@ app.controller(
 						displacementMatrix.push(row);
 					}
 					
-
 
 					var forcesMatrix = [];
 					var beginForcesMatrix = text.search("Tension")+9;
