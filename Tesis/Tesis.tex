@@ -31,7 +31,7 @@ $\ $
 
 	\subsection {Definición del problema y motivación}
 	
-	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, fueron construidos bajo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos el comprendimiento del problema y sus posibles soluciones.
+	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, puede decirse que se buscó en el fondo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos el comprendimiento del problema y sus posibles soluciones.
 
 	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma, lo que puede derivar en que la misma no siempre sea igual en la realidad a como se diseñó. Esto quiere decir que la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
 	
@@ -96,7 +96,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	En el capítulo 5, se especifican los resultados obtenidos, analizando diferentes casos de prueba y comparando con resultados obtenidos desde IETFEM antes de la realización de este proyecto. Se analizan además los problemas obtenidos durante esta fase y cómo fueron resueltos.
 	
-	Finalmente, el 6º capítulo, enumera las conclusiones obtenidas durante el proyecto, analizando el cumplimiento de objetivos y proponiendo posible trabajo a futuro a desarrollar sobre IETFEM.
+	Finalmente, el 6 capítulo, enumera las conclusiones obtenidas durante el proyecto, analizando el cumplimiento de objetivos y proponiendo posible trabajo a futuro a desarrollar sobre IETFEM.
 
 \section {Estado del Arte}
 
@@ -201,7 +201,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 				\item Eliminación de nodos y barras.
 				\item Visualización de propiedades: Fuerzas, puntos de apoyo y resortes.			
 				\item Visualización de estructura resultante: Observar la deformada y comparar con estructura original.		
-				\item Escalamiento la estructura deformada: "Exagerar" la deformación, para apreciar pequeñas deformaciones.
+				\item Escalamiento la estructura deformada: "`Exagerar"' la deformación, para apreciar pequeñas deformaciones.
 				\item Visualización de las propiedades de la estructura deformada utilizando escalas de colores: Deformación, Fuerzas, Tensiones, etc.
 				
     \end{itemize}
@@ -229,27 +229,38 @@ En la siguiente figura se pueden apreciar las funcionalidades descriptas y el fl
 	
 	\subsection {Metodología de trabajo}
 	
-	hablar de como nos repartimos la investigacion
+  En las primeras etapas del proyecto se focalizó el trabajo en comprender el problema que se quiere resolver. Se tuvieron reuniones quincenales con los clientes dónde de habló del problema del cálculo de estructuras y cómo lo resuelve IETFEM. Dichas reuniones se apoyaron además en una permanente comunicación por e-Mail y una vasta investigación del problema por nuestra parte. Para esto no sólo se investigó sobre el problema, sino que además se utilizaron productos similares e incluso el propio IETFEM con ejemplos simples.
 	
-	hablar de como diseñamos la app, que proceso de eleccion hicimos con las tecnologias
+	Una vez comprendido el problema, se pasó a buscar una solución al mismo. Dentro de esta etapa se pueden incluir la busqueda de herramientas, el análisis y el diseño de la aplicación. Se mantuvieron las reuniones con los clientes, evaluando herramientas y enseñando prototipos realizados a modo de prueba. Se investigaron lenguajes y librerías de programación 3D, tanto de escritorio como web, deciciendo en ultima instancia utilizar WebGL (se hablará mas en detalle en el siguiente capítulo).
 	
-	como nos repartimos la programacion
+	Conforma pasaba el tiempo las reuniones se fueron enfoncando cada vez más en el producto final, comenzando a definir las funcionalidades y características del mismo. Mientras se mantenía contacto con los clientes, se realizó por nuestra parte la definición de casos de uso, con sus respectivos diagramas de flujo, al tiempo que se definió la arquitectura del sistema en base a los requerimientos obtenidos y las prestaciones de las herramientas definidas.
 	
-	metodo kanban
+	Finalmente, para las etapas de implementación y testing, se creó un repositorio en Github con el esqueleto de la aplicación y todo código reusable proveniente de la etapa de prototipación. Como metodología de trabajo se utilizó la metodología ágil Kanban. Kanban es un método para gestionar el trabajo intelectual, con énfasis en la entrega justo a tiempo, mientras no se sobrecargan a los miembros del equipo. En este enfoque, el proceso, desde la definición de una tarea hasta su entrega al cliente, se muestra para que los participantes lo vean y los miembros del equipo tomen el trabajo de una cola.
 	
-	la escritura de la tesis
+	Existen diversas herramientas on-line de planificación y gestión de proyectos, tales como Jira o Trello. Sin embargo, debido a la poca cantidad de personas involucradas en el proyecto (2 desarrolladores y 2 clientes) y a que las tareas a realizar estaban bien definidas, se optó por utilizar una herramienta simple y natural: una planilla Excel online. La misma se encontró en todo momento de libre acceso y modificación para los 4 participantes, y cada tarea tenía asignada una descripción, un estado, y una prioridad. 
 	
+	En un principio, se agregaron todas las tareas a realizar, y ambos desarrolladores tomaban cada una de ellas marcando su estado como "`En proceso"'. Una vez finalizada, se marcaba la tarea como terminada y se subían los cambios al repositorio, marcando cada subida con la funcionalidad correspondiente.
+	
+	A su vez, los clientes, los cuáles también tenían acceso a la última versión del IETFEM, iban relevando en la misma planilla problemas o cosas a mejorar que se encontraban en el produto, los cuáles pasaban a ser parte de nuestra "`pizarra de kanban"' y seguían el mismo flujo que las demás tareas.	
 	
 	\subsection {Estimación y esfuerzo efectivo}
 	
 	\begin{figure}
     \centerline{\includegraphics[width=1.3\textwidth]{Graficos/Gantt}}
   \caption{Diagrama de Gantt con la planificación del proyecto}
-  \label{Gantt}
+  \label{fig:Gantt}
 \end{figure}
 	
-	para cada etapa mencionada, investigacion analisis, diseño, implementacion, testing, tesis hacer diagramas y estimacinoes de tiempo mas o menos a la bartola
-
+	La planificación del tiempo se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre Abril y Diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo.
+	
+	Podemos ver también que ciertas etapas se planificaron en simultáneo por ciertos períodos de tiempo, especialmente en las etapas tempranas del proyecto donde se comenzó utilizando y comprendiendo tanto el IETFEM como otras herramientas, mientras se iba definiendo al mismo tiempo cómo realizar la interfaz. Se planificó de esta manera debido a que se consideró que sería bueno evaluar varias herramientas en simultáneo, a modo de comparar y definir qué funcionalidades y características nos gustaría que estén presentes en nuestro sistema. También evaluar cómo llevarlas a cabo utilizando las herramientas que existen en el mercado y el contexto académico en el cuál se quiere insertar la aplicacación.
+	
+	También se observa la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el testing y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de nuestra cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
+	
+	El cronograma estimado se realizó de manera exitosa, siguiendo cada etapa en el orden estipulado sin demoras excesivas. Como agregado, durante la implementación se descubrieron nuevas funcionalidades que serían útiles en el sistema, las cuales fueron evaluadas con los clientes y algunas de ellas se llevaron a cabo sin problemas, debido a que la metodología de trabajo lo permitía. 
+	
+	También es necesario destacar el tiempo invertido en la Ingeniería de Muestra a fines del mes de Octubre, el cuál contempló el diseño de carteles, presentación del proyecto y la propia presencia en el evento. Esto redujo unos días el tiempo estipulado para la escritura de la tesis, el cuál se intenta recuperar durante el mes de noviembre aumentando la cantidad de horas a un promedio de 20 semanales por desrrollador dedicadas a dicha tarea.
+	
 \section {Presentación de la solución}
 
 	\subsection {Análisis y relevamiento de requerimientos}
