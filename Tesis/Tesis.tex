@@ -5,7 +5,11 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish,activeacute]{babel}
 \usepackage{mathtools}
+
 \usepackage{graphicx}
+
+\usepackage{parskip}
+
 
 \title{Desarrollo de una Interfaz Gráfica para una Herramienta de Cálculo de Estructuras}
 \author{Rafael Olivera - Federico García}
@@ -112,9 +116,35 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		
 		carencias del ietfem, mencionar lso problemas un pocomas en detalle, mas que nada haciendo referencia a que a pesar de que soluciona probleas complejos eficientemente, asi como esta es muy dificil de usar 
 		
-		\subsubsection {Herramientas comerciales}
+		\subsection {Herramientas comerciales}
 		
-		Hablar de que centramos la investigacion en 2 grandes productos axis y sap 2000
+		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades.
+		
+		\subsubsection {SAP2000}
+		Es un software comercial desarrollado por la empresa Computers \& Structures,Inc. fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
+		
+	Actualmente en su  versión 18, SAP2000 es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja en los primeros pasos.
+		
+		Entre las características mas importantes se encuentran:
+		\begin{itemize}
+		\item Un motor de análisis que puede resolver varios tipos de problemas tales como: (LES PREGUNTAMOS A LOS PROFES XQ ES UN HUEVO DE ENTEDNER), 
+		\item Diversas características para el modelado como templates, sistema de grillas, distintas vistas y herramientas de meshing.
+		\item Diversos componentes estructurales como articulaciones, barras, cables sólidos, resortes, etc.
+		\item Posibilidad de aplicar distintos tipos de cargas.
+		\item Varias posibilidades para ver la salida de los cálculos con diagramas,tablas y reportes.
+		\item Importación y exportación de modelos en distintos formatos estándar.
+		\end{itemize}
+		
+		Por todo esto SAP2000 es uno de los productos lideres en el mercado siendo utilizado en mas de 160 países en todo el mundo.
+		
+		\subsubsection {AxisVM}
+		Es un software comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría.Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
+		
+		Actualmente en su versión 13, AxisVM requiere computadoras con el sistema operativo Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja en los primeros pasos.
+		
+		
+		
+		\subsubsection {Herramientas Web}
 		
 		hablar de cada uno, quien lo desarrolla, si se puede en que esta hecho
 		
