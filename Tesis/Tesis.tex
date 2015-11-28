@@ -5,11 +5,10 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish,activeacute]{babel}
 \usepackage{mathtools}
-
 \usepackage{graphicx}
-
 \usepackage{parskip}
-
+\usepackage{tikz}
+\usepackage{lineno}
 
 \title{Desarrollo de una Interfaz Gráfica para una Herramienta de Cálculo de Estructuras}
 \author{Rafael Olivera - Federico García}
@@ -30,6 +29,8 @@ $\ $
 $\ $
 \newpage
 $\ $
+
+\linenumbers
 
 \section {Introducción}
 
@@ -253,9 +254,14 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 				
     \end{itemize}
 	
-	Si bien estos elementos nos permiten estimar una interfaz gráfica completa e intuitiva, resta definir aún la funcionalidad más importante del proyecto: la comunicación con el motor de cálculo. La salida de la interfaz debe ser un archivo reconocible por el IETFEM, del cuál pueda obtener todos los datos de la estructura. Así mismo, el motor debe ofrecer como salida otro archivo, el cuál será recibido por la interfaz con el fin de mostrar los resultados obtenidos. Se hará hincapié en cómo se resolvió esta comunicación en el siguiente capítulo.
+Si bien estos elementos nos permiten estimar una interfaz gráfica completa e intuitiva, resta definir aún la funcionalidad más importante del proyecto: la comunicación con el motor de cálculo. La salida de la interfaz debe ser un archivo reconocible por el IETFEM, del cuál pueda obtener todos los datos de la estructura. Así mismo, el motor debe ofrecer como salida otro archivo, el cuál será recibido por la interfaz con el fin de mostrar los resultados obtenidos. Dicha comunicación puede observarse en la Figura~\ref{fig:Communication}, aunque se hará hincapié en cómo se resolvió esta comunicación en el siguiente capítulo.
 
-En la siguiente figura se pueden apreciar las funcionalidades descriptas y el flujo deseado entre el motor y la interfaz.
+\begin{figure}
+    \centerline{\includegraphics[width=1.3\textwidth]{Graficos/Communication}}
+		\caption{Ciclo de vida de IETFEM}
+		\label{fig:Communication}
+	\end{figure}
+
 	
 	\subsection {Metodología de trabajo}
 	
@@ -267,7 +273,13 @@ En la siguiente figura se pueden apreciar las funcionalidades descriptas y el fl
 	
 	Finalmente, para las etapas de implementación y testing, se creó un repositorio en Github con el esqueleto de la aplicación y todo código reusable proveniente de la etapa de prototipación. Como metodología de trabajo se utilizó la metodología ágil Kanban. Kanban es un método para gestionar el trabajo intelectual, con énfasis en la entrega justo a tiempo, mientras no se sobrecargan a los miembros del equipo. En este enfoque, el proceso, desde la definición de una tarea hasta su entrega al cliente, se muestra para que los participantes lo vean y los miembros del equipo tomen el trabajo de una cola.
 	
-	Existen diversas herramientas on-line de planificación y gestión de proyectos, tales como Jira o Trello. Sin embargo, debido a la poca cantidad de personas involucradas en el proyecto (2 desarrolladores y 2 clientes) y a que las tareas a realizar estaban bien definidas, se optó por utilizar una herramienta simple y natural: una planilla Excel online. La misma se encontró en todo momento de libre acceso y modificación para los 4 participantes, y cada tarea tenía asignada una descripción, un estado, y una prioridad. 
+	\begin{figure}
+    \centerline{\includegraphics[width=1.2\textwidth]{Graficos/Kanban}}
+		\caption{Planilla Excel utilizando metodología Kanban}
+		\label{fig:Kanban}
+	\end{figure}
+	
+	Existen diversas herramientas on-line de planificación y gestión de proyectos, tales como Jira o TFS. Sin embargo, debido a la poca cantidad de personas involucradas en el proyecto (2 desarrolladores y 2 clientes) y a que las tareas a realizar estaban bien definidas, se optó por utilizar una herramienta simple y natural: una planilla Excel online. La misma se encontró en todo momento de libre acceso y modificación para los 4 participantes, y cada tarea tenía asignada una descripción, un estado, y una prioridad. 
 	
 	En un principio, se agregaron todas las tareas a realizar, y ambos desarrolladores tomaban cada una de ellas marcando su estado como "`En proceso"'. Una vez finalizada, se marcaba la tarea como terminada y se subían los cambios al repositorio, marcando cada subida con la funcionalidad correspondiente.
 	
@@ -277,11 +289,11 @@ En la siguiente figura se pueden apreciar las funcionalidades descriptas y el fl
 	
 	\begin{figure}
     \centerline{\includegraphics[width=1.3\textwidth]{Graficos/Gantt}}
-  \caption{Diagrama de Gantt con la planificación del proyecto}
-  \label{fig:Gantt}
-\end{figure}
+		\caption{Diagrama de Gantt con la planificación del proyecto}
+		\label{fig:Gantt}
+	\end{figure}
 	
-	La planificación del tiempo se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre Abril y Diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo.
+	La planificación del tiempo se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la Figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre Abril y Diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo.
 	
 	Podemos ver también que ciertas etapas se planificaron en simultáneo por ciertos períodos de tiempo, especialmente en las etapas tempranas del proyecto donde se comenzó utilizando y comprendiendo tanto el IETFEM como otras herramientas, mientras se iba definiendo al mismo tiempo cómo realizar la interfaz. Se planificó de esta manera debido a que se consideró que sería bueno evaluar varias herramientas en simultáneo, a modo de comparar y definir qué funcionalidades y características nos gustaría que estén presentes en nuestro sistema. También evaluar cómo llevarlas a cabo utilizando las herramientas que existen en el mercado y el contexto académico en el cuál se quiere insertar la aplicacación.
 	
@@ -293,7 +305,35 @@ En la siguiente figura se pueden apreciar las funcionalidades descriptas y el fl
 	
 \section {Presentación de la solución}
 
+	En esta sección se describe la solución propuesta para el problema planteado, describiendo cada aspecto de la misma y cómo fue realizada cada una de sus funcionalidades. Se detallan además las decisiones que furon tomadas durante el proceso de análisis y diseño de la aplicación.
+
 	\subsection {Análisis y relevamiento de requerimientos}
+	
+	Desde un principio se supo que IETFEM era una herramienta robusta, ofreciendo una solución para diferentes problemas posibles. En este sentido, el relevamiento de requerimientos se convirtió en una tarea delicada en dónde debía definirse un número acotado de funcionalidades, para un número acotado delos problemas que el IETFEM podía resolver.
+	
+	Luego de concretar varias reuniones con los clientes, se decidió que la interfaz pueda resolver problemas de estructuras reticuladas, es decir, estructuras formada por una serie de vigas entrecruzadas y conectadas entre sí por medio de nudos rígidos. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
+	
+	El estudiante coloca los nodos en el espacio 3D, y luego define barras entre 2 nodos ya dibujados, asignando para cada barra un material que la conforma y el área de su corte transversal, al que llamaremos sección, ambos previamente definidos. También pueden definirse ciertas propiedades para cada nodo, en particular, pueden definirse fuerzas aplicadas al mismo, condiciones de desplazamiento y resortes. 
+	
+	Una vez finalizado el proceso de dibujado, se extrae la estructura en un formato reconocible por el motor se ejecuta el mismo, y se analizan los resultados obtenidos. También se definieron como funcionalidades secundarias la posibilidad de definir grillas auxiliares con motivo de facilitar el ingreso de datos y la posibilidad de ocultar elementos adicionales, como por ejemplo, los vectores indicadores de fuerzas aplicadas.
+	
+	Basándonos en esta realidad, se definieron los siguientes casos de uso:
+	
+		\begin{itemize}  
+
+        \item Alta, Baja y Modificación de Materiales.
+        \item Alta, Baja y Modificación de Secciones.
+        \item Alta, Baja y Modificación de Nodos.
+        \item Alta, Baja y Modificación de Barras.
+				\item Alta y Baja de Grillas
+				\item Modificar Visualización de Propiedad
+				\item Extraer Estructura
+				\item Procesar Resultado
+				\item Escalar Estructura
+				\item Colorear Estructura
+				
+    \end{itemize}
+	
 	
 	hablar de las reuniones que tuvimos en la que explicaron el problema y fuimos deduciendo los casosde uso, mencionarlos
 	
@@ -426,7 +466,7 @@ En la siguiente figura se pueden apreciar las funcionalidades descriptas y el fl
 		hablar de abrir y guardar proyectos(como reemplaamos el modelo)
 		
 		\subsubsection {Mantenimiento de la estructura durante el proceso de dibujado}
-		aca hablamso de como manipulamos los objetos: que s epueden modificas(agregar propiedades), o eliminar
+		aca hablamos de como manipulamos los objetos, modificar y eliminae
 		
 		hablar de mantener la consistencia, al abrir un modelo nuevo, guardar, abrir, etc...
 		
