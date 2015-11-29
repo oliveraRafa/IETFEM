@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.11.4)  27 NOV 2015 22:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.11.4)  29 NOV 2015 03:47
 entering extended mode
 **Tesis.tex
 (Tesis.tex
@@ -581,26 +581,48 @@ File: Graficos/Gantt.png Graphic file (type png)
  <use Graficos/Gantt.png>
 Package pdftex.def Info: Graficos/Gantt.png used on input line 291.
 (pdftex.def)             Requested size: 448.50105pt x 111.12056pt.
- [16 <./Graficos/Kanban.png>] [17 <./Graficos/Gantt.png>] [18] [19] [20] [21] [22] [23] [24] (Tesis.aux
+ [16 <./Graficos/Kanban.png>] [17 <./Graficos/Gantt.png>] [18]
+
+LaTeX Warning: Reference `appendix:UseCaseEspecification' on page 19 undefined on input line 341.
+
+<Graficos/ModeloDominio.png, id=72, 1656.1875pt x 698.61pt>
+File: Graficos/ModeloDominio.png Graphic file (type png)
+ <use Graficos/ModeloDominio.png>
+Package pdftex.def Info: Graficos/ModeloDominio.png used on input line 344.
+(pdftex.def)             Requested size: 448.50105pt x 189.18153pt.
+ [19] [20 <./Graficos/ModeloDominio.png>] [21] <Graficos/Flujo.png, id=84, 1915.155pt x 710.655pt>
+File: Graficos/Flujo.png Graphic file (type png)
+ <use Graficos/Flujo.png>
+Package pdftex.def Info: Graficos/Flujo.png used on input line 396.
+(pdftex.def)             Requested size: 448.50105pt x 166.41838pt.
+ [22 <./Graficos/Flujo.png>]
+
+LaTeX Warning: Reference `fig:Components' on page 23 undefined on input line 410.
+
+[23] [24] [25] [26] [27] [28] [29] (Tesis.aux
 LaTeX Info: Redefining \. on input line 7.
 LaTeX Info: Redefining \% on input line 7.
-) ) 
+)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 13545 strings out of 493673
- 261295 string characters out of 3141524
- 302444 words of memory out of 3000000
- 16631 multiletter control sequences out of 15000+200000
+ 13559 strings out of 493673
+ 261613 string characters out of 3141524
+ 302461 words of memory out of 3000000
+ 16643 multiletter control sequences out of 15000+200000
  55952 words of font info for 44 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,6n,54p,837b,432s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
-/lm/lmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
-nts/type1/public/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb>
-Output written on Tesis.pdf (24 pages, 286716 bytes).
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
+lm/lmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
+ts/type1/public/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb>
+Output written on Tesis.pdf (29 pages, 436895 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
+ 136 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 28 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

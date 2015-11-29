@@ -305,58 +305,99 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 \section {Presentación de la solución}
 
-	En esta sección se describe la solución propuesta para el problema planteado, describiendo cada aspecto de la misma y cómo fue realizada cada una de sus funcionalidades. Se detallan además las decisiones que furon tomadas durante el proceso de análisis y diseño de la aplicación.
+	En esta sección se describe la solución propuesta para el problema planteado, describiendo cada aspecto de la misma y cómo fue realizada cada una de sus funcionalidades. Se detallan además las decisiones que fueron tomadas durante el proceso de análisis y diseño de la aplicación.
 
 	\subsection {Análisis y relevamiento de requerimientos}
 	
-	Desde un principio se supo que IETFEM era una herramienta robusta, ofreciendo una solución para diferentes problemas posibles. En este sentido, el relevamiento de requerimientos se convirtió en una tarea delicada en dónde debía definirse un número acotado de funcionalidades, para un número acotado delos problemas que el IETFEM podía resolver.
+	Desde un principio se supo que IETFEM era una herramienta robusta, ofreciendo una solución para diferentes problemas posibles. En este sentido, el relevamiento de requerimientos se convirtió en una tarea delicada en dónde debía definirse un número acotado de funcionalidades, para un número acotado de la totalidad de problemas que IETFEM podía resolver.
 	
-	Luego de concretar varias reuniones con los clientes, se decidió que la interfaz pueda resolver problemas de estructuras reticuladas, es decir, estructuras formada por una serie de vigas entrecruzadas y conectadas entre sí por medio de nudos rígidos. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
+	Luego de concretar varias reuniones con los clientes, se decidió que la interfaz pueda resolver problemas de estructuras reticuladas, es decir, estructuras formadas por una serie de vigas entrecruzadas y conectadas entre sí por medio de nudos rígidos. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
 	
 	El estudiante coloca los nodos en el espacio 3D, y luego define barras entre 2 nodos ya dibujados, asignando para cada barra un material que la conforma y el área de su corte transversal, al que llamaremos sección, ambos previamente definidos. También pueden definirse ciertas propiedades para cada nodo, en particular, pueden definirse fuerzas aplicadas al mismo, condiciones de desplazamiento y resortes. 
 	
-	Una vez finalizado el proceso de dibujado, se extrae la estructura en un formato reconocible por el motor se ejecuta el mismo, y se analizan los resultados obtenidos. También se definieron como funcionalidades secundarias la posibilidad de definir grillas auxiliares con motivo de facilitar el ingreso de datos y la posibilidad de ocultar elementos adicionales, como por ejemplo, los vectores indicadores de fuerzas aplicadas.
+	Una vez finalizado el proceso de dibujado, se extrae la estructura en un formato reconocible por el motor. Luego se ejecuta el mismo, y se analizan los resultados obtenidos. 
+	
+	Destacamos además  como funcionalidades secundarias la posibilidad de definir grillas auxiliares con motivo de facilitar el ingreso de datos y la posibilidad de ocultar elementos adicionales, como por ejemplo, los vectores indicadores de fuerzas aplicadas.
 	
 	Basándonos en esta realidad, se definieron los siguientes casos de uso:
 	
 		\begin{itemize}  
 
-        \item Alta, Baja y Modificación de Materiales.
-        \item Alta, Baja y Modificación de Secciones.
-        \item Alta, Baja y Modificación de Nodos.
-        \item Alta, Baja y Modificación de Barras.
-				\item Alta y Baja de Grillas
-				\item Modificar Visualización de Propiedad
-				\item Extraer Estructura
-				\item Procesar Resultado
-				\item Escalar Estructura
-				\item Colorear Estructura
+        \item \textbf{Alta, Baja y Modificación de Materiales:} Los materiales se definen en base a 5 propiedades: Nombre, Modulo de Young, Gamma, Alpha y Nu.
+        \item \textbf{Alta, Baja y Modificación de Secciones:} La sección es el corte transversal de una barra, y para este caso solo interesa conocer su área.
+        \item \textbf{Alta, Baja y Modificación de Nodos:} Cada nodo tiene asignado un conjunto de coordenadas espaciales (x,y,z). Además es posible asignar al mismo una fuerza aplicada, así tambien como condiciones de desplazamiento y resortes en cada coordenada.
+        \item \textbf{Alta, Baja y Modificación de Barras:} Cada barra tiene asignado un nodo inicial, un nodo final, un material y una sección.
+				\item \textbf{Alta y Baja de Grillas:} Son "`cuadrículas"' auxiliares que facilitan el proceso de dibujado. Para cada coordenada se define la cantidad de líneas auxiliares y la separación entre ellas.
+				\item \textbf{Modificar Visualización de Propiedad:} Los nodos con propiedades definidas, como por ejemplo fuerzas aplicadas o resortes, son marcados en la pantalla con vectores o geometrías básicas para ser diferenciados del resto. Esta funcionalidad permite ocultar, mostrar y escalar dichos elementos a gusto del usuario.
+				\item \textbf{Nueva Estructura:} Permite limpiar la pantalla para comenzar una nueva estructura.
+				\item \textbf{Abrir y Guardar Estructura:} Se busca la posibilidad de obtener un archivo con la estructura dibujada, de manera de poder seguir con el trabajo realizado en otro momento. También es deseable la carga de dicho archivo en la interfaz, obteniéndo la misma estructura en la que se estaba trabajando al momento de guardar.
+				\item \textbf{Extraer Estructura:} A partir del dibujo realizado, se extrae un archivo reconocible por el motor de cálculo con la especificación de la estructura
+				\item \textbf{Procesar Resultado:} Se trata de procesar el archivo resultante del motor, y actualizar la pantalla con la estructura deformada.
+				\item \textbf{Escalar Deformada:} Debido a que en algunos casos las deformaciones pueden ser tan pequeñas que pueden parecer imperceptibles a la vista, se incluye este caso de uso con el fin de "`exagerar"' la deformación y poder apreciar mejor los resultados obtenidos.
+				\item \textbf{Colorear Estructura:} Al igual que la funcionalidad anterior, este caso de uso aplica a los resultados obtenidos del motor. Se trata de colorear la estructura en base a los datos obtenidos(por ejemplo, pintar de un color las barras que se comprimen y de otro las que se estiran). También se busca transparentar la estructura original o la deformada, para poder apreciar mejor los cambios entre una y otra.
 				
     \end{itemize}
 	
+	En el anexo \ref{appendix:UseCaseEspecification} se incluye la especificación de cada caso de uso descripto.
 	
-	hablar de las reuniones que tuvimos en la que explicaron el problema y fuimos deduciendo los casosde uso, mencionarlos
+	\begin{figure}
+    \centerline{\includegraphics[width=1.3\textwidth]{Graficos/ModeloDominio}}
+		\caption{Modelo de dominio de IETFEM}
+		\label{fig:ModeloDominio}
+	\end{figure}
 	
-	hacer una lista de requerimientos
+	Puede apreciarse el Modelo de Dominio definido en la Figura \ref{fig:ModeloDominio}. Como observaciones, se destaca la presencia de la entidad "`Deformada"', la cuál puede existir o no de acuerdo a si ya se procesaron los resultados obtenidos del motor o si se encuentra en el proceso de dibujado. De esta acotación se desprende el "`por qué"' de la relación 0..1 - 1 entre las entidades "`Deformada"' y "`Estructura"': mientras se dibuja la estructura todavía no se tiene una deformada definida.
 	
-	referenciar los casos de uso en el anexo
-	
+	El resto del modelo se encuentra considerablemente intuitivo y adecuado a la realidad planteada.
 	
 	\subsection {Diseño de la solución}
 	
 		\subsubsection {Decisiones tomadas}
 		
-		HABLAR DE PORQUE LO HICIMOS EB Y LOCAL
+		Finalizado el relevamiento de requerimientos y correspondiente análisis, se prosiguió con la etapa de diseño, donde se tomaron decisiones importantes tanto a nivel de diseño tecnológico como en la estructura propia de la aplicación.
 		
-		hablar de las reuniones interminables sobre el servidor y sus preocupaciones por el mntenimiento a futuro y otras complicaciones
+		Desde las primeras reuniones que se tuvieron con los clientes, el objetivo principal fué lograr una aplicación académica. De esta manera, se tuvo como prioridad mantener la simplicidad y la eficiencia de la herramienta por sobre acomplejizar la misma con funcionalidades potentes que serían útiles en un programa profesional. Por ejemplo, se toma en cuenta que en un ámbito académico, el estudiante no ingresará en el sistema estructuras gigantescas (veáse la seción 2.3 del capítulo 5), y sólo utilizará el mismo para los temas comprendidos dentro del curso que desarrolla. Cabe destacar que además, se busca en un segundo plano, lograr el mayor porcentaje de reusabilidad de código posible, ya que en un futuro, IETFEM puede crecer gradualmente para convertirse en un sistema profesional.
 		
-		hablar brevemente de electron como posible alternativa
+		Teniendo en cuenta estos aspectos, sumado a las prestaciones destacadas en las herramientas de desarrollo 3D en la web, y la poca cantidad de sistemas de cálculo de estructuras en la nube, se decidió en conjunto con los clientes, realizar la interfaz en un ambiente web. 
 		
-		hablar de las decisiones de no hacer grandes deformaciones, de hacer solo reticulados de lso atributosque no tomamos en cuenta, etc
+		Sin embargo, realizar la interfaz en la nube implica ciertas situaciones preocupantes por parte de los clientes, por ejemplo, mantener un servidor donde se aloje la misma una vez finalizado el proyecto. Es necesario entonces destacar ciertas consideraciones sobre la solución elegida:
 		
+			\begin{itemize}  
+
+        \item Los clientes se sienten a gusto con considerar una versión final en la nube, ya que la mayoría de este tipo de sistemas son de escritorio y no para todos los sistemas operativos.
+        \item Existe preocupación con respecto al servidor donde se aloje la aplicación. En particular, preocupa justamente encontrar un servidor gratuito donde alojarse y cómo mantener la aplicación una vez finalizado el proyecto
+        \item Una de las prestaciones actuales del motor de cálculo existente es que al estar desarrollado en Octave, permite al estudiante ver el funcionamiento interno del código(o incluso programar nuevos cálculos de acuerdo a sus necesidades), enriqueciendo el proceso de aprendizaje de los estudiantes. Dichas características se quieren mantener en la nueva solución.
+				\item Se busca reusabilidad en el código de la aplicación, ya que en un futuro se pretende evolucionar la herramienta a un nivel profesional, donde se pretende que la misma posea diferentes características (por ejemplo, no sería deseable en un sistema profesional que se pueda acceder al código del motor de cálculo directamente).
+				
+    \end{itemize}
+		
+		Tomando en cuenta las mencionadas premisas, la solución propuesta es la siguiente: Se desarrollará la interfaz como una herramienta web. Sin embargo, no se desplegará la misma en un servidor, sino que se encapsulará la misma en un framework que permita ejecutar la misma como una aplicación de escritorio. A ojos del estudiante, la aplicación parecerá ser de escritorio. 
+		
+		Una vez finalizado el dibujado de la estructura, el estudiante podrá generar un archivo con al especificación de la estructura, el cual podrá ingresar en el motor de cálculo de manera manual. Luego, puede desde la interfaz procesar la salida del motor para observar sus resultados.
+		
+		De esta manera logramos las siguientes características:
+		
+		\begin{itemize}  
+
+        \item Para la versión inicial, es decir, la versión académica, se ahorra la utilización del servidor, ya que cada sistema ejecutará en la máquina de cada estudiante. Esto implica que el mantenimiento a posteriori sea nulo por parte de los clientes una vez finalizado el proyecto.
+        \item Se desacoplan el motor y la interfaz, o sea, el estudiante puede visualizar los cálculos realizados en el motor, o incluso programar nuevos, sin necesidad de tocar el código de la interfaz. Es más, el archivo generado por la interfaz será en un formato legible, lo que hace que le estudiante pueda editar el archivo en caso de agregar cálculos nuevos.
+        \item A su vez, esta solución no solo permite agregar cálculos nuevos a los estudiantes, sino que permite que el desarrollo del motor siga avanzando sin entorpecer la interfaz.
+				\item Se obtiene un código totalmente reusable, ya que si en el futuro se quiere evolucionar la herramienta como un producto profesional en la nube, sólo basta con desplegar el código de la aplicación en un servidor.
+				
+    \end{itemize}
+		
+		De esta manera, la herramienta cumple con todas las especificaciones deseadas por los clientes, manteniendo las características positivas de la misma, y a su vez, potenciando la misma en vista de conseguir los objetivos planteados sobre mejorar la eficiencia y la usabilidad.		
 		
 		\subsubsection {Diseño final}
-		hablar de que dads las condiciones decidimos hacerlo eb pero manteniendo todo estatico, para que despues no haya problemas de compatibilidad
+		
+		Finalmente, de acuerdo a las pautas establecidas en la sub-sección anterior, el flujo de la aplicación queda establecido como se muestra en la Figura \ref{fig:Flujo}. Los pasos 2 y 3 se anotan como opcionales debido a que el usuario puede cargar una estructura guardada como dibujar una nueva. Incluso podría realizar ambas, editando una estructura guardada antes de ejecutar el motor
+		
+		\begin{figure}
+			\centerline{\includegraphics[width=1.3\textwidth]{Graficos/Flujo}}
+			\caption{Flujo principal de la aplicación}
+			\label{fig:Flujo}
+		\end{figure}
+		 
 		
 		mostrar un diagrama de diseño
 		
@@ -364,7 +405,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 	\subsection {Arquitectura}
 	
-		mostrar la arquitectura mediante diagramas de distribuciond e componentes y fisicas
+		La arquitectura de la aplicación sigue el clásico patrón MVC(Modelo-Vista-Controlador), donde el usuario se encuentra permanentemente interactuando con el sistema, modificando el Modelo(en este caso, la estructura) y visualizando el mismo en el espacio 3D, al que llamaremos Escena.
+		
+		Cómo se puede ver en la Figura \ref{fig:Components}, se agruparon los casos de uso relacionados con el fin de crear diferentes subsistemas encargados de realizar cierto tipo de funcionalidades. Cada una de estas componentes, ofrece al usuario diferetes operaciones que afectan tanto el modelo de la estructura que se mantiene almacenado en la aplicación como lo que se está viendo en el espacio 3D. Por tal motivo, se crearon las componentes "`Modelo"' y "`Escena"', las cuáles uniformizan todas las operaciones básicas que se hacen en el modelo de la estructura, y en el dibujo en la escena, respectivamente. 
+		
+		mostrar la arquitectura mediante diagramas de distribucion de componentes y fisicas
 		
 		mostrar ademas como quedaria en version servidor
 		

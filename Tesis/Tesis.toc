@@ -31,43 +31,43 @@
 \contentsline {subsection}{\numberline {3.3}Estimación y esfuerzo efectivo}{16}
 \contentsline {section}{\numberline {4}Presentación de la solución}{18}
 \contentsline {subsection}{\numberline {4.1}Análisis y relevamiento de requerimientos}{18}
-\contentsline {subsection}{\numberline {4.2}Diseño de la solución}{18}
-\contentsline {subsubsection}{\numberline {4.2.1}Decisiones tomadas}{18}
-\contentsline {subsubsection}{\numberline {4.2.2}Diseño final}{18}
-\contentsline {subsection}{\numberline {4.3}Arquitectura}{18}
-\contentsline {subsection}{\numberline {4.4}Tecnologías y herramientas utilizadas}{19}
-\contentsline {subsubsection}{\numberline {4.4.1}HTML5 - Javascript - CSS3}{19}
-\contentsline {subsubsection}{\numberline {4.4.2}Bootstrap}{19}
-\contentsline {subsubsection}{\numberline {4.4.3}AngularJS}{19}
-\contentsline {subsubsection}{\numberline {4.4.4}ThreeJS}{19}
-\contentsline {subsubsection}{\numberline {4.4.5}Electron}{19}
-\contentsline {subsection}{\numberline {4.5}Manejo del espacio 3D}{19}
-\contentsline {subsubsection}{\numberline {4.5.1}Eventos de usuario}{19}
-\contentsline {subsubsection}{\numberline {4.5.2}Adición, sustracción y transformación de objetos}{20}
-\contentsline {subsubsection}{\numberline {4.5.3}Manejo de la cámara}{20}
-\contentsline {subsubsection}{\numberline {4.5.4}Trazado de rayos e intersecciones con objetos}{20}
-\contentsline {subsubsection}{\numberline {4.5.5}Performance}{20}
-\contentsline {subsection}{\numberline {4.6}Manejo de datos}{21}
-\contentsline {subsubsection}{\numberline {4.6.1}Entrada de información (dibujado e importación)}{21}
-\contentsline {subsubsection}{\numberline {4.6.2}Mantenimiento de la estructura durante el proceso de dibujado}{21}
-\contentsline {subsubsection}{\numberline {4.6.3}Almacenamiento de la estructura}{21}
-\contentsline {subsubsection}{\numberline {4.6.4}Salida de Datos}{21}
-\contentsline {subsection}{\numberline {4.7}Análisis de resultados del Core}{22}
-\contentsline {subsubsection}{\numberline {4.7.1}Generación de resultados}{22}
-\contentsline {subsubsection}{\numberline {4.7.2}Introducción de datos en la UI}{22}
-\contentsline {subsubsection}{\numberline {4.7.3}Visualización}{22}
-\contentsline {section}{\numberline {5}Resultados obtenidos}{22}
-\contentsline {subsection}{\numberline {5.1}Comparación IETFEM con y sin UI}{22}
-\contentsline {subsubsection}{\numberline {5.1.1}Análisis del impacto en la usabilidad}{22}
-\contentsline {subsubsection}{\numberline {5.1.2}Análisis del impacto en el tiempo de ejecución}{22}
-\contentsline {subsection}{\numberline {5.2}Casos de prueba}{23}
-\contentsline {subsubsection}{\numberline {5.2.1}Estudio de casos de pequeño porte (Torre pequeña)}{23}
-\contentsline {subsubsection}{\numberline {5.2.2}Estudio de casos de mediano porte (Grúa)}{23}
-\contentsline {subsubsection}{\numberline {5.2.3}Estudio de casos de gran porte y pruebas de stress (Torre Eiffel)}{23}
-\contentsline {section}{\numberline {6}Conclusiones y trabajo futuro}{23}
-\contentsline {subsection}{\numberline {6.1}Conclusiones}{23}
-\contentsline {subsection}{\numberline {6.2}Trabajo a futuro}{24}
-\contentsline {subsubsection}{\numberline {6.2.1}Trabajo en el motor}{24}
-\contentsline {subsubsection}{\numberline {6.2.2}Trabajo en la interfaz}{24}
-\contentsline {subsubsection}{\numberline {6.2.3}Despliegue de la aplicación}{24}
-\contentsline {section}{\numberline {7}Anexos}{24}
+\contentsline {subsection}{\numberline {4.2}Diseño de la solución}{20}
+\contentsline {subsubsection}{\numberline {4.2.1}Decisiones tomadas}{20}
+\contentsline {subsubsection}{\numberline {4.2.2}Diseño final}{22}
+\contentsline {subsection}{\numberline {4.3}Arquitectura}{22}
+\contentsline {subsection}{\numberline {4.4}Tecnologías y herramientas utilizadas}{23}
+\contentsline {subsubsection}{\numberline {4.4.1}HTML5 - Javascript - CSS3}{23}
+\contentsline {subsubsection}{\numberline {4.4.2}Bootstrap}{23}
+\contentsline {subsubsection}{\numberline {4.4.3}AngularJS}{23}
+\contentsline {subsubsection}{\numberline {4.4.4}ThreeJS}{23}
+\contentsline {subsubsection}{\numberline {4.4.5}Electron}{24}
+\contentsline {subsection}{\numberline {4.5}Manejo del espacio 3D}{24}
+\contentsline {subsubsection}{\numberline {4.5.1}Eventos de usuario}{24}
+\contentsline {subsubsection}{\numberline {4.5.2}Adición, sustracción y transformación de objetos}{24}
+\contentsline {subsubsection}{\numberline {4.5.3}Manejo de la cámara}{24}
+\contentsline {subsubsection}{\numberline {4.5.4}Trazado de rayos e intersecciones con objetos}{24}
+\contentsline {subsubsection}{\numberline {4.5.5}Performance}{25}
+\contentsline {subsection}{\numberline {4.6}Manejo de datos}{25}
+\contentsline {subsubsection}{\numberline {4.6.1}Entrada de información (dibujado e importación)}{25}
+\contentsline {subsubsection}{\numberline {4.6.2}Mantenimiento de la estructura durante el proceso de dibujado}{25}
+\contentsline {subsubsection}{\numberline {4.6.3}Almacenamiento de la estructura}{25}
+\contentsline {subsubsection}{\numberline {4.6.4}Salida de Datos}{26}
+\contentsline {subsection}{\numberline {4.7}Análisis de resultados del Core}{26}
+\contentsline {subsubsection}{\numberline {4.7.1}Generación de resultados}{26}
+\contentsline {subsubsection}{\numberline {4.7.2}Introducción de datos en la UI}{26}
+\contentsline {subsubsection}{\numberline {4.7.3}Visualización}{26}
+\contentsline {section}{\numberline {5}Resultados obtenidos}{27}
+\contentsline {subsection}{\numberline {5.1}Comparación IETFEM con y sin UI}{27}
+\contentsline {subsubsection}{\numberline {5.1.1}Análisis del impacto en la usabilidad}{27}
+\contentsline {subsubsection}{\numberline {5.1.2}Análisis del impacto en el tiempo de ejecución}{27}
+\contentsline {subsection}{\numberline {5.2}Casos de prueba}{27}
+\contentsline {subsubsection}{\numberline {5.2.1}Estudio de casos de pequeño porte (Torre pequeña)}{27}
+\contentsline {subsubsection}{\numberline {5.2.2}Estudio de casos de mediano porte (Grúa)}{27}
+\contentsline {subsubsection}{\numberline {5.2.3}Estudio de casos de gran porte y pruebas de stress (Torre Eiffel)}{27}
+\contentsline {section}{\numberline {6}Conclusiones y trabajo futuro}{28}
+\contentsline {subsection}{\numberline {6.1}Conclusiones}{28}
+\contentsline {subsection}{\numberline {6.2}Trabajo a futuro}{28}
+\contentsline {subsubsection}{\numberline {6.2.1}Trabajo en el motor}{28}
+\contentsline {subsubsection}{\numberline {6.2.2}Trabajo en la interfaz}{28}
+\contentsline {subsubsection}{\numberline {6.2.3}Despliegue de la aplicación}{28}
+\contentsline {section}{\numberline {7}Anexos}{29}
