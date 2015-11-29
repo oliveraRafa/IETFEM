@@ -119,7 +119,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		
 		\subsection {Herramientas comerciales}
 		
-		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades.
+		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades, basado principalmente en la experiencia de los clientes con las mismas.
 		
 		\subsubsection {SAP2000}
 		Es un software comercial desarrollado por la empresa Computers \& Structures,Inc. fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
@@ -141,60 +141,112 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		\subsubsection {AxisVM}
 		Es un software comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría.Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
 		
-		Actualmente en su versión 13, AxisVM requiere computadoras con el sistema operativo Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja en los primeros pasos.
-		
+		Actualmente en su versión 13, AxisVM requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
 		
 		
 		\subsubsection {Herramientas Web}
+		El sector del software de análisis estructural en la web (o nube) es un nicho poco explorado por los desarrolladores existiendo un conjunto muy limitado de ofertas en este sentido.
 		
-		hablar de cada uno, quien lo desarrolla, si se puede en que esta hecho
+		De acuerdo a la investigación realizada es importante destacar las siguientes ofertas:
 		
-		hablar del impacto mundial, que problemas resuelve, hablar de las cosas que nos gustaria poner en nuestro programa, cual nos gustaria evitar o mejorar
+		\begin{itemize}
+		\item Idea StatiCa es un emprendimiento Checo que cuenta con calculadoras para 6 problemas principalmente en espacios 2D. Esta desarrollado en Silverlight y utilizando la nube de Microsoft Azure como plataforma de despliegue.
+		
+		\item CloudCalc es un software en crecimiento enfocado al análisis de estructuras de acero en la nube proveniente de Houston EEUU. Esta desarrollado utilizando WebGl para las características gráficas 3D. 
+		
+		\item SkyCiv es un emprendimiento reciente de origen Australiano y es la suite mas desarrollada y con mayor calidad aparente de las vistas en este sector. Cuenta con calculadoras para distintos problemas en 2D y una versión pro que permite estructuras en 3D. Utiliza también WebGl para los gráficos.
+		
+		\end{itemize}
+		
+	Si bien existen algunas pocas ofertas, no logran niveles de calidad similares por ejemplo a herramientas de escritorio como SAP2000 o AxisVM, encontrándose así una ventana de oportunidad para el desarrollo de este tipo de herramientas con interfaces Web. 
 		
 	\subsection {Desarrollo 3D}
 	
+	Dado el fuerte componente gráfico del proyecto fue necesario repasar un gran abanico de posibilidades a nivel tecnológico que permitan cumplir con los requerimientos 3D de la aplicación requerida. A continuación se muestran las principales opciones en este sentido que van, desde especificaciones estándar de muy bajo nivel de abstracción, pasando por wrappers de las mismas, hasta completos y potentes motores gráficos.
+	
+	Se priorizaron fuertemente herramientas de código abierto dado que fue un requerimiento por parte de los clientes. Ademas se hizo especial foco en tecnologías conocidas por los desarrolladores tales como Java o tecnologías web.
+	
+	
 		\subsubsection {OpenGL}
 		
-		investigar y hablar de open gl, que es, en que se usa, etc...
+		Es una especificación estándar que define una API multilenguaje y multiplataforma para escribir aplicaciones que produzcan gráfico 2D y 3D. 
 		
-		hablar de porque no la elegimos, dificultad de uso, poca experiencia, etc...
+		El funcionamiento básico consiste en aceptar primitivas como puntos, lineas y polígonos y convertirlas en píxeles. Es una API basada en procedimientos de bajo nivel que requiere que el programador dicte los pasos exactos para renderizar la escena, eso es en contraste a APIs mas descriptivas, donde el programador solo debe describir la escena.
 		
-		\subsubsection {Java 3D}
+		OpenGL tiene dos propósitos esenciales:
 		
-		lo mismo que al anterior
+		\begin{itemize}
 		
-		\subsubsection {WebGL}
+		\item Ocultar la complejidad de la interfaz con las diferentes tarjetas gráficas, presentando al programador una API única y uniforme.
 		
-		lo mismo que el anterior
+		\item Ocultar las diferentes capacidades de las diversas plataformas hardware, requiriendo que todas las implementaciones soporten la funcionalidad completa de OpenGL
+
+	
+		\end{itemize}
 		
-		hablar ademas de que al descubrir esta opcion se nos desperto la idea de hacerlo eb
+		En la actualidad en su versión 4.5 se utiliza ampliamente en CAD, realidad virtual, representación científica, visualización de información, simulación y desarrollo de videojuegos donde compite con Direct3d (en plataformas Microsoft).
 		
-		\subsubsection {Otras herramientas}
+		En virtud de lo detallado en cuanto al bajo nivel de abstracción y por consecuente prolongada curva de aprendizaje y baja productividad esta opción fue descartada rápidamente al menos en su uso directo.
 		
-		hablar de otras herramientas de escritorio que hayamos visto, no se que mas poner aca
+		\subsubsection {JWJGL y JOGL}
+		
+		JWJGL (Lightweight Java Game Library 3) y JOGL (Java OpenGL) son wrappers de OpenGL que proveen acceso de bajo nivel a sus funcionalidades que a menudo no se implementan de manera correcta. No son librerías con gran cantidad de funcionalidades ni proveen utilidades de alto nivel.
+		
+		En la actualidad existen muchas herramientas y motores gráficos para desarrollar aplicaciones 3D con mayor cantidad de funcionalidades, menor curva de aprendizaje y mayor productividad que utilizan estas librerías como base.
+		
+		
+		\subsubsection {JMonkeyEngine 3}
+		
+		Es un motor de código abierto con fuerte inclinación para el desarrollo de videojuegos, hecho especialmente para desarrolladores Java para la creación de aplicaciones 3D utilizando las mas modernas tecnologías de una manera rápida y con una baja curva de aprendizaje.
+		
+		Esta desarrollado en base a JWJGL y es la suite mas popular en el mundo java para desarrollo de videojuegos en alto nivel, con una gran comunidad de desarrolladores y extensivamente documentado. Si bien el enfoque principal son los videojuegos es importante destacar que tiene todas las capacidades para poder construir otro tipo de aplicaciones.
 		
 	\subsection {Desarrollo 3D en la Web}
 	
+	La utilización de tecnologías web para el desarrollo de la aplicación probaba a priori ser una opción con mucho potencial aportando gran flexibilidad, una opción multiplataforma  ,multidispositivo ademas de ser innovadora para herramientas de este tipo.
+	
+	Es por estas razones y la experiencia del equipo de desarrollo en estas tecnologías (HTML5,CSS, Bootstrap, javascript, angularjs , etc.) que se investigo la factibilidad de una solución gráfica 3D en este contexto.
+	
 		\subsubsection {HTML5 - Canvas}
 		
-		que es html5
+		El contexto 2D para el elemento de HTML "Canvas" permite la creación de gráficos en paginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web aunque con algunos trucos es posible realizar trabajos en 3D.
 		
-		Hablar de las facilidades que da el html5 para cosas 3d mediante el canvas
+		Si es posible, la relativa dificultad para realizar trabajos 3D y la gran diferencia de performance contra opciones como WebGL (Canvas corre en CPU) descartaron esta opción rápidamente.
 		
-		posibles conexiones entre ebgl y canvas
+		\subsubsection {WebGL}
+		
+		WebGL es una especificación estándar que está siendo desarrollada actualmente para mostrar gráficos en 3D en navegadores web. Permite mostrar gráficos en 3D acelerados por hardware (GPU) en páginas web, sin la necesidad de plug-ins en cualquier plataforma que soporte OpenGL 2.0 u OpenGL ES 2.0. Técnicamente es un API para javascript que permite usar la implementación nativa de OpenGL ES 2.0.
+		
+		Existe una gran explosión en la creación de aplicaciones con esta tecnología, desde  videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "Experience Curiosity" por el aniversario del aterrizaje del robot "Curiosity rover" en Marte.
+		
+		Es importante destacar que en la actualidad esta soportado por todos los principales navegadores web tanto en versiones de escritorio como de dispositivos móviles.
+		
+			Con esta gran cantidad de demostraciones de calidad en WebGl y su amplio soporte se perfilo como una opción innovadora y altamente factible para la realización del proyecto.
 		
 		\subsubsection {Librerías para desarrollo 3D}
-		hablar de las libreirias que vimos sobre ebgl, threejs y las otras que estuvios viendo que no me acuerdo
 		
-		porque elegimos threejs y que beneficios se tienen
+		Como WebGL es una tecnología diseñada para trabajar directamente con el GPU (unidad de procesamiento gráfico) es difícil de codificar en comparación con otros estándares web más accesibles, es por eso que muchas bibliotecas de JavaScript han surgido para resolver este problema.
 		
-		hacer un analisis si se pueden cumplir los objetivos con esta tecnologia
+		Entre las mismas se privilegiaron aquellas con mayor cantidad de características implementadas, documentación y comunidad. La investigación entonces se simplifico a dos: ThreeJs y BabylonJs (Microsoft Open Source).
 		
-		\subsubsection {Interacción con el usuario}
-		como pretendemos que sea la interaccion con el usuario, basandonos en los programas comerciales y lo que ofrece la eb
+		Ambas son librerías en javascript de alto nivel de abstracción sobre WebGl, tienen esencialmente el mismo conjunto de características tales como:
 		
-		plantearse cambiar el titulo de esta seccion para abarcar mas contenido
+		\begin{itemize}
+		\item Renderizacion con WebGl.
+		\item Distintos efectos.
+		\item Escenas, para añadir y eliminar objetos en tiempo de ejecución.
+		\item Cámaras, perspectiva u ortográfica.
+		\item Animaciones.
+		\item Luces.
+		\item Materiales.
+		\item Shaders.
+		\item Objetos y Geometrías
+		\item Importación y exportación para texturas y otros assets.
+		\item Gran comunidad de desarrolladores (bastante mayor en Threejs).
+		\end{itemize}
 		
+		Ademas en sus paginas oficiales cuentan con cientos de códigos y aplicaciones de ejemplo que dejan ver el potencial de las librerías. Entre estos ejemplos se pueden observar editores estilo CAD que implementan varias funcionalidades similares a los requerimientos del proyecto lo cual asegura la factibilidad de la herramienta en este contexto. 
+				
 	\subsection {Información complementaria}
 	
 		\subsubsection {Investigación sobre proyectos similares en América Latina}
@@ -202,14 +254,6 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		buscar proyectos similares en internet, en america latina y el mundo, y compararlos
 		
 		comparar lo encontrado con ietfem, y rematar señalando que es el primer proyecto de este tipo en sudamerica
-		
-		\subsubsection {Herramientas de cálculo de estructuras en la Web}
-		
-		Investigar si existen
-		
-		en casod e que existan, hacer una mini comparacion con lo que seria ietfem eb
-		
-		mencionar que no existan muchas herramientas y que tendria mucho potencial
 		
 \section {Organización del trabajo}
 
