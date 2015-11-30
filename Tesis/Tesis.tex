@@ -371,7 +371,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
         \item \textbf{Alta, Baja y Modificación de Secciones:} La sección es el corte transversal de una barra, y para este caso solo interesa conocer su área.
         \item \textbf{Alta, Baja y Modificación de Nodos:} Cada nodo tiene asignado un conjunto de coordenadas espaciales (x,y,z). Además es posible asignar al mismo una fuerza aplicada, así tambien como condiciones de desplazamiento y resortes en cada coordenada.
         \item \textbf{Alta, Baja y Modificación de Barras:} Cada barra tiene asignado un nodo inicial, un nodo final, un material y una sección.
-				\item \textbf{Alta y Baja de Grillas:} Son "`cuadrículas"' auxiliares que facilitan el proceso de dibujado. Para cada coordenada se define la cantidad de líneas auxiliares y la separación entre ellas.
+				\item \textbf{Crear grilla:} Son "`cuadrículas"' auxiliares que facilitan el proceso de dibujado. Para cada coordenada se define la cantidad de líneas auxiliares y la separación entre ellas.
 				\item \textbf{Modificar Visualización de Propiedad:} Los nodos con propiedades definidas, como por ejemplo fuerzas aplicadas o resortes, son marcados en la pantalla con vectores o geometrías básicas para ser diferenciados del resto. Esta funcionalidad permite ocultar, mostrar y escalar dichos elementos a gusto del usuario.
 				\item \textbf{Nueva Estructura:} Permite limpiar la pantalla para comenzar una nueva estructura.
 				\item \textbf{Abrir y Guardar Estructura:} Se busca la posibilidad de obtener un archivo con la estructura dibujada, de manera de poder seguir con el trabajo realizado en otro momento. También es deseable la carga de dicho archivo en la interfaz, obteniéndo la misma estructura en la que se estaba trabajando al momento de guardar.
@@ -452,62 +452,168 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Cómo se puede ver en la Figura \ref{fig:Componentes}, se agruparon los casos de uso relacionados con el fin de crear diferentes subsistemas encargados de realizar cierto tipo de funcionalidades. Cada una de estas componentes, ofrece al usuario diferentes operaciones que afectan tanto el modelo de la estructura que se mantiene almacenado en la aplicación como lo que se está viendo en el espacio 3D. Por tal motivo, se crearon las componentes "`Modelo"' y "`Escena"', las cuáles uniformizan todas las operaciones básicas que se hacen en el modelo de la estructura, y en el dibujo en la escena, respectivamente. Además se destaca el subsistema "`Cámara"', el cual se relaciona directamente con la escena, encargado de los movimientos del usuario dentro del espacio 3D (Rotación y Desplazamiento) y el subsistema "`Deformada"', el cual maneja las operaciones básicas que se hacen en la estructura deformada.
 		
-		mostrar la arquitectura mediante diagramas de distribucion de componentes y fisicas
+		Finalmente, las operaciones que puede realizar el usuario se dividen en 8 subsistemas que se describen a continuación:
 		
-		mostrar ademas como quedaria en version servidor
+		\textbf{Main:} Subsistema encargado de realizar la inicialización correcta del sistema. Contiene las operaciones relativas a todo el contexto de la aplicación: Cargar o guardar una nueva estructura, extraer la especificación de la estructura para el motor, y procesar el archivo con los resultados obtenidos. Por último, se encarga de la creación de las grillas auxiliares, ya que se considera una operación relativamente pequeña y poco relevante en el modelo de la estructura como para separarse en un módulo propio.
 		
-		distribucion de componentes: hablar de cada componente: manejo del espacio, del modelo, edicion de puntos, de lineas etc
+		\textbf{Gestión Modos:} Debido a la necesidad de incluir diferentes características en interacción directa con la escena, se decidió mantener la aplicación en diferentes estados o modos. De esta manera, por ejemplo, un click en la escena realizará diferentes acciones dependiendo de en qué modo se encuentre el usuario. Este pequeño módulo se encarga de gestionar adecuadamente el estado actual y el pasaje entre diferentes estados.
+		
+		\textbf{Gestión Materiales:} Este subsistema mantiene la creación, modificación y eliminación de Materiales. Debido a la naturaleza de la característica, se accede al mismo mediante un formulario en un menú superior, donde se definen las propiedades de cada material.
+		
+		\textbf{Gestión Secciones:} Este subsistema mantiene la creación, modificación y eliminación de Secciones. Al igual que en con los materiales, la interacción con dicho módulo se lleva a cabo mediante un formulario.
+		
+	\textbf{Gestión Nodos:} Este subsistema mantiene la creación, modificación y eliminación de nodos. Los nodos pueden agregarse haciendo click en la escena o ingresando sus coordenadas manualmente. También se ofrece un formulario en donde se pueden agregar propiedades a los nodos: Fuerzas, Condiciones de desplazamiento y Resortes. Cada una de estas propiedades, además agregan a la escena diferentes elementos que indican el valor de cada una de ellas:
+	
+	\begin{itemize}  
+
+        \item Si se define en el nodo una fuerza aplicada, se dibuja su correspondiente vector a puntando a ese nodo.
+        \item Si se define en el nodo una condicion de desplazamiento en alguna de sus coordenadas, se dibuja una pequeña pirámide de color rojo donde su eje principal tiene la dirección de la propia coordenda en que se define.
+				\item Si se define en el nodo una resorte en alguna de sus coordenadas, se dibuja una pequeña pirámide de color gris donde su eje principal tiene la dirección de la propia coordenda en que se define.
+				
+    \end{itemize}
+	
+		\textbf{Gestión Barras:} Este subsistema mantiene la creación, modificación y eliminación de barras. Las barras se agregan directamente en la escena, seleccionando un nodo inicial y un nodo final. También debe tener asignado un material y una sección, los cuales deben estar previamente definidos y pueden ser seteados una vez dibujada la barra. Se ofrece además la opción de definir propiedades "`por defecto"', es decir, se elije un material y una sección, y todas las proximas barras que se dibujen tendrán seteadas dichas propiedades.
+		
+		\textbf{Gestión Visualización:} Módulo encargado de gestionar la visualización de elementos indicativos en la escena, es decir, muestra u oculta los vectores, resortes y condiciones de desplazamiento definidos en la estructura. También ofrece la posibilidad de escalar los vectores presentes en la escena, de manera de no entorpecer la imagen cuando las fuerzas aplicadas son muy grandes.		
+		
+		\textbf{Gestión Deformada:} Subsistema encargado de gestionar la deformada obtenida del procesamiento de resultados. Ofrece operaciones para visualizar la estructura deformada, escalar deformaciones y colorear la estructura en base a los resultados.
+		
+		Cada uno de estos subsistemas interactúa con los módulos "`Escena"', "`Modelo"' y "`Deformada"' de acuerdo a sus necesidades:
+		
+		
+		\textbf{Modelo:} Expone operaciones básicas para modificar el modelado de la estructura que se está ingresando. Cada vez que otro módulo necesite ingresar, modificar o eliminar un nodo, barra, material o sección, llamará a funciones contenidas en este módulo.
+		
+		\textbf{Deformada:} Expone operaciones básicas para interactuar con la estructura deformada obtenida. Cada vez el módulo de "`Gestión Deformada"' deba mover, colorear o transparentar un nodo o barra, se utilizarán funciones expuestas en este módulo
+				
+		\textbf{Escena:} Expone operaciones básicas para interactuar con el espacio 3D. Cada vez que otro módulo necesite agregar o eliminar cualquier tipo de elemento del espacio 3D, se invocarán funciones expuestas en este módulo
+		
+		\textbf{Cámara:} Mantiene el manejo de la cámara en la escena. Ejecuta funciones de desplazamiento, rotación y zoom.
+		
+	De esta manera se define el sistema "`IETFEM UI"', el cuál interactúa con el sistema "`IETFEM Core"', que contiene el motor de cálculo, para totalizar lo que sería el IETFEM.
+	
+	En la Figura \ref{fig:Fisica} se puede preciar la distribución física de ambos componentes. En la imagen superior, se aprecia la versión estudiantil, donde todo se ejecuta en la máquina del usuario. Se observa la interfaz corriendo sobre un framework que simula ejecutar una aplicación de usuario, y el motor de cálculo en GNU-Octave, comunicándose manualmente mediante la acción del usuario.
+	
+	En la imagen inferior, se aprecia una posible distribución física para una posterior versión, en donde se propone separar físicamente la interfaz del motor. De esta manera se logra una mayor escalabilidad al poder replicar N servidores Web utilizando el mismo motor de cálculo Se propone desplegar la interfaz en un servidor Web, mediante la cuál el usuario accede utilizando el protocolo estándar HTTP. El usuario dibuja la estructura de la misma manera que se realiza en la versión académica, pero al momento de ejecutar el motor, se consume un servicio REST expuesto por un servidor de aplicación en donde se encuentra corriendo el motor de cálculo, el cual provee a la interfaz con la estructura deformada. Esto implica que el usuario sólo tenga que presionar un botón para deformar la estructura, evitando el proceso de comunicación manual.
+	
+	\begin{figure}
+			\centerline{\includegraphics[width=1.3\textwidth]{Graficos/Fisica}}
+			\caption{Diagrama de distribución física de IETFEM}
+			\label{fig:Fisica}
+		\end{figure}
 		
 	\subsection {Tecnologías y herramientas utilizadas}
-	
+		
 		\subsubsection {HTML5 - Javascript - CSS3}
 		
-		dedicar un parrafo a cada una y como lo usamos particularmente en nuestro proyecto
+		Dada la elección de utilizar tecnologías web para encarar el desarrollo del proyecto, existen ciertas tecnologías estándar e ineludibles en cualquier aplicación web estas son HTML5, Javascript y CSS3. A continuación se describen brevemente las mismas.
+		
+		HTML es un lenguaje de marcado para la elaboración de paginas web. Es un estándar que sirve de referencia para la elaboración de paginas web y define una estructura básica y un código para la definición de contenido como texto, imágenes, videos, entre otros. En la actualidad se encuentra en su versión 5 la cual establece una serie de funcionalidades, elementos y atributos que reflejan el uso típico de los sitios web modernos.
+		
+		JavaScript (abreviado comúnmente "JS") es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado y dinámico.Se utiliza principalmente del lado del cliente implementado como parte de los navegadores web, permitiendo mejoras en la interfaz de usuario y aplicaciones web dinámicas.Es el estándar de facto para scripting en la web y es interpretado por todos los navegadores web.
+		
+		CSS actualmente en la versión 3 es un lenguaje de estilos que define la presentación de los documentos HTML. Esto abarca cuestiones relativas a fuentes, colores, margenes, altura, ancho, posicionamiento, etc. Una hoja de estilos fue utilizada en el proyecto con el fin de definir algunos estilos de menúes y formularios, esto es en aquellos no definidos o para personalizar los definidos en bootstrap.
+		
 		
 		\subsubsection {Bootstrap}
 		
-		que es y como lo utiliamos en nuestro proyecto
+		Bootstrap es un "front-end framework" open source, es la mas popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
 		
-		que mejoras se tienen con respecto a no utiliarlo
+		Las principales características del framework las cuales fueron ampliamente utilizadas en el proyecto son:
+		
+		\begin{itemize}  
+        \item Sistema de grillas responsivo para posicionar todos los elementos de la pagina de una manera sencilla.
+				\item Estilos para controles de HTML.
+				\item Componentes personalizados.
+				\item Componentes javascript (Ej. Modals)
+    \end{itemize}
 	
 		\subsubsection {AngularJS}
-		lo mismo que arriba
+		
+		Es un framework open source mantenido por Google que tiene como objetivo solucionar los principales problemas encontrados en el desarrollo de aplicaciones web dinámicas. 
+		
+		AngularJs propone la utilización de programación declarativa para las interfaces de usuario y programación imperativa para lógica de negocio. Implementa el patrón MVC para separar la presentación, datos y lógica. Todo esto da como resultado una aplicación prolija y testeable a nivel de código.
+		
+		Principales características utilizadas:
+		
+		\begin{itemize}  
+        \item Two way data-binding: esto permite mantener el modelo y la vista (DOM) sincronizados sin necesidad de escribir código especial para mantener dicha sincronización.
+				\item MVC
+				\item Directivas, sirven para agregar funcionalidad a HTML mediante tags HTML, tanto built-in como personalizados.
+    \end{itemize}
 		
 		\subsubsection {ThreeJS}
-		mencionar que es la libreria principal
 		
-		como funciona, habar que etsa sobre ebgl, que funcione en un canvas, que se programa medante javascript, etc
+		 Dada la elección de realizar una solución Web,la clara superioridad de WebGl para las características gráficas y la baja productividad y dificultad de desarrollo directamente sobre el, resultó necesario elegir un framework que lo abstraiga.
 		
-		enque lo usamos en el proyecto
+		En este sentido se decidió por ThreeJs por ser un proyecto activo, con la mayor cantidad de funcionalidades, buena documentación, con la mayor comunidad y por consiguiente mayor soporte entre todas las opciones.
 		
-		mencionar y mostrar otros proyectos con three
+		 En la sección 2.4.3 se describieron las características principales de este tipo de librerías.
+
 		
 		\subsubsection {Electron}
-		mencionr que nosparecio esencial para la prolijidad del proyecto "local", ya que si aspiramos a que el estudiante quelo usa no tenga que lidiar con cosas de cimpuacion, seria contraproducente que tenga que abrir un html pelado en el navegador, donde puede tener problemas de compatibilidad con navegadores diferentes, etc
+		
+		Es un framework que permite escribir aplicaciones de escritorio multiplataforma usando HTML, javascript y CSS.
+		
+		Esta herramienta nos permitirá distribuir la aplicación de una manera mas elegante que en una carpeta con código y un archivo index.html para ejecutarlo en un navegador local. A los ojos de los usuarios el producto final es una aplicación nativa corriendo transparentemente una implementación mínima del navegador Chromium, solucionando así también posibles problemas de compatibilidad con algunos navegadores.
 		
 	\subsection {Manejo del espacio 3D}
 	
 		\subsubsection {Eventos de usuario}
-		como definimoslo que puede hacer el usuairo
 		
-		los eventos definidos para el mouse y latecla de escape
+		El espacio 3D ocupa la mayor parte de la pantalla, y es donde se espera que el usuario realice la mayor parte de interacciones posibles. Se busca que el usuario pueda manejar la escena mediante el uso del mouse, por lo tanto, al inicializar la aplicación se setean EventListenners a la ventana para cada tipo de acción con el mouse. Esto significa que la aplicación estará pendiente de todos los movimientos del mouse dentro de la escena. En particular: se tiene en cuenta el movimiento de la cámara y en qué modo se encuentra la aplicación
 		
-		que componentes se comunican directamente con las acciones de usuario y describir "el camino" que realia cada una de ellas
+		Los evenos definidos son los siguientes:
+		
+			\begin{itemize}  
+
+        \item Para el click izquierdo: 
+				
+				\begin{itemize}  
+					\item Si el mismo se presiona y suelta en el mismo lugar:
+					\begin{itemize}  
+						\item Si se encuentra en modo agregar nodos, y se hace el click encima de un punto de una grilla definida, se agrega el nodo
+						\item Si se encuentra en modo agregar barras, y se hace el click encima de un nodo, se selecciona el mismo para agregar una barra desde o hacia él
+						\item Si se encuentra en modo seleccionar, y se hace el click sobre un nodo o barra, se selecciona el elemento para modificar sus propiedades
+					\end{itemize}	
+					\item Si el mismo se presiona y se arrastra, se rota la cámara, siempre apuntando al centro de la escena.
+				\end{itemize}
+        \item Para el click derecho, se desplaza la cámara en dirección a donde se arrastre 
+				\item Para el scroll del mouse, se hace zoom in o zoom out dependiendo de la dirección del movimiento
+				\item Para el movimiento del mouse, cuando no se presiona nada, se resalta en color celeste los nodos o barras a los cuáles se les hace Hover.
+    \end{itemize}
 		
 		\subsubsection {Adición, sustracción y transformación de objetos}
 		
-		hablar de la escena, como se agregan o modifican objetos
+		El espacio 3D desarrollado se implementó como un objeto de ThreeJs denominado Scene, el cual provee operaciones add() y remove() para agregar y eliminar objetos del mismo. Internamente, una Scene contiene una gran cantidad de atributos, entre los que se encuentran la posición, rotación, escalamiento por coordenada, y una lista de objetos en donde se almacenan los elementos que conforman la escena.
 		
-		como se conforma un objeto, atributos relevates
+		Una vez definida la escena se agregan los primeros elementos: se utiliza el objeto GridHelper provisto por ThreeJS para definir una grilla auxiliar y se agregan 3 vectores definiendo los ejes x, y, z.
 		
-		hablar del renderiado
+		El resto de los objetos que se agregan a la escena se definen como objetos Mesh de ThreeJS, definidos por una geometría y un material:
 		
-		acciones que se pueden hacer desde el programa
+		\begin{itemize}
+			\item La geometría de un objeto define su figura geométrica, define si se trata de un cilindro, una esfera, etc...
+			\item El material de un objeto define cómo se ve el mismo en pantalla, es decir, su color, transparencia, escalamiento, etc...
+    \end{itemize}
+		
+		Para representar los nodos se decidió utilizar esferas y para representar las barras se decidió utilizar cilindros. Esta decisión se basa en que son figuras geométricas fácilmente escalables, es decir, si se quiere cambiar el tamaño de un nodo o barra, solo basta con cambiar el radio de su geometría. Por ejemplo, cuando se selecciona un nodo para modificar sus propiedades, el mismo aumenta su tamaño y cambia su color. Esto se logra siguiendo el siguiente proceso:
+		
+		\begin{enumerate}
+			\item Se obtiene el objeto que se quiere modificar de la lista de objetos de la Escena.
+			\item Se genera una nueva geometría, en este caso, una esfera más grande.
+			\item Se genera un nuevo material, en este caso, el mimso que existía pero con un color diferente.
+			\item Se asignan el material y la geometria nuevos al objeto obtenido en el paso 1.
+			\item Se renderiza la imagen.
+    \end{enumerate}
+		
+		El renderizado se ejecuta cada vez que se realiza una acción en la escena. Esto significa que cada vez que un usuario modifica la estructura, los cambios quedan inmediatamente reflejados en el espacio 3D. De esta manera logramos una experiencia fluida y totalmente interactiva de dibujado donde la manipulación de la estructura se vuelve una tarea sencilla e intuitiva.
 		
 		\subsubsection {Manejo de la cámara}
 		
-		hablar de orbit controls
+		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc. Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida, se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
 		
+		Sin embargo, hasta el momento sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz
+		
+		diferentes tipo de "`Controles"' que pueden ser asignados a la escena para definir el movimiento de su cámara. En particular, se utili
 		hablar de elcambio de ejes de coordenadas para que el  queda arriba
 		
 		hablar como se mueve la camara tratar de ver el js asqueroso y deducir matematicamente como se mueve con respecto al espacio 3d para dibujarlo o mostrar un diagramita

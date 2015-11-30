@@ -517,6 +517,7 @@ app.controller(
 			}
 
 			$scope.goToDownloadModel = function(){
+				console.log($scope.scene);
 				$scope.validModel = {};
 				$('#obtenerTextoModal').modal('show');
 			}
