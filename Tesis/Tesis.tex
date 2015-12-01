@@ -9,6 +9,7 @@
 \usepackage{parskip}
 \usepackage{tikz}
 \usepackage{lineno}
+\usepackage{appendix}
 
 \title{Desarrollo de una Interfaz Gráfica para una Herramienta de Cálculo de Estructuras}
 \author{Rafael Olivera - Federico García}
@@ -385,7 +386,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 				
     \end{itemize}
 	
-	En el anexo \ref{appendix:UseCaseEspecification} se incluye la especificación de cada caso de uso descripto.
+	En el anexo A se incluye la especificación de cada caso de uso descripto.
 	
 	\begin{figure}
     \centerline{\includegraphics[width=1.3\textwidth]{Graficos/ModeloDominio}}
@@ -612,91 +613,154 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Manejo de la cámara}
 		
-		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc. Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida, se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
+		\begin{figure}
+			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/Camera}}
+			\caption{Definición de la cámara en ThreeJS}
+			\label{fig:Camera}
+		\end{figure}
 		
-		Sin embargo, hasta el momento sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz
+		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc(véase la Figura \ref{fig:Camera}). Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida, se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
 		
-		diferentes tipo de "`Controles"' que pueden ser asignados a la escena para definir el movimiento de su cámara. En particular, se utili
-		hablar de elcambio de ejes de coordenadas para que el  queda arriba
+		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agrego dicha clase a nuestro proyecto y se seteó a la cámara previamente definida.
 		
-		hablar como se mueve la camara tratar de ver el js asqueroso y deducir matematicamente como se mueve con respecto al espacio 3d para dibujarlo o mostrar un diagramita
+		Al observar la simplicidad del manejo de la cámara utilizando esta herramienta web, se decidió agregar otro juego de cámara-escena en la esquina inferior la cual siempre apunta a los ejes e imita los movimientos de rotación de la principal, de manera de mantener una referencia al usuario en caso que deba alejarse demasiado del origen.
 		
 		\subsubsection {Trazado de rayos e intersecciones con objetos}
 		
-		hablar de como resolvimos la interseciion del 'click' con el rayo de la camara para seleccioar objetos
+		El problema de la traza de rayos en la interfaz tomó una significativa importancia, debido a que se quiere interactuar con un espacio 3D mediante una superficie bidimensional como lo es la pantalla de una PC. Esto implica por ejemplo que cuando uno hace click en la pantalla, en realidad no se está marcando un punto, sino que se está trazando un rayo entre la cámara y la posición del click, por lo tanto, no se sabe con exactitud en que coordenadas exactas quiere el usuario agregar el nodo.
 		
-		hacer formulacion matematica
+		En este sentido, la definición de grillas auxiliares se establece como una solución excelente a este problema. Mediante esta funcionalidad, el cliente define cuadrículas auxiliares que se dibujan en la pantalla, marcando líneas y nodos levemente transparentados.
 		
-		hablar de las cosas que three automatia y de como qedo resuelto
+		De esta manera, cuando el usuario hace clicks en la pantalla, se traza el correspondiente rayo entre la cámara y la posición del click, y si ese rayo intersecta un nodo de alguna grilla, entonces se agrega dicho nodo a la estructura. Dicha estrategia se utiliza también cuando el sistema se encuentra en modo seleccionar: Se traza un rayo, y si intersecta con un nodo o barra, se destaca el elemento y se cargan sus propiedades para ser modificadas. En la figura \ref{fig:RayTracing} puede apreciarse el método descripto anteriormente
 		
-		que compontes se enargan de esto
+		\begin{figure}
+			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/RayTracing}}
+			\caption{Ejemplo de traza de un rayo entre la cámara y el click del usuario}
+			\label{fig:RayTracing}
+		\end{figure}	
 		
-		\subsubsection {Performance}
-		
-		hablar de los probelmas que encontramos al probar la torre eiffel
-		
-		describir que se investigo y se hicieron camnios
-		
-		hablar de los geometry de los objetos
-		
-		de sacar a seleccion al hacer hover
-		
-		de otras performances que se hicieron
-		
-		hablar finalmente de otras mejoras que sepodrian hacer pero resultarian innecesarios porque serian muy complejos par este proyecto en el que los estudiantes nunca vana  hacer una estructura tan grande
+	ThreeJS provee un objeto denominado RayCaster que traza un rayo	dado un origen y un vector de dirección. Este objeto ofrece el método intersects(), que dada una lista de objetos, retorna la intersección del rayo con los mismos, obteniendo de esta manera el objeto al cual el usuario intenta referirse.
 		
 	\subsection {Manejo de datos}
 	
-	hablar de como es la estructura que guardamos
+	A pesar de que la estructura se visualiza de manera muy simple en el espacio 3D, se mantiene en segundo plano un complejo modelo que encapsula
+	la información dibujada por el usuario. Es necesario mantener todos los nodos, barras, materiales, secciones, grillas y opciones que el usuario ingresó, ya que en un momento deberá extraer toda la información de la estructura para ingresar en el motor
 	
-		\subsubsection {Entrada de información (dibujado e importación)}
-		que informacino guardamos de cada elemento y porque
+		\subsubsection {Entrada y mantenimiento de información}
 		
-		en que momento agregamos cosas al mdoelo
+		Como se ha mencionado en reiteradas ocasiones, el usuario puede ingresar la estructura ya sea dibujando una nueva como abriendo una previamente guardada. Cada vez que el usuario modifica elementos en la escena, los mismos cambios se realizan en el modelo que se almacena, manteniendo constante sincronización.
 		
-		hablar del dibujado
+		\begin{figure}
+			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/escenaModelo}}
+			\caption{Correspondencia entre dibujo en la escena y el modelo mantenido en segundo plano}
+			\label{fig:escenaModelo}
+		\end{figure}	
 		
-		hablar de la importacion(como reemplaamos el modelo)
+		En la Figura \ref{fig:escenaModelo} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará mas sobre cómo se almacena la estructura en la siguiente sección.
 		
-		hablar de abrir y guardar proyectos(como reemplaamos el modelo)
+		La entrada de datos mediante el dibujado se realiza elemento por elemento. El usuario siempre ingresa un nodo o barra a la vez, lo que hace que la sincronización entre la escena y el modelo sea realmente sencilla. Sin embargo, cuando se carga una estructura previamente guardada, la misma se vuelve realmente complicada, ya que debe limpiarse tanto la escena como el modelo y cargar ambos con la nueva información, asegurándose de mantener la consistencia entre los mismos. Esto se logra mediante una fuerte relación entre el módulo que manipula el modelo y el que manipula la escena. Cada vez que se modifica cualquier aspecto de la estructura, se invocan operaciones de dichos módulos que no sólo realizan el propio cambio, sino que aseguran mantener la consistencia una vez finalizado. Esto significa, por ejemplo, que cargar una nueva estructura, se traduce internamente en una secuencia finita de llamados a operaciones más sencillas como "`Agregar nodo"' o "`Agregar barra"' las cuales mantienen el sistema en un estado de sincronía.
+			
+			\subsubsection {Almacenamiento de la estructura}
 		
-		\subsubsection {Mantenimiento de la estructura durante el proceso de dibujado}
-		aca hablamos de como manipulamos los objetos, modificar y eliminae
+	Si bien en la escena provista por Three se almacenan todos los objetos contenidos en la escena, se consideró que debía mantenerse otro tipo de objeto en donde se almacenaran los datos ingresados por el usuairo. Esta decisión se basa a que el objeto Escena puede ser complicado de manejar debido a la gran cantidad de atributos que posee, además de que sería necesario sobrecargar cada objeto de Three para agregar los atributos nuevos(propiedades de las barras y nodos).
+	
+	Básicamente, cada vez que se agrega un elemento a la escena, el mismo se agrega también al modelo. En particular se almacenan los siguientes aspectos:
+	
+	\begin{itemize}
+		\item\textbf{Nodos:} \begin{itemize}
+			\item Coordenadas x,y,z
+			\item Valores de condiciones de desplazamiento para x,y,z
+			\item Valores de resortes para x,y,z
+			\item Fuerza aplicada en el punto(coordenadas x,y,z)
+			\item Fuerza aplicada en el punto(coordenadas x,y,z)
+			\item Id de la esfera dibujada en la escena correspondiente al nodo
+			\item Id del vector dibujado en la escena correspondiente a la fuerza aplicada en el nodo
+			\item Id de cada pirámide dibujada en la escena que indica una condición de desplazamiento en el nodo
+			\item Id de cada pirámide dibujada en la escena que indica un resorte en el 
+		\end{itemize}
 		
-		hablar de mantener la consistencia, al abrir un modelo nuevo, guardar, abrir, etc...
+		\item\textbf{Barras:} \begin{itemize}
+			\item Id del nodo inicial
+			\item Id del nodo final
+			\item Id del cilindro dibujado en la escena correspondiente a la barra
+			\item Material de la barra
+			\item Sección de la barra
+		\end{itemize}
 		
-		\subsubsection {Almacenamiento de la estructura}
-		hablar de que el modelo se va guardando en una variable javascript
+		\item\textbf{Materiales:} \begin{itemize}
+			\item Nombre
+			\item Modulo de Young
+			\item Gamma
+			\item Alpha
+			\item Nu
+		\end{itemize}
 		
-		hacer un estudio sobre que tan eficiene=te es y si la memoria del navegador 'da' para almacenar algo asi
+		\item\textbf{Secciones:} \begin{itemize}
+			\item Área
+		\end{itemize}
 		
-		mostrar un mini ejemplo y exactamente qué se guarda
+		\item\textbf{Grillas:} \begin{itemize}
+			\item Id de cada objeto de la grilla dibujado en la escena(puntos y líneas)
+		\end{itemize}
+		
+	\end{itemize}
+			
+		A modo de aclaración, se destaca la presencia en el modelo de los ids generados por Three para cada objeto generado en la escena. Esto se debe a que debe mantenerse una referencia entre cada elemento del modelo y su correspondiente objeto en la escena, ya que cualquier modificación que se realice debe aplicar a ambos. Por ejemplo, cuando se elimina un nodo, debe eliminarse tanto dle modelo como de la imagen en el espacio 3D. En este caso el proceso sería:
+		
+		\begin{itemize}
+			\item El usuario hace click en un nodo
+			\item Se traza un rayo entre la cámara y el pixel, el cuál intersecta con el nodo deseado
+			\item Se obtiene el id del objeto en la escena
+			\item Con ese id, se obtiene el objeto del modelo
+			\item Se elimina el objeto del modelo
+			\item Se elimina el objeto de la escena
+			\item Se renderiza
+		\end{itemize}
 		
 		\subsubsection {Salida de Datos}
-		hablar de lo que se genera desde la ui
 		
-		como se genera, proceso que ace el usuairo para generarlo
+		Una vez finalizado el proceso de dibujado, el usuario debe obtener un documento con la especificación de la estructura, para ser ingresado en el motor. Para comprender la solución propuesta, debe recapitularse hacia el uso del IETFEM antes de la realización de este proyecto. 
 		
-		validaciones que se toman en cuenta
+		Los estudiantes ingresaban la estructura mediante un archivo de especificación en la que debían escribir la posición de cada nodo, la conectividad de cada uno de ellos, los materiales implicados, y cada aspecto de la misma. Esto debía hacerse además respetando un formato predefinido el cuál derivaba en un fallo del motor en caso de ser omitido, incluyendo cada salto de línea y cantidad de espacios predefinida.
 		
-		como manipulamos el modelo ara generar el txt
+		De esta manera, resultaba extremadamente tedioso para el estudiante lograr finalmente el texto correcto con la estructura deseada. Sin embargo esta propiedad del antiguo IETFEM resultó ser de suma utilidad, ya que, intentando reducir al máximo el trabajo realizado en el motor, se decidió utilizar el mismo archivo de entrada al mismo.
+		
+		Esto quiere decir que la interfaz toma la responsabilidad de generar el archivo de texto que antes debía escribirse a mano, a partir del dibujo realizado por el estudiante. Un ejemplo de este archivo puede verse en el anexo 2. La interfaz recorre cada aspecto del modelo definido y va confeccionando un archivo .txt manteniendo el formato predefinido por el Motor. Además, mantiene un formato legible para el usuario, con títulos y nombres para cada propiedad a definir.
 		
 	\subsection {Análisis de resultados del Core}
 	
+	Hasta ahora se ha descripto cómo el usuario interactúa con el sistema para generar una estructura. Sin embargo, el sistema incluye además la funcionalidad de visualizar los resultados generados por el motor de cálculo, logrando un nivel aún mas alto de amigabilidad que antes no se tenía con la generación de imágenes estáticas
+	
 		\subsubsection {Generación de resultados}
-		hablar sobre qué genera el core
 		
-		mencionar las cosas que agrega el texto
+		IETFEM generaba, hasta antes de la presencia de la interfaz, diferentes imágenes y gráficas correspondientes a la deformación resultante de la estructura especificada. La adición de la interfaz en el sistema implicó deprecar el sistema de generación de imágenes, ya que ahora, la estructura deformada se vería en la interfaz. Por lo tanto, debía definirse un nuevo modelo de salida del Motor para lograr ser interpretado por la interfaz.
+		
+		La solución que se implementó consta simplemente de agregar al archivo .txt recibido, dos matrices con los resultados obtenidos de los cálculos realizados:
+		\begin{itemize}
+			\item Una matriz que contiene el desplazamiento de cada nodo en cada coordenada
+			\item Una matriz que contiene los valores de deformación, fuerza y tensión de cada barra
+		\end{itemize}
+		
+		Se decidió que en la salida del motor debía incluirse el mismo texto que se recibió, de modo de poder corroborar en la interfaz que se están intentando procesar los resultados de la misma estructura que se generó, evitando así problemas de consistencia y compatibilidad. En el anexo 3 puede verse la salida del motor para la entrada especificada en el anexo 2.
 		
 		\subsubsection {Introducción de datos en la UI}
 		
-		como se ingresan
+		Luego de generar el texto con la especificación de la estructura, la interfaz queda en un estado de espera, mientras el usuario obtiene dicho archivo y lo ingresa en el Motor. Una vez finalizado el proceso, el cliente carga el archivo resultante en la interfaz y comienza el procesamiento del mismo.
 		
-		como se modelan y almacenanesos datos - deformedmodel
+		El primer caso consta de separar las 2 matrices resultantes del resto del archivo. De esta manera, se compara el texto generado con el que se recibió, con el objetivo de verificar si se trata de la misma estructura. En caso afirmativo, se define un nuevo objeto:"`Deformada"', donde se replican todos los nodos existentes en el modelo, aplicándo a cada uno los desplazamientos obtenidos en la primer matriz. Es importante destacar que la conectividad de la estructura no se ve alterada, por lo tanto no es necesario recibir dicha información en el procesamiento, simplemente se replican todas las barras especificadas en el modelo original, agregando a cada una la información de deformación, fuerza y tensión aplicada a cada una de ellas.
+		
+		Finalmente, una vez que se logra modelar la estructura deformada, se dibuja la misma en la escena, superpuesta con la estructura original, de modo de apreciar las diferencias entre una y otra. 
 		
 		\subsubsection {Visualización}
 		
-		qué se ve
+		Finalmente se tiene la estructura deformada dibujada en la escena, a partir de qeuí se incluyen ciertas opciones para comprender mejor el resultado que se está observando:
+		
+		\begin{itemize}
+			\item\textbf{Transparencia:} El usuario puede elegir transparentar levemente la estructura original o la deformada, de forma de resaltar una u otra de acuerdo a qué se está analizando
+			\item\textbf{Escalamiento:} Algunas estructuras sufren de deformaciones realmente pequeñas, poco apreciables a la vista. Por lo tanto, se incluye una funcionalidad para escalar interactivamente la deformada. Esto significa que puede multiplicarse la deformación por un número positivo con el fin de observar hacia dónde se realiza el desplazamiento de la estructura. Para hacer esto posible, simplemente se multiplica el desplazamiento de cada nodo por coordenada por el factor de escalamiento ingresado por el usuario, manteniendo la conectividad de la misma.
+			\item\textbf{Colorizado:} Esta funcionalidad permite al usuario cambiar la colorización de la estructura dependiendo de los valores recibidos de las propiedades de las barras asignados en la deformada. Es decir, que el usuario puede elegir colorear cada barra de la estructura tomando en cuena su deformación, fuerza o tensión. Se utilizan escalas de rojo para valores negativos y escalas de verde para valores positivos. Esto se logró recorriendo el modeo de la estructura deformada y cambiando el material que conforma cada barra por el color corespondiente a su valor.
+	
+		\end{itemize}
 		
 		hablar de las opciones que se tienen
 		
@@ -744,6 +808,18 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\subsubsection {Estudio de casos de gran porte y pruebas de stress (Torre Eiffel)}
 		comentar que se decidio hacer latorre eiffel para ver como respondia el programa
 		
+		hablar de los probelmas que encontramos al probar la torre eiffel
+		
+		describir que se investigo y se hicieron camnios
+		
+		hablar de los geometry de los objetos
+		
+		de sacar a seleccion al hacer hover
+		
+		de otras performances que se hicieron
+		
+		hablar finalmente de otras mejoras que sepodrian hacer pero resultarian innecesarios porque serian muy complejos par este proyecto en el que los estudiantes nunca vana  hacer una estructura tan grande
+		
 		hablar del trabajo de la perfomrmance y memoria
 		
 		cuanto se mejoro luego de los arreglos
@@ -790,6 +866,153 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 
 \section {Anexos}
 
+Se detallan los anexos de la aplicacion
+
+	\begin{appendices}
+	
+		\section{Especificación de Casos de Uso}
+			
+			\begin{itemize}
+				\item\textbf{Nombre:} Alta de Material
+				\item\textbf{Descripción:} El usuario agrega un nuevo material en el sistema
+				\item\textbf{Precondiciones:} Ninguna
+				\item\textbf{Postcondiciones:} Existe un nuevo material definido en el sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario indica que quiere agregar un nuevo material
+																	\item El usuario ingresa las propiedades del nuevo material
+																	\item El sistema indica que se ha agregado un nuevo material
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para alguna de las propiedades del material
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Baja de Material
+				\item\textbf{Descripción:} El usuario elimina un material existente en el sistema
+				\item\textbf{Precondiciones:} Existe al menos un material definido en el sistema
+				\item\textbf{Postcondiciones:} El material seleccionado por el usuario se elimina del sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario selecciona un material e indica que quiere eliminarlo
+																	\item El sistema indica que se ha eliminado el material
+																\end{enumerate}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Modificación de Material
+				\item\textbf{Descripción:} El usuario modifica un material existente en el sistema
+				\item\textbf{Precondiciones:} Existe al menos un material definido en el sistema
+				\item\textbf{Postcondiciones:} El material seleccionado por el usuario existe en el sistema con sus propiedades modificadas
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario indica que quiere modificar un material
+																	\item El usuario ingresa las nuevas propiedades del material
+																	\item El sistema indica que se ha modificado el nuevo material
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para alguna de las propiedades del material
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Alta de Sección
+				\item\textbf{Descripción:} El usuario agrega una nueva sección en el sistema
+				\item\textbf{Precondiciones:} Ninguna
+				\item\textbf{Postcondiciones:} Existe un nueva sección definido en el sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario indica que quiere agregar una nueva sección
+																	\item El usuario ingresa el área de la nueva sección
+																	\item El sistema indica que se ha agregado una nueva sección
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para el área de la nueva sección
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Baja de Sección
+				\item\textbf{Descripción:} El usuario elimina una sección existente en el sistema
+				\item\textbf{Precondiciones:} Existe al menos una sección definida en el sistema
+				\item\textbf{Postcondiciones:} La sección seleccionada por el usuario se elimina del sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario selecciona una sección e indica que quiere eliminarla
+																	\item El sistema indica que se ha eliminado la sección
+																\end{enumerate}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Modificación de Sección
+				\item\textbf{Descripción:} El usuario modifica una sección existente en el sistema
+				\item\textbf{Precondiciones:} Existe al menos una sección definido en el sistema
+				\item\textbf{Postcondiciones:} La sección seleccionada por el usuario existe en el sistema con su área modificada
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario indica que quiere modificar una sección
+																	\item El usuario ingresa la nueva área para la sección seleccionada
+																	\item El sistema indica que se ha modificado la sección
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para el área de la sección
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
+		
+				\begin{itemize}
+				\item\textbf{Nombre:} Alta de Nodo
+				\item\textbf{Descripción:} El usuario agrega una nuevo nodo en el sistema
+				\item\textbf{Precondiciones:} No existe en el sistema un nodo con las mismas coordenadas
+				\item\textbf{Postcondiciones:} Existe un nuevo nodo en el sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario indica que quiere agregar una nueva nodo
+																	\item El usuario ingresa el área de la nueva sección
+																	\item El sistema indica que se ha agregado una nueva sección
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para el área de la nueva sección
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Baja de Sección
+				\item\textbf{Descripción:} El usuario elimina una sección existente en el sistema
+				\item\textbf{Precondiciones:} Existe al menos una sección definida en el sistema
+				\item\textbf{Postcondiciones:} La sección seleccionada por el usuario se elimina del sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario selecciona una sección e indica que quiere eliminarla
+																	\item El sistema indica que se ha eliminado la sección
+																\end{enumerate}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		
+		
+	\end{appendices}
+
 	mini Manual de uso
 	
 	ejemplos de estructuras
@@ -800,7 +1023,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	diagramas de flujo
 	
-	diagramas de arquitectura
+	diagramas de arquitectura.
 	
 	mas info threejs
 	
