@@ -763,29 +763,30 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	\subsection {Trabajo a futuro}
 	
 		\subsubsection {Trabajo en el motor}
-		que se puede agregar en el motor
-		
-		porticos
-		
-		osibilidad de migrar a otro lenguaje e integrar en un solo proyecto con la ui
+		(ESTO NO SE SI VA, ES ALGO DE ELLOS EN REALIDAD.. EN TODO CASO LES PODRIAMOS PREGUNTAR)
 		
 		\subsubsection {Trabajo en la interfaz}
-		agregar cosas que ya se pueden hacer enel core
 		
-		mejoras de performance
+		Si bien la interfaz cumple con los requisitos y el alcance pretendido para el proyecto, existen muchos puntos para agregar y mejorar.
 		
-		otros 'chiches' que tienen programar comerciales
+		En primer lugar y quizás como el punto mas directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran: pórticos, zazaza.. .
 		
-		delegar responsabilidades a aotra aplicacion
+		Ademas se pueden agregar varias funcionalidades accesorias como cámara ortogonal o selección múltiple, enriqueciendo la experiencia con la herramienta e incluso asemejándola a la de programas comerciales con años de desarrollo. Con el fin de mejorar la experiencia es posible dedicar esfuerzo también a detalles estéticos de la interfaz para hacerla aún mas atractiva. 
+		
+		Un detalle técnico que podría ser importante atacar en el futuro son cuestiones de performance. Esto es principalmente, mejoramiento de estructuras de datos y algoritmos, mejor administración de la memoria utilizada y técnicas mas avanzadas en cuanto al desarrollo gráfico. Todas los puntos anteriores permitirían la capacidad de manipular y procesar estructuras muy grandes, mejorando también la fluidez de los gráficos en estas situaciones.
 		
 		\subsubsection {Despliegue de la aplicación}
-		hablar del servidor
 		
-		como funcionaria con servidor y porque no se hio asi
+		Si bien la solución presentada fue realizada con tecnologías web, la misma se ejecuta en un entorno local (sin servidor que la despliegue) y con la intervención del usuario para correr los cálculos en el motor en GNU-Octave. Sin embargo esta decisión responde a un requerimiento de los clientes con el argumento de evitar el mantenimiento de servidores. Dicho esto, el diseño completo incluye elementos del lado del servidor que se pasaran a detallar brevemente quedando como trabajo futuro.
 		
-		donde se podria alojar
+		La solución original plantea un servidor web para el despliegue de la aplicación (interfaz de usuario) y un servidor de aplicaciones con la funcionalidad de ejecutar el código del motor de cálculos con los parámetros recibidos desde la interfaz de usuario y devolver los resultados para que la interfaz los despliegue. Todas las comunicaciones entre servidores e interfaz se realizarían mediante servicios REST.
 		
-		mejoras que implicari en el sistema
+		De implementarse estos cambios se tendrían varias ventajas para la herramienta y los usuarios de la misma:
+		\begin{itemize}
+			\item Posibilidad de acceder a la herramienta desde cualquier pc o dispositivo con acceso a Internet.
+			\item Evitar el paso manual de instalar y  ejecutar GNU-Octave desde linea de comando siendo esto totalmente transparente para el usuario.
+			\item Capacidad de implementación de funcionalidades apoyándose en las posibilidades que ofrece la infraestructura como autenticación o un espacio de trabajo alojado en el servidor que permita guardar proyectos y resultados en la web.
+    \end{itemize}
 
 \section {Anexos}
 
