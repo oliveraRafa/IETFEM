@@ -775,9 +775,23 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	\subsection {Comparación IETFEM con y sin UI}
 	
 		\subsubsection {Análisis del impacto en la usabilidad}
-		hablar de opinion de estudiantes, posiblemente en la idm
 		
-		mostrar unto por punto en que aspectos se mejoraron
+		El nacimiento de la propuesta del proyecto fue motivada casi en un 100\% en mejorar la usabilidad de una herramienta que ya resolvía de forma altamente satisfactoria los problemas para la que fue diseñada. En este sentido, se logro solucionar varios problemas que atentaban contra la amigabilidad de la herramienta tales como:
+		
+			\begin{itemize}
+			\item Generación automática de la entrada para el motor gráfico en GNU-Octave, evitando realización manual por parte del usuario de un archivo altamente estructurado, en el que se pueden introducir muchos errores y el cual crece rápidamente haciéndolo muy difícil de manejar para estructuras de un tamaño mediano.
+			
+			\item Manipulación visual y en tiempo real de la estructura que se esta generando.
+			
+			\item Experiencia de modelado similar a la utilizada por herramientas comerciales del rubro, lo cual aporta no solo a la usabilidad, si no que también prepara a los estudiantes para la utilización de las mismas en ambientes productivos.
+			
+			\item Reducción del tiempo de procesado de la salida en comparación al tiempo de generación de gráficos de IETFEM sin interfaz gráfica.
+			
+			\item Guía y simplifica al usuario el flujo de trabajo con GNU-Octave para la ejecución de los cálculos.
+	
+		\end{itemize}
+		
+		La mejora en la usabilidad es percibida, no solo por la opinión del equipo de desarrollo y los docentes clientes, sino por la opinión de alumnos de años anteriores que utilizaron la herramienta sin la interfaz gráfica e interactuaron con la interfaz en la muestra de ingeniería del presente año.
 		
 		\subsubsection {Análisis del impacto en el tiempo de ejecución}
 		usar ietfem viejo y nuevo y calcular tiempos
