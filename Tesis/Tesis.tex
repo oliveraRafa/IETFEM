@@ -621,9 +621,17 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc(véase la Figura \ref{fig:Camera}). Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida, se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
 		
-		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agrego dicha clase a nuestro proyecto y se seteó a la cámara previamente definida.
+		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agrego dicha clase a nuestro proyecto y se seteó a la cámara previamente definida. 
 		
 		Al observar la simplicidad del manejo de la cámara utilizando esta herramienta web, se decidió agregar otro juego de cámara-escena en la esquina inferior la cual siempre apunta a los ejes e imita los movimientos de rotación de la principal, de manera de mantener una referencia al usuario en caso que deba alejarse demasiado del origen.
+		
+		El resultado puede observarse en la Figura \ref{fig:CamaraPerspectiva}, se utilizó una cámara en perspectiva en conjunto con los controles mencionados.
+		
+		\begin{figure}
+			\centerline{\fbox{\includegraphics[width=1.3\textwidth]{Graficos/CamaraPerspectiva}}}
+			\caption{Visualización del Espacio desde la cámara en Perspectiva. También puede observarse la segunda cámara con los ejes en la esquina inferior izquierda}
+			\label{fig:CamaraPerspectiva}
+		\end{figure}	
 		
 		\subsubsection {Trazado de rayos e intersecciones con objetos}
 		
@@ -651,7 +659,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		Como se ha mencionado en reiteradas ocasiones, el usuario puede ingresar la estructura ya sea dibujando una nueva como abriendo una previamente guardada. Cada vez que el usuario modifica elementos en la escena, los mismos cambios se realizan en el modelo que se almacena, manteniendo constante sincronización.
 		
 		\begin{figure}
-			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/escenaModelo}}
+			\centerline{\fbox{\includegraphics[width=0.7\textwidth]{Graficos/escenaModelo}}}
 			\caption{Correspondencia entre dibujo en la escena y el modelo mantenido en segundo plano}
 			\label{fig:escenaModelo}
 		\end{figure}	
