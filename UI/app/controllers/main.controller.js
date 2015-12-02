@@ -517,7 +517,7 @@ app.controller(
 			}
 
 			$scope.goToDownloadModel = function(){
-				console.log($scope.scene);
+				console.log($scope.model);
 				$scope.validModel = {};
 				$('#obtenerTextoModal').modal('show');
 			}
@@ -821,6 +821,17 @@ app.controller(
 					for (var i=0; i < auxModel.helpObjects.grillas.length; i++){
 						$scope.model.helpObjects.grillas.push(auxModel.helpObjects.grillas[i]);
 					};
+
+					for (i=0; i < $scope.model.points.length ; i++){
+						$scope.model.points[i].forceArrowId = 0;
+						$scope.model.points[i].supportXId = 0;
+						$scope.model.points[i].supportYId = 0;
+						$scope.model.points[i].supportZId = 0;
+						$scope.model.points[i].springXId = 0;
+						$scope.model.points[i].springYId = 0;
+						$scope.model.points[i].springZId = 0;
+					};
+
 					SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
 
 					$('#openModelModal').modal('hide');
