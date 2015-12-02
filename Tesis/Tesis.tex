@@ -379,7 +379,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 				\item \textbf{Modificar Visualización de Propiedad:} Los nodos con propiedades definidas, como por ejemplo fuerzas aplicadas o resortes, son marcados en la pantalla con vectores o geometrías básicas para ser diferenciados del resto. Esta funcionalidad permite ocultar, mostrar y escalar dichos elementos a gusto del usuario.
 				\item \textbf{Nueva Estructura:} Permite limpiar la pantalla para comenzar una nueva estructura.
 				\item \textbf{Abrir y Guardar Estructura:} Se busca la posibilidad de obtener un archivo con la estructura dibujada, de manera de poder seguir con el trabajo realizado en otro momento. También es deseable la carga de dicho archivo en la interfaz, obteniéndo la misma estructura en la que se estaba trabajando al momento de guardar.
-				\item \textbf{Extraer Estructura:} A partir del dibujo realizado, se extrae un archivo reconocible por el motor de cálculo con la especificación de la estructura
+				\item \textbf{Generar Especifiacion:} A partir del dibujo realizado, se genera un archivo reconocible por el motor de cálculo con la especificación de la estructura
 				\item \textbf{Procesar Resultado:} Se trata de procesar el archivo resultante del motor, y actualizar la pantalla con la estructura deformada.
 				\item \textbf{Escalar Deformada:} Debido a que en algunos casos las deformaciones pueden ser tan pequeñas que pueden parecer imperceptibles a la vista, se incluye este caso de uso con el fin de "`exagerar"' la deformación y poder apreciar mejor los resultados obtenidos.
 				\item \textbf{Colorear Estructura:} Al igual que la funcionalidad anterior, este caso de uso aplica a los resultados obtenidos del motor. Se trata de colorear la estructura en base a los datos obtenidos(por ejemplo, pintar de un color las barras que se comprimen y de otro las que se estiran). También se busca transparentar la estructura original o la deformada, para poder apreciar mejor los cambios entre una y otra.
@@ -976,6 +976,8 @@ Se detallan los anexos de la aplicacion
 																		\end{itemize}	
 		\end{itemize}
 		
+		\vspace{10mm}
+		
 				\begin{itemize}
 				\item\textbf{Nombre:} Alta de Nodo
 				\item\textbf{Descripción:} El usuario agrega una nuevo nodo en el sistema
@@ -997,19 +999,180 @@ Se detallan los anexos de la aplicacion
 		\vspace{10mm}
 		
 		\begin{itemize}
-				\item\textbf{Nombre:} Baja de Sección
-				\item\textbf{Descripción:} El usuario elimina una sección existente en el sistema
-				\item\textbf{Precondiciones:} Existe al menos una sección definida en el sistema
-				\item\textbf{Postcondiciones:} La sección seleccionada por el usuario se elimina del sistema
+				\item\textbf{Nombre:} Baja de Nodo
+				\item\textbf{Descripción:} El usuario elimina un nodo del sistema.
+				\item\textbf{Precondiciones:} Existe al menos un nodo definido en el sistema
+				\item\textbf{Postcondiciones:} El nodo seleccionado por el usuario se elimina del sistema
 				\item\textbf{Flujo Normal:} \begin{enumerate}
-																	\item El usuario selecciona una sección e indica que quiere eliminarla
-																	\item El sistema indica que se ha eliminado la sección
+																	\item El usuario selecciona un nodo e indica que quiere eliminarlo
+																	\item El sistema indica que se ha eliminado el nodo
 																\end{enumerate}
 		\end{itemize}
 		
 		\vspace{10mm}
 		
+		\begin{itemize}
+				\item\textbf{Nombre:} Modificación de Nodo
+				\item\textbf{Descripción:} El usuario modifica las propiedades de un nodo existente en el sistema
+				\item\textbf{Precondiciones:} Existe al menos un nodo definido en el sistema
+				\item\textbf{Postcondiciones:} El nodo seleccionado por el usuario existe en el sistema con sus propiedades modificadas
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario selecciona un nodo
+																	\item El usuario cambia las propiedades del nodo por las nuevas
+																	\item El sistema indica que se ha modificado el nodo
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para alguna de las propiedades
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
 		
+			\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Crear grilla
+				\item\textbf{Descripción:} El usuario define una grilla auxiliar para el diseño de la estructura y se crea en el sistema
+				\item\textbf{Precondiciones:} 
+				\item\textbf{Postcondiciones:} La grilla definida existe en el sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario define las coordenadas de inicio de la grilla
+																	\item El usuario define la cantidad de lineas y distancia de separación de las mismas
+																	\item El usuario confirma la creación de la grilla
+																	\item El sistema indica que se ha creado la grilla con éxito y la misma aparece en la interfaz 3D
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{itemize}
+																			\item El usuario ingresa un valor inválido para alguna de las propiedades
+																				\begin{enumerate}
+																					\item El sistema indica un mensaje de error correspondiente
+																				\end{enumerate}
+																		\end{itemize}	
+		\end{itemize}
+		
+		
+			\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Modificar Visualización de Propiedades
+				\item\textbf{Descripción:} Permite al usuario visualizar de forma gráfica en el modelo 3D apoyos, resortes y fuerzas.
+				\item\textbf{Precondiciones:} 
+				\item\textbf{Postcondiciones:} Dada las opciones de visualización activadas se renderizan en el espacio 3D los gráficos correspondientes. 
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario activa/desactiva una opción de visualización
+																	\item El sistema muestra/esconde los gráficos correspondientes en la interfaz
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:}
+		\end{itemize}
+		
+			\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Nueva Estructura
+				\item\textbf{Descripción:} El usuario limpia el modelo y el espacio 3D para comenzar a trabajar con una estructura nueva
+				\item\textbf{Precondiciones:} 
+				\item\textbf{Postcondiciones:} El sistema que en el estado inicial
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario elige la opción "Nueva Estructura" y confirma la elección
+																	\item La interfaz se limpia volviendo al estado inicial
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Guardar Estructura
+				\item\textbf{Descripción:} Permite al usuario guardar el trabajo actual para continuar con el mismo en otro momento
+				\item\textbf{Precondiciones:} 
+				\item\textbf{Postcondiciones:} Se descarga un archivo con la información necesaria para poder reconstruir el estado actual del sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario elige la opción "Guardar Estructura"
+																	\item Elige el nombre del archivo a descargar
+																	\item El archivo se descarga en el dispositivo del usuario
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Abrir Estructura
+				\item\textbf{Descripción:} Permite cargar un archivo generado con el procedimiento "Guardar Estructura" dejando al sistema en el estado que este describe.
+				\item\textbf{Precondiciones:} Existe un archivo creado con el procedimiento "Guardar Estructura"
+				\item\textbf{Postcondiciones:} El sistema queda en el estado descripto por el archivo seleccionado
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario elige un archivo del file system
+																	\item El usuario confirma el cargado
+																	\item Se aprecia en la interfaz los datos y estructuras cargadas desde el archivo elegido
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Generar Especificación 
+				\item\textbf{Descripción:} Se genera un archivo reconocible por el motor de cálculo con la especificación de la estructura
+				\item\textbf{Precondiciones:} 
+				\item\textbf{Postcondiciones:} Se descarga un archivo con la especificación de la estructura para utilizar como entrada al motor de calculo
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario elige la opción "Ejecutar IETFEM"
+																	\item El usuario confirma la descarga del archivo
+																	\item Se descarga el archivo correspondiente
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:}
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Procesar Resultados 
+				\item\textbf{Descripción:} Se trata de procesar el archivo resultante del motor de calculo, y habilitando una nueva vista para ver la estructura deformada
+				\item\textbf{Precondiciones:} Existe un archivo generado por el motor de calculo IETFEM
+				\item\textbf{Postcondiciones:} Se procesa el archivo y se genera la vista de exploración de la estructura deformada en la interfaz del sistema
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario elige la opción "Procesar resultados"
+																	\item El usuario selecciona el archivo del file system
+																	\item Se genera la vista de exploración de la deformada en la interfaz
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{enumerate}
+																				\item El usuario elige la opción "Procesar resultados"
+																				\item El usuario elige un archivo invalido
+																				\item El sistema despliega un mensaje de error correspondiente
+																			\end{enumerate}	
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Escalar Deformada 
+				\item\textbf{Descripción:} En la vista de exploración de la deformada permite exagerar la deformación en factores lineales para hacerla mas apreciable 
+				\item\textbf{Precondiciones:} Se procesaron los resultados de una estructura generándose en la interfaz la vista de exploración de la estructura deformada
+				\item\textbf{Postcondiciones:} Se aprecia la estructura deformada con con el factor de escala dado por el parámetro seleccionado
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario elige el valor del factor de escala
+																	\item Se despliega en la interfaz la estructura deformada con el factor de escala elegido
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:} \begin{enumerate}
+																				\item El usuario elige un valor de factor de escala invalido
+																				\item El sistema despliega un mensaje de error correspondiente
+																			\end{enumerate}	
+		\end{itemize}
+		
+		\vspace{10mm}
+		
+		\begin{itemize}
+				\item\textbf{Nombre:} Colorear Estructura
+				\item\textbf{Descripción:} En la vista de exploración de la deformada permite apreciar en la estructura original las barras coloreadas de acuerdo a tensiones, fuerzas y deformaciones 
+				\item\textbf{Precondiciones:} Se procesaron los resultados de una estructura generándose en la interfaz la vista de exploración de la estructura deformada
+				\item\textbf{Postcondiciones:} Se aprecia la estructura con las escalas de colores correspondientes de acuerdo a los resultados entregados por el motor de cálculos
+				\item\textbf{Flujo Normal:} \begin{enumerate}
+																	\item El usuario activa/desactiva una opción de coloración
+																	\item Se aprecia en la interfaz la estructura coloreada de acuerdo a los datos del problema
+																\end{enumerate}	
+				\item\textbf{Flujo Alternativo:}
+		\end{itemize}
 		
 	\end{appendices}
 
