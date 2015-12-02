@@ -161,7 +161,7 @@ angular.module('IETFEM')
 		for (i=0; i<model.points.length; i++){
 			model.points[i].sceneId = drawPoint(model.points[i].coords.x, model.points[i].coords.y, model.points[i].coords.z, scene, puntosEscena, material, null);	
 		}
-					$('#toggle-event').click();
+			$('#toggle-event').click();
 			$('#toggle-event').click();
 			$('#toggle-event2').click();
 			$('#toggle-event2').click();
