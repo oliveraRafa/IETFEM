@@ -1,0 +1,206 @@
+\documentclass[a4paper,11pt]{article} 
+
+% ===== Algunos paquetes a ser usados =====
+
+% para poder escribir con tildes   
+\usepackage[T1]{fontenc}           
+\usepackage[utf8]{inputenc}        
+\usepackage[spanish]{babel}        
+
+\spanishdecimal{.}        
+\usepackage{times}        
+
+\usepackage{animate}        
+
+% fuentes para escribir símbolos 
+\usepackage{amsfonts}            
+\usepackage{amssymb}             
+\usepackage{amsthm}              
+\usepackage{mathrsfs}            
+\usepackage[centertags]{amsmath}    
+
+% inclusión de graficos    
+\usepackage{graphicx}      
+
+% símbolo de grados    
+\newcommand{\grad}{\hspace{-2.5mm}$\,\phantom{a}^{\circ}\,$}        
+
+% ==================================== 
+
+% ========= Referencias ==========           
+\usepackage{hyperref}                        
+% ================================           
+
+% ========= Color ==========           
+\usepackage[usenames,dvipsnames]{color}                         
+% ================================           
+
+% ===== Ajuste layout pagina =====           
+\textheight=23cm                            
+\textwidth=18cm                              
+\topmargin=-1cm                              
+\oddsidemargin=-1cm                           
+\parindent=0mm                               
+\usepackage{fancyhdr}                        
+% ================================           
+
+% ========= Comandos ==========           
+\newcommand{\ds}{\displaystyle}         
+\def\x{{\bf x}}                         
+% ================================           
+
+% ========= Tablas y otros ==========           
+%\usepackage[table]{xcolor} % Sirve para poner letras con colores y colorear tablas            
+\addto\captionsspanish{ \renewcommand{\tablename}{Tabla}} %Uso tabla en vez de cuadro        
+\addto\captionsspanish{ \renewcommand{\appendixname}{Apéndice}}                               
+%\addto\captionsspanish{ \renewcommand{\appendixpagename}{Apéndice}}                         
+%\addto\captionsspanish{ \renewcommand{\appendixtocname}{Apéndice}}                          
+%\addto\captionsspanish{ \renewcommand{\lstlistingname}{Rutina}}                             
+\usepackage{array}                                                                               
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}         
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}       
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}        
+\usepackage{booktabs}                                                                            
+\usepackage{longtable}                                                                            
+% ================================           
+
+\newpage  
+
+\begin{document}      
+
+% == Encabezado y pie de pagina ==           
+\pagestyle{fancy}                            
+\cfoot{}                                     
+\lhead{Nombre del proyecto}                  
+\lfoot{\footnotesize Fuerza Axial Lineal}      
+\rfoot{Pág. \thepage}                        
+% ================================           
+
+% ======== Texto ==========  
+
+\begin{minipage}[t]{1\textwidth}      
+\vspace{0.5mm}      
+\noindent      
+Curso de Elasticidad 2014 \\     
+Ingeniería Civil - Plan 97 \\      
+Materia: Resistencia de Materiales      
+
+\begin{center}      
+\textbf{\Large{ Archivo de entrada:}}\Large{ \verb+torre.txt+}  \\      
+\large{Nombre del proyecto\\}       
+\today\\      
+IETFEM v2.11      
+\vspace{-2.9cm}      
+\end{center}      
+\end{minipage}      
+\hspace{-2cm}      
+\begin{minipage}[t]{.1\textwidth}      
+\vspace{0.0mm}      
+\includegraphics[width=.95\textwidth]{../../../../../../sources/Figs/logo_udelar}      
+\end{minipage}      
+
+\vspace{1cm}       
+
+\hspace{1.5cm}       
+\begin{center}       
+\includegraphics[width=.95\textwidth]{../../../../../../sources/Figs/logo_ietfem}      
+\end{center}       
+\vspace{0.5cm}       
+
+% hace índice        
+%\tableofcontents     
+
+================== Fuerza Axial Lineal IETFEM v2.11 ===========================\\\\
+
+
+Tiempo en resolver: $371.069$ segundos \\
+
+Archivo de entrada: \verb|../../input/3D/Truss_3D_sd/torre.txt|  ... \\
+
+Tipo de problema: Truss 3D pequeñas deformaciones y desplazamientos\\ 
+
+Magnitud de fuerza: N \\
+
+Número de elementos: 25 \\
+
+\newpage       
+
+Elasticidad Lineal:\\
+
+\begin{center}                                   
+\begin{longtable}{|R{1.5cm}|R{2.5cm}|}                      
+\toprule[0.8mm]                                  
+\multicolumn{2}{|c|}{Fuerza Axial Lineal} \\      
+\midrule[0.5mm]                                  
+Elemento   &   Fuerza (N)                  \\         
+\midrule[0.5mm]                                  
+\endfirsthead                                    
+\toprule[0.8mm]                                  
+\multicolumn{2}{|c|}{Fuerza Axial Lineal} \\      
+\midrule[0.5mm]                                  
+Elemento   &   Fuerza (N)                  \\         
+\midrule[0.5mm]                                  
+\endhead                                         
+\hline                                           
+\multicolumn{2}{r}{Próxima página...}                 
+\endfoot                                         
+\endlastfoot                                     
+    1 &      3465.26 \\
+    2 &    -34174.52 \\
+    3 &    -30228.15 \\
+    4 &     20252.04 \\
+    5 &     24198.41 \\
+    6 &    -52164.47 \\
+    7 &     32477.79 \\
+    8 &    -48934.89 \\
+    9 &     35707.37 \\
+   10 &       853.71 \\
+   11 &      2683.62 \\
+   12 &      6544.80 \\
+   13 &     -7143.49 \\
+   14 &    -16732.72 \\
+   15 &     10655.52 \\
+   16 &    -19759.50 \\
+   17 &      7628.74 \\
+   18 &    -30951.70 \\
+   19 &    -31636.41 \\
+   20 &     21587.06 \\
+   21 &     20902.35 \\
+ {\color{OliveGreen}  22} & {\color{OliveGreen}    45315.83} \\
+   23 &    -57229.59 \\
+ {\color{red}  24} & {\color{red}   -63575.71} \\
+   25 &     38969.70 \\
+\bottomrule[0.8mm]                               
+\caption{Fuerza Axial Lineal}             
+\end{longtable}                                  
+\end{center}                                     
+
+\newpage       
+\begin{center}       
+Imagenes para elasticidad lineal - AZIMUTH: $150.00$\grad and ELEVATION: $ 15.00$\grad
+
+\includegraphics[width=.80\textwidth]{../torre_fuerza_axial_1.png}      
+
+\end{center}       
+\newpage       
+\begin{center}       
+Imagenes para elasticidad lineal -  $XY$ - $Z=\text{cte}$ 
+
+\includegraphics[width=.80\textwidth]{../../XY_XZ_YZ/XY/fuerza_axial/torre_fuerza_axial_XY_1.png}      
+
+\end{center}       
+\newpage       
+\begin{center}       
+Imagenes para elasticidad lineal -  $XZ$ - $Y=\text{cte}$ 
+
+\includegraphics[width=.80\textwidth]{../../XY_XZ_YZ/XZ/fuerza_axial/torre_fuerza_axial_XZ_1.png}      
+
+\end{center}       
+\newpage       
+\begin{center}       
+Imagenes para elasticidad lineal -  $YZ$ - $X=\text{cte}$ 
+
+\includegraphics[width=.80\textwidth]{../../XY_XZ_YZ/YZ/fuerza_axial/torre_fuerza_axial_YZ_1.png}      
+
+\end{center}       
+\end{document}  

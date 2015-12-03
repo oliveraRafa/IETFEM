@@ -1,0 +1,25 @@
+================== Reacciones Lineal IETFEM v2.11 ===========================
+
+
+Archivo de entrada: ../../input/3D/Truss_3D_sd/grua.txt  ... 
+
+Tiempo en resolver: 1604.753 segundos
+
+Tipo de problema: Truss 3D pequeñas deformaciones y desplazamientos
+
+Magnitud de fuerza: kN 
+
+Número de apoyos: 4 
+
+-------------------------------------------------------- 
+                 Reacciones en apoyos (kN)              
+-------------------------------------------------------- 
+| Nodo |       Rx      |       Ry      |       Rz      | 
+-------------------------------------------------------- 
+|    1 |    8.05e+001  |   -1.25e+002  |   -5.37e+002  | 
+|    2 |   -8.05e+001  |    2.86e+002  |    1.40e+003  | 
+|  146 |   -8.05e+001  |   -2.86e+002  |    1.40e+003  | 
+|  147 |    8.05e+001  |    1.25e+002  |   -5.37e+002  | 
+-------------------------------------------------------- 
+
+

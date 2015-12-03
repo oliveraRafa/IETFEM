@@ -769,14 +769,6 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\item\textbf{Colorizado:} Esta funcionalidad permite al usuario cambiar la colorización de la estructura dependiendo de los valores recibidos de las propiedades de las barras asignados en la deformada. Es decir, que el usuario puede elegir colorear cada barra de la estructura tomando en cuena su deformación, fuerza o tensión. Se utilizan escalas de rojo para valores negativos y escalas de verde para valores positivos. Esto se logró recorriendo el modeo de la estructura deformada y cambiando el material que conforma cada barra por el color corespondiente a su valor.
 	
 		\end{itemize}
-		
-		hablar de las opciones que se tienen
-		
-		como hicimos el sitcheo entre deformada en indeformada
-		
-		como hicimos el escalamiento
-		
-		como hicimos el colorado
 
 \section {Resultados obtenidos}
 
@@ -799,33 +791,113 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\end{itemize}
 		
-		La mejora en la usabilidad es percibida, no solo por la opinión del equipo de desarrollo y los docentes clientes, sino por la opinión de alumnos de años anteriores que utilizaron la herramienta sin la interfaz gráfica e interactuaron con la interfaz en la muestra de ingeniería del presente año.
+		La mejora en la usabilidad es percibida, no solo por la opinión del equipo de desarrollo y los docentes clientes, sino por la opinión de alumnos de años anteriores que utilizaron la herramienta sin la interfaz gráfica e interactuaron con la misma en la muestra de ingeniería del presente año.
 		
 		\subsubsection {Análisis del impacto en el tiempo de ejecución}
-		usar ietfem viejo y nuevo y calcular tiempos
 		
-		ver si es muy dificil hacer un mini servidor para hacer una comparaciond de tiempos mejor
+		El segundo objetivo planteado en este proyecto trata sobre mejorar la eficiencia del sistema, lo que sin duda representó un desafío tomando en cuenta la potencia con la cual cuenta el motor de cálculo para resolver problemas estructurales.
+		
+		En consecuencia, se buscó reducir en particular el tiempo de ejecución, logrado una significativa mejora que se puede apreciar en los casos de prueba en la siguiente sección. Debido a la presencia de la interfaz, el motor cuenta con ciertas funcionalidades que ya no son requeridas. Para ilustrar este caso, observemos el funcionamiento del antiguo motor y las mejoras que se realizaron:
+		
+		Cuando uno ejecuta el IETFEM antiguo, se le plantean una serie de preguntas iniciales, las cuáles incluyen:
+		
+		\begin{itemize}
+			\item Idioma a manejar
+			\item Tipo de problema(Reticulados, pórticos o arcos)
+			\item Dimensiones del problema de problema(1D, 2D o 3D)
+			\item Pequeñas o grandes deformaciones
+			\item Nombre del archivo donde está especificada la estructura
+		\end{itemize}	
+		
+		Debido a que se decidió que la interfaz resuelva problemas de pequeñas deformaciones en reticulados, y que todos los problemas se ingresan en 3 dimensiones, se redujo este grupo de opciones solamente al idioma y el nombre del problema. Se decidió que el idioma esté seteado por defecto, debido a que la interacción directa con el motor pasó a ser casi nula. Por lo tanto, cuando uno ejecuta el motor sólo debe especificar el archivo con la estructura, eliminando una significativa cantidad de tiempo muerto al comienzo de cada ejecución.
+		
+		Respecto al archivo con la estructura mencionado, se redujo el tiempo de confección del mismo, ya que el dibujado se realiza de manera mas ágil y sencilla que ingresando cada coordenada y propiedad manualmente. Además, también se evita al usuario de problemas de sintaxis al escribir el archivo, ya que la interfaz se aseguro de generar el archivo con el formato exacto que necesita el motor.
+		
+		Otro aspecto a destacar, es la eliminación de funciones de graficado del motor. Se observó que eliminando la generación de imágenes desde el mismo se obtiene una gran mejora en tiempos de ejecución. Se verá el impacto de esta medida en los casos estudiados en la siguiente sección.
+		
+		Por último, apreciamos la mejora del escalamiento de la deformada. En el antiguo IETFEM, el escalamiento de la deformada era otro atributo que se especificaba en el archivo de entrada, por lo tanto, si uno quería modificar dicho valor debía editar el archivo y ejecutar el IETFEM nuevamente, repitiendo el proceso hasta encontrar el valor deseado. En la nueva versión, con la interfaz incluída, este valor es modificado directamente en la interfaz, luego de ingresar el resultado del motor, evitando al usuario tener que ejecuar nuevamente el motor.
 		
 	\subsection {Casos de prueba}
 	
 		\subsubsection {Estudio de casos de pequeño porte (Torre pequeña)}
-		hablar de que comenamos con ese
 		
-		se utilio para realiar la primera integracion con el core
+		El primer caso a probar constituye la estructura de una pequeña torre. La misma se asemeja a las estructuras que se dictan en el curso de elasticidad al que se apunta. Cuenta con 10 nodos y 25  barras, en el anexo 4 se adjunta el archivo guardado con dicha estructura.
 		
-		sedescurbrieron probelmasde ejes y se resolvieron facilmente
+		La ejecución del mismo se llevó a cabo en etapas tempranas de desarrollo e integración con el motor, ayudando en el proceso de descubrimiento de bugs y resolución de los mismos.
+		
+		Una vez finalizada la primer versión, se probaron todos los casos de uso especificados, respondiendo a los mismos con resultados positivos y ejecutando con excelente fluidez. En la Figura \ref{fig:torres} puede ver la estructura y los resultados obtenidos. Se aprecia la estructura indeformada y la deformada en color púrpura. También se puede ver la torre sometida a un factor de escala de 200, con el fin de apreciar mejor la deformación de la misma. Por último, se coloreó la estructura de acuerdo a la deformación de cada barra, de manera que puede observarse en rojo las barras que se comprimen y en verde las que se traccionan.
+		
+		En cuanto a tiempos de ejecución,  se observa una significativa mejora, consecuencia de eliminar el módulo de generación de imágenes del motor. Si se ejecuta la torre en cuestión en el abtiguo IETFEM, los resultados son los siguientes:
+		
+		\begin{itemize}
+			\item \textbf{Lectura de datos: }0.227 segundos 
+			\item \textbf{Cálculo de parámetros internos: }0.031 segundos 
+			\item \textbf{Resolución del problema: }0.017 segundos 
+			\item \textbf{Generación de imágenes: 370.803 segundos}
+			\item \textbf{Generación de TXTs: }0.281 segundos 
+			\item \textbf{Generación de TEXs: }0.499 segundos 
+			\item \textbf{TIEMPO TOTAL: 371.849 segundos }
+		\end{itemize}	
+		
+		Se observa que el tiempo de generación de imágenes supera el 99\% del tiempo total de ejecución, mientras que la resolución del problema en sí se logra en menos de 1 segundo.
+		
+		En el nuevo IETFEM, la ejecución del mismo archivo muestra los siguientes números:
+		
+		\begin{itemize}
+			\item \textbf{Lectura de datos: }0.514 segundos 
+			\item \textbf{Cálculo de parámetros internos: }0.024 segundos 
+			\item \textbf{Resolución del problema: }0.013 segundos 
+			\item \textbf{TIEMPO TOTAL: 1.259 segundos }
+		\end{itemize}	
+		
+		De esta manera, eliminando el proceso de generación de imágenes se ganan más de 5 minutos de eficiencia. Sin embargo, es necesario tomar en cuenta también el tiempo que tarda la interfaz en generar el archivo y el tiempo que tarda en procesar los resultados:
+		
+		\begin{itemize}
+			\item \textbf{Generación del archivo: }0.102 segundos 
+			\item \textbf{Carga de resultados: }0.621 segundos  
+			\item \textbf{TIEMPO TOTAL: 0.723 segundos }
+		\end{itemize}	
+		
+		Se logra así un tiempo total de procesamiento 1.982 segundos entre la descarga/carga de archivos y procesamiento del motor.
 		
 		\subsubsection {Estudio de casos de mediano porte (Grúa)}
 		
-		se intento realiar el caso inicialmente como una prueba de stress
+		El siguiente paso en la prueba del sistema fue utilizar un modelo de estructura mas grande. El modelo elegido fue una grúa, que puede observarse en la Figura \ref{fig:gruaIndeformada}. Dicha estructura cuenta con 289 nodos y 1294 barras, lo que se considera un alto nivel de datos considerando el objetivo académico de la estructura. Esto quiere decir que en el curso donde se pondrá en producción el nuevo IETFEM, el estudinte nuncá deberá dibujar una estructura de semejante tamaño. Por lo tanto, consideramos en un principio este caso como una prueba de stress.
 		
-		no se encontraron problemas
+		No se detectaron bugs de integración con el motor en la ejecución de este caso. EL mismo fué ejecutado y perfeccionado podo antes de la muestra de Ingeniería de etse año, con el fin de demostrar la potencia y versatilidad de la aplicación. Los casos de uso se ejecutaron sin problemas, notando un nivel alto de fluidez al moverse por el espacio.
 		
-		cuando se constato que funcionaba bien, se decidio utiliar un caso mas grande
+		En las figuras \ref{fig:gruaDeformada} y \ref{fig:gruaColoreada} se ven los resultados de su ejecución. Se nota la deformacón obtenida sin necesidad de realizar escalamiento alguno. La colorización de la estructura se logró de manera óptima y es coherente con la defoormación de la misma.
 		
-		utiliado en la idm para mostrar le funcionamiento
+		En cuanto a tiempos de ejecución, en el IETFEM antiguo se obtuvieron los siguientes números:
 		
-		hablar de que ya se considera exitoso que funcione bien para la grua ya que lso estudiantes nunca van a hacer algo tan grande
+		\begin{itemize}
+			\item \textbf{Lectura de datos: }5.196 segundos 
+			\item \textbf{Cálculo de parámetros internos: }0.766 segundos 
+			\item \textbf{Resolución del problema: }0.502 segundos 
+			\item \textbf{Generación de imágenes: 1598.457 segundos}
+			\item \textbf{Generación de TXTs: }1.543 segundos 
+			\item \textbf{Generación de TEXs: }7.555 segundos 
+			\item \textbf{TIEMPO TOTAL: 1613.851 segundos }
+		\end{itemize}	
+		
+		Mientras que en el nuevo IETFEM, los resultados fueron los siguientes:
+		
+		\begin{itemize}
+			\item \textbf{Lectura de datos: }3.170 segundos 
+			\item \textbf{Cálculo de parámetros internos: }0.508 segundos 
+			\item \textbf{Resolución del problema: }0.339 segundos 
+			\item \textbf{TIEMPO TOTAL: 8.194 segundos }
+		\end{itemize}	
+		
+		Sumamos el tiempo de descarga/carga del archivo desde la interfaz como en el caso anterior:
+		
+		\begin{itemize}
+			\item \textbf{Generación del archivo: }0.122 segundos 
+			\item \textbf{Carga de resultados: }1.334 segundos  
+			\item \textbf{TIEMPO TOTAL: 1.456 segundos }
+		\end{itemize}	
+		
+		Lo que hace que el tiempo total de procesamiento sea de 9.650 segundos, logrando una ejecución 167 veces más rápida que sin la interfaz
 		
 		\subsubsection {Estudio de casos de gran porte y pruebas de stress (Torre Eiffel)}
 		comentar que se decidio hacer latorre eiffel para ver como respondia el programa
