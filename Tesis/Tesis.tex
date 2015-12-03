@@ -1,4 +1,4 @@
-\documentclass{article}
+3\documentclass{article}
 % pre\'ambulo
 
 \usepackage{lmodern}
@@ -884,6 +884,28 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\item Posibilidad de acceder a la herramienta desde cualquier pc o dispositivo con acceso a Internet.
 			\item Evitar el paso manual de instalar y  ejecutar GNU-Octave desde linea de comando siendo esto totalmente transparente para el usuario.
 			\item Capacidad de implementación de funcionalidades apoyándose en las posibilidades que ofrece la infraestructura como autenticación o un espacio de trabajo alojado en el servidor que permita guardar proyectos y resultados en la web.
+    \end{itemize}
+
+\subsubsection {Performance Tunning}
+
+Motivados por la experiencia de renderizar una estructura enorme como la Torre Eiffel, en la cual se observo una merma en el rendimiento en el espacio 3D, se comenzó una investigación por parte del equipo de desarrollo de estrategias para atacar dicho problema y mejorar así el rendimiento de la aplicación. Si bien la mayoría de los fixes no serian realizados debido a que la aplicación ya soporta con creces los casos de uso para los que fue diseñada, dicha investigación resulta útil como base para trabajos futuros y por la adquisición de valioso conocimiento académico.
+
+Derivado de la investigación se presentan algunas medidas que se podrían tomar:
+		
+		\begin{itemize}
+			
+			\item Utilizar threex.rendererstats, un monitor que nos da información útil sobre la escena como draw calls o cantidad de geometrías lo cual nos puede ayudar a tomar medidas correctivas.
+			
+			\item Ahorrar en la cantidad de objetos geometría y materiales reutilizando en la medida de lo posible. Existen experiencias en la web que dicen que la velocidad de renderizado se incrementa 4.5 veces para 2000 cubos iguales. (Esta es una medida implementada)
+			
+			\item En el caso de utilizar la geometría esfera, utilizarla con parámetros que deriven en una figura con menor cantidad de caras. Según la investigación la mejora de performance es muy baja.
+			
+			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de "` mergear "` o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta mas difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
+			
+			\item 
+			\item 
+			
+			\item 
     \end{itemize}
 
 \section {Anexos}
