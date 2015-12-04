@@ -1,4 +1,4 @@
-3\documentclass{article}
+\documentclass{article}
 % pre\'ambulo
 
 \usepackage{lmodern}
@@ -972,12 +972,14 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			
 			\item En el caso de utilizar la geometría esfera, utilizarla con parámetros que deriven en una figura con menor cantidad de caras. Según la investigación la mejora de performance es muy baja.
 			
-			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de "` mergear "` o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta mas difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
+			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de  mergear  o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta mas difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
 			
-			\item 
-			\item 
+			\item Utilizar estructuras de datos mas performantes como el octree para tareas como raycasting.
 			
-			\item 
+			\item Utilizar web workers con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
+			
+			\item Utilizar custom shaders en caso de encontrar un caso factible.
+			
     \end{itemize}
 
 \section {Anexos}
