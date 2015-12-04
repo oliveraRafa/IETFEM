@@ -862,11 +862,32 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Estudio de casos de mediano porte (Grúa)}
 		
+		\begin{figure}
+			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/GruaIndeformada}}
+			\caption{Caso de Estudio: Grúa}
+			\label{fig:GruaIndeformada}
+		\end{figure}
+		
 		El siguiente paso en la prueba del sistema fue utilizar un modelo de estructura mas grande. El modelo elegido fue una grúa, que puede observarse en la Figura \ref{fig:gruaIndeformada}. Dicha estructura cuenta con 289 nodos y 1294 barras, lo que se considera un alto nivel de datos considerando el objetivo académico de la estructura. Esto quiere decir que en el curso donde se pondrá en producción el nuevo IETFEM, el estudinte nuncá deberá dibujar una estructura de semejante tamaño. Por lo tanto, consideramos en un principio este caso como una prueba de stress.
 		
 		No se detectaron bugs de integración con el motor en la ejecución de este caso. EL mismo fué ejecutado y perfeccionado podo antes de la muestra de Ingeniería de etse año, con el fin de demostrar la potencia y versatilidad de la aplicación. Los casos de uso se ejecutaron sin problemas, notando un nivel alto de fluidez al moverse por el espacio.
 		
 		En las figuras \ref{fig:gruaDeformada} y \ref{fig:gruaColoreada} se ven los resultados de su ejecución. Se nota la deformacón obtenida sin necesidad de realizar escalamiento alguno. La colorización de la estructura se logró de manera óptima y es coherente con la defoormación de la misma.
+		
+		\begin{figure}[!tbp]
+			\centering
+			\begin{minipage}[b]{0.49\textwidth}
+				\includegraphics[width=\textwidth]{Graficos/GruaDeformada}
+				\caption{Deformación de la grúa}
+				\label{fig:GruaDeformada}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[b]{0.49\textwidth}
+				\includegraphics[width=\textwidth]{Graficos/GruaColoreada}
+				\caption{Coloración de la grúa}
+				\label{fig:GruaColoreada}
+			\end{minipage}
+		\end{figure}
 		
 		En cuanto a tiempos de ejecución, en el IETFEM antiguo se obtuvieron los siguientes números:
 		
@@ -899,7 +920,21 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Lo que hace que el tiempo total de procesamiento sea de 9.650 segundos, logrando una ejecución 167 veces más rápida que sin la interfaz
 		
-		\subsubsection {Estudio de casos de gran porte y pruebas de stress (Torre Eiffel)}
+		\subsubsection {Estudio de casos de gran porte y performance (Torre Eiffel)}
+		
+		Luego de lograr un caso exitoso con la grúa, se estableció que la herramienta cumplía los requisitos necesarios para poder ser utilizado en el curso de Elasticidad. Sin embargo, se decidió intentar un caso aún mas masivo para observar su comportamiento. El modelo elegido fue la torre Eiffel, la cual cuenta con 9746 barras y 2077 nodos.
+		
+		Lo primero que se observó al cargar el modelo en la interfaz, fue una notoria baja calidad en el movimiento en la cámara. Debido a la masividad de objetos ingresados en la escena, el renderizado consumía demasiado tiempo y le quitaba fluidez a la aplicación. De esta manera, se incursó en realizar mejoras de performance, de manera de no solo mejorar este caso si no de realizar una interfaz mas eficiente.
+		
+		
+		
+		Se logró de esta manera mejorar la performance hasta un nivel aceptable de visibilidad, aunque no con tanta fluidez como en casos anteriores.
+		
+		Con respecto a la ejecución del caso en la interfaz, se debe tener en cuenta que además de mantener la escena, el navegador debe mantener por detrás el modelo de la estructura con todas sus característica. Además, una vez que se procesan los resultados del motor, se agregan todos los datos de la deformada, lo que hace que el navegador falle en algunos casos por problemas de memoria. 
+		
+		En una versión futura del sistema, este problema podría arreglarse, por ejemplo, manteniendo la estructura persistida en una base de datos, eliminando carga del navegador. Sin embargo, para la versión académica se conoce que el alcance es mucho menor y que nunca se utilizará una estructura de semejante porte. Por lo tanto, consideramos que el caso estudiado aportó al proyecto al mejorar la performance del mismo, pero se expone como un límite conocido el número de elementos de la estructura, sabiendo que para 1500 elementos(grúa), el sistema funciona perfectamente.
+		
+		
 		comentar que se decidio hacer latorre eiffel para ver como respondia el programa
 		
 		hablar de los probelmas que encontramos al probar la torre eiffel
@@ -971,7 +1006,7 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			\item Ahorrar en la cantidad de objetos geometría y materiales reutilizando en la medida de lo posible. Existen experiencias en la web que dicen que la velocidad de renderizado se incrementa 4.5 veces para 2000 cubos iguales. (Esta es una medida implementada)
 			
 			\item En el caso de utilizar la geometría esfera, utilizarla con parámetros que deriven en una figura con menor cantidad de caras. Según la investigación la mejora de performance es muy baja.
-			
+
 			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de  mergear  o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta mas difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
 			
 			\item Utilizar estructuras de datos mas performantes como el octree para tareas como raycasting.
@@ -979,7 +1014,7 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			\item Utilizar web workers con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
 			
 			\item Utilizar custom shaders en caso de encontrar un caso factible.
-			
+
     \end{itemize}
 
 \section {Anexos}
