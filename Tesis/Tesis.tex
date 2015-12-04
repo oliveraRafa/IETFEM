@@ -39,7 +39,7 @@ $\ $
 	
 	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, puede decirse que se buscó en el fondo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos el comprendimiento del problema y sus posibles soluciones.
 
-	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma, lo que puede derivar en que la misma no siempre sea igual en la realidad a como se diseñó. Esto quiere decir que la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
+	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma, lo que puede derivar en que el resultado obtenido no siempre sea igual en la realidad a como se diseñó. Esto quiere decir que la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
 	
 	La Ingeniería en Computación no ha dejado este problema de lado, ya que existen diversos sistemas informáticos encargados de facilitar el diseño y cálculo de estructuras. Estos sistemas permiten, a grandes rasgos, dibujar una estructura mediante la definición de diferentes materiales, secciones, fuerzas externas, etc. Finalmente, realizan los cálculos correspondientes, mostrando la estructura en un estado de equilibrio y las deformaciones ocurridas en el proceso.
 	
@@ -72,7 +72,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	Como mencionamos antes, a pesar de la increíble potencia en la resolución del problema del cálculo de estructuras, IETFEM presenta ciertos puntos a mejorar para ser comparado con otros sistemas del mismo rubro.
 	
-	A lo largo de este proyecto perseguimos 2 grandes objetivos que consideramos esenciales para el enriquecimiento del sistema: Mejorar la eficiencia y mejorar la usabilidad
+	A lo largo de este proyecto se persiguen 2 grandes objetivos que se consideran esenciales para el enriquecimiento del sistema: Mejorar la eficiencia y mejorar la usabilidad.
 	
 	Para mejorar la usabilidad, se desarrollará una interfaz que permita al usuario dibujar la estructura de manera fluida y amigable. Se trata de un espacio 3D donde el usuario puede moverse libremente utilizando el mouse para mover y rotar la cámara. Se podrá dibujar la estructura de una manera continua e intuitiva. Además, facilitará la comunicación con el motor de cálculo previamente desarrollado y la visualización de los resultados obtenidos.
 	
@@ -94,15 +94,15 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	El resto del documento se organiza de la siguiente manera: 
 	
-	En el siguiente capítulo comenzamos analizando el estado del arte, tanto del problema de cálculo de estructuras como de herramientas de programación 3D, y su posible uso en sistemas de este tipo. Se realiza un estudio de diferentes herramientas investigadas, el estado de las mismas y su posibilidad de ser utilizadas en este proyecto. También se investigan otros sistemas de cálculo de estructuras y otro proyectos académicos similares en América Latina.
+	En el siguiente capítulo, se comienza analizando el estado del arte, tanto del problema de cálculo de estructuras como de herramientas de programación 3D, y su posible uso en sistemas de este tipo. Se realiza un estudio de diferentes herramientas investigadas, el estado de las mismas y su posibilidad de ser utilizadas en este proyecto. También se investigan otros sistemas de cálculo de estructuras y otro proyectos académicos similares en América Latina.
 	
-	Posteriormente, en el capítulo 3, hablaremos de la organización del trabajo a lo largo del proyecto. Hablaremos del alcance del mismo, definiendo las funcionalidades y características específicas que se buscan en el producto final. Se describirá la metodología de trabajo utilizada y se realizarán estimaciones para cada tarea comprendida, comparando finalmente con el esfuerzo efectivo.
+	Posteriormente, en el capítulo 3, se hablará de la organización del trabajo a lo largo del proyecto. Se plantea el alcance del mismo, definiendo las funcionalidades y características específicas que se buscan en el producto final. Se describirá la metodología de trabajo utilizada y se realizarán estimaciones para cada tarea comprendida, comparando finalmente con el esfuerzo efectivo.
 	
 	A continuación, en el capítulo 4, se procederá a plantear la solución propuesta, detallando cada aspecto de la misma. Se describirá con exactitud su proceso de diseño e implementación, la arquitectura definida, el funcionamiento de cada componente, las herramientas utilizadas y su uso en general.
 	
 	En el capítulo 5, se especifican los resultados obtenidos, analizando diferentes casos de prueba y comparando con resultados obtenidos desde IETFEM antes de la realización de este proyecto. Se analizan además los problemas obtenidos durante esta fase y cómo fueron resueltos.
 	
-	Finalmente, el 6 capítulo, enumera las conclusiones obtenidas durante el proyecto, analizando el cumplimiento de objetivos y proponiendo posible trabajo a futuro a desarrollar sobre IETFEM.
+	Finalmente, el capítulo 6, enumera las conclusiones obtenidas durante el proyecto, analizando el cumplimiento de objetivos y proponiendo posible trabajo a futuro a desarrollar sobre IETFEM.
 
 \section {Estado del Arte}
 
@@ -119,13 +119,13 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		
 		\subsubsection {IETFEM}
 		
-		IETFEM nació como una herramienta académica de código abierto desarrollada íntegramente en la plataforma libre GNU-Octave que solucione los problemas anteriormente descriptos de forma eficaz y eficiente teniendo como principal objetivo enriquecer el proceso de aprendizaje de los estudiantes.
+		IETFEM nació como una herramienta académica de código abierto desarrollada íntegramente en la plataforma libre GNU-Octave que soluciona los problemas anteriormente descriptos de forma eficaz y eficiente teniendo como principal objetivo enriquecer el proceso de aprendizaje de los estudiantes.
 		
-		Si bien se logro un producto final de calidad y a nivel de las herramientas comerciales (incluso superándolas) en cuanto a los resultados de los cálculos, la herramienta quedó con un debe en cuanto a la interacción con el usuario. El usuario debe generar un archivo de entrada con los datos de la estructura en un formato especifico con gran cantidad de información en forma de matrices en un archivo de texto que rápidamente puede volverse engorroso y difícil de manejar. Vale destacar esta ultima característica como la mas importante motivadora del presente proyecto. 
+		Si bien se logro un producto final de calidad y a nivel de las herramientas comerciales (incluso superándolas) en cuanto a los resultados de los cálculos, la herramienta quedó con un debe en cuanto a la interacción con el usuario. El usuario debe generar un archivo de entrada con los datos de la estructura en un formato específico con gran cantidad de información en forma de matrices en un archivo de texto que rápidamente puede volverse engorroso y difícil de manejar. Cabe destacar esta ultima característica como la más importante fuente de motivación del presente proyecto. 
 		
 		\subsection {Herramientas comerciales}
 		
-		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades, basado principalmente en la experiencia de los clientes con las mismas.
+		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades, basados principalmente en la experiencia de los clientes con las mismas.
 		
 		\subsubsection {SAP2000}
 		Es un software comercial desarrollado por la empresa Computers \& Structures,Inc. fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
@@ -211,11 +211,11 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	La utilización de tecnologías web para el desarrollo de la aplicación probaba a priori ser una opción con mucho potencial aportando gran flexibilidad, una opción multiplataforma  ,multidispositivo ademas de ser innovadora para herramientas de este tipo.
 	
-	Es por estas razones y la experiencia del equipo de desarrollo en estas tecnologías (HTML5,CSS, Bootstrap, javascript, angularjs , etc.) que se investigo la factibilidad de una solución gráfica 3D en este contexto.
+	Es por estas razones y la experiencia del equipo de desarrollo en estas tecnologías (HTML5, CSS, Bootstrap, JavaScript, AngularJS, etc.) que se investigo la factibilidad de una solución gráfica 3D en este contexto.
 	
 		\subsubsection {HTML5 - Canvas}
 		
-		El contexto 2D para el elemento de HTML "Canvas" permite la creación de gráficos en paginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web aunque con algunos trucos es posible realizar trabajos en 3D.
+		El contexto 2D para el elemento de HTML "`Canvas"' permite la creación de gráficos en páginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web aunque con algunos trucos es posible realizar trabajos en 3D.
 		
 		Si es posible, la relativa dificultad para realizar trabajos 3D y la gran diferencia de performance contra opciones como WebGL (Canvas corre en CPU) descartaron esta opción rápidamente.
 		
@@ -223,11 +223,11 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		
 		WebGL es una especificación estándar que está siendo desarrollada actualmente para mostrar gráficos en 3D en navegadores web. Permite mostrar gráficos en 3D acelerados por hardware (GPU) en páginas web, sin la necesidad de plug-ins en cualquier plataforma que soporte OpenGL 2.0 u OpenGL ES 2.0. Técnicamente es un API para javascript que permite usar la implementación nativa de OpenGL ES 2.0.
 		
-		Existe una gran explosión en la creación de aplicaciones con esta tecnología, desde  videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "Experience Curiosity" por el aniversario del aterrizaje del robot "Curiosity rover" en Marte.
+		Existe una gran explosión en la creación de aplicaciones con esta tecnología, desde  videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "`Experience Curiosity"' por el aniversario del aterrizaje del robot "`Curiosity Rover"' en Marte.
 		
 		Es importante destacar que en la actualidad esta soportado por todos los principales navegadores web tanto en versiones de escritorio como de dispositivos móviles.
 		
-			Con esta gran cantidad de demostraciones de calidad en WebGl y su amplio soporte se perfilo como una opción innovadora y altamente factible para la realización del proyecto.
+			Con esta gran cantidad de demostraciones de calidad en WebGL y su amplio soporte se perfiló como una opción innovadora y altamente factible para la realización del proyecto.
 		
 		\subsubsection {Librerías para desarrollo 3D}
 		
@@ -238,7 +238,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		Ambas son librerías en javascript de alto nivel de abstracción sobre WebGl, tienen esencialmente el mismo conjunto de características tales como:
 		
 		\begin{itemize}
-		\item Renderizacion con WebGl.
+		\item Renderizacion con WebGL.
 		\item Distintos efectos.
 		\item Escenas, para añadir y eliminar objetos en tiempo de ejecución.
 		\item Cámaras, perspectiva u ortográfica.
@@ -248,7 +248,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		\item Shaders.
 		\item Objetos y Geometrías
 		\item Importación y exportación para texturas y otros assets.
-		\item Gran comunidad de desarrolladores (bastante mayor en Threejs).
+		\item Gran comunidad de desarrolladores (bastante mayor en ThreeJS).
 		\end{itemize}
 		
 		Ademas en sus paginas oficiales cuentan con cientos de códigos y aplicaciones de ejemplo que dejan ver el potencial de las librerías. Entre estos ejemplos se pueden observar editores estilo CAD que implementan varias funcionalidades similares a los requerimientos del proyecto lo cual asegura la factibilidad de la herramienta en este contexto. 
@@ -257,17 +257,17 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 		\subsubsection {Investigación sobre proyectos similares en América Latina}
 		
-		No se encontraron, en una exploración por la web o por experiencia de los docentes de Ingeniería Civil, herramientas de software con componente gráfico 3D de análisis de estructuras desarrollados en latinoamerica, aunque se encuentran ciertos esfuerzos de algunas empresas de las herramientas mas importantes por llegar a este mercado mediante documentación, paginas web y/o re vendedores íntegramente de habla hispana.
+		No se encontraron, en una exploración por la web o por experiencia de los docentes de Ingeniería Civil, herramientas de software con componente gráfico 3D de análisis de estructuras desarrollados en Latinoamérica, aunque se encuentran ciertos esfuerzos de algunas empresas de las herramientas mas importantes por llegar a este mercado mediante documentación, paginas web y/o re vendedores íntegramente de habla hispana.
 		
 \section {Organización del trabajo}
 
 	\subsection {Alcance}
 	
-	Como mencionamos anteriormente, los objetivos planteadas en este proyecto se basan en mejorar tanto la eficiencia como la usabilidad del IETFEM. En ese sentido, existen dentro de la rama del cálculo de estructuras una infinidad de funcionalidades y mejoras posibles que pueden resultar útiles en nuestro sistema. Por lo tanto, se definió un conjunto acotado de funcionalidades y características deseables en el producto final, apuntando a alcanzar satisfactoriamente los objetivos planteados y lograr una herramienta de alto nivel.
+	Como se mencionó anteriormente, los objetivos planteados en este proyecto se basan en mejorar tanto la eficiencia como la usabilidad del IETFEM. En ese sentido, existen dentro de la rama del cálculo de estructuras una infinidad de funcionalidades y mejoras posibles que pueden resultar útiles en el sistema. Por lo tanto, se definió un conjunto acotado de funcionalidades y características deseables en el producto final, apuntando a alcanzar satisfactoriamente los objetivos planteados y lograr una herramienta de alto nivel.
 	
 	Se consideró como prioridad apuntar a una herramienta académica, es decir, una herramienta libre, intuitiva para los estudiantes y aplicable en cursos dictados por el IET. En particular, se tomó como referencia el curso de Elasticidad, curso donde ya fué utilizado satisfactoriamente el IETFEM y donde será utilizado luego de la realización de este proyecto.
 	
-	La principal y más grande funcionalidad que se desarrollará será le presencia de un espacio 3D. El mismo será el elemento central de la aplicación, mediante la cual el usuario efectuará la mayor parte de las interacciones posibles. Se pretenden integrar dentro de este espacio 3D las siguientes funcionalidades:
+	La principal y más grande funcionalidad que se desarrolló fué le presencia de un espacio 3D. El mismo es el elemento central de la aplicación, mediante la cual el usuario efectúa la mayor parte de las interacciones posibles. Se pretendió integrar dentro de este espacio 3D las siguientes funcionalidades:
 	
 	\begin{itemize}  
 
@@ -313,11 +313,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	\subsection {Metodología de trabajo}
 	
-  En las primeras etapas del proyecto se focalizó el trabajo en comprender el problema que se quiere resolver. Se tuvieron reuniones quincenales con los clientes dónde de habló del problema del cálculo de estructuras y cómo lo resuelve IETFEM. Dichas reuniones se apoyaron además en una permanente comunicación por e-Mail y una vasta investigación del problema por nuestra parte. Para esto no sólo se investigó sobre el problema, sino que además se utilizaron productos similares e incluso el propio IETFEM con ejemplos simples.
+  En las primeras etapas del proyecto se focalizó el trabajo en comprender el problema que se quiere resolver. Se tuvieron reuniones quincenales con los clientes dónde de habló del problema del cálculo de estructuras y cómo lo resuelve IETFEM. Dichas reuniones se apoyaron además en una permanente comunicación por e-Mail y una vasta investigación del problema por parte del equipode desarrollo. Para esto no sólo se investigó sobre el problema, sino que además se utilizaron productos similares e incluso el propio IETFEM con ejemplos simples.
 	
 	Una vez comprendido el problema, se pasó a buscar una solución al mismo. Dentro de esta etapa se pueden incluir la busqueda de herramientas, el análisis y el diseño de la aplicación. Se mantuvieron las reuniones con los clientes, evaluando herramientas y enseñando prototipos realizados a modo de prueba. Se investigaron lenguajes y librerías de programación 3D, tanto de escritorio como web, deciciendo en ultima instancia utilizar WebGL (se hablará mas en detalle en el siguiente capítulo).
 	
-	Conforma pasaba el tiempo las reuniones se fueron enfoncando cada vez más en el producto final, comenzando a definir las funcionalidades y características del mismo. Mientras se mantenía contacto con los clientes, se realizó por nuestra parte la definición de casos de uso, con sus respectivos diagramas de flujo, al tiempo que se definió la arquitectura del sistema en base a los requerimientos obtenidos y las prestaciones de las herramientas definidas.
+	Conforme pasaba el tiempo las reuniones se fueron enfoncando cada vez más en el producto final, comenzando a definir las funcionalidades y características del mismo. Mientras se mantenía contacto con los clientes, se realizó la definición de casos de uso, al tiempo que se definió la arquitectura del sistema en base a los requerimientos obtenidos y las prestaciones de las herramientas definidas.
 	
 	Finalmente, para las etapas de implementación y testing, se creó un repositorio en Github con el esqueleto de la aplicación y todo código reusable proveniente de la etapa de prototipación. Como metodología de trabajo se utilizó la metodología ágil Kanban. Kanban es un método para gestionar el trabajo intelectual, con énfasis en la entrega justo a tiempo, mientras no se sobrecargan a los miembros del equipo. En este enfoque, el proceso, desde la definición de una tarea hasta su entrega al cliente, se muestra para que los participantes lo vean y los miembros del equipo tomen el trabajo de una cola.
 	
@@ -341,11 +341,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\label{fig:Gantt}
 	\end{figure}
 	
-	La planificación del tiempo se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la Figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre Abril y Diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo.
+	La planificación del proyecto se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la Figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre Abril y Diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo.
 	
 	Podemos ver también que ciertas etapas se planificaron en simultáneo por ciertos períodos de tiempo, especialmente en las etapas tempranas del proyecto donde se comenzó utilizando y comprendiendo tanto el IETFEM como otras herramientas, mientras se iba definiendo al mismo tiempo cómo realizar la interfaz. Se planificó de esta manera debido a que se consideró que sería bueno evaluar varias herramientas en simultáneo, a modo de comparar y definir qué funcionalidades y características nos gustaría que estén presentes en nuestro sistema. También evaluar cómo llevarlas a cabo utilizando las herramientas que existen en el mercado y el contexto académico en el cuál se quiere insertar la aplicacación.
 	
-	También se observa la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el testing y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de nuestra cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
+	También se observa la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el testing y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de la cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
 	
 	El cronograma estimado se realizó de manera exitosa, siguiendo cada etapa en el orden estipulado sin demoras excesivas. Como agregado, durante la implementación se descubrieron nuevas funcionalidades que serían útiles en el sistema, las cuales fueron evaluadas con los clientes y algunas de ellas se llevaron a cabo sin problemas, debido a que la metodología de trabajo lo permitía. 
 	
@@ -733,7 +733,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		De esta manera, resultaba extremadamente tedioso para el estudiante lograr finalmente el texto correcto con la estructura deseada. Sin embargo esta propiedad del antiguo IETFEM resultó ser de suma utilidad, ya que, intentando reducir al máximo el trabajo realizado en el motor, se decidió utilizar el mismo archivo de entrada al mismo.
 		
-		Esto quiere decir que la interfaz toma la responsabilidad de generar el archivo de texto que antes debía escribirse a mano, a partir del dibujo realizado por el estudiante. Un ejemplo de este archivo puede verse en el anexo 2. La interfaz recorre cada aspecto del modelo definido y va confeccionando un archivo .txt manteniendo el formato predefinido por el Motor. Además, mantiene un formato legible para el usuario, con títulos y nombres para cada propiedad a definir.
+		Esto quiere decir que la interfaz toma la responsabilidad de generar el archivo de texto que antes debía escribirse a mano, a partir del dibujo realizado por el estudiante. La interfaz recorre cada aspecto del modelo definido y va confeccionando un archivo .txt manteniendo el formato predefinido por el Motor. Además, mantiene un formato legible para el usuario, con títulos y nombres para cada propiedad a definir.
 		
 	\subsection {Análisis de resultados del Core}
 	
@@ -749,7 +749,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\item Una matriz que contiene los valores de deformación, fuerza y tensión de cada barra
 		\end{itemize}
 		
-		Se decidió que en la salida del motor debía incluirse el mismo texto que se recibió, de modo de poder corroborar en la interfaz que se están intentando procesar los resultados de la misma estructura que se generó, evitando así problemas de consistencia y compatibilidad. En el anexo 3 puede verse la salida del motor para la entrada especificada en el anexo 2.
+		Se decidió que en la salida del motor debía incluirse el mismo texto que se recibió, de modo de poder corroborar en la interfaz que se están intentando procesar los resultados de la misma estructura que se generó, evitando así problemas de consistencia y compatibilidad. 
 		
 		\subsubsection {Introducción de datos en la UI}
 		
@@ -821,7 +821,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\subsubsection {Estudio de casos de pequeño porte (Torre pequeña)}
 		
-		El primer caso a probar constituye la estructura de una pequeña torre. La misma se asemeja a las estructuras que se dictan en el curso de elasticidad al que se apunta. Cuenta con 10 nodos y 25  barras, en el anexo 4 se adjunta el archivo guardado con dicha estructura.
+		El primer caso a probar constituye la estructura de una pequeña torre. La misma se asemeja a las estructuras que se dictan en el curso de elasticidad al que se apunta. Cuenta con 10 nodos y 25  barras.
 		
 		La ejecución del mismo se llevó a cabo en etapas tempranas de desarrollo e integración con el motor, ayudando en el proceso de descubrimiento de bugs y resolución de los mismos.
 		
@@ -993,8 +993,6 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 \subsubsection {Performance Tunning}
 
 \section {Anexos}
-
-Se detallan los anexos de la aplicacion
 
 	\begin{appendices}
 	
@@ -1302,17 +1300,10 @@ Se detallan los anexos de la aplicacion
 				\item\textbf{Flujo Alternativo:}
 		\end{itemize}
 		
-	\end{appendices}
-
-	mini Manual de uso
+		
+	\section{Entrada del motor}
 	
-	ejemplos de estructuras
 	
-	mas info threejs
-	
-	masinfo otros proyectos similares
-	
-	otras cosas XD
-	
+	\end{appendices}	
 	
 \end{document}
