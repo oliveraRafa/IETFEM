@@ -531,17 +531,15 @@
 
 					<!--  Menu Opciones visualizacion -->
 					<div class="collapse in" id="collapseViewOptions" ng-show="viewingOptions()" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
-						<div class="row">	
-							<div class="col-md-11">	
-								<div class="panel panel-primary">
-									<div class="panel-heading">Grillas</div>
-									<div class="panel-body">
-										<div ng-if="!gridInfos || gridInfos.length == 0">No has ingresado grillas</div>
-										<div ng-repeat="gridInfo in gridInfos">
-											<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
-										    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
-										    <label>Grilla numero {{ gridInfo.gridId }}<label>
-										</div>
+						<div class="col-md-11">	
+							<div class="panel panel-primary">
+								<div class="panel-heading">Grillas</div>
+								<div class="panel-body">
+									<div ng-if="!gridInfos || gridInfos.length == 0">No has ingresado grillas</div>
+									<div ng-repeat="gridInfo in gridInfos">
+										<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
+									    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
+									    <label>Grilla numero {{ gridInfo.gridId }}<label>
 									</div>
 								</div>
 							</div>
@@ -550,22 +548,36 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">Otras opciones</div>
 								<div class="panel-body">
-									<span style="">Fuerzas:  </span>
-									<input id="toggle-event" type="checkbox" ng-model="statusFuerzas.visible" ng-change="toggleForces()">
-									</br>
-									</br>
 									<span style="">Factor de escala: </span>
 									<input type="range" ng-model="statusFuerzas.escala" min="1" max="10000" ng-change="toggleForces()">
 									<input type="text"  ng-model="statusFuerzas.escala" ng-change="toggleForces()" ng-pattern="/^[0-9]{1,4}$/">
-									</br>
-									</br>
-									<span style="">Apoyos:  </span>
-									<input id="toggle-event2" type="checkbox" ng-model="statusSupports.visible" ng-change="toggleSupports()">
-									<!-- <button  class="btn btn-primary" ng-click="toggleSupports()" >Apoyos</button> -->
-									</br>
-									</br>
-									<span style="">Resortes:  </span>
-									<input id="toggle-event3" type="checkbox" ng-model="statusSprings.visible" ng-change="toggleSprings()">
+									</br></br>
+									<div class="onoffswitch middle-align">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-event" ng-model="statusFuerzas.visible" ng-change="toggleForces()">
+									    <label class="onoffswitch-label" for="toggle-event">
+									        <span class="onoffswitch-inner"></span>
+									        <span class="onoffswitch-switch"></span>
+									    </label>
+									</div>
+									<span class="middle-align switch-text">Fuerzas</span>
+									</br></br>
+									<div class="onoffswitch middle-align">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-event2" ng-model="statusSupports.visible" ng-change="toggleSupports()">
+									    <label class="onoffswitch-label" for="toggle-event2">
+									        <span class="onoffswitch-inner"></span>
+									        <span class="onoffswitch-switch"></span>
+									    </label>
+									</div>
+									<span class="middle-align switch-text">Apoyos</span>
+									</br></br>
+									<div class="onoffswitch middle-align">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-event3" ng-model="statusSprings.visible" ng-change="toggleSprings()">
+									    <label class="onoffswitch-label" for="toggle-event3">
+									        <span class="onoffswitch-inner"></span>
+									        <span class="onoffswitch-switch"></span>
+									    </label>
+									</div>
+									<span class="middle-align switch-text">Resortes</span>
 								</div>
 							</div>
 						</div>

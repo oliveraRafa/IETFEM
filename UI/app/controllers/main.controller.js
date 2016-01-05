@@ -546,7 +546,7 @@ app.controller(
 
 					var displacementMatrix = [];
 					var beginDisplacementMatrix = text.search("u_z")+4;
-					var endDisplacementeMatrix = text.search("Parametros en barras")-3;
+					var endDisplacementeMatrix = text.search("Parametros en barras")-2;
 					var temp = text.slice(beginDisplacementMatrix, endDisplacementeMatrix).split("\n");
 
 					for (i = 0; i < temp.length; i++) { 
@@ -556,7 +556,7 @@ app.controller(
 					
 
 					var forcesMatrix = [];
-					var beginForcesMatrix = text.search("Tension")+9;
+					var beginForcesMatrix = text.search("Tension")+8;
 					var endForcesMatrix = text.length-1;
 					temp = text.slice(beginForcesMatrix, endForcesMatrix).split("\n");
 					for (i = 0; i < temp.length; i++) { 
@@ -846,6 +846,8 @@ app.controller(
 			$scope.returnToEdit = function(){
 				$scope.programMode = "CROSSLINK_INPUT"
 				$scope.deformed = {};
+				$scope.deformed.points = [];
+				$scope.deformed.lines = [];
 
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
 				$scope.scene = new THREE.Scene();
