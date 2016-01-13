@@ -229,13 +229,17 @@
 												 <label class="control-label">Nu (&nu;)</label>
 												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.nu" min="-1" max="0.5" placeholder="0" required>
 											</div>
-											<div class="form-group" style="color:#a94442" ng-show="existeMaterial()">
+											<div class="form-group" style="color:#a94442" ng-show="existeMaterial() && !isEditing()">
 												 <p>
 												 	Ya existe un material con el nombre: {{ nuevoMaterial.name +"  "}} <span class="glyphicon glyphicon-remove"></span>
 												 </p>
 											</div>
 											<div class="form-group">
 												  <button class="btn btn-primary" type="submit"  ng-disabled="!materialForm.$valid || existeMaterial()">Agregar Material</button>
+
+												  <button class="btn btn-warning" type="button" ng-click="editMaterial()"  ng-show="!isEditing()" ng-disabled="getSelectedIndex() == null ">Preparar Edicion</button>
+
+												  <button class="btn btn-success" type="button"  ng-click="editMaterial()" ng-show="isEditing()" ng-disabled="!materialForm.$valid">Editar Material</button>
 											</div>
 											
 										</form>
@@ -293,16 +297,23 @@
 									<div class="define-mod col-md-6">
 										<form name="seccionForm" ng-submit="addSection()" novalidate>
 											<div class="form-group">
+												<label class="control-label">Nombre</label>
+												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevaSeccion.name" required>
+
 												 <label class="control-label">Area</label>
 												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" min="0.0000000001" required>
 											</div>
-											<div class="form-group" style="color:#a94442" ng-show="existeSeccion()">
+											<div class="form-group" style="color:#a94442" ng-show="existeSeccion() && !isEditing()">
 												 <p>
-												 	Ya existe una seccion con el valor: {{ nuevaSeccion.section +"  "}} <span class="glyphicon glyphicon-remove"></span>
+												 	Ya existe una seccion con el nombre: {{ nuevaSeccion.name +"  "}} <span class="glyphicon glyphicon-remove"></span>
 												 </p>
 											</div>
 											<div class="form-group">
 												  <button class="btn btn-primary" type="submit"  ng-disabled="!seccionForm.$valid || existeSeccion()">Agregar Seccion</button>
+
+												  <button class="btn btn-warning" type="button" ng-click="editSeccion()"  ng-show="!isEditing()" ng-disabled="getSelectedIndex() == null ">Preparar Edición</button>
+
+												  <button class="btn btn-success" type="button"  ng-click="editSeccion()" ng-show="isEditing()" ng-disabled="!seccionForm.$valid">Editar Sección</button>
 											</div>
 											
 										</form>
@@ -314,12 +325,14 @@
 												<thead>
 													<tr>
 														<td>Index</td>
+														<td>Nombre</td>
 														<td>Seccion</td>
 													</tr>
 												</thead>
 												<tbody>
 													<tr ng-repeat="seccion in secciones" ng-click="setSectionToRemove(seccion,$index)" ng-class="{active: $index == getSelectedIndex()}">
 														<td> {{ $index}} </td>
+														<td> {{seccion.name}} </td>
 														<td> {{seccion.section}} </td>
 													</tr>
 												</tbody>
@@ -683,7 +696,7 @@
 										</div>
 										<div class="row form-group">
 											<label class="col-md-offset-1 col-md-2">Seccion:</label>
-											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.section" ng-options="seccion.id as seccion.section for seccion in misSecciones " required>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.section" ng-options="seccion.id as seccion.name for seccion in misSecciones " required>
 												<option></option>
 											</select>
 										</div>

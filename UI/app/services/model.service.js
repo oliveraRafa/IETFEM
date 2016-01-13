@@ -238,10 +238,11 @@ angular.module('IETFEM')
 	};
 
 	//Agrega un material al modelo
-	var addSection = function(s,model) {		
+	var addSection = function(n,s,model) {		
 		var section = {};
 		
 		section.id= newSectionIdentifier(model);
+		section.name=n;
 		section.section=s;
 		
 		model.secciones.push(section);
