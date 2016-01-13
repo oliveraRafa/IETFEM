@@ -11,8 +11,8 @@
 \usepackage{lineno}
 \usepackage{appendix}
 
-\title{Desarrollo de una Interfaz Gráfica para una Herramienta de Cálculo de Estructuras}
-\author{Rafael Olivera - Federico García}
+\title{Desarrollo de una interfaz gráfica para una herramienta de cálculo de estructuras}
+\author{Federico García, Rafael Olivera \\Dr. Ing. Franco Robledo, Dr. Ing. Jorge Pérez, Ing. Pablo Castrillo}
 
 \begin{document}
 % cuerpo del documento
@@ -39,34 +39,34 @@ $\ $
 	
 	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, puede decirse que se buscó en el fondo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos el comprendimiento del problema y sus posibles soluciones.
 
-	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma, lo que puede derivar en que el resultado obtenido no siempre sea igual en la realidad a como se diseñó. Esto quiere decir que la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
+	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma. Debido a estos factores, la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
 	
-	La Ingeniería en Computación no ha dejado este problema de lado, ya que existen diversos sistemas informáticos encargados de facilitar el diseño y cálculo de estructuras. Estos sistemas permiten, a grandes rasgos, dibujar una estructura mediante la definición de diferentes materiales, secciones, fuerzas externas, etc. Finalmente, realizan los cálculos correspondientes, mostrando la estructura en un estado de equilibrio y las deformaciones ocurridas en el proceso.
+	La Ingeniería en Computación no ha dejado este problema de lado, ya que existen diversos sistemas informáticos encargados de facilitar el diseño y cálculo de estructuras. Estos sistemas permiten, a grandes rasgos, dibujar una estructura mediante la definición de diferentes elementos estructuralesm, materiales, secciones, apoyos, fuerzas externas, etc. Finalmente, realizan los cálculos correspondientes, mostrando la estructura en un estado de equilibrio con las solicitaciones y deformaciones ocurridas en el proceso.
 	
-	Así como existen estos sistemas reconocidos mundialmente, la Facultad de Ingeniería cuenta también son su propio sistema de cálculo de estructuras. Su nombre es IETFEM, y fué desarrollado por los Ing. Pablo Castrillo y Jorge Pérez pertenecientes al Instituto de Estructuras y Transporte(IET). Se trata de un motor de cálculo desarrollado en Octave que recibe una estructura descripta en formato texto y genera gráficas e imágenes con la deformación de la misma.
+	Así como existen estos sistemas reconocidos mundialmente, la Facultad de Ingeniería (FIng) cuenta también son su propio sistema de cálculo de estructuras. Su nombre es IETFEM, y fué desarrollado por los Ing. Pablo Castrillo y Jorge Pérez pertenecientes al Instituto de Estructuras y Transporte (IET). Se trata de un motor de cálculo desarrollado en GNU-Octave\cite{GNUOctave} que recibe una estructura descripta en formato texto y genera gráficas, imágenes y tablas de resultados. Es un sistema de uso académico que actualmente se utiliza en diversos cursos dictados por el instituto mencionado.
 	
-	En este proyecto, se realizará una interfaz gráfica acorde para ser utilizada en conjunto con el motor de cálculo antes mencionado, y lograr así un sistema completo de diseño y cálculo de estructuras. Se busca, en particular, agregar funciones de dibujado y visualización de resultados que pueden observarse en otros sistemas de la misma índole, acercando al IETFEM a los sistemas comerciales y logrando una mayor usabilidad y eficiencia para los estudiantes que lo utilizan.
+	En este proyecto, se desarrolló una interfaz gráfica acorde para ser utilizada en conjunto con el motor de cálculo antes mencionado, logrando así un sistema completo de diseño y cálculo de estructuras con un mayor grado de amigabilidad. Se busca, en particular, agregar funciones de dibujado y visualización de resultados que pueden observarse en otros sistemas de la misma índole, acercando al IETFEM a los sistemas comerciales y logrando una mayor usabilidad y eficiencia para los estudiantes que lo utilizarán.
 	
 	\subsection {Desarrollo previo}
 	
-	Como mencionamos anteriormente, la FING cuenta con un motor de cálculo de estructuras desarrollado por los Ingenieros Pablo Castrillo y Jorge Pérez. El mismo resuelve problemas de cálculo de estructuras utilizando el Método de Elementos Finitos(MEF).
+	Como mencionamos anteriormente, la FIng cuenta con un motor de cálculo de estructuras desarrollado por los ingenieros Pablo Castrillo y Jorge Pérez denominado IETFEM\cite{IETFEMArticle}. El mismo resuelve problemas de cálculo de estructuras utilizando el Método de los Elementos Finitos (MEF).
 	
 	El MEF es, desde mediados del siglo XX, una de las principales herramientas utilizadas por los ingenieros para el análisis de sistemas estructurales, mecánicos, eléctricos, etc. El avance de la computación y la disponibilidad creciente de computadores potentes a bajo costo ha provocado que los programas comerciales de MEF para el cálculo estructural sean utilizados masivamente. De hecho, en los últimos cuarenta años el MEF ha transformado los procedimientos de trabajo de todas las áreas de ingeniería y constituye hoy una de las herramientas indispensables con las que un ingeniero debe contar en el ejercicio de su profesión. Por otra parte, el uso del MEF por parte de profesionales no debidamente capacitados podría eventualmente producir errores en el diseño de estructuras, y por tanto, riesgos para los usuarios.
 	
-	En este contexto, la enseñanza del MEF en las carreras de Ingeniería se transforma en un desafío docente, donde además de formar a los estudiantes en el uso de diferentes programas de cálculo estructural es necesario transmitirles los conocimientos y herramientas que les permitan realizar un análisis crítico de los resultados. Es importante destacar además, que la mayoría de los programas comerciales (ej: SAP2000 y AxisVM) de MEF son de código cerrado, por lo que presentan como desventaja a nivel educativo, que no permiten a los estudiantes ver su funcionamiento interno, limitando la comprensión de los errores durante el aprendizaje.
+	En este contexto, la enseñanza del MEF en las carreras de ingeniería se transforma en un desafío docente, donde además de formar a los estudiantes en el uso de diferentes programas de cálculo estructural es necesario transmitirles los conocimientos y herramientas que les permitan realizar un análisis crítico de los resultados. Es importante destacar además, que la mayoría de los programas comerciales (ej: SAP2000\cite{SAP2000} y AxisVM\cite{AxisVM}) de MEF son de código cerrado, por lo que presentan como desventaja a nivel educativo, que no permiten a los estudiantes ver su funcionamiento interno, limitando la comprensión de los errores durante el aprendizaje.
 	
-	De esta manera surge entre docentes del Grupo de Mecánica de Sólidos Computacional (MSC) del Instituto de Estructuras y Transporte (IET) la motivación de brindar una solución al problema a través del desarrollo de un software educativo adecuado: IETFEM.
+	De esta manera surge entre docentes del Instituto de Estructuras y Transporte (IET) la motivación de brindar una solución al problema a través del desarrollo de un software educativo y de código abierto: IETFEM.
 	
-	IETFEM comenzó a desarrollarse en 2012 . El primer módulo desarrollado permitió resolver problemas de estructuras de barras articuladas o aporticadas en el plano con cargas aplicadas en los nodos. Esta primera versión fue utilizada por estudiantes del curso de Elasticidad 2013; luego se incluyó la posibilidad de generar un informe de salida en formato LaTeX. Posteriormente, la herramienta contó con el aporte del docente del IET, Agustín Spalvier, desarrollando la capacidad de ingresar cargas distribuidas uniformes en elementos de pórtico y el análisis modal de vibraciones de pórticos. Finalmente, a principios de 2014, Castrillo desarrolló un módulo para la resolución de problemas con variaciones de temperatura y fuerza de volumen en barras articuladas.
+	IETFEM comenzó a desarrollarse en 2012 . El primer módulo desarrollado permitió resolver problemas de estructuras de barras articuladas ó aporticadas en el plano con cargas aplicadas en los nodos. Esta primera versión fue utilizada por estudiantes del curso de Elasticidad 2013; luego se incluyó la posibilidad de generar un informe de salida en formato \LaTeX. Posteriormente, la herramienta contó con el aporte del docente del IET, Agustín Spalvier, desarrollando la capacidad de ingresar cargas distribuidas uniformes en elementos de pórtico y el análisis modal de vibraciones de pórticos. Finalmente, a principios de 2014, Castrillo desarrolló un módulo para la resolución de problemas con variaciones de temperatura y fuerza de volumen en barras articuladas.
 
-Se buscó una herramienta que sin ser compleja para su aplicación en cursos de grado, permita al estudiante visualizar el funcionamiento interno del método de cálculo. Por ello se optó por la sintaxis de programación de GNUOctave (herramienta libre de alta compatibilidad con
-Matlab), ya conocida por los estudiantes. Se considera que contar con un software abierto donde los estudiantes pueden entender e incluso programar nuevos cálculos de acuerdo a sus necesidades, enriquece el trabajo desde el punto de vista didáctico.
+Se buscó una herramienta que sin ser compleja para su aplicación en cursos de grado, permita al estudiante visualizar el funcionamiento interno del método de cálculo. Por ello se optó por la sintaxis de programación de GNU-Octave (herramienta libre de alta compatibilidad con
+Matlab\cite{Matlab}), ya conocida por los estudiantes. Se considera que contar con un software abierto donde los estudiantes pueden entender e incluso programar nuevos cálculos de acuerdo a sus necesidades, enriquece el trabajo desde el punto de vista didáctico.
 
 La forma de ingreso de datos se eligió de acuerdo a otros programas de cálculo de estructuras como SAP2000 donde se deben definir: materiales, secciones, estados de carga, geometrías, conectividades, etc. En el IETFEM se optó por una entrada de archivo de texto plano donde el estudiante debe ingresar esta información. La salida también es en texto plano (.txt y .tex) y gráfica, al igual que en los programas comerciales.
 	
 Sin embargo, la generación del archivo de entrada y la comunicación con el IETFEM pueden llegar a ser tediosas y complicadas para el estudiante. Debe tenerse en cuenta que debe especificarse la estructura nodo por nodo, barra por barra, describiendo los materiales, secciones y fuerzas aplicadas, entre otras cosas, respetando además un formato fijo de documento que puede derivar en diversos errores de sintaxis.
 
-Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código abierto donde el estudiante pueda dibujar la estructura de una manera sencilla e intuitiva, y que genere la entrada al IETFEM de manera automática. De esta manera, se pretende mejorar tanto la facilidad de uso como la eficiencia del mismo.
+Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de código abierto} donde el estudiante pueda dibujar la estructura de una manera sencilla e intuitiva, y que genere la entrada al IETFEM de manera automática. De esta manera, se pretende mejorar tanto la facilidad de uso como la eficiencia del mismo.
 
 	\subsection {Objetivos y resultados esperados}
 	
@@ -76,25 +76,25 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	Para mejorar la usabilidad, se desarrollará una interfaz que permita al usuario dibujar la estructura de manera fluida y amigable. Se trata de un espacio 3D donde el usuario puede moverse libremente utilizando el mouse para mover y rotar la cámara. Se podrá dibujar la estructura de una manera continua e intuitiva. Además, facilitará la comunicación con el motor de cálculo previamente desarrollado y la visualización de los resultados obtenidos.
 	
-	Para mejorar la eficiencia, reduciremos el tiempo de ejecución del motor de cálculo, eliminando el proceso de graficación y generación de imágenes, ya que ahora los resultados podrán verse en la nueva interfaz. Como regla básica, buscamos que el usuario pierda el menor tiempo posible en problemas tecnológicos o informáticos y que dirija sus esfuerzos al comprendimiento del problema en sí y su método de resolución.
+	Para mejorar la eficiencia, reduciremos el tiempo de ejecución del motor de cálculo, eliminando el proceso de graficación y generación de imágenes, ya que ahora los resultados podrán verse en la nueva interfaz. Como regla básica, buscamos que el usuario pierda el menor tiempo posible en problemas tecnológicos o informáticos y que dirija sus esfuerzos al comprendimiento del problema y su método de resolución.
 	
-	A modo de resumen, se busca realizar un sistema ágil, de código abierto, que mejore ambos aspectos lo suficientemente como para poder ser utilizado sin problemas en el curso de Elasticidad dictado por el IET. Con el fin de verificar el cumplimiento de los objetivos por parte del sistema, una vez finalizado, será evaluado resolviendo ejercicios del curso antes mencionado, realizando comparaciones y análisis del tiempo de ejecución.
+	A modo de resumen, se busca realizar un sistema ágil, de código abierto, que mejore ambos aspectos lo suficiente como para poder ser utilizado sin problemas en el curso de Elasticidad dictado por el IET. Con el fin de verificar el cumplimiento de los objetivos por parte del sistema, una vez finalizado, será evaluado resolviendo ejercicios del curso antes mencionado, realizando comparaciones y análisis del tiempo de ejecución.
 	
 	\subsection {Desarrollo del proyecto}
 	
-	El proyecto comenzó con una fase fuerte de investigación. Inicialmente se realizaron reuniones ocasionales con los clientes, donde se reunió información valiosa sobre el problema de cálculo de estructuras y el método de elementos finitos. Además se definió qué tipo de herramienta se quería, qué funcionalidades eran deseadas y qué objetivos se buscaban. Durante esta etapa se utilizó el motor de cálculo directamente para comprender su funcionamiento y compararlo con otras herramientas comerciales.
+	El proyecto comenzó con una fase fuerte de investigación. Inicialmente se realizaron reuniones ocasionales con los tutores, donde se reunió información valiosa sobre la teoría de cálculo de estructuras y el método de elementos finitos. Además se definió qué tipo de herramienta se quería, qué funcionalidades eran deseadas y qué objetivos se buscaban. Durante esta etapa se utilizó el motor de cálculo directamente para comprender su funcionamiento y compararlo con otras herramientas comerciales.
 	
-	Una vez comprendido el problema, se procedió a buscar herramientas con las cuáles desarrollar la interfaz. Se investigaron librerías y lenguajes de progamación 3D, optando al final por utilizar tecnologías web por su simplicidad de uso, agilidad y portabilidad
+	Una vez comprendido el problema, se procedió a buscar herramientas con las cuáles desarrollar la interfaz. Se investigaron librerías y lenguajes de progamación 3D, optando al final por utilizar tecnologías web por su simplicidad de uso, agilidad y portabilidad.
 	
-	Posteriormente se comenzó a diseñar e implementar la herramienta, separando en diferentes módulos que serán descriptos en detalle en el capítulo 4. Se ejecutaron reuniones quincenales con los clientes para definir detalles, corregir errores, evaluar resultados y tomar decisiones en conjunto. Esta fase ocupó la mayor parte del tiempo del proyecto, debido a la dificultad técnica del mismo.
+	Posteriormente se comenzó a diseñar e implementar la herramienta, separando en diferentes módulos que serán descriptos en detalle en el Capítulo 4. Se ejecutaron reuniones quincenales con los clientes para definir detalles, corregir errores, evaluar resultados y tomar decisiones en conjunto. Esta fase ocupó la mayor parte del tiempo del proyecto, debido a la dificultad técnica del mismo.
 	
-	Finalmente, una vez alcanzado un producto inicial que cumplía las espectativas planteadas, se procedió a realizar pruebas sobre el mismo, detectando ciertos errores de performance que fueron solucionados hasta un nivel considerablemente bueno(se hablará de estas medidas en el capítulo 5).
+	Finalmente, una vez alcanzado un producto inicial que cumplía las espectativas planteadas, se procedió a realizar pruebas sobre el mismo, detectando ciertos errores de performance que fueron solucionados hasta un nivel considerablemente bueno (se hablará de estas medidas en el Capítulo 5).
 	
 	\subsection {Organización del documento}
 	
 	El resto del documento se organiza de la siguiente manera: 
 	
-	En el siguiente capítulo, se comienza analizando el estado del arte, tanto del problema de cálculo de estructuras como de herramientas de programación 3D, y su posible uso en sistemas de este tipo. Se realiza un estudio de diferentes herramientas investigadas, el estado de las mismas y su posibilidad de ser utilizadas en este proyecto. También se investigan otros sistemas de cálculo de estructuras y otro proyectos académicos similares en América Latina.
+	En el siguiente capítulo, se comienza analizando el estado del arte, tanto del problema de cálculo de estructuras como de herramientas de programación 3D, y su posible uso en sistemas de este tipo. Se realiza un estudio de diferentes herramientas investigadas, el estado de las mismas y su posibilidad de ser utilizadas en este proyecto. También se investigan otros sistemas de cálculo de estructuras y otro proyectos académicos similares en América Latina y el mundo.
 	
 	Posteriormente, en el capítulo 3, se hablará de la organización del trabajo a lo largo del proyecto. Se plantea el alcance del mismo, definiendo las funcionalidades y características específicas que se buscan en el producto final. Se describirá la metodología de trabajo utilizada y se realizarán estimaciones para cada tarea comprendida, comparando finalmente con el esfuerzo efectivo.
 	
@@ -110,18 +110,15 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 		\subsubsection {Problema y cálculos implicados}
 		
-		IETFEM fue creado en 2013 por docentes del Instituto de Estructuras y Transporte para resolver problemas de pórticos y reticulados planos utilizando el Método de los Elementos Finitos (MEF).
-		Se logró extender el modelo de elementos finitos utilizado, permitiendo resolver problemas de estructuras tridimensionales aplicando la teoría de Elasticidad Finita.
+		IETFEM fue creado en 2013 por docentes del IET para resolver problemas de pórticos y reticulados planos utilizando el MEF.
 		
-		El método de los elementos finitos es un método numérico general para la aproximación de soluciones de ecuaciones diferenciales parciales.El MEF está pensado para ser usado en computadoras y permite resolver ecuaciones diferenciales asociadas a un problema físico sobre geometrías complicadas. El MEF se usa en el diseño y mejora de productos y aplicaciones industriales, así como en la simulación de sistemas físicos y biológicos complejos. La variedad de problemas a los que puede aplicarse ha crecido enormemente, siendo el requisito básico que las ecuaciones constitutivas y ecuaciones de evolución temporal del problema a considerar sean conocidas de antemano.
-		
-		
+		El MEF es un método numérico general para la aproximación de soluciones de ecuaciones diferenciales parciales. Está pensado para ser usado en computadoras y permite resolver ecuaciones diferenciales asociadas a un problema físico sobre geometrías complicadas. Este método se usa en el diseño y mejora de productos y aplicaciones industriales, así como en la simulación de sistemas físicos y biológicos complejos. La variedad de problemas a los que puede aplicarse ha crecido enormemente, siendo el requisito básico que las ecuaciones constitutivas y ecuaciones de evolución temporal del problema a considerar sean conocidas de antemano.
 		
 		\subsubsection {IETFEM}
 		
 		IETFEM nació como una herramienta académica de código abierto desarrollada íntegramente en la plataforma libre GNU-Octave que soluciona los problemas anteriormente descriptos de forma eficaz y eficiente teniendo como principal objetivo enriquecer el proceso de aprendizaje de los estudiantes.
 		
-		Si bien se logro un producto final de calidad y a nivel de las herramientas comerciales (incluso superándolas) en cuanto a los resultados de los cálculos, la herramienta quedó con un debe en cuanto a la interacción con el usuario. El usuario debe generar un archivo de entrada con los datos de la estructura en un formato específico con gran cantidad de información en forma de matrices en un archivo de texto que rápidamente puede volverse engorroso y difícil de manejar. Cabe destacar esta ultima característica como la más importante fuente de motivación del presente proyecto. 
+		Si bien se logro un producto final de calidad y a nivel de las herramientas comerciales (incluso superándolas) en cuanto a los resultados de los cálculos, la herramienta quedó con un debe en cuanto a la interacción con el usuario. El usuario debe generar un archivo de entrada con los datos de la estructura en un formato específico con gran cantidad de información en forma de matrices en un archivo de texto que rápidamente puede volverse engorroso y difícil de manejar. Cabe destacar esta ultima característica como la más importante fuente de motivación del presente proyecto, así también como mejorar potencialmente la visualización de los resultados finales. 
 		
 		\subsection {Herramientas comerciales}
 		
@@ -138,11 +135,11 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		\item Diversas características para el modelado como templates, sistema de grillas, distintas vistas y herramientas de meshing.
 		\item Diversos componentes estructurales como articulaciones, barras, cables sólidos, resortes, etc.
 		\item Posibilidad de aplicar distintos tipos de cargas.
-		\item Varias posibilidades para ver la salida de los cálculos con diagramas,tablas y reportes.
+		\item Varias posibilidades para ver la salida de los cálculos con diagramas, tablas y reportes.
 		\item Importación y exportación de modelos en distintos formatos estándar.
 		\end{itemize}
 		
-		Por todo esto SAP2000 es uno de los productos lideres en el mercado siendo utilizado en mas de 160 países en todo el mundo.
+		Por todo esto, SAP2000, es uno de los productos comerciales líderes en el mercado siendo utilizado en mas de 160 países en todo el mundo.
 		
 		\subsubsection {AxisVM}
 		Es un software comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría.Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
@@ -170,7 +167,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 	
 	Dado el fuerte componente gráfico del proyecto fue necesario repasar un gran abanico de posibilidades a nivel tecnológico que permitan cumplir con los requerimientos 3D de la aplicación requerida. A continuación se muestran las principales opciones en este sentido que van, desde especificaciones estándar de muy bajo nivel de abstracción, pasando por wrappers de las mismas, hasta completos y potentes motores gráficos.
 	
-	Se priorizaron fuertemente herramientas de código abierto dado que fue un requerimiento por parte de los clientes. Ademas se hizo especial foco en tecnologías conocidas por los desarrolladores tales como Java o tecnologías web.
+	Se priorizaron fuertemente herramientas gratuitas de código abierto dado que fue un requerimiento por parte de los clientes. Ademas se hizo especial foco en tecnologías conocidas por los desarrolladores tales como Java o tecnologías web.
 	
 	
 		\subsubsection {OpenGL}
@@ -207,9 +204,10 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		
 		Esta desarrollado en base a JWJGL y es la suite mas popular en el mundo java para desarrollo de videojuegos en alto nivel, con una gran comunidad de desarrolladores y extensivamente documentado. Si bien el enfoque principal son los videojuegos es importante destacar que tiene todas las capacidades para poder construir otro tipo de aplicaciones.
 		
+		
 	\subsection {Desarrollo 3D en la Web}
 	
-	La utilización de tecnologías web para el desarrollo de la aplicación probaba a priori ser una opción con mucho potencial aportando gran flexibilidad, una opción multiplataforma  ,multidispositivo ademas de ser innovadora para herramientas de este tipo.
+	La utilización de tecnologías web para el desarrollo de la aplicación probaba a priori ser una opción con mucho potencial aportando gran flexibilidad, una opción multiplataforma-multidispositivo además de ser innovadora para herramientas de este tipo.
 	
 	Es por estas razones y la experiencia del equipo de desarrollo en estas tecnologías (HTML5, CSS, Bootstrap, JavaScript, AngularJS, etc.) que se investigo la factibilidad de una solución gráfica 3D en este contexto.
 	
@@ -217,7 +215,7 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 		
 		El contexto 2D para el elemento de HTML "`Canvas"' permite la creación de gráficos en páginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web aunque con algunos trucos es posible realizar trabajos en 3D.
 		
-		Si es posible, la relativa dificultad para realizar trabajos 3D y la gran diferencia de performance contra opciones como WebGL (Canvas corre en CPU) descartaron esta opción rápidamente.
+		La relativa dificultad para realizar trabajos 3D y la gran diferencia de performance contra opciones como WebGL (Canvas corre en CPU) descartaron esta opción rápidamente.
 		
 		\subsubsection {WebGL}
 		
@@ -278,9 +276,9 @@ Por lo tanto, se desarrollará en este proyecto una interfaz gráfica de código ab
 				\item Dibujado de grillas auxiliares.
 				\item Selección de nodos y barras: Para setear propiedades en las mismas.
 				\item Eliminación de nodos y barras.
-				\item Visualización de propiedades: Fuerzas, puntos de apoyo y resortes.			
+				\item Visualización y ocultación de propiedades: Fuerzas, puntos de apoyo y resortes.			
 				\item Visualización de estructura resultante: Observar la deformada y comparar con estructura original.		
-				\item Escalamiento la estructura deformada: "`Exagerar"' la deformación, para apreciar pequeñas deformaciones.
+				\item Escalamiento la estructura deformada: "`Exagerar"' la deformación, para apreciar los pequeños desplazamientos.
 				\item Visualización de las propiedades de la estructura deformada utilizando escalas de colores: Deformación, Fuerzas, Tensiones, etc.
 				
     \end{itemize}
@@ -313,25 +311,27 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	\subsection {Metodología de trabajo}
 	
-  En las primeras etapas del proyecto se focalizó el trabajo en comprender el problema que se quiere resolver. Se tuvieron reuniones quincenales con los clientes dónde de habló del problema del cálculo de estructuras y cómo lo resuelve IETFEM. Dichas reuniones se apoyaron además en una permanente comunicación por e-Mail y una vasta investigación del problema por parte del equipode desarrollo. Para esto no sólo se investigó sobre el problema, sino que además se utilizaron productos similares e incluso el propio IETFEM con ejemplos simples.
+  En las primeras etapas del proyecto se focalizó el trabajo en comprender el problema que se quiere resolver. Se tuvieron reuniones quincenales con los clientes dónde se habló del problema del cálculo de estructuras y cómo lo resuelve IETFEM. Dichas reuniones se apoyaron además en una permanente comunicación por e-Mail y una vasta investigación del problema por parte del equipo de desarrollo. Para esto no sólo se investigó sobre el problema, sino que además se utilizaron productos similares e incluso el propio IETFEM con ejemplos simples.
 	
-	Una vez comprendido el problema, se pasó a buscar una solución al mismo. Dentro de esta etapa se pueden incluir la busqueda de herramientas, el análisis y el diseño de la aplicación. Se mantuvieron las reuniones con los clientes, evaluando herramientas y enseñando prototipos realizados a modo de prueba. Se investigaron lenguajes y librerías de programación 3D, tanto de escritorio como web, deciciendo en ultima instancia utilizar WebGL (se hablará mas en detalle en el siguiente capítulo).
+	Una vez comprendido el problema, se buscó una solución al mismo. Dentro de esta etapa se pueden incluir la busqueda de herramientas, el análisis y el diseño de la aplicación. Se mantuvieron las reuniones con los clientes, evaluando herramientas y enseñando prototipos realizados a modo de prueba. Se investigaron lenguajes y librerías de programación 3D, tanto de escritorio como web, decidiendo en última instancia utilizar WebGL (se hablará mas en detalle en el siguiente capítulo).
 	
-	Conforme pasaba el tiempo las reuniones se fueron enfoncando cada vez más en el producto final, comenzando a definir las funcionalidades y características del mismo. Mientras se mantenía contacto con los clientes, se realizó la definición de casos de uso, al tiempo que se definió la arquitectura del sistema en base a los requerimientos obtenidos y las prestaciones de las herramientas definidas.
+	Conforme transcurría el tiempo, las reuniones se fueron enfoncando cada vez más en el producto final, comenzando a definir las funcionalidades y características del mismo. Mientras se mantenía contacto con los clientes, se realizó la definición de casos de uso, al tiempo que se definió la arquitectura del sistema en base a los requerimientos obtenidos y las prestaciones de las herramientas definidas.
 	
-	Finalmente, para las etapas de implementación y testing, se creó un repositorio en Github con el esqueleto de la aplicación y todo código reusable proveniente de la etapa de prototipación. Como metodología de trabajo se utilizó la metodología ágil Kanban. Kanban es un método para gestionar el trabajo intelectual, con énfasis en la entrega justo a tiempo, mientras no se sobrecargan a los miembros del equipo. En este enfoque, el proceso, desde la definición de una tarea hasta su entrega al cliente, se muestra para que los participantes lo vean y los miembros del equipo tomen el trabajo de una cola.
+	Finalmente, para las etapas de implementación y testeo, se creó un repositorio en Github con el esqueleto de la aplicación y todo código reusable proveniente de la etapa de prototipación. Como metodología de trabajo se utilizó la metodología ágil Kanban. Kanban es un método para gestionar el trabajo intelectual, con énfasis en la entrega justo a tiempo, mientras no se sobrecargan a los miembros del equipo. En este enfoque, el proceso, desde la definición de una tarea hasta su entrega al cliente, se muestra para que los participantes lo vean y los miembros del equipo tomen el trabajo de una cola.
 	
 	\begin{figure}
     \centerline{\includegraphics[width=1.2\textwidth]{Graficos/Kanban}}
-		\caption{Planilla Excel utilizando metodología Kanban}
+		\caption{Planilla utilizando metodología Kanban}
 		\label{fig:Kanban}
 	\end{figure}
 	
-	Existen diversas herramientas on-line de planificación y gestión de proyectos, tales como Jira o TFS. Sin embargo, debido a la poca cantidad de personas involucradas en el proyecto (2 desarrolladores y 2 clientes) y a que las tareas a realizar estaban bien definidas, se optó por utilizar una herramienta simple y natural: una planilla Excel online. La misma se encontró en todo momento de libre acceso y modificación para los 4 participantes, y cada tarea tenía asignada una descripción, un estado, y una prioridad. 
+	Existen diversas herramientas on-line de planificación y gestión de proyectos, tales como Jira o TFS. Sin embargo, debido a la poca cantidad de personas involucradas en el proyecto (2 desarrolladores y 2 clientes) y a que las tareas a realizar estaban bien definidas, se optó por utilizar una herramienta simple y natural: una planilla online. La misma se encontró en todo momento de libre acceso y modificación para los 4 participantes, y cada tarea tenía asignada una descripción, un estado, y una prioridad. 
 	
 	En un principio, se agregaron todas las tareas a realizar, y ambos desarrolladores tomaban cada una de ellas marcando su estado como "`En proceso"'. Una vez finalizada, se marcaba la tarea como terminada y se subían los cambios al repositorio, marcando cada subida con la funcionalidad correspondiente.
 	
-	A su vez, los clientes, los cuáles también tenían acceso a la última versión del IETFEM, iban relevando en la misma planilla problemas o cosas a mejorar que se encontraban en el produto, los cuáles pasaban a ser parte de nuestra "`pizarra de kanban"' y seguían el mismo flujo que las demás tareas.	
+	A su vez, los clientes, los cuáles también tenían acceso a la última versión del IETFEM, iban relevando en la misma planilla problemas o cosas a mejorar que se encontraban en el produto, los cuáles pasaban a ser parte de nuestra "`pizarra de Kanban"' y seguían el mismo flujo que las demás tareas.	
+	
+	Se puede ver la planilla mencionada en un instante de tiempo en la Figura~\ref{fig:Kanban}
 	
 	\subsection {Estimación y esfuerzo efectivo}
 	
@@ -341,15 +341,15 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\label{fig:Gantt}
 	\end{figure}
 	
-	La planificación del proyecto se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la Figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre Abril y Diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo.
+	La planificación del proyecto se realizó tomando en cuenta el desconocimiento inicial del problema de cálculo de estructuras y la dificultad de la programación gráfica en 3D. En la Figura~\ref{fig:Gantt} se pueden ver las estimaciones realizadas calculando 15 horas de trabajo semanal por desarrollador. Se puede apreciar que el período de trabajo se calculó entre abril y diciembre, logrando un total de 34 semanas de trabajo, que se traducen en un total de 1020 horas de trabajo. Se considera el tiempo estimado dentro del rango de lo aceptable para el desarrollo de un sistema de mediano porte como el se desea.
 	
 	Podemos ver también que ciertas etapas se planificaron en simultáneo por ciertos períodos de tiempo, especialmente en las etapas tempranas del proyecto donde se comenzó utilizando y comprendiendo tanto el IETFEM como otras herramientas, mientras se iba definiendo al mismo tiempo cómo realizar la interfaz. Se planificó de esta manera debido a que se consideró que sería bueno evaluar varias herramientas en simultáneo, a modo de comparar y definir qué funcionalidades y características nos gustaría que estén presentes en nuestro sistema. También evaluar cómo llevarlas a cabo utilizando las herramientas que existen en el mercado y el contexto académico en el cuál se quiere insertar la aplicacación.
 	
-	También se observa la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el testing y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de la cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
+	Se observa en la Figura~\ref{fig:Gantt} la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el testing y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de la cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la Tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
 	
 	El cronograma estimado se realizó de manera exitosa, siguiendo cada etapa en el orden estipulado sin demoras excesivas. Como agregado, durante la implementación se descubrieron nuevas funcionalidades que serían útiles en el sistema, las cuales fueron evaluadas con los clientes y algunas de ellas se llevaron a cabo sin problemas, debido a que la metodología de trabajo lo permitía. 
 	
-	También es necesario destacar el tiempo invertido en la Ingeniería de Muestra a fines del mes de Octubre, el cuál contempló el diseño de carteles, presentación del proyecto y la propia presencia en el evento. Esto redujo unos días el tiempo estipulado para la escritura de la tesis, el cuál se intenta recuperar durante el mes de noviembre aumentando la cantidad de horas a un promedio de 20 semanales por desrrollador dedicadas a dicha tarea.
+	También es necesario destacar el tiempo invertido en la Ingeniería de Muestra a fines del mes de Octubre, el cuál contempló el diseño de carteles, presentación del proyecto y la propia presencia en el evento. Esto redujo unos días el tiempo estipulado para la escritura de la Tesis, el cuál se intenta recuperar durante el mes de noviembre aumentando la cantidad de horas a un promedio de 20 semanales por desrrollador dedicadas a dicha tarea.
 	
 \section {Presentación de la solución}
 
@@ -359,7 +359,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	Desde un principio se supo que IETFEM era una herramienta robusta, ofreciendo una solución para diferentes problemas posibles. En este sentido, el relevamiento de requerimientos se convirtió en una tarea delicada en dónde debía definirse un número acotado de funcionalidades, para un número acotado de la totalidad de problemas que IETFEM podía resolver.
 	
-	Luego de concretar varias reuniones con los clientes, se decidió que la interfaz pueda resolver problemas de estructuras reticuladas, es decir, estructuras formadas por una serie de vigas entrecruzadas y conectadas entre sí por medio de nudos rígidos. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
+	Luego de concretar varias reuniones con los clientes, se decidió que la interfaz pueda resolver problemas de estructuras reticuladas, es decir, estructuras formadas por una serie de barras entrecruzadas y conectadas entre sí por medio de nodos articulados. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
 	
 	El estudiante coloca los nodos en el espacio 3D, y luego define barras entre 2 nodos ya dibujados, asignando para cada barra un material que la conforma y el área de su corte transversal, al que llamaremos sección, ambos previamente definidos. También pueden definirse ciertas propiedades para cada nodo, en particular, pueden definirse fuerzas aplicadas al mismo, condiciones de desplazamiento y resortes. 
 	
@@ -371,17 +371,17 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\begin{itemize}  
 
-        \item \textbf{Alta, Baja y Modificación de Materiales:} Los materiales se definen en base a 5 propiedades: Nombre, Modulo de Young, Gamma, Alpha y Nu.
-        \item \textbf{Alta, Baja y Modificación de Secciones:} La sección es el corte transversal de una barra, y para este caso solo interesa conocer su área.
-        \item \textbf{Alta, Baja y Modificación de Nodos:} Cada nodo tiene asignado un conjunto de coordenadas espaciales (x,y,z). Además es posible asignar al mismo una fuerza aplicada, así tambien como condiciones de desplazamiento y resortes en cada coordenada.
+        \item \textbf{Alta, Baja y Modificación de Materiales:} Los materiales se definen en base a 5 propiedades: Nombre, Modulo de Young, Gamma(?), Alpha(?) y Nu(?).
+        \item \textbf{Alta, Baja y Modificación de Secciones:} La sección es el corte transversal de una barra, y para este tipo de problemas solo interesa conocer su área.
+        \item \textbf{Alta, Baja y Modificación de Nodos:} Cada nodo tiene asignado un conjunto de coordenadas espaciales $(x,y,z)$. Además es posible asignar al mismo una fuerza aplicada, así tambien como condiciones de desplazamiento y resortes en cada coordenada.
         \item \textbf{Alta, Baja y Modificación de Barras:} Cada barra tiene asignado un nodo inicial, un nodo final, un material y una sección.
 				\item \textbf{Crear grilla:} Son "`cuadrículas"' auxiliares que facilitan el proceso de dibujado. Para cada coordenada se define la cantidad de líneas auxiliares y la separación entre ellas.
 				\item \textbf{Modificar Visualización de Propiedad:} Los nodos con propiedades definidas, como por ejemplo fuerzas aplicadas o resortes, son marcados en la pantalla con vectores o geometrías básicas para ser diferenciados del resto. Esta funcionalidad permite ocultar, mostrar y escalar dichos elementos a gusto del usuario.
 				\item \textbf{Nueva Estructura:} Permite limpiar la pantalla para comenzar una nueva estructura.
 				\item \textbf{Abrir y Guardar Estructura:} Se busca la posibilidad de obtener un archivo con la estructura dibujada, de manera de poder seguir con el trabajo realizado en otro momento. También es deseable la carga de dicho archivo en la interfaz, obteniéndo la misma estructura en la que se estaba trabajando al momento de guardar.
-				\item \textbf{Generar Especifiacion:} A partir del dibujo realizado, se genera un archivo reconocible por el motor de cálculo con la especificación de la estructura
-				\item \textbf{Procesar Resultado:} Se trata de procesar el archivo resultante del motor, y actualizar la pantalla con la estructura deformada.
-				\item \textbf{Escalar Deformada:} Debido a que en algunos casos las deformaciones pueden ser tan pequeñas que pueden parecer imperceptibles a la vista, se incluye este caso de uso con el fin de "`exagerar"' la deformación y poder apreciar mejor los resultados obtenidos.
+				\item \textbf{Generar Especifiación:} A partir del dibujo realizado, se genera un archivo reconocible por el motor de cálculo con la especificación de la estructura
+				\item \textbf{Procesar Resultado:} Se trata de procesar el archivo resultante del motor y actualizar la pantalla con la estructura deformada.
+				\item \textbf{Escalar Deformada:} Debido a que en algunos casos los desplazamientos pueden ser tan pequeñas que pueden parecer imperceptibles a la vista, se incluye este caso de uso con el fin de "`exagerar"' los desplazamientos y poder apreciar mejor los resultados obtenidos.
 				\item \textbf{Colorear Estructura:} Al igual que la funcionalidad anterior, este caso de uso aplica a los resultados obtenidos del motor. Se trata de colorear la estructura en base a los datos obtenidos(por ejemplo, pintar de un color las barras que se comprimen y de otro las que se estiran). También se busca transparentar la estructura original o la deformada, para poder apreciar mejor los cambios entre una y otra.
 				
     \end{itemize}
@@ -390,7 +390,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	\begin{figure}
     \centerline{\includegraphics[width=1.3\textwidth]{Graficos/ModeloDominio}}
-		\caption{Modelo de dominio de IETFEM}
+		\caption{Modelo de dominio de IETFEM.}
 		\label{fig:ModeloDominio}
 	\end{figure}
 	
@@ -412,7 +412,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 
         \item Los clientes se sienten a gusto con considerar una versión final en la nube, ya que la mayoría de este tipo de sistemas son de escritorio y no para todos los sistemas operativos.
         \item Existe preocupación con respecto al servidor donde se aloje la aplicación. En particular, preocupa justamente encontrar un servidor gratuito donde alojarse y cómo mantener la aplicación una vez finalizado el proyecto
-        \item Una de las prestaciones actuales del motor de cálculo existente es que al estar desarrollado en Octave, permite al estudiante ver el funcionamiento interno del código(o incluso programar nuevos cálculos de acuerdo a sus necesidades), enriqueciendo el proceso de aprendizaje de los estudiantes. Dichas características se quieren mantener en la nueva solución.
+        \item Una de las prestaciones actuales del motor de cálculo existente es que al estar desarrollado en GNU-Octave, permite al estudiante ver el funcionamiento interno del código (o incluso programar nuevos cálculos de acuerdo a sus necesidades), enriqueciendo el proceso de aprendizaje de los estudiantes. Dichas características se quieren mantener en la nueva solución.
 				\item Se busca reusabilidad en el código de la aplicación, ya que en un futuro se pretende evolucionar la herramienta a un nivel profesional, donde se pretende que la misma posea diferentes características (por ejemplo, no sería deseable en un sistema profesional que se pueda acceder al código del motor de cálculo directamente).
 				
     \end{itemize}
@@ -446,7 +446,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 	\subsection {Arquitectura}
 	
-		La arquitectura de la aplicación sigue el clásico patrón MVC(Modelo-Vista-Controlador), donde el usuario se encuentra permanentemente interactuando con el sistema, modificando el Modelo(en este caso, la estructura) y visualizando el mismo en el espacio 3D, al que llamaremos Escena.
+		La arquitectura de la aplicación sigue el clásico patrón MVC (Modelo-Vista-Controlador), donde el usuario se encuentra permanentemente interactuando con el sistema, modificando el Modelo (en este caso, la estructura) y visualizando el mismo en el espacio 3D, al que llamaremos Escena.
 		
 		\begin{figure}
 			\centerline{\includegraphics[width=1.3\textwidth]{Graficos/Componentes}}
@@ -466,13 +466,13 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\textbf{Gestión Secciones:} Este subsistema mantiene la creación, modificación y eliminación de Secciones. Al igual que en con los materiales, la interacción con dicho módulo se lleva a cabo mediante un formulario.
 		
-	\textbf{Gestión Nodos:} Este subsistema mantiene la creación, modificación y eliminación de nodos. Los nodos pueden agregarse haciendo click en la escena o ingresando sus coordenadas manualmente. También se ofrece un formulario en donde se pueden agregar propiedades a los nodos: Fuerzas, Condiciones de desplazamiento y Resortes. Cada una de estas propiedades, además agregan a la escena diferentes elementos que indican el valor de cada una de ellas:
+	\textbf{Gestión Nodos:} Este subsistema mantiene la creación, modificación y eliminación de nodos. Los nodos pueden agregarse haciendo click en la escena o ingresando sus coordenadas manualmente. También se ofrece un formulario en donde se pueden agregar propiedades a los nodos: Fuerzas, Condiciones de desplazamiento y Resortes. Además, cada una de estas propiedades agrega a la escena diferentes elementos que indican el valor de cada una de ellas:
 	
 	\begin{itemize}  
 
-        \item Si se define en el nodo una fuerza aplicada, se dibuja su correspondiente vector a puntando a ese nodo.
+        \item Si se define en el nodo una fuerza aplicada, se dibuja su correspondiente vector apuntando a ese nodo.
         \item Si se define en el nodo una condicion de desplazamiento en alguna de sus coordenadas, se dibuja una pequeña pirámide de color rojo donde su eje principal tiene la dirección de la propia coordenda en que se define.
-				\item Si se define en el nodo una resorte en alguna de sus coordenadas, se dibuja una pequeña pirámide de color gris donde su eje principal tiene la dirección de la propia coordenda en que se define.
+				\item Si se define en el nodo un resorte en alguna de sus coordenadas, se dibuja una pequeña pirámide de color gris donde su eje principal tiene la dirección de la propia coordenda en que se define.
 				
     \end{itemize}
 	
@@ -511,24 +511,24 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Dada la elección de utilizar tecnologías web para encarar el desarrollo del proyecto, existen ciertas tecnologías estándar e ineludibles en cualquier aplicación web estas son HTML5, Javascript y CSS3. A continuación se describen brevemente las mismas.
 		
-		HTML es un lenguaje de marcado para la elaboración de paginas web. Es un estándar que sirve de referencia para la elaboración de paginas web y define una estructura básica y un código para la definición de contenido como texto, imágenes, videos, entre otros. En la actualidad se encuentra en su versión 5 la cual establece una serie de funcionalidades, elementos y atributos que reflejan el uso típico de los sitios web modernos.
+		\paragraph{HTML} es un lenguaje de marcado para la elaboración de paginas web. Es un estándar que sirve de referencia para la elaboración de paginas web y define una estructura básica y un código para la definición de contenido como texto, imágenes, videos, entre otros. En la actualidad se encuentra en su versión 5 la cual establece una serie de funcionalidades, elementos y atributos que reflejan el uso típico de los sitios web modernos.
 		
-		JavaScript (abreviado comúnmente "JS") es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado y dinámico.Se utiliza principalmente del lado del cliente implementado como parte de los navegadores web, permitiendo mejoras en la interfaz de usuario y aplicaciones web dinámicas.Es el estándar de facto para scripting en la web y es interpretado por todos los navegadores web.
+		\paragraph{JavaScript} (abreviado comúnmente "`JS"') es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado y dinámico. Se utiliza principalmente del lado del cliente implementado como parte de los navegadores web, permitiendo mejoras en la interfaz de usuario y aplicaciones web dinámicas.Es el estándar de facto para scripting en la web y es interpretado por todos los navegadores web.
 		
-		CSS actualmente en la versión 3 es un lenguaje de estilos que define la presentación de los documentos HTML. Esto abarca cuestiones relativas a fuentes, colores, margenes, altura, ancho, posicionamiento, etc. Una hoja de estilos fue utilizada en el proyecto con el fin de definir algunos estilos de menúes y formularios, esto es en aquellos no definidos o para personalizar los definidos en bootstrap.
+		\paragraph{CSS} actualmente en la versión 3 es un lenguaje de estilos que define la presentación de los documentos HTML. Esto abarca cuestiones relativas a fuentes, colores, margenes, altura, ancho, posicionamiento, etc. Una hoja de estilos fue utilizada en el proyecto con el fin de definir algunos estilos de menúes y formularios, esto es en aquellos no definidos o para personalizar los definidos en bootstrap.
 		
 		
 		\subsubsection {Bootstrap}
 		
-		Bootstrap es un "front-end framework" open source, es la mas popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
+		Bootstrap es un "`front-end framework"' open source, es la mas popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
 		
 		Las principales características del framework las cuales fueron ampliamente utilizadas en el proyecto son:
 		
 		\begin{itemize}  
-        \item Sistema de grillas responsivo para posicionar todos los elementos de la pagina de una manera sencilla.
+        \item Sistema de grillas responsive para posicionar todos los elementos de la pagina de una manera sencilla.
 				\item Estilos para controles de HTML.
 				\item Componentes personalizados.
-				\item Componentes javascript (Ej. Modals)
+				\item Componentes javascript (Ej. Modals).
     \end{itemize}
 	
 		\subsubsection {AngularJS}
@@ -541,13 +541,13 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\begin{itemize}  
         \item Two way data-binding: esto permite mantener el modelo y la vista (DOM) sincronizados sin necesidad de escribir código especial para mantener dicha sincronización.
-				\item MVC
-				\item Directivas, sirven para agregar funcionalidad a HTML mediante tags HTML, tanto built-in como personalizados.
+				\item MVC.
+				\item Directivas: sirven para agregar funcionalidad a HTML mediante tags HTML, tanto built-in como personalizados.
     \end{itemize}
 		
 		\subsubsection {ThreeJS}
 		
-		 Dada la elección de realizar una solución Web,la clara superioridad de WebGl para las características gráficas y la baja productividad y dificultad de desarrollo directamente sobre el, resultó necesario elegir un framework que lo abstraiga.
+		 Dada la elección de realizar una solución Web, la clara superioridad de WebGL para las características gráficas y la baja productividad y dificultad de desarrollo directamente sobre él, resultó necesario elegir un framework que lo abstraiga.
 		
 		En este sentido se decidió por ThreeJs por ser un proyecto activo, con la mayor cantidad de funcionalidades, buena documentación, con la mayor comunidad y por consiguiente mayor soporte entre todas las opciones.
 		
@@ -556,7 +556,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Electron}
 		
-		Es un framework que permite escribir aplicaciones de escritorio multiplataforma usando HTML, javascript y CSS.
+		Es un framework que permite escribir aplicaciones de escritorio multiplataforma usando HTML, JavaScript y CSS.
 		
 		Esta herramienta nos permitirá distribuir la aplicación de una manera mas elegante que en una carpeta con código y un archivo index.html para ejecutarlo en un navegador local. A los ojos de los usuarios el producto final es una aplicación nativa corriendo transparentemente una implementación mínima del navegador Chromium, solucionando así también posibles problemas de compatibilidad con algunos navegadores.
 		
@@ -566,7 +566,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		El espacio 3D ocupa la mayor parte de la pantalla, y es donde se espera que el usuario realice la mayor parte de interacciones posibles. Se busca que el usuario pueda manejar la escena mediante el uso del mouse, por lo tanto, al inicializar la aplicación se setean EventListenners a la ventana para cada tipo de acción con el mouse. Esto significa que la aplicación estará pendiente de todos los movimientos del mouse dentro de la escena. En particular: se tiene en cuenta el movimiento de la cámara y en qué modo se encuentra la aplicación
 		
-		Los evenos definidos son los siguientes:
+		Los eventos definidos son los siguientes:
 		
 			\begin{itemize}  
 
@@ -575,28 +575,29 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 				\begin{itemize}  
 					\item Si el mismo se presiona y suelta en el mismo lugar:
 					\begin{itemize}  
-						\item Si se encuentra en modo agregar nodos, y se hace el click encima de un punto de una grilla definida, se agrega el nodo
-						\item Si se encuentra en modo agregar barras, y se hace el click encima de un nodo, se selecciona el mismo para agregar una barra desde o hacia él
-						\item Si se encuentra en modo seleccionar, y se hace el click sobre un nodo o barra, se selecciona el elemento para modificar sus propiedades
+						\item Si se encuentra en modo agregar nodos, y se hace el click encima de un punto de una grilla definida, se agrega el nodo.
+						\item Si se encuentra en modo agregar barras, y se hace el click encima de un nodo, se selecciona el mismo para agregar una barra desde o hacia él.
+						\item Si se encuentra en modo seleccionar, y se hace el click sobre un nodo o barra, se selecciona el elemento para modificar sus propiedades.
+						\item Si se encuentra en otro modo, no realiza ninguna acción.
 					\end{itemize}	
-					\item Si el mismo se presiona y se arrastra, se rota la cámara, siempre apuntando al centro de la escena.
+					\item Si el mismo se presiona y se arrastra, se rota la cámara, siempre apuntando al centro de la escena (sin importar el modo).
 				\end{itemize}
-        \item Para el click derecho, se desplaza la cámara en dirección a donde se arrastre 
-				\item Para el scroll del mouse, se hace zoom in o zoom out dependiendo de la dirección del movimiento
-				\item Para el movimiento del mouse, cuando no se presiona nada, se resalta en color celeste los nodos o barras a los cuáles se les hace Hover.
+        \item Para el click derecho, se desplaza la cámara en dirección a donde se arrastre (sin importar el modo).
+				\item Para el scroll del mouse, se hace zoom in o zoom out dependiendo de la dirección del movimiento (sin importar el modo).
+				\item Para el movimiento del mouse, cuando no se presiona nada, se resalta en color celeste los nodos o barras a los cuáles se les hace Hover (sin importar el modo).
     \end{itemize}
 		
 		\subsubsection {Adición, sustracción y transformación de objetos}
 		
 		El espacio 3D desarrollado se implementó como un objeto de ThreeJs denominado Scene, el cual provee operaciones add() y remove() para agregar y eliminar objetos del mismo. Internamente, una Scene contiene una gran cantidad de atributos, entre los que se encuentran la posición, rotación, escalamiento por coordenada, y una lista de objetos en donde se almacenan los elementos que conforman la escena.
 		
-		Una vez definida la escena se agregan los primeros elementos: se utiliza el objeto GridHelper provisto por ThreeJS para definir una grilla auxiliar y se agregan 3 vectores definiendo los ejes x, y, z.
+		Una vez definida la escena se agregan los primeros elementos: se utiliza el objeto GridHelper provisto por ThreeJS para definir una grilla auxiliar y se agregan 3 vectores definiendo los ejes $x$, $y$, $z$.
 		
 		El resto de los objetos que se agregan a la escena se definen como objetos Mesh de ThreeJS, definidos por una geometría y un material:
 		
 		\begin{itemize}
-			\item La geometría de un objeto define su figura geométrica, define si se trata de un cilindro, una esfera, etc...
-			\item El material de un objeto define cómo se ve el mismo en pantalla, es decir, su color, transparencia, escalamiento, etc...
+			\item La geometría de un objeto define su figura geométrica, define si se trata de un cilindro, una esfera, etc.
+			\item El material de un objeto define cómo se ve el mismo en pantalla, es decir, su color, transparencia, escalamiento, etc.
     \end{itemize}
 		
 		Para representar los nodos se decidió utilizar esferas y para representar las barras se decidió utilizar cilindros. Esta decisión se basa en que son figuras geométricas fácilmente escalables, es decir, si se quiere cambiar el tamaño de un nodo o barra, solo basta con cambiar el radio de su geometría. Por ejemplo, cuando se selecciona un nodo para modificar sus propiedades, el mismo aumenta su tamaño y cambia su color. Esto se logra siguiendo el siguiente proceso:
@@ -619,9 +620,9 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:Camera}
 		\end{figure}
 		
-		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc(véase la Figura \ref{fig:Camera}). Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida, se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
+		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc (véase la Figura \ref{fig:Camera}). Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
 		
-		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agrego dicha clase a nuestro proyecto y se seteó a la cámara previamente definida. 
+		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agregó dicha clase a nuestro proyecto y se seteó a la cámara previamente definida. 
 		
 		Al observar la simplicidad del manejo de la cámara utilizando esta herramienta web, se decidió agregar otro juego de cámara-escena en la esquina inferior la cual siempre apunta a los ejes e imita los movimientos de rotación de la principal, de manera de mantener una referencia al usuario en caso que deba alejarse demasiado del origen.
 		
@@ -629,7 +630,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\begin{figure}
 			\centerline{\fbox{\includegraphics[width=1.3\textwidth]{Graficos/CamaraPerspectiva}}}
-			\caption{Visualización del Espacio desde la cámara en Perspectiva. También puede observarse la segunda cámara con los ejes en la esquina inferior izquierda}
+			\caption{Visualización del Espacio desde la cámara en Perspectiva. También puede observarse la segunda cámara con los ejes en la esquina inferior izquierda.}
 			\label{fig:CamaraPerspectiva}
 		\end{figure}	
 		
@@ -666,70 +667,70 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		En la Figura \ref{fig:escenaModelo} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará mas sobre cómo se almacena la estructura en la siguiente sección.
 		
-		La entrada de datos mediante el dibujado se realiza elemento por elemento. El usuario siempre ingresa un nodo o barra a la vez, lo que hace que la sincronización entre la escena y el modelo sea realmente sencilla. Sin embargo, cuando se carga una estructura previamente guardada, la misma se vuelve realmente complicada, ya que debe limpiarse tanto la escena como el modelo y cargar ambos con la nueva información, asegurándose de mantener la consistencia entre los mismos. Esto se logra mediante una fuerte relación entre el módulo que manipula el modelo y el que manipula la escena. Cada vez que se modifica cualquier aspecto de la estructura, se invocan operaciones de dichos módulos que no sólo realizan el propio cambio, sino que aseguran mantener la consistencia una vez finalizado. Esto significa, por ejemplo, que cargar una nueva estructura, se traduce internamente en una secuencia finita de llamados a operaciones más sencillas como "`Agregar nodo"' o "`Agregar barra"' las cuales mantienen el sistema en un estado de sincronía.
+		La entrada de datos mediante el dibujo se realiza elemento por elemento. El usuario siempre ingresa un nodo o barra a la vez, lo que hace que la sincronización entre la escena y el modelo sea realmente sencilla. Sin embargo, cuando se carga una estructura previamente guardada, la misma se vuelve realmente complicada, ya que debe limpiarse tanto la escena como el modelo y cargar ambos con la nueva información, asegurándose de mantener la consistencia entre los mismos. Esto se logra mediante una fuerte relación entre el módulo que manipula el modelo y el que manipula la escena. Cada vez que se modifica cualquier aspecto de la estructura, se invocan operaciones de dichos módulos que no sólo realizan el propio cambio, sino que aseguran mantener la consistencia una vez finalizado. Esto significa, por ejemplo, que cargar una nueva estructura, se traduce internamente en una secuencia finita de llamados a operaciones más sencillas como "`Agregar nodo"' o "`Agregar barra"' las cuales mantienen el sistema en un estado de sincronía.
 			
 			\subsubsection {Almacenamiento de la estructura}
 		
-	Si bien en la escena provista por Three se almacenan todos los objetos contenidos en la escena, se consideró que debía mantenerse otro tipo de objeto en donde se almacenaran los datos ingresados por el usuairo. Esta decisión se basa a que el objeto Escena puede ser complicado de manejar debido a la gran cantidad de atributos que posee, además de que sería necesario sobrecargar cada objeto de Three para agregar los atributos nuevos(propiedades de las barras y nodos).
+	Si bien en la escena provista por Three se almacenan todos los objetos contenidos en la escena, se consideró que debía mantenerse otro tipo de objeto en donde se almacenaran los datos ingresados por el usuario. Esta decisión se basa en que el objeto Escena puede ser difícil de manejar debido a la gran cantidad de atributos que posee, además de que sería necesario sobrecargar cada objeto de Three para agregar los atributos nuevos (propiedades de las barras y nodos).
 	
 	Básicamente, cada vez que se agrega un elemento a la escena, el mismo se agrega también al modelo. En particular se almacenan los siguientes aspectos:
 	
 	\begin{itemize}
 		\item\textbf{Nodos:} \begin{itemize}
-			\item Coordenadas x,y,z
-			\item Valores de condiciones de desplazamiento para x,y,z
-			\item Valores de resortes para x,y,z
-			\item Fuerza aplicada en el punto(coordenadas x,y,z)
-			\item Fuerza aplicada en el punto(coordenadas x,y,z)
-			\item Id de la esfera dibujada en la escena correspondiente al nodo
-			\item Id del vector dibujado en la escena correspondiente a la fuerza aplicada en el nodo
-			\item Id de cada pirámide dibujada en la escena que indica una condición de desplazamiento en el nodo
-			\item Id de cada pirámide dibujada en la escena que indica un resorte en el 
+			\item Coordenadas $x$,$y$,$z$.
+			\item Valores de condiciones de desplazamiento para $x$,$y$,$z$.
+			\item Valores de resortes para $x$,$y$,$z$.
+			\item Fuerza aplicada en el punto (coordenadas $x$,$y$,$z$).
+			\item Fuerza aplicada en el punto (coordenadas $x$,$y$,$z$).
+			\item Id de la esfera dibujada en la escena correspondiente al nodo.
+			\item Id del vector dibujado en la escena correspondiente a la fuerza aplicada en el nodo.
+			\item Id de cada pirámide dibujada en la escena que indica una condición de desplazamiento en el nodo.
+			\item Id de cada pirámide dibujada en la escena que indica un resorte en el nodo 
 		\end{itemize}
 		
 		\item\textbf{Barras:} \begin{itemize}
-			\item Id del nodo inicial
-			\item Id del nodo final
-			\item Id del cilindro dibujado en la escena correspondiente a la barra
-			\item Material de la barra
-			\item Sección de la barra
+			\item Id del nodo inicial.
+			\item Id del nodo final.
+			\item Id del cilindro dibujado en la escena correspondiente a la barra.
+			\item Material de la barra.
+			\item Sección de la barra.
 		\end{itemize}
 		
 		\item\textbf{Materiales:} \begin{itemize}
-			\item Nombre
-			\item Modulo de Young
-			\item Gamma
-			\item Alpha
-			\item Nu
+			\item Nombre.
+			\item Modulo de Young.
+			\item Gamma(?).
+			\item Alpha(?).
+			\item Nu(?).
 		\end{itemize}
 		
 		\item\textbf{Secciones:} \begin{itemize}
-			\item Área
+			\item Área(?).
 		\end{itemize}
 		
 		\item\textbf{Grillas:} \begin{itemize}
-			\item Id de cada objeto de la grilla dibujado en la escena(puntos y líneas)
+			\item Id de cada objeto de la grilla dibujado en la escena (puntos y líneas).
 		\end{itemize}
 		
 	\end{itemize}
 			
-		A modo de aclaración, se destaca la presencia en el modelo de los ids generados por Three para cada objeto generado en la escena. Esto se debe a que debe mantenerse una referencia entre cada elemento del modelo y su correspondiente objeto en la escena, ya que cualquier modificación que se realice debe aplicar a ambos. Por ejemplo, cuando se elimina un nodo, debe eliminarse tanto dle modelo como de la imagen en el espacio 3D. En este caso el proceso sería:
+		A modo de aclaración, se destaca la presencia en el modelo de los ids generados por Three para cada objeto generado en la escena. Esto se debe a que debe mantenerse una referencia entre cada elemento del modelo y su correspondiente objeto en la escena, ya que cualquier modificación que se realice debe aplicar a ambos. Por ejemplo, cuando se elimina un nodo, debe eliminarse tanto del modelo como de la imagen en el espacio 3D. En este caso el proceso sería:
 		
 		\begin{itemize}
-			\item El usuario hace click en un nodo
-			\item Se traza un rayo entre la cámara y el pixel, el cuál intersecta con el nodo deseado
-			\item Se obtiene el id del objeto en la escena
-			\item Con ese id, se obtiene el objeto del modelo
-			\item Se elimina el objeto del modelo
-			\item Se elimina el objeto de la escena
-			\item Se renderiza
+			\item El usuario hace click en un nodo.
+			\item Se traza un rayo entre la cámara y el pixel, el cuál intersecta con el nodo deseado.
+			\item Se obtiene el id del objeto en la escena.
+			\item Con ese id, se obtiene el objeto del modelo.
+			\item Se elimina el objeto del modelo.
+			\item Se elimina el objeto de la escena.
+			\item Se renderiza.
 		\end{itemize}
 		
 		\subsubsection {Salida de Datos}
 		
-		Una vez finalizado el proceso de dibujado, el usuario debe obtener un documento con la especificación de la estructura, para ser ingresado en el motor. Para comprender la solución propuesta, debe recapitularse hacia el uso del IETFEM antes de la realización de este proyecto. 
+		Una vez finalizado el proceso de dibujo, el usuario debe obtener un documento con la especificación de la estructura, para ser ingresado en el motor. Para comprender la solución propuesta, debe recapitularse hacia el uso del IETFEM antes de la realización de este proyecto. 
 		
-		Los estudiantes ingresaban la estructura mediante un archivo de especificación en la que debían escribir la posición de cada nodo, la conectividad de cada uno de ellos, los materiales implicados, y cada aspecto de la misma. Esto debía hacerse además respetando un formato predefinido el cuál derivaba en un fallo del motor en caso de ser omitido, incluyendo cada salto de línea y cantidad de espacios predefinida.
+		Los estudiantes ingresaban la estructura mediante un archivo de especificación en la que debían escribir la posición de cada nodo, la conectividad de cada uno de ellos, los materiales implicados, secciones, y otros aspectos de la estructura y de configuración. Esto debía hacerse además respetando un formato predefinido el cuál derivaba en un fallo del motor en caso de ser omitido, incluyendo saltos de línea y espacios para separar valores.
 		
 		De esta manera, resultaba extremadamente tedioso para el estudiante lograr finalmente el texto correcto con la estructura deseada. Sin embargo esta propiedad del antiguo IETFEM resultó ser de suma utilidad, ya que, intentando reducir al máximo el trabajo realizado en el motor, se decidió utilizar el mismo archivo de entrada al mismo.
 		
@@ -737,11 +738,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 	\subsection {Análisis de resultados del Core}
 	
-	Hasta ahora se ha descripto cómo el usuario interactúa con el sistema para generar una estructura. Sin embargo, el sistema incluye además la funcionalidad de visualizar los resultados generados por el motor de cálculo, logrando un nivel aún mas alto de amigabilidad que antes no se tenía con la generación de imágenes estáticas
+	Hasta ahora se ha descripto cómo el usuario interactúa con el sistema para generar una estructura. Sin embargo, el sistema incluye además la funcionalidad de visualizar los resultados generados por el motor de cálculo, logrando un nivel aún mas alto de amigabilidad.
 	
 		\subsubsection {Generación de resultados}
 		
-		IETFEM generaba, hasta antes de la presencia de la interfaz, diferentes imágenes y gráficas correspondientes a la deformación resultante de la estructura especificada. La adición de la interfaz en el sistema implicó deprecar el sistema de generación de imágenes, ya que ahora, la estructura deformada se vería en la interfaz. Por lo tanto, debía definirse un nuevo modelo de salida del Motor para lograr ser interpretado por la interfaz.
+		IETFEM generaba, hasta antes de la presencia de la interfaz, diferentes imágenes y gráficas correspondientes a la deformación resultante de la estructura especificada. La adición de la interfaz en el sistema implicó deprecar el sistema de generación de imágenes, ya que ahora, la estructura deformada se vería en la interfaz. Por lo tanto, debía definirse un nuevo modelo de salida del motor para lograr ser interpretado por la interfaz.
 		
 		La solución que se implementó consta simplemente de agregar al archivo .txt recibido, dos matrices con los resultados obtenidos de los cálculos realizados:
 		\begin{itemize}
@@ -764,8 +765,8 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		Finalmente se tiene la estructura deformada dibujada en la escena, a partir de que se incluyen ciertas opciones para comprender mejor el resultado que se está observando:
 		
 		\begin{itemize}
-			\item\textbf{Transparencia:} El usuario puede elegir transparentar levemente la estructura original o la deformada, de forma de resaltar una u otra de acuerdo a qué se está analizando
-			\item\textbf{Escalamiento:} Algunas estructuras sufren de deformaciones realmente pequeñas, poco apreciables a la vista. Por lo tanto, se incluye una funcionalidad para escalar interactivamente la deformada. Esto significa que puede multiplicarse la deformación por un número positivo con el fin de observar hacia dónde se realiza el desplazamiento de la estructura. Para hacer esto posible, simplemente se multiplica el desplazamiento de cada nodo por coordenada por el factor de escalamiento ingresado por el usuario, manteniendo la conectividad de la misma.
+			\item\textbf{Transparencia:} El usuario puede elegir transparentar levemente la estructura original o la deformada, de forma de resaltar una u otra de acuerdo a qué se esté analizando.
+			\item\textbf{Escalamiento:} Algunas estructuras sufren de deformaciones realmente pequeñas, poco apreciables a la vista. Por lo tanto, se incluye una funcionalidad para escalar interactivamente la deformada. Esto significa que puede multiplicarse los desplazamientos por un número positivo con el fin de observar hacia dónde se realiza el desplazamiento de la estructura. Para hacer esto posible, simplemente se multiplica el desplazamiento de cada nodo por coordenada por el factor de escalamiento ingresado por el usuario, manteniendo la conectividad de la misma.
 			\item\textbf{Colorizado:} Esta funcionalidad permite al usuario cambiar la colorización de la estructura dependiendo de los valores recibidos de las propiedades de las barras asignados en la deformada. Es decir, que el usuario puede elegir colorear cada barra de la estructura tomando en cuenta su deformación, fuerza o tensión. Se utilizan escalas de rojo para valores negativos y escalas de verde para valores positivos. Esto se logró recorriendo el modelo de la estructura deformada y cambiando el material que conforma cada barra por el color corespondiente a su valor.
 	
 		\end{itemize}
@@ -783,11 +784,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			
 			\item Manipulación visual y en tiempo real de la estructura que se esta generando.
 			
-			\item Experiencia de modelado similar a la utilizada por herramientas comerciales del rubro, lo cual aporta no solo a la usabilidad, si no que también prepara a los estudiantes para la utilización de las mismas en ambientes productivos.
+			\item Experiencia de modelado similar a la utilizada por herramientas comerciales del rubro, lo cual aporta no solo a la usabilidad, sino que también prepara a los estudiantes para la utilización de las mismas en ambientes profesionales.
 			
 			\item Reducción del tiempo de procesado de la salida en comparación al tiempo de generación de gráficos de IETFEM sin interfaz gráfica.
 			
-			\item Guía y simplifica al usuario el flujo de trabajo con GNU-Octave para la ejecución de los cálculos.
+			\item Guía y simplifica al usuario el flujo de trabajo para integrar su estructura dibujada con el motor y llevar a cabo la ejecución de los cálculos.
 	
 		\end{itemize}
 		
@@ -802,16 +803,16 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		Cuando uno ejecuta el IETFEM antiguo, se le plantean una serie de preguntas iniciales, las cuáles incluyen:
 		
 		\begin{itemize}
-			\item Idioma a manejar
-			\item Tipo de problema(Reticulados, pórticos o arcos)
-			\item Dimensiones del problema de problema(1D, 2D o 3D)
-			\item Pequeñas o grandes deformaciones
-			\item Nombre del archivo donde está especificada la estructura
+			\item Idioma a manejar(Español e Inglés).
+			\item Tipo de problema (Reticulados, pórticos o arcos).
+			\item Dimensiones del problema de problema(1D, 2D o 3D).
+			\item Pequeñas o grandes deformaciones.
+			\item Nombre del archivo donde está especificada la estructura.
 		\end{itemize}	
 		
 		Debido a que se decidió que la interfaz resuelva problemas de pequeñas deformaciones en reticulados, y que todos los problemas se ingresan en 3 dimensiones, se redujo este grupo de opciones solamente al idioma y el nombre del problema. Se decidió que el idioma esté seteado por defecto, debido a que la interacción directa con el motor pasó a ser casi nula. Por lo tanto, cuando uno ejecuta el motor sólo debe especificar el archivo con la estructura, eliminando una significativa cantidad de tiempo muerto al comienzo de cada ejecución.
 		
-		Respecto al archivo con la estructura mencionado, se redujo el tiempo de confección del mismo, ya que el dibujado se realiza de manera mas ágil y sencilla que ingresando cada coordenada y propiedad manualmente. Además, también se evita al usuario de problemas de sintaxis al escribir el archivo, ya que la interfaz se aseguró de generar el archivo con el formato exacto que necesita el motor.
+		Respecto al archivo con la estructura mencionado, se redujo el tiempo de confección del mismo, ya que el dibujado se realiza de manera mas ágil y sencilla que ingresando cada coordenada y propiedad manualmente. Poder ver la estructura en el proceso, disminuye los errores de conectividad y asignación de propiedades, apoyos, etc, los cuales significaban errores usuales. Además, también se evita al usuario de problemas de sintaxis al escribir el archivo, ya que la interfaz se aseguró de generar el archivo con el formato exacto que necesita el motor.
 		
 		Otro aspecto a destacar, es la eliminación de funciones de graficado del motor. Se observó que eliminando la generación de imágenes desde el mismo se obtiene una gran mejora en tiempos de ejecución. Se verá el impacto de esta medida en los casos estudiados en la siguiente sección.
 		
@@ -821,15 +822,15 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\subsubsection {Estudio de casos de pequeño porte (Torre pequeña)}
 		
-		El primer caso a probar consta de una estructura representando una pequeña torre. La misma se asemeja a las estructuras que se realizan en el curso de elasticidad en el que se utilizará la herramienta. Cuenta con 10 nodos y 25  barras.
+		El primer caso a probar consta de una estructura representando una pequeña torre. La misma se asemeja a las estructuras que se realizan en el curso de Elasticidad en el que se utilizará la herramienta. Cuenta con 10 nodos y 25  barras.
 		
 		La ejecución del mismo se llevó a cabo en etapas tempranas de desarrollo e integración con el motor, ayudando en el proceso de descubrimiento de bugs y resolución de los mismos.
 		
-		Una vez finalizada la primer versión, se probaron todos los casos de uso especificados, respondiendo a los mismos con resultados positivos y ejecutando con excelente fluidez. En la Figura \ref{fig:torres} puede ver la estructura y los resultados obtenidos. Se aprecia la estructura indeformada y la deformada en color púrpura. También se puede ver la torre sometida a un factor de escala de 200, con el fin de apreciar mejor la deformación de la misma. Por último, se coloreó la estructura de acuerdo a la deformación de cada barra, de manera que puede observarse en rojo las barras que se comprimen y en verde las que se traccionan.
+		Una vez finalizada la primer versión, se probaron todos los casos de uso especificados, respondiendo a los mismos con resultados positivos y ejecutando con excelente fluidez. En la Figura \ref{fig:torres} se puede ver la estructura y los resultados obtenidos. Se aprecia la estructura indeformada y la deformada en color púrpura. También se puede ver la torre sometida a un factor de escala de 200, con el fin de apreciar mejor los desplazamientos de la misma. Por último, se coloreó la estructura de acuerdo a la deformación de cada barra, de manera que puede observarse en rojo las barras que se comprimen y en verde las que se traccionan.
 		
 			\begin{figure}
 			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/torres}}
-			\caption{Caso de Estudio: Grúa}
+			\caption{Caso de Estudio: Torre pequeña}
 			\label{fig:torres}
 		\end{figure}
 		
@@ -870,7 +871,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\subsubsection {Estudio de casos de mediano porte (Grúa)}
 		
 		\begin{figure}
-			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/GruaIndeformada}}
+			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/gruaIndeformada}}
 			\caption{Caso de Estudio: Grúa}
 			\label{fig:GruaIndeformada}
 		\end{figure}
@@ -879,20 +880,20 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		No se detectaron bugs de integración con el motor en la ejecución de este caso. El mismo fué ejecutado y perfeccionado poco antes de la muestra de Ingeniería de este año, con el fin de demostrar la potencia y versatilidad de la aplicación. Los casos de uso se ejecutaron sin problemas, notando un nivel alto de fluidez al moverse por el espacio.
 		
-		En las figuras \ref{fig:GruaDeformada} y \ref{fig:GruaColoreada} se ven los resultados de su ejecución. Se nota la deformacón obtenida sin necesidad de realizar escalamiento alguno. La colorización de la estructura se logró de manera óptima y es coherente con la defoormación de la misma.
+		En las figuras \ref{fig:gruaDeformada} y \ref{fig:gruaColoreada} se ven los resultados de su ejecución. Se nota la deformacón obtenida sin necesidad de realizar escalamiento alguno. La colorización de la estructura se logró de manera óptima y es coherente con la defoormación de la misma.
 		
 		\begin{figure}[!tbp]
 			\centering
 			\begin{minipage}[b]{0.49\textwidth}
-				\includegraphics[width=\textwidth]{Graficos/GruaDeformada}
+				\includegraphics[width=\textwidth]{Graficos/gruaDeformada}
 				\caption{Deformación de la grúa}
-				\label{fig:GruaDeformada}
+				\label{fig:gruaDeformada}
 			\end{minipage}
 			\hfill
 			\begin{minipage}[b]{0.49\textwidth}
-				\includegraphics[width=\textwidth]{Graficos/GruaColoreada}
+				\includegraphics[width=\textwidth]{Graficos/gruaColoreada}
 				\caption{Coloración de la grúa}
-				\label{fig:GruaColoreada}
+				\label{fig:gruaColoreada}
 			\end{minipage}
 		\end{figure}
 		
@@ -1313,6 +1314,16 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 	
 	\section{.iet de torre chica}
 	
-	\end{appendices}	
+	\end{appendices}
 	
+	\begin{thebibliography}{50}
+
+	  \bibitem{GNUOctave}
+	    \emph{GNU-Octave: } https://www.gnu.org/software/octave/
+	    
+	    
+	  \bibitem{IETFEMArticle}
+	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - https://www.gnu.org/software/octave/
+	    
+	\end{thebibliography}
 \end{document}
