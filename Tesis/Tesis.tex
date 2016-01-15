@@ -19,7 +19,7 @@
 
 \maketitle
 
-\newpage
+\newpage 
 $\ $
 \newpage
 $\ $
@@ -125,9 +125,9 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades, basados principalmente en la experiencia de los clientes con las mismas.
 		
 		\subsubsection {SAP2000}
-		Es un software comercial desarrollado por la empresa Computers \& Structures,Inc. fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
+		Es un software comercial desarrollado por la empresa Computers \& Structures,Inc. \cite{CsiAmerica} fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
 		
-	Actualmente en su  versión 18, SAP2000 es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja en los primeros pasos.
+	Actualmente en su  versión 18, SAP2000 \cite{SAP2000} es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja en los primeros pasos.
 		
 		Entre las características mas importantes se encuentran:
 		\begin{itemize}
@@ -140,11 +140,15 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		\end{itemize}
 		
 		Por todo esto, SAP2000, es uno de los productos comerciales líderes en el mercado siendo utilizado en mas de 160 países en todo el mundo.
+			
+		En cuanto al licenciamiento, es un software privativo el cual cuenta con la opción de solicitar un trial de una versión limitada de la herramienta. Para comprarla es necesario contactarse con un vendedor de Buenos Aires.
 		
 		\subsubsection {AxisVM}
 		Es un software comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría.Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
 		
-		Actualmente en su versión 13, AxisVM requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
+		Actualmente en su versión 13, AxisVM \cite{Axis} requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
+		
+		Axis cuenta con una versión light gratuita con limitaciones en la cantidad de elementos que se pueden construir, ademas de la posibilidad de descargar una versión trial por tiempo limitado con el fin de evaluar mas intensamente la herramienta
 		
 		
 		\subsubsection {Herramientas Web}
@@ -153,11 +157,17 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		De acuerdo a la investigación realizada es importante destacar las siguientes ofertas:
 		
 		\begin{itemize}
-		\item Idea StatiCa es un emprendimiento Checo que cuenta con calculadoras para 6 problemas principalmente en espacios 2D. Esta desarrollado en Silverlight y utilizando la nube de Microsoft Azure como plataforma de despliegue.
+		\item Idea StatiCa \cite{IdeaStatica} es un emprendimiento Checo que cuenta con calculadoras para 6 problemas principalmente en espacios 2D. Esta desarrollado en Silverlight y utilizando la nube de Microsoft Azure como plataforma de despliegue.
 		
-		\item CloudCalc es un software en crecimiento enfocado al análisis de estructuras de acero en la nube proveniente de Houston EEUU. Esta desarrollado utilizando WebGl para las características gráficas 3D. 
+		Cuenta con ciertas características gratuitas y funciona con un sistema de créditos que se deben comprar para realizar ciertas funciones.
 		
-		\item SkyCiv es un emprendimiento reciente de origen Australiano y es la suite mas desarrollada y con mayor calidad aparente de las vistas en este sector. Cuenta con calculadoras para distintos problemas en 2D y una versión pro que permite estructuras en 3D. Utiliza también WebGl para los gráficos.
+		\item CloudCalc \cite{CloudCalc} es un software en crecimiento enfocado al análisis de estructuras de acero en la nube proveniente de Houston EEUU. Esta desarrollado utilizando WebGl para las características gráficas 3D. 
+		
+		Actualmente es una aplicación gratuita, es necesario simplemente la creación de una cuenta para poder probarla.
+		
+		\item SkyCiv \cite{SkyCiv} es un emprendimiento reciente de origen Australiano y es la suite mas desarrollada y con mayor calidad aparente de las vistas en este sector. Cuenta con calculadoras para distintos problemas en 2D y una versión pro que permite estructuras en 3D. Utiliza también WebGl para los gráficos.
+		
+		Cuenta con un trial por 30 días para probar todas sus funcionalidades y luego es un servicio que se paga de forma mensual.
 		
 		\end{itemize}
 		
@@ -176,7 +186,7 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		
 		El funcionamiento básico consiste en aceptar primitivas como puntos, lineas y polígonos y convertirlas en píxeles. Es una API basada en procedimientos de bajo nivel que requiere que el programador dicte los pasos exactos para renderizar la escena, eso es en contraste a APIs mas descriptivas, donde el programador solo debe describir la escena.
 		
-		OpenGL tiene dos propósitos esenciales:
+		OpenGL \cite{OpenGL} tiene dos propósitos esenciales:
 		
 		\begin{itemize}
 		
@@ -191,16 +201,16 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		
 		En virtud de lo detallado en cuanto al bajo nivel de abstracción y por consecuente prolongada curva de aprendizaje y baja productividad esta opción fue descartada rápidamente al menos en su uso directo.
 		
-		\subsubsection {JWJGL y JOGL}
+		\subsubsection {LWJGL y JOGL}
 		
-		JWJGL (Lightweight Java Game Library 3) y JOGL (Java OpenGL) son wrappers de OpenGL que proveen acceso de bajo nivel a sus funcionalidades que a menudo no se implementan de manera correcta. No son librerías con gran cantidad de funcionalidades ni proveen utilidades de alto nivel.
+		JWJGL (Lightweight Java Game Library 3) \cite{LWJGL} y JOGL (Java OpenGL) \cite{JOGL} son wrappers de OpenGL que proveen acceso de bajo nivel a sus funcionalidades que a menudo no se implementan de manera correcta. No son librerías con gran cantidad de funcionalidades ni proveen utilidades de alto nivel.
 		
 		En la actualidad existen muchas herramientas y motores gráficos para desarrollar aplicaciones 3D con mayor cantidad de funcionalidades, menor curva de aprendizaje y mayor productividad que utilizan estas librerías como base.
 		
 		
 		\subsubsection {JMonkeyEngine 3}
 		
-		Es un motor de código abierto con fuerte inclinación para el desarrollo de videojuegos, hecho especialmente para desarrolladores Java para la creación de aplicaciones 3D utilizando las mas modernas tecnologías de una manera rápida y con una baja curva de aprendizaje.
+		Es un motor de código abierto con fuerte inclinación para el desarrollo de videojuegos \cite{JMonkey}, hecho especialmente para desarrolladores Java para la creación de aplicaciones 3D utilizando las mas modernas tecnologías de una manera rápida y con una baja curva de aprendizaje.
 		
 		Esta desarrollado en base a JWJGL y es la suite mas popular en el mundo java para desarrollo de videojuegos en alto nivel, con una gran comunidad de desarrolladores y extensivamente documentado. Si bien el enfoque principal son los videojuegos es importante destacar que tiene todas las capacidades para poder construir otro tipo de aplicaciones.
 		
@@ -219,9 +229,9 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		
 		\subsubsection {WebGL}
 		
-		WebGL es una especificación estándar que está siendo desarrollada actualmente para mostrar gráficos en 3D en navegadores web. Permite mostrar gráficos en 3D acelerados por hardware (GPU) en páginas web, sin la necesidad de plug-ins en cualquier plataforma que soporte OpenGL 2.0 u OpenGL ES 2.0. Técnicamente es un API para javascript que permite usar la implementación nativa de OpenGL ES 2.0.
+		WebGL \cite{WebGLWiki} es una especificación estándar que está siendo desarrollada actualmente para mostrar gráficos en 3D en navegadores web. Permite mostrar gráficos en 3D acelerados por hardware (GPU) en páginas web, sin la necesidad de plug-ins en cualquier plataforma que soporte OpenGL 2.0 u OpenGL ES 2.0. Técnicamente es un API para javascript que permite usar la implementación nativa de OpenGL ES 2.0.
 		
-		Existe una gran explosión en la creación de aplicaciones con esta tecnología, desde  videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "`Experience Curiosity"' por el aniversario del aterrizaje del robot "`Curiosity Rover"' en Marte.
+		Existe una gran explosión en la creación de aplicaciones con esta tecnología, desde  videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "`Experience Curiosity"' \cite{ExperienceCuriosity} por el aniversario del aterrizaje del robot "`Curiosity Rover"' en Marte.
 		
 		Es importante destacar que en la actualidad esta soportado por todos los principales navegadores web tanto en versiones de escritorio como de dispositivos móviles.
 		
@@ -231,7 +241,7 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		
 		Como WebGL es una tecnología diseñada para trabajar directamente con el GPU (unidad de procesamiento gráfico) es difícil de codificar en comparación con otros estándares web más accesibles, es por eso que muchas bibliotecas de JavaScript han surgido para resolver este problema.
 		
-		Entre las mismas se privilegiaron aquellas con mayor cantidad de características implementadas, documentación y comunidad. La investigación entonces se simplifico a dos: ThreeJs y BabylonJs (Microsoft Open Source).
+		Entre las mismas se privilegiaron aquellas con mayor cantidad de características implementadas, documentación y comunidad. La investigación entonces se simplifico a dos: ThreeJs \cite{ThreeJS} y BabylonJs \cite{BabylonJS} (Microsoft Open Source).
 		
 		Ambas son librerías en javascript de alto nivel de abstracción sobre WebGl, tienen esencialmente el mismo conjunto de características tales como:
 		
@@ -520,7 +530,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Bootstrap}
 		
-		Bootstrap es un "`front-end framework"' open source, es la mas popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
+		Bootstrap \cite{Bootstrap} es un "`front-end framework"' open source, es la mas popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
 		
 		Las principales características del framework las cuales fueron ampliamente utilizadas en el proyecto son:
 		
@@ -535,7 +545,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Es un framework open source mantenido por Google que tiene como objetivo solucionar los principales problemas encontrados en el desarrollo de aplicaciones web dinámicas. 
 		
-		AngularJs propone la utilización de programación declarativa para las interfaces de usuario y programación imperativa para lógica de negocio. Implementa el patrón MVC para separar la presentación, datos y lógica. Todo esto da como resultado una aplicación prolija y testeable a nivel de código.
+		AngularJs \cite{AngularJS} propone la utilización de programación declarativa para las interfaces de usuario y programación imperativa para lógica de negocio. Implementa el patrón MVC para separar la presentación, datos y lógica. Todo esto da como resultado una aplicación prolija y testeable a nivel de código.
 		
 		Principales características utilizadas:
 		
@@ -1324,6 +1334,97 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 	    
 	  \bibitem{IETFEMArticle}
 	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - https://www.gnu.org/software/octave/
+			
+		\bibitem{CloudCalc}
+			\emph{CloudCalc: } http://www.cloudcalc.com/
+			
+		\bibitem{SkyCiv}
+			\emph{SkyCiv: } https://skyciv.com/
+			
+		\bibitem{IdeaStatica}
+			\emph{Idea StatiCa: } https://www.ideastatica.com/
+			
+		\bibitem{CsiAmerica}
+			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com/
+			
+		\bibitem{SAP2000}
+			\emph{SAP 2000: } https://www.csiamerica.com/products/sap2000
+			
+		\bibitem{Axis}
+			\emph{AxisVM: } http://axisvm.eu/index.html
+			
+		\bibitem{Soft}
+			\emph{Strucutral engineering software: } https://en.wikipedia.org/wiki/Structural_engineering_software
+			
+		\bibitem{OpenGLWiki}
+			\emph{OpenGL } https://es.wikipedia.org/wiki/OpenGL
+			
+		\bibitem{OpenGL}
+			\emph{OpenGL: } https://www.opengl.org/documentation/current_version/
+			
+		\bibitem{LWJGL}
+			\emph{Lightweight Java Game Library 3: } https://www.lwjgl.org/
+			
+		\bibitem{JOGL}
+			\emph{Java OpenGL: } https://en.wikipedia.org/wiki/Java_OpenGL
+			
+		\bibitem{JMonkey}
+			\emph{JMonkey Engine: } http://jmonkeyengine.org/tour/introduction/
+			
+		\bibitem{HTML Canvas 2D}
+			\emph{HTML Canvas 2D: } http://www.w3.org/TR/2dcontext/
+			
+		\bibitem{WebGLWiki}
+			\emph{WebGL: } https://en.wikipedia.org/wiki/WebGL
+			
+		\bibitem{BabylonJS}
+			\emph{BabylonJS: } http://www.babylonjs.com/
+			
+		\bibitem{ThreeJS}
+			\emph{ThreeJS: } http://threejs.org/
+			
+		\bibitem{ThreeJSWiki}
+			\emph{ThreeJS: } http://www.babylonjs.com/
+			
+		\bibitem{ExperienceCuriosity}
+			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity/
+			
+		\bibitem{Shader}
+			\emph{Shader: } https://es.wikipedia.org/wiki/Shader
+			
+		\bibitem{HTML}
+			\emph{HTML: } https://es.wikipedia.org/wiki/HTML
+			
+		\bibitem{HTML5}
+			\emph{HTML5: } https://es.wikipedia.org/wiki/HTML5
+			
+		\bibitem{JavaScript}
+			\emph{JavaScript: } https://es.wikipedia.org/wiki/JavaScript
+			
+			
+		\bibitem{CSS3}
+			\emph{CSS3: } https://es.wikipedia.org/wiki/Hoja_de_estilos_en_cascada#CSS3
+			
+		\bibitem{Bootstrap}
+			\emph{Bootstrap: } http://getbootstrap.com/
+			
+		\bibitem{AngularJS}
+			\emph{AngularJS: } https://angularjs.org/
+			
+		\bibitem{AngularJSWiki}
+			\emph{AngularJSWiki: } https://en.wikipedia.org/wiki/AngularJS
+			
+		\bibitem{MEF}
+			\emph{Método de los elementos finitos: } https://es.wikipedia.org/wiki/M%C3%A9todo_de_los_elementos_finitos
+			
+		\bibitem{OptimizingThreeJS}
+			\emph{Optimizing ThreeJS Blog: } http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects/
+			
+		\bibitem{Performance Monitor}
+			\emph{Performance Monitor: } http://learningthreejs.com/blog/2013/06/25/monitor-rendering-performance-within-threejs/
+			
+		\bibitem{StackOverflow}
+			\emph{StackOverflow: } http://stackoverflow.com/
 	    
 	\end{thebibliography}
 \end{document}
