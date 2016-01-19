@@ -55,12 +55,12 @@ $\ $
 	
 	En este contexto, la enseñanza del MEF en las carreras de ingeniería se transforma en un desafío docente, donde además de formar a los estudiantes en el uso de diferentes programas de cálculo estructural es necesario transmitirles los conocimientos y herramientas que les permitan realizar un análisis crítico de los resultados. Es importante destacar además, que la mayoría de los programas comerciales (ej: SAP2000\cite{SAP2000} y AxisVM\cite{AxisVM}) de MEF son de código cerrado, por lo que presentan como desventaja a nivel educativo, que no permiten a los estudiantes ver su funcionamiento interno, limitando la comprensión de los errores durante el aprendizaje.
 	
-	De esta manera surge entre docentes del Instituto de Estructuras y Transporte (IET) la motivación de brindar una solución al problema a través del desarrollo de un software educativo y de código abierto: IETFEM.
+	De esta manera surge entre docentes del Instituto de Estructuras y Transporte (IET) la motivación de brindar una solución al problema a través del desarrollo de un \emph{software} educativo y de código abierto: IETFEM.
 	
 	IETFEM comenzó a desarrollarse en 2012 . El primer módulo desarrollado permitió resolver problemas de estructuras de barras articuladas ó aporticadas en el plano con cargas aplicadas en los nodos. Esta primera versión fue utilizada por estudiantes del curso de Elasticidad 2013; luego se incluyó la posibilidad de generar un informe de salida en formato \LaTeX. Posteriormente, la herramienta contó con el aporte del docente del IET, Agustín Spalvier, desarrollando la capacidad de ingresar cargas distribuidas uniformes en elementos de pórtico y el análisis modal de vibraciones de pórticos. Finalmente, a principios de 2014, Castrillo desarrolló un módulo para la resolución de problemas con variaciones de temperatura y fuerza de volumen en barras articuladas.
 
 Se buscó una herramienta que sin ser compleja para su aplicación en cursos de grado, permita al estudiante visualizar el funcionamiento interno del método de cálculo. Por ello se optó por la sintaxis de programación de GNU-Octave (herramienta libre de alta compatibilidad con
-Matlab\cite{Matlab}), ya conocida por los estudiantes. Se considera que contar con un software abierto donde los estudiantes pueden entender e incluso programar nuevos cálculos de acuerdo a sus necesidades, enriquece el trabajo desde el punto de vista didáctico.
+Matlab\cite{MatLab}), ya conocida por los estudiantes. Se considera que contar con un \emph{software} abierto donde los estudiantes pueden entender e incluso programar nuevos cálculos de acuerdo a sus necesidades, enriquece el trabajo desde el punto de vista didáctico.
 
 La forma de ingreso de datos se eligió de acuerdo a otros programas de cálculo de estructuras como SAP2000 donde se deben definir: materiales, secciones, estados de carga, geometrías, conectividades, etc. En el IETFEM se optó por una entrada de archivo de texto plano donde el estudiante debe ingresar esta información. La salida también es en texto plano (.txt y .tex) y gráfica, al igual que en los programas comerciales.
 	
@@ -122,16 +122,16 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		
 		\subsection {Herramientas comerciales}
 		
-		Existen en el mercado diversos productos de software enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas mas avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades, basados principalmente en la experiencia de los clientes con las mismas.
+		Existen en el mercado diversos productos de \emph{software} enfocados al análisis de estructuras, con gran cantidad de funcionalidades y utilizados por ingenieros de todo el mundo en problemas reales. En el marco de este proyecto se exploraron con mayor rigurosidad dos herramientas: SAP2000 y AxisVM, las cuales en etapas más avanzadas del desarrollo fueron tomadas como estándar para la implementación de ciertas funcionalidades, basados principalmente en la experiencia de los clientes con las mismas.
 		
 		\subsubsection {SAP2000}
-		Es un software comercial desarrollado por la empresa Computers \& Structures,Inc. \cite{CsiAmerica} fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
+		Es un \emph{software} comercial desarrollado por la empresa Computers \& Structures,Inc. \cite{CsiAmerica} fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
 		
-	Actualmente en su  versión 18, SAP2000 \cite{SAP2000} es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja en los primeros pasos.
+	Actualmente en su  versión 18, SAP2000 \cite{SAP2000} es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja para modelar estructuras simples.
 		
-		Entre las características mas importantes se encuentran:
+		Entre las características más importantes se encuentran:
 		\begin{itemize}
-		\item Un motor de análisis que puede resolver varios tipos de problemas tales como:  
+		\item Un motor de análisis que puede resolver varios tipos de problemas. 
 		\item Diversas características para el modelado como templates, sistema de grillas, distintas vistas y herramientas de meshing.
 		\item Diversos componentes estructurales como articulaciones, barras, cables sólidos, resortes, etc.
 		\item Posibilidad de aplicar distintos tipos de cargas.
@@ -139,33 +139,33 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		\item Importación y exportación de modelos en distintos formatos estándar.
 		\end{itemize}
 		
-		Por todo esto, SAP2000, es uno de los productos comerciales líderes en el mercado siendo utilizado en mas de 160 países en todo el mundo.
+		Por todo esto, SAP2000, es uno de los productos comerciales líderes en el mercado siendo utilizado en más de 160 países en todo el mundo\cite{160countries}.
 			
 		En cuanto al licenciamiento, es un software privativo el cual cuenta con la opción de solicitar un trial de una versión limitada de la herramienta. Para comprarla es necesario contactarse con un vendedor de Buenos Aires.
 		
 		\subsubsection {AxisVM}
-		Es un software comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría.Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
+		Es un \emph{software} comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría. Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
 		
 		Actualmente en su versión 13, AxisVM \cite{Axis} requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
 		
-		Axis cuenta con una versión light gratuita con limitaciones en la cantidad de elementos que se pueden construir, ademas de la posibilidad de descargar una versión trial por tiempo limitado con el fin de evaluar mas intensamente la herramienta
+		Axis cuenta con una versión light gratuita con limitaciones en la cantidad de elementos que se pueden construir, ademas de la posibilidad de descargar una versión trial por tiempo limitado con el fin de evaluar más intensamente la herramienta
 		
 		
 		\subsubsection {Herramientas Web}
-		El sector del software de análisis estructural en la web (o nube) es un nicho poco explorado por los desarrolladores existiendo un conjunto muy limitado de ofertas en este sentido.
+		El sector del \emph{software} de análisis estructural en la web (o nube) es un nicho poco explorado por los desarrolladores existiendo un conjunto muy limitado de ofertas en este sentido.
 		
 		De acuerdo a la investigación realizada es importante destacar las siguientes ofertas:
 		
 		\begin{itemize}
-		\item Idea StatiCa \cite{IdeaStatica} es un emprendimiento Checo que cuenta con calculadoras para 6 problemas principalmente en espacios 2D. Esta desarrollado en Silverlight y utilizando la nube de Microsoft Azure como plataforma de despliegue.
+		\item Idea StatiCa \cite{IdeaStatica} es un emprendimiento Checo que cuenta con calculadoras para 6 problemas principalmente en espacios 2D. Ha sido desarrollado en Silverlight y utilizando la nube de Microsoft Azure como plataforma de despliegue.
 		
 		Cuenta con ciertas características gratuitas y funciona con un sistema de créditos que se deben comprar para realizar ciertas funciones.
 		
-		\item CloudCalc \cite{CloudCalc} es un software en crecimiento enfocado al análisis de estructuras de acero en la nube proveniente de Houston EEUU. Esta desarrollado utilizando WebGl para las características gráficas 3D. 
+		\item CloudCalc \cite{CloudCalc} es un \emph{software} en crecimiento enfocado al análisis de estructuras de acero en la nube proveniente de Houston EEUU. Ha sido desarrollado utilizando WebGl para las características gráficas 3D. 
 		
 		Actualmente es una aplicación gratuita, es necesario simplemente la creación de una cuenta para poder probarla.
 		
-		\item SkyCiv \cite{SkyCiv} es un emprendimiento reciente de origen Australiano y es la suite mas desarrollada y con mayor calidad aparente de las vistas en este sector. Cuenta con calculadoras para distintos problemas en 2D y una versión pro que permite estructuras en 3D. Utiliza también WebGl para los gráficos.
+		\item SkyCiv \cite{SkyCiv} es un emprendimiento reciente de origen Australiano y es la suite más desarrollada y con mayor calidad aparente de las vistas en este sector. Cuenta con calculadoras para distintos problemas en 2D y una versión pro que permite estructuras en 3D. Utiliza también WebGl para los gráficos.
 		
 		Cuenta con un trial por 30 días para probar todas sus funcionalidades y luego es un servicio que se paga de forma mensual.
 		
@@ -182,15 +182,15 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 	
 		\subsubsection {OpenGL}
 		
-		Es una especificación estándar que define una API multilenguaje y multiplataforma para escribir aplicaciones que produzcan gráfico 2D y 3D. 
+		Es una especificación estándar que define una \emph{API} multilenguaje y multiplataforma para escribir aplicaciones que produzcan gráfico 2D y 3D. 
 		
-		El funcionamiento básico consiste en aceptar primitivas como puntos, lineas y polígonos y convertirlas en píxeles. Es una API basada en procedimientos de bajo nivel que requiere que el programador dicte los pasos exactos para renderizar la escena, eso es en contraste a APIs mas descriptivas, donde el programador solo debe describir la escena.
+		El funcionamiento básico consiste en aceptar primitivas como puntos, lineas y polígonos y convertirlas en píxeles. Es una \emph{API} basada en procedimientos de bajo nivel que requiere que el programador dicte los pasos exactos para renderizar la escena. Esto la diferencia de otras \emph{APIs} más descriptivas, donde el programador sólo debe describir la escena.
 		
 		OpenGL \cite{OpenGL} tiene dos propósitos esenciales:
 		
 		\begin{itemize}
 		
-		\item Ocultar la complejidad de la interfaz con las diferentes tarjetas gráficas, presentando al programador una API única y uniforme.
+		\item Ocultar la complejidad de la interfaz con las diferentes tarjetas gráficas, presentando al programador una \emph{API} única y uniforme.
 		
 		\item Ocultar las diferentes capacidades de las diversas plataformas hardware, requiriendo que todas las implementaciones soporten la funcionalidad completa de OpenGL
 
@@ -210,28 +210,28 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 		
 		\subsubsection {JMonkeyEngine 3}
 		
-		Es un motor de código abierto con fuerte inclinación para el desarrollo de videojuegos \cite{JMonkey}, hecho especialmente para desarrolladores Java para la creación de aplicaciones 3D utilizando las mas modernas tecnologías de una manera rápida y con una baja curva de aprendizaje.
+		Es un motor de código abierto con fuerte inclinación para el desarrollo de videojuegos \cite{JMonkey}, hecho especialmente para desarrolladores Java para la creación de aplicaciones 3D utilizando las más modernas tecnologías de una manera rápida y con una baja curva de aprendizaje.
 		
-		Esta desarrollado en base a JWJGL y es la suite mas popular en el mundo java para desarrollo de videojuegos en alto nivel, con una gran comunidad de desarrolladores y extensivamente documentado. Si bien el enfoque principal son los videojuegos es importante destacar que tiene todas las capacidades para poder construir otro tipo de aplicaciones.
+		Esta desarrollado en base a JWJGL y es la suite más popular en el mundo java para desarrollo de videojuegos en alto nivel, con una gran comunidad de desarrolladores y extensivamente documentado. Si bien el enfoque principal son los videojuegos es importante destacar que tiene todas las capacidades para poder construir otro tipo de aplicaciones.
 		
 		
 	\subsection {Desarrollo 3D en la Web}
 	
 	La utilización de tecnologías web para el desarrollo de la aplicación probaba a priori ser una opción con mucho potencial aportando gran flexibilidad, una opción multiplataforma-multidispositivo además de ser innovadora para herramientas de este tipo.
 	
-	Es por estas razones y la experiencia del equipo de desarrollo en estas tecnologías (HTML5, CSS, Bootstrap, JavaScript, AngularJS, etc.) que se investigo la factibilidad de una solución gráfica 3D en este contexto.
+	Es por estas razones y la experiencia del equipo de desarrollo en estas tecnologías (HTML5, CSS, Bootstrap, JavaScript, AngularJS, etc.) que se investigó la factibilidad de una solución gráfica 3D en este contexto.
 	
 		\subsubsection {HTML5 - Canvas}
 		
-		El contexto 2D para el elemento de HTML "`Canvas"' permite la creación de gráficos en páginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web aunque con algunos trucos es posible realizar trabajos en 3D.
+		El contexto 2D para el elemento de HTML "`Canvas"' permite la creación de gráficos en páginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web, aunque es posible realizar trabajos en 3D.
 		
 		La relativa dificultad para realizar trabajos 3D y la gran diferencia de performance contra opciones como WebGL (Canvas corre en CPU) descartaron esta opción rápidamente.
 		
 		\subsubsection {WebGL}
 		
-		WebGL \cite{WebGLWiki} es una especificación estándar que está siendo desarrollada actualmente para mostrar gráficos en 3D en navegadores web. Permite mostrar gráficos en 3D acelerados por hardware (GPU) en páginas web, sin la necesidad de plug-ins en cualquier plataforma que soporte OpenGL 2.0 u OpenGL ES 2.0. Técnicamente es un API para javascript que permite usar la implementación nativa de OpenGL ES 2.0.
+		WebGL \cite{WebGLWiki} es una especificación estándar que está siendo desarrollada actualmente para mostrar gráficos en 3D en navegadores web. Permite mostrar gráficos en 3D acelerados por hardware (GPU) en páginas web, sin la necesidad de plug-ins en cualquier plataforma que soporte OpenGL 2.0 u OpenGL ES 2.0. Técnicamente es una \emph{API} para JavaScript que permite usar la implementación nativa de OpenGL ES 2.0.
 		
-		Existe una gran explosión en la creación de aplicaciones con esta tecnología, desde  videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "`Experience Curiosity"' \cite{ExperienceCuriosity} por el aniversario del aterrizaje del robot "`Curiosity Rover"' en Marte.
+		Existe una gran gama de aplicaciones desarrolladas sobre esta tecnología, desde videojuegos 3D hasta aplicaciones científicas como visualizadores de estructuras moleculares, simulaciones del sistema solar o una aplicación de la NASA llamada "`Experience Curiosity"' \cite{ExperienceCuriosity} por el aniversario del aterrizaje del robot "`Curiosity Rover"' en Marte.
 		
 		Es importante destacar que en la actualidad esta soportado por todos los principales navegadores web tanto en versiones de escritorio como de dispositivos móviles.
 		
@@ -265,13 +265,13 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 	
 		\subsubsection {Investigación sobre proyectos similares en América Latina}
 		
-		No se encontraron, en una exploración por la web o por experiencia de los docentes de Ingeniería Civil, herramientas de software con componente gráfico 3D de análisis de estructuras desarrollados en Latinoamérica, aunque se encuentran ciertos esfuerzos de algunas empresas de las herramientas mas importantes por llegar a este mercado mediante documentación, paginas web y/o re vendedores íntegramente de habla hispana.
+		No se encontraron, en una exploración por la web o por experiencia de los docentes de Ingeniería Civil, herramientas de \emph{software} con componente gráfico 3D de análisis de estructuras desarrollados en Latinoamérica, aunque se encuentran ciertos esfuerzos de algunas empresas de las herramientas más importantes por llegar a este mercado mediante documentación, paginas web y/o re vendedores íntegramente de habla hispana.
 		
 \section {Organización del trabajo}
 
 	\subsection {Alcance}
 	
-	Como se mencionó anteriormente, los objetivos planteados en este proyecto se basan en mejorar tanto la eficiencia como la usabilidad del IETFEM. En ese sentido, existen dentro de la rama del cálculo de estructuras una infinidad de funcionalidades y mejoras posibles que pueden resultar útiles en el sistema. Por lo tanto, se definió un conjunto acotado de funcionalidades y características deseables en el producto final, apuntando a alcanzar satisfactoriamente los objetivos planteados y lograr una herramienta de alto nivel.
+	Como se mencionó anteriormente, los objetivos planteados en este proyecto consisten en mejorar tanto la eficiencia como la usabilidad del IETFEM. En ese sentido, existen dentro de la rama del cálculo de estructuras una infinidad de funcionalidades y mejoras posibles que pueden resultar útiles en el sistema. Por lo tanto, se definió un conjunto acotado de funcionalidades y características deseables en el producto final, apuntando a alcanzar satisfactoriamente los objetivos planteados y lograr una herramienta de alto nivel.
 	
 	Se consideró como prioridad apuntar a una herramienta académica, es decir, una herramienta libre, intuitiva para los estudiantes y aplicable en cursos dictados por el IET. En particular, se tomó como referencia el curso de Elasticidad, curso donde ya fué utilizado satisfactoriamente el IETFEM y donde será utilizado luego de la realización de este proyecto.
 	
@@ -281,14 +281,14 @@ Por lo tanto, se desarrolló en este proyecto una \emph{interfaz gráfica de códig
 
         \item Rotación de la cámara de visualización.
         \item Movimiento de la misma por todo el espacio 3D.
-        \item Zoom In y Zoom Out.
+        \item \emph{Zoom In} y \emph{Zoom Out}.
 				\item Dibujado de nodos y barras.
 				\item Dibujado de grillas auxiliares.
 				\item Selección de nodos y barras: Para setear propiedades en las mismas.
 				\item Eliminación de nodos y barras.
 				\item Visualización y ocultación de propiedades: Fuerzas, puntos de apoyo y resortes.			
 				\item Visualización de estructura resultante: Observar la deformada y comparar con estructura original.		
-				\item Escalamiento la estructura deformada: "`Exagerar"' la deformación, para apreciar los pequeños desplazamientos.
+				\item Escalamiento de la estructura deformada: "`Exagerar"' la deformación, para apreciar los pequeños desplazamientos.
 				\item Visualización de las propiedades de la estructura deformada utilizando escalas de colores: Deformación, Fuerzas, Tensiones, etc.
 				
     \end{itemize}
@@ -323,7 +323,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
   En las primeras etapas del proyecto se focalizó el trabajo en comprender el problema que se quiere resolver. Se tuvieron reuniones quincenales con los clientes dónde se habló del problema del cálculo de estructuras y cómo lo resuelve IETFEM. Dichas reuniones se apoyaron además en una permanente comunicación por e-Mail y una vasta investigación del problema por parte del equipo de desarrollo. Para esto no sólo se investigó sobre el problema, sino que además se utilizaron productos similares e incluso el propio IETFEM con ejemplos simples.
 	
-	Una vez comprendido el problema, se buscó una solución al mismo. Dentro de esta etapa se pueden incluir la busqueda de herramientas, el análisis y el diseño de la aplicación. Se mantuvieron las reuniones con los clientes, evaluando herramientas y enseñando prototipos realizados a modo de prueba. Se investigaron lenguajes y librerías de programación 3D, tanto de escritorio como web, decidiendo en última instancia utilizar WebGL (se hablará mas en detalle en el siguiente capítulo).
+	Una vez comprendido el problema, se buscó una solución al mismo. Dentro de esta etapa se pueden incluir la busqueda de herramientas, el análisis y el diseño de la aplicación. Se mantuvieron las reuniones con los clientes, evaluando herramientas y enseñando prototipos realizados a modo de prueba. Se investigaron lenguajes y librerías de programación 3D, tanto de escritorio como web, decidiendo en última instancia utilizar WebGL (se hablará más en detalle en el siguiente capítulo).
 	
 	Conforme transcurría el tiempo, las reuniones se fueron enfoncando cada vez más en el producto final, comenzando a definir las funcionalidades y características del mismo. Mientras se mantenía contacto con los clientes, se realizó la definición de casos de uso, al tiempo que se definió la arquitectura del sistema en base a los requerimientos obtenidos y las prestaciones de las herramientas definidas.
 	
@@ -355,7 +355,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	Podemos ver también que ciertas etapas se planificaron en simultáneo por ciertos períodos de tiempo, especialmente en las etapas tempranas del proyecto donde se comenzó utilizando y comprendiendo tanto el IETFEM como otras herramientas, mientras se iba definiendo al mismo tiempo cómo realizar la interfaz. Se planificó de esta manera debido a que se consideró que sería bueno evaluar varias herramientas en simultáneo, a modo de comparar y definir qué funcionalidades y características nos gustaría que estén presentes en nuestro sistema. También evaluar cómo llevarlas a cabo utilizando las herramientas que existen en el mercado y el contexto académico en el cuál se quiere insertar la aplicacación.
 	
-	Se observa en la Figura~\ref{fig:Gantt} la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el testing y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de la cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la Tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
+	Se observa en la Figura~\ref{fig:Gantt} la concurrencia de tareas en los instantes finales del desarrollo, donde se planificó al mismo tiempo el \emph{testing} y la escritura de la Tesis. Debido a la metodología ágil elegida y al tiempo estipulado, resulta conveniente que el testeo de la aplicación comience cuanto antes, ya que corregir un error pasará a ser parte de la cola de tareas, y dependiendo de la prioridad de la misma podría ser resuelta antes que otras tareas definidas anteriormente pero con una baja prioridad. La escritura de la Tesis se planificó en simultáneo simplemente para intentar reducir el tiempo total del proyecto.
 	
 	El cronograma estimado se realizó de manera exitosa, siguiendo cada etapa en el orden estipulado sin demoras excesivas. Como agregado, durante la implementación se descubrieron nuevas funcionalidades que serían útiles en el sistema, las cuales fueron evaluadas con los clientes y algunas de ellas se llevaron a cabo sin problemas, debido a que la metodología de trabajo lo permitía. 
 	
@@ -464,7 +464,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:Componentes}
 		\end{figure}
 		
-		Cómo se puede ver en la Figura \ref{fig:Componentes}, se agruparon los casos de uso relacionados con el fin de crear diferentes subsistemas encargados de realizar cierto tipo de funcionalidades. Cada una de estas componentes, ofrece al usuario diferentes operaciones que afectan tanto el modelo de la estructura que se mantiene almacenado en la aplicación como lo que se está viendo en el espacio 3D. Por tal motivo, se crearon las componentes "`Modelo"' y "`Escena"', las cuáles uniformizan todas las operaciones básicas que se hacen en el modelo de la estructura, y en el dibujo en la escena, respectivamente. Además se destaca el subsistema "`Cámara"', el cual se relaciona directamente con la escena, encargado de los movimientos del usuario dentro del espacio 3D (Rotación y Desplazamiento) y el subsistema "`Deformada"', el cual maneja las operaciones básicas que se hacen en la estructura deformada.
+		Como se puede ver en la Figura \ref{fig:Componentes}, se agruparon los casos de uso relacionados con el fin de crear diferentes subsistemas encargados de realizar cierto tipo de funcionalidades. Cada una de estas componentes, ofrece al usuario diferentes operaciones que afectan tanto el modelo de la estructura que se mantiene almacenado en la aplicación como lo que se está viendo en el espacio 3D. Por tal motivo, se crearon las componentes "`Modelo"' y "`Escena"', las cuáles uniformizan todas las operaciones básicas que se hacen en el modelo de la estructura, y en el dibujo en la escena, respectivamente. Además se destaca el subsistema "`Cámara"', el cual se relaciona directamente con la escena, encargado de los movimientos del usuario dentro del espacio 3D (Rotación y Desplazamiento) y el subsistema "`Deformada"', el cual maneja las operaciones básicas que se hacen en la estructura deformada.
 		
 		Finalmente, las operaciones que puede realizar el usuario se dividen en 8 subsistemas que se describen a continuación:
 		
@@ -530,7 +530,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Bootstrap}
 		
-		Bootstrap \cite{Bootstrap} es un "`front-end framework"' open source, es la mas popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
+		Bootstrap \cite{Bootstrap} es un "`front-end framework"' open source, es la más popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
 		
 		Las principales características del framework las cuales fueron ampliamente utilizadas en el proyecto son:
 		
@@ -568,7 +568,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Es un framework que permite escribir aplicaciones de escritorio multiplataforma usando HTML, JavaScript y CSS.
 		
-		Esta herramienta nos permitirá distribuir la aplicación de una manera mas elegante que en una carpeta con código y un archivo index.html para ejecutarlo en un navegador local. A los ojos de los usuarios el producto final es una aplicación nativa corriendo transparentemente una implementación mínima del navegador Chromium, solucionando así también posibles problemas de compatibilidad con algunos navegadores.
+		Esta herramienta nos permitirá distribuir la aplicación de una manera más elegante que en una carpeta con código y un archivo index.html para ejecutarlo en un navegador local. A los ojos de los usuarios el producto final es una aplicación nativa corriendo transparentemente una implementación mínima del navegador Chromium, solucionando así también posibles problemas de compatibilidad con algunos navegadores.
 		
 	\subsection {Manejo del espacio 3D}
 	
@@ -675,7 +675,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:escenaModelo}
 		\end{figure}	
 		
-		En la Figura \ref{fig:escenaModelo} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará mas sobre cómo se almacena la estructura en la siguiente sección.
+		En la Figura \ref{fig:escenaModelo} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará más sobre cómo se almacena la estructura en la siguiente sección.
 		
 		La entrada de datos mediante el dibujo se realiza elemento por elemento. El usuario siempre ingresa un nodo o barra a la vez, lo que hace que la sincronización entre la escena y el modelo sea realmente sencilla. Sin embargo, cuando se carga una estructura previamente guardada, la misma se vuelve realmente complicada, ya que debe limpiarse tanto la escena como el modelo y cargar ambos con la nueva información, asegurándose de mantener la consistencia entre los mismos. Esto se logra mediante una fuerte relación entre el módulo que manipula el modelo y el que manipula la escena. Cada vez que se modifica cualquier aspecto de la estructura, se invocan operaciones de dichos módulos que no sólo realizan el propio cambio, sino que aseguran mantener la consistencia una vez finalizado. Esto significa, por ejemplo, que cargar una nueva estructura, se traduce internamente en una secuencia finita de llamados a operaciones más sencillas como "`Agregar nodo"' o "`Agregar barra"' las cuales mantienen el sistema en un estado de sincronía.
 			
@@ -748,7 +748,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 	\subsection {Análisis de resultados del Core}
 	
-	Hasta ahora se ha descripto cómo el usuario interactúa con el sistema para generar una estructura. Sin embargo, el sistema incluye además la funcionalidad de visualizar los resultados generados por el motor de cálculo, logrando un nivel aún mas alto de amigabilidad.
+	Hasta ahora se ha descripto cómo el usuario interactúa con el sistema para generar una estructura. Sin embargo, el sistema incluye además la funcionalidad de visualizar los resultados generados por el motor de cálculo, logrando un nivel aún más alto de amigabilidad.
 	
 		\subsubsection {Generación de resultados}
 		
@@ -822,7 +822,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Debido a que se decidió que la interfaz resuelva problemas de pequeñas deformaciones en reticulados, y que todos los problemas se ingresan en 3 dimensiones, se redujo este grupo de opciones solamente al idioma y el nombre del problema. Se decidió que el idioma esté seteado por defecto, debido a que la interacción directa con el motor pasó a ser casi nula. Por lo tanto, cuando uno ejecuta el motor sólo debe especificar el archivo con la estructura, eliminando una significativa cantidad de tiempo muerto al comienzo de cada ejecución.
 		
-		Respecto al archivo con la estructura mencionado, se redujo el tiempo de confección del mismo, ya que el dibujado se realiza de manera mas ágil y sencilla que ingresando cada coordenada y propiedad manualmente. Poder ver la estructura en el proceso, disminuye los errores de conectividad y asignación de propiedades, apoyos, etc, los cuales significaban errores usuales. Además, también se evita al usuario de problemas de sintaxis al escribir el archivo, ya que la interfaz se aseguró de generar el archivo con el formato exacto que necesita el motor.
+		Respecto al archivo con la estructura mencionado, se redujo el tiempo de confección del mismo, ya que el dibujado se realiza de manera más ágil y sencilla que ingresando cada coordenada y propiedad manualmente. Poder ver la estructura en el proceso, disminuye los errores de conectividad y asignación de propiedades, apoyos, etc, los cuales significaban errores usuales. Además, también se evita al usuario de problemas de sintaxis al escribir el archivo, ya que la interfaz se aseguró de generar el archivo con el formato exacto que necesita el motor.
 		
 		Otro aspecto a destacar, es la eliminación de funciones de graficado del motor. Se observó que eliminando la generación de imágenes desde el mismo se obtiene una gran mejora en tiempos de ejecución. Se verá el impacto de esta medida en los casos estudiados en la siguiente sección.
 		
@@ -886,7 +886,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:GruaIndeformada}
 		\end{figure}
 		
-		El siguiente paso en la prueba del sistema fue utilizar un modelo de estructura mas grande. El modelo elegido fue una grúa, que puede observarse en la Figura \ref{fig:GruaIndeformada}. Dicha estructura cuenta con 289 nodos y 1294 barras, lo que se considera un alto nivel de datos considerando el objetivo académico de la estructura. Esto quiere decir que en el curso donde se pondrá en producción el nuevo IETFEM, el estudinte nuncá deberá dibujar una estructura de semejante tamaño. Por lo tanto, consideramos en un principio este caso como una prueba de stress.
+		El siguiente paso en la prueba del sistema fue utilizar un modelo de estructura más grande. El modelo elegido fue una grúa, que puede observarse en la Figura \ref{fig:GruaIndeformada}. Dicha estructura cuenta con 289 nodos y 1294 barras, lo que se considera un alto nivel de datos considerando el objetivo académico de la estructura. Esto quiere decir que en el curso donde se pondrá en producción el nuevo IETFEM, el estudinte nuncá deberá dibujar una estructura de semejante tamaño. Por lo tanto, consideramos en un principio este caso como una prueba de stress.
 		
 		No se detectaron bugs de integración con el motor en la ejecución de este caso. El mismo fué ejecutado y perfeccionado poco antes de la muestra de Ingeniería de este año, con el fin de demostrar la potencia y versatilidad de la aplicación. Los casos de uso se ejecutaron sin problemas, notando un nivel alto de fluidez al moverse por el espacio.
 		
@@ -940,7 +940,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Estudio de casos de gran porte y performance (Torre Eiffel)}
 		
-		Luego de lograr un caso exitoso con la grúa, se estableció que la herramienta cumplía los requisitos necesarios para poder ser utilizado en el curso de Elasticidad. Sin embargo, se decidió intentar un caso aún mas masivo para observar su comportamiento. El modelo elegido fue la Torre Eiffel, la cual cuenta con 9746 barras y 2077 nodos.
+		Luego de lograr un caso exitoso con la grúa, se estableció que la herramienta cumplía los requisitos necesarios para poder ser utilizado en el curso de Elasticidad. Sin embargo, se decidió intentar un caso aún más masivo para observar su comportamiento. El modelo elegido fue la Torre Eiffel, la cual cuenta con 9746 barras y 2077 nodos.
 		
 		Lo primero que se observó al cargar el modelo en la interfaz, fue una notoria baja calidad en el movimiento en la cámara. Debido a la masividad de objetos ingresados en la escena, el renderizado consumía demasiado tiempo y le quitaba fluidez a la aplicación.
 		
@@ -956,9 +956,9 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			
 			\item En el caso de utilizar la geometría esfera, utilizarla con parámetros que deriven en una figura con menor cantidad de caras. Según la investigación la mejora de performance es muy baja.
 
-			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de  mergear  o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta mas difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
+			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de  mergear  o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta más difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
 			
-			\item Utilizar estructuras de datos mas performantes como el octree para tareas como raycasting.
+			\item Utilizar estructuras de datos más performantes como el octree para tareas como raycasting.
 			
 			\item Utilizar web workers con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
 			
@@ -974,11 +974,11 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 
 	\subsection {Conclusiones}
 	
-	Habiendo finalizado con la implementación de la interfaz "`IETFEM UI"' se puede afirmar que el proyecto concluyo de forma exitosa.
+	Habiendo finalizado con la implementación de la interfaz "`IETFEM UI"' se puede afirmar que el proyecto concluyó de forma exitosa.
 	
 	En cuanto a las planificaciones y estimaciones realizadas, se transcurrió con muy pocas diferencias con lo planificado, logrando realizar las entregas de iteraciones del producto en tiempo y forma con un buen grado de aceptación por parte de los clientes. La metodología de desarrollo utilizada, aunque sencilla, cumplió con el objetivo de organizar el trabajo y marcar un camino a seguir en las distintas instancias del proyecto.
 	
-	En lo concerniente al producto, se logro un resultado final que supera las expectativas iniciales, tanto del equipo de desarrollo como del cliente, logrando atacar las mas importantes limitaciones de la herramienta (problemas de interfaz y generación de gráficos) que motivaron la realización del proyecto. Se implementaron todas las funcionalidades esenciales logrando una solución completa donde es importante mencionar el entorno 3D de calidad, así como la sencillez de uso, aunque se podrían echar en falta mas funcionalidades accesorias como selección múltiple o retoques estéticos. Ademas cabe destacar que se cumplieron los requisitos no funcionales de performance logrando soportar ampliamente las estructuras que se dibujaran en un ambiente académico.
+	En lo concerniente al producto, se logró un resultado final que supera las expectativas iniciales, tanto del equipo de desarrollo como del cliente, logrando atacar las más importantes limitaciones de la herramienta (problemas de interfaz y generación de gráficos) que motivaron la realización del proyecto. Se implementaron todas las funcionalidades esenciales logrando una solución completa donde es importante mencionar el entorno 3D de calidad, así como la sencillez de uso, aunque se podrían echar en falta más funcionalidades accesorias como selección múltiple o retoques estéticos. Ademas cabe destacar que se cumplieron los requisitos no funcionales de performance logrando soportar ampliamente las estructuras que se dibujaran en un ambiente académico.
 	
 	\subsection {Trabajo a futuro}
 	
@@ -988,11 +988,11 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		Si bien la interfaz cumple con los requisitos y el alcance pretendido para el proyecto, existen muchos puntos para agregar y mejorar.
 		
-		En primer lugar y quizás como el punto mas directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran: pórticos, etc.
+		En primer lugar y quizás como el punto más directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran: pórticos, etc.
 		
-		Además se pueden agregar varias funcionalidades accesorias como cámara ortogonal o selección múltiple, enriqueciendo la experiencia con la herramienta e incluso asemejándola a la de programas comerciales con años de desarrollo. Con el fin de mejorar la experiencia es posible dedicar esfuerzo también a detalles estéticos de la interfaz para hacerla aún mas atractiva. 
+		Además se pueden agregar varias funcionalidades accesorias como cámara ortogonal o selección múltiple, enriqueciendo la experiencia con la herramienta e incluso asemejándola a la de programas comerciales con años de desarrollo. Con el fin de mejorar la experiencia es posible dedicar esfuerzo también a detalles estéticos de la interfaz para hacerla aún más atractiva. 
 		
-		Un detalle técnico que podría ser importante atacar en el futuro son cuestiones de performance. Esto es principalmente, mejoramiento de estructuras de datos y algoritmos, mejor administración de la memoria utilizada y técnicas mas avanzadas en cuanto al desarrollo gráfico. Todas los puntos anteriores permitirían la capacidad de manipular y procesar estructuras muy grandes, mejorando también la fluidez de los gráficos en estas situaciones.
+		Un detalle técnico que podría ser importante atacar en el futuro son cuestiones de performance. Esto es principalmente, mejoramiento de estructuras de datos y algoritmos, mejor administración de la memoria utilizada y técnicas más avanzadas en cuanto al desarrollo gráfico. Todas los puntos anteriores permitirían la capacidad de manipular y procesar estructuras muy grandes, mejorando también la fluidez de los gráficos en estas situaciones.
 		
 		\subsubsection {Despliegue de la aplicación}
 		
@@ -1289,7 +1289,7 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		\begin{itemize}
 				\item\textbf{Nombre:} Escalar Deformada 
-				\item\textbf{Descripción:} En la vista de exploración de la deformada permite exagerar la deformación en factores lineales para hacerla mas apreciable 
+				\item\textbf{Descripción:} En la vista de exploración de la deformada permite exagerar la deformación en factores lineales para hacerla más apreciable 
 				\item\textbf{Precondiciones:} Se procesaron los resultados de una estructura generándose en la interfaz la vista de exploración de la estructura deformada
 				\item\textbf{Postcondiciones:} Se aprecia la estructura deformada con con el factor de escala dado por el parámetro seleccionado
 				\item\textbf{Flujo Normal:} \begin{enumerate}
@@ -1333,61 +1333,67 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 	    
 	    
 	  \bibitem{IETFEMArticle}
-	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - https://www.gnu.org/software/octave/
+	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - https://www.gnu.org/software/octave
 			
 		\bibitem{CloudCalc}
-			\emph{CloudCalc: } http://www.cloudcalc.com/
+			\emph{CloudCalc: } http://www.cloudcalc.com
 			
 		\bibitem{SkyCiv}
-			\emph{SkyCiv: } https://skyciv.com/
+			\emph{SkyCiv: } https://skyciv.com
 			
 		\bibitem{IdeaStatica}
-			\emph{Idea StatiCa: } https://www.ideastatica.com/
+			\emph{Idea StatiCa: } https://www.ideastatica.com
 			
 		\bibitem{CsiAmerica}
-			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com/
+			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com
 			
 		\bibitem{SAP2000}
 			\emph{SAP 2000: } https://www.csiamerica.com/products/sap2000
 			
-		\bibitem{Axis}
+		\bibitem{160Countries}	
+			\emph{Alcance mundial de SAP2000: } https://www.csiamerica.com/about
+			
+		\bibitem{MatLab}
+			\emph{MatLab: } http://www.mathworks.com/products/matlab
+			
+		\bibitem{AxisVM}
 			\emph{AxisVM: } http://axisvm.eu/index.html
 			
 		\bibitem{Soft}
-			\emph{Strucutral engineering software: } https://en.wikipedia.org/wiki/Structural_engineering_software
+			\emph{Strucutral engineering software: } https://en.wikipedia.org/wiki/Structural\_engineering\_software
 			
 		\bibitem{OpenGLWiki}
-			\emph{OpenGL } https://es.wikipedia.org/wiki/OpenGL
+			\emph{OpenGL: } https://es.wikipedia.org/wiki/OpenGL
 			
 		\bibitem{OpenGL}
-			\emph{OpenGL: } https://www.opengl.org/documentation/current_version/
+			\emph{OpenGL: } https://www.opengl.org/documentation/current\_version
 			
 		\bibitem{LWJGL}
-			\emph{Lightweight Java Game Library 3: } https://www.lwjgl.org/
+			\emph{Lightweight Java Game Library 3: } https://www.lwjgl.org
 			
 		\bibitem{JOGL}
-			\emph{Java OpenGL: } https://en.wikipedia.org/wiki/Java_OpenGL
+			\emph{Java OpenGL: } https://en.wikipedia.org/wiki/Java\_OpenGL
 			
 		\bibitem{JMonkey}
-			\emph{JMonkey Engine: } http://jmonkeyengine.org/tour/introduction/
+			\emph{JMonkey Engine: } http://jmonkeyengine.org/tour/introduction
 			
 		\bibitem{HTML Canvas 2D}
-			\emph{HTML Canvas 2D: } http://www.w3.org/TR/2dcontext/
+			\emph{HTML Canvas 2D: } http://www.w3.org/TR/2dcontext
 			
 		\bibitem{WebGLWiki}
 			\emph{WebGL: } https://en.wikipedia.org/wiki/WebGL
 			
 		\bibitem{BabylonJS}
-			\emph{BabylonJS: } http://www.babylonjs.com/
+			\emph{BabylonJS: } http://www.babylonjs.com
 			
 		\bibitem{ThreeJS}
-			\emph{ThreeJS: } http://threejs.org/
+			\emph{ThreeJS: } http://threejs.org
 			
 		\bibitem{ThreeJSWiki}
-			\emph{ThreeJS: } http://www.babylonjs.com/
+			\emph{ThreeJS: } http://www.babylonjs.com
 			
 		\bibitem{ExperienceCuriosity}
-			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity/
+			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity
 			
 		\bibitem{Shader}
 			\emph{Shader: } https://es.wikipedia.org/wiki/Shader
@@ -1401,15 +1407,14 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		\bibitem{JavaScript}
 			\emph{JavaScript: } https://es.wikipedia.org/wiki/JavaScript
 			
-			
 		\bibitem{CSS3}
-			\emph{CSS3: } https://es.wikipedia.org/wiki/Hoja_de_estilos_en_cascada#CSS3
+			\emph{CSS3: } https://es.wikipedia.org/wiki/Hoja\_de\_estilos\_en\_cascada\#CSS3
 			
 		\bibitem{Bootstrap}
-			\emph{Bootstrap: } http://getbootstrap.com/
+			\emph{Bootstrap: } http://getbootstrap.com
 			
 		\bibitem{AngularJS}
-			\emph{AngularJS: } https://angularjs.org/
+			\emph{AngularJS: } https://angularjs.org
 			
 		\bibitem{AngularJSWiki}
 			\emph{AngularJSWiki: } https://en.wikipedia.org/wiki/AngularJS
@@ -1418,13 +1423,13 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			\emph{Método de los elementos finitos: } https://es.wikipedia.org/wiki/M%C3%A9todo_de_los_elementos_finitos
 			
 		\bibitem{OptimizingThreeJS}
-			\emph{Optimizing ThreeJS Blog: } http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects/
+			\emph{Optimizing ThreeJS Blog: } http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects
 			
 		\bibitem{Performance Monitor}
-			\emph{Performance Monitor: } http://learningthreejs.com/blog/2013/06/25/monitor-rendering-performance-within-threejs/
+			\emph{Performance Monitor: } http://learningthreejs.com/blog/2013/06/25/monitor-rendering-performance-within-threejs
 			
 		\bibitem{StackOverflow}
-			\emph{StackOverflow: } http://stackoverflow.com/
+			\emph{StackOverflow: } http://stackoverflow.com
 	    
 	\end{thebibliography}
 \end{document}
