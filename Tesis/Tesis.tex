@@ -129,7 +129,7 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 		\subsubsection {SAP2000}
 		Es un \emph{software} comercial desarrollado por la empresa Computers \& Structures,Inc. \cite{CsiAmerica} fundada en 1975 en California, siendo uno de los pioneros en herramientas de análisis de estructuras.
 		
-	Actualmente en su  versión 18, SAP2000 \cite{SAP2000} es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja para modelar estructuras simples.
+	Actualmente en su  versión 18, SAP2000 es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja para modelar estructuras simples.
 		
 		Entre las características más importantes se encuentran:
 		\begin{itemize}
@@ -148,7 +148,7 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 		\subsubsection {AxisVM}
 		Es un \emph{software} comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría. Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
 		
-		Actualmente en su versión 13, AxisVM \cite{AxisVM} requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
+		Actualmente en su versión 13, AxisVM requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
 		
 		Axis cuenta con una versión \emph{light} gratuita con limitaciones en la cantidad de elementos que se pueden construir, ademas de la posibilidad de descargar una versión \emph{trial} por tiempo limitado con el fin de evaluar más intensamente la herramienta.
 		
@@ -204,7 +204,7 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 		
 		\subsubsection {LWJGL y JOGL}
 		
-		JWJGL (Lightweight Java Game Library 3) \cite{LWJGL} y JOGL (Java OpenGL) \cite{JOGL} son \emph{wrappers} de OpenGL que proveen acceso de bajo nivel a sus funcionalidades que a menudo no se implementan de manera correcta. No son librerías con gran cantidad de funcionalidades ni proveen utilidades de alto nivel.
+		JWJGL (Lightweight Java Game Library 3) \cite{JWJGL} y JOGL (Java OpenGL) \cite{JOGL} son \emph{wrappers} de OpenGL que proveen acceso de bajo nivel a sus funcionalidades que a menudo no se implementan de manera correcta. No son librerías con gran cantidad de funcionalidades ni proveen utilidades de alto nivel.
 		
 		En la actualidad existen muchas herramientas y motores gráficos para desarrollar aplicaciones 3D con mayor cantidad de funcionalidades, menor curva de aprendizaje y mayor productividad que utilizan estas librerías como base.
 		
@@ -224,7 +224,7 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 	
 		\subsubsection {HTML5 - Canvas}
 		
-		El contexto 2D para el elemento de HTML "`Canvas"' permite la creación de gráficos en páginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web, aunque es posible realizar trabajos en 3D.
+		El contexto 2D para el elemento de HTML "`Canvas"'\cite{Canvas} permite la creación de gráficos en páginas web. Es una tecnología que se usa principalmente para dibujar gráficos 2D en la web, aunque es posible realizar trabajos en 3D.
 		
 		La relativa dificultad para realizar trabajos 3D y la gran diferencia de performance contra opciones como WebGL (Canvas corre en CPU) descartaron esta opción (en su uso directo) rápidamente.
 		
@@ -254,7 +254,7 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 		\item Animaciones.
 		\item Luces.
 		\item Materiales.
-		\item Shaders.
+		\item \emph{Shaders}.
 		\item Objetos y Geometrías
 		\item Importación y exportación para texturas y otros assets.
 		\item Gran comunidad de desarrolladores (bastante mayor en ThreeJS).
@@ -517,21 +517,25 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 	De esta manera se define el sistema "`IETFEM UI"', el cuál interactúa con el sistema "`IETFEM Core"', que contiene el motor de cálculo, para totalizar lo que sería el IETFEM.
 	
-	En la Figura \ref{fig:Fisica} se puede preciar la distribución física de ambos componentes. En la imagen superior, se aprecia la versión estudiantil, donde todo se ejecuta en la máquina del usuario. Se observa la interfaz corriendo sobre un framework que simula ejecutar una aplicación de usuario, y el motor de cálculo en GNU-Octave, comunicándose manualmente mediante la acción del usuario.
+	En la Figura \ref{fig:FisicaLocal} se puede preciar la distribución física de la versión estudiantil, donde todo se ejecuta en la máquina del usuario. Se observa la interfaz corriendo sobre un framework que simula ejecutar una aplicación de usuario, y el motor de cálculo en GNU-Octave, comunicándose manualmente mediante la acción del usuario.
 	
-	En la imagen inferior, se aprecia una posible distribución física para una posterior versión, en donde se propone separar físicamente la interfaz del motor. De esta manera se logra una mayor escalabilidad al poder replicar N servidores Web utilizando el mismo motor de cálculo Se propone desplegar la interfaz en un servidor Web, mediante la cuál el usuario accede utilizando el protocolo estándar HTTP. El usuario dibuja la estructura de la misma manera que se realiza en la versión académica, pero al momento de ejecutar el motor, se consume un servicio REST expuesto por un servidor de aplicación en donde se encuentra corriendo el motor de cálculo, el cual provee a la interfaz con la estructura deformada. Esto implica que el usuario sólo tenga que presionar un botón para deformar la estructura, evitando el proceso de comunicación manual.
-	
+	En la Figura \ref{fig:FisicaNube}, se aprecia una posible distribución física para una posterior versión, en donde se propone separar físicamente la interfaz del motor. De esta manera se logra una mayor escalabilidad al poder replicar N servidores Web utilizando el mismo motor de cálculo Se propone desplegar la interfaz en un servidor Web, mediante la cuál el usuario accede utilizando el protocolo estándar HTTP. El usuario dibuja la estructura de la misma manera que se realiza en la versión académica, pero al momento de ejecutar el motor, se consume un servicio REST expuesto por un servidor de aplicación en donde se encuentra corriendo el motor de cálculo, el cual provee a la interfaz con la estructura deformada. Esto implica que el usuario sólo tenga que presionar un botón para deformar la estructura, evitando el proceso de comunicación manual.
+
 	\begin{figure}
-			\centerline{\includegraphics[width=1.3\textwidth]{Graficos/Fisica}}
-			\caption{Diagrama de distribución física de IETFEM}
-			\label{fig:Fisica}
-		\end{figure}
+		\centerline{\includegraphics[width=1.0\textwidth]{Graficos/FisicaLocal}}
+		\caption{Diagrama de distribución física: IETFEM Estudiantil}
+		\label{fig:FisicaLocal}
+
+		\centerline{\includegraphics[width=1.3\textwidth]{Graficos/FisicaNube}}
+		\caption{Diagrama de distribución física: IETFEM en la nube}
+		\label{fig:FisicaNube}
+	\end{figure}
 		
 	\subsection {Tecnologías y herramientas utilizadas}
 		
 		\subsubsection {HTML5 - JavaScript - CSS3}
 		
-		Existen ciertas tecnologías estándar e ineludibles al momento de desarrollar una aplicación web. Éstas son HTML5, JavaScript y CSS3. A continuación se describen brevemente las mismas.
+		Existen ciertas tecnologías estándar e ineludibles al momento de desarrollar una aplicación web. Éstas son HTML5\cite{HTML5}, JavaScript\cite{JavaScript} y CSS3\cite{CSS3}. A continuación se describen brevemente las mismas.
 		
 		\paragraph{HTML} es un lenguaje de marcado para la elaboración de páginas web. Es un estándar que sirve de referencia para su elaboración, definiendo una estructura básica y un código para la definición de contenido como texto, imágenes, videos, entre otros. En la actualidad se encuentra en su versión 5 la cual establece una serie de funcionalidades, elementos y atributos que reflejan el uso típico de los sitios web modernos.
 		
@@ -544,7 +548,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Bootstrap \cite{Bootstrap} es un \emph{"`front-end framework"' open source}, es la más popular de las librerías HTML,CSS y JS para el desarrollo de páginas web \emph{responsive} y \emph{mobile first}, diseñado para ayudar a construir componentes de la interfaz de usuario.
 		
-		Las principales características del \emph{framework} -las cuales fueron ampliamente utilizadas en el proyecto- son:
+		Las principales características del \emph{framework} - las cuales fueron ampliamente utilizadas en el proyecto - son:
 		
 		\begin{itemize}  
         \item Sistema de grillas \emph{responsive} para posicionar todos los elementos de la página de una manera sencilla.
@@ -681,13 +685,22 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Como se ha mencionado en reiteradas ocasiones, el usuario puede ingresar la estructura ya sea dibujando una nueva como abriendo una previamente guardada. Cada vez que el usuario modifica elementos en la escena, los mismos cambios se realizan en el modelo que se almacena, manteniendo constante sincronización.
 		
-		\begin{figure}
-			\centerline{\fbox{\includegraphics[width=0.7\textwidth]{Graficos/escenaModelo}}}
+		\begin{figure}[!tbp]
+			\centering
+			\begin{minipage}[b]{0.4\textwidth}
+				\fbox{\includegraphics[width=\textwidth]{Graficos/escenaModelo1}}
+				\label{fig:escenaModelo1}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[b]{0.4\textwidth}
+				\fbox{\includegraphics[width=\textwidth]{Graficos/escenaModelo2}}
+				\label{fig:escenaModelo2}
+			\end{minipage}
 			\caption{Correspondencia entre dibujo en la escena y el modelo mantenido en segundo plano}
-			\label{fig:escenaModelo}
-		\end{figure}	
+		\end{figure}
 		
-		En la Figura \ref{fig:escenaModelo} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará más sobre cómo se almacena la estructura en la siguiente sección.
+		
+		En las Figuras \ref{fig:escenaModelo1} y \ref{fig:escenaModelo1} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará más sobre cómo se almacena la estructura en la siguiente sección.
 		
 		La entrada de datos mediante el dibujo se realiza elemento por elemento. El usuario siempre ingresa un nodo o barra a la vez, lo que hace que la sincronización entre la escena y el modelo sea realmente sencilla. Sin embargo, cuando se carga una estructura previamente guardada, la misma se vuelve realmente complicada, ya que debe limpiarse tanto la escena como el modelo y cargar ambos con la nueva información, asegurándose de mantener la consistencia entre los mismos. Esto se logra mediante una fuerte relación entre el módulo que manipula el modelo y el que manipula la escena. Cada vez que se modifica cualquier aspecto de la estructura, se invocan operaciones de dichos módulos que no sólo realizan el propio cambio, sino que aseguran mantener la consistencia una vez finalizado. Esto significa, por ejemplo, que cargar una nueva estructura, se traduce internamente en una secuencia finita de llamados a operaciones más sencillas como "`Agregar nodo"' o "`Agregar barra"' las cuales mantienen el sistema en un estado de sincronía.
 			
@@ -961,7 +974,7 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		\begin{itemize}
 			
-			\item Utilizar threex.rendererstats, un monitor que nos da información útil sobre la escena como \emph{draw calls} o cantidad de geometrías lo cual nos puede ayudar a tomar medidas correctivas.
+			\item Utilizar threex.rendererstats\cite{PerformanceMonitor}, un monitor que nos da información útil sobre la escena como \emph{draw calls} o cantidad de geometrías lo cual nos puede ayudar a tomar medidas correctivas.
 			
 			\item Ahorrar en la cantidad de geometrías y materiales reutilizando en la medida de lo posible. Existen experiencias en la web que dicen que la velocidad de renderizado se incrementa 4.5 veces para 2000 cubos iguales. (Esta es una medida implementada)
 			
@@ -971,9 +984,9 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			
 			\item Utilizar estructuras de datos más performantes como el octree para tareas como raycasting.
 			
-			\item Utilizar \emph{web workers} con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
+			\item Utilizar \emph{web workers}\cite{OptimizingThreeJS} con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
 			
-			\item Utilizar \emph{custom shaders} en caso de encontrar un caso factible.
+			\item Utilizar \emph{custom shaders}\cite{OptimizingThreeJS} en caso de encontrar un caso factible.
 			
 			\item Eliminar la funcionalidad que implica resaltar barras y nodos al hacer \emph{hover} sobre ellas. Dicha funcionalidad implica un constante \emph{raycasting} de manera de saber que objetos intersectan con la posición del mouse. Esta medida se implementó, logrando una mejora mínima, aunque luego se decidió descartar esta medida debido a que se considera que no vale la pena eliminar esta funcionalidad para mejorar en poca medida casos inalcanzables.
 
@@ -989,9 +1002,19 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 	
 	Habiendo finalizado con la implementación de la interfaz "`IETFEM UI"' se puede afirmar que el proyecto concluyó de forma exitosa.
 	
-	En cuanto a las planificaciones y estimaciones realizadas, se transcurrió con muy pocas diferencias con lo planificado, logrando realizar las entregas de iteraciones del producto en tiempo y forma con un buen grado de aceptación por parte de los tutores. La metodología de desarrollo utilizada, aunque sencilla, cumplió con el objetivo de organizar el trabajo y marcar un camino a seguir en las distintas instancias del proyecto.
+	Como primera conclusión, respondiendo a la pregunta realizada al comienzo del proyecto, se desprende que es posible realizar un sistema de cálculo de estructuras en la nube con un conjunto de funcionalidades acorde. Sin duda es una innovación dentro de este campo, debido a que los sistemas más populares del rubro ejecutan en un ambiente de escritorio. El equipo de desarrollo supone que estos sistemas no han migrado a una plataforma web simplemente por la cantidad de trabajo necesario para recrear la inmensa cantidad de funcionlidades que componen estos programas.
 	
-	En lo concerniente al producto, se logró un resultado final que supera las expectativas iniciales, tanto del equipo de desarrollo como del cliente, logrando atacar las más importantes limitaciones de la herramienta (problemas de interfaz y generación de gráficos) que motivaron la realización del proyecto. Se implementaron todas las funcionalidades esenciales logrando una solución completa donde es importante mencionar el entorno 3D de calidad, así como la sencillez de uso, aunque se podrían echar en falta más funcionalidades accesorias como selección múltiple o retoques estéticos. Ademas cabe destacar que se cumplieron los requisitos no funcionales de performance logrando soportar ampliamente las estructuras que se dibujaran en un ambiente académico.
+	Las herramientas utilizadas se ajustaron a las necesidades. En particular, la herramienta ThreeJs resultó ser clave en el proyecto, demostrando que pueden realizarse aplicaciones 3D de una manera sencilla sobre un navegador Web. Se destaca, entre otros cosas, el amigable uso de la cámara, la cantidad de objetos y funciones previstas, y la documentación publidada, donde se ofrecen ejemplos productivos de cada aspecto de la librería.
+	
+	En cuanto a las planificaciones y estimaciones realizadas, se transcurrió con muy pocas diferencias con lo planificado, logrando realizar las entregas de iteraciones del producto en tiempo y forma con un buen grado de aceptación por parte de los tutores. 
+	
+	La metodología de trabajo, como se esperaba, logró organizar la gran cantidad de tareas a realizar manteniendo un esquema de proiridades. Permitió además un alto nivel de transparencia con los tutores, dónde se podía observar las tareas pendientes y realizadas, además de agregar cosas a mejorar o posibles \emph{bugs}.
+	
+	En lo concerniente al producto, se logró un resultado final que supera las expectativas iniciales, tanto del equipo de desarrollo como de los tutores, logrando atacar las más importantes limitaciones de la herramienta que motivaron la realización del proyecto. Se implementaron todas las funcionalidades esenciales logrando una solución completa donde es importante mencionar el entorno 3D de calidad. 
+	
+	Sin duda existe un gran abanico de funcionalidades y mejoras a realizar, pero aún así, la herramienta logró mejorar notablemente su interacción con el usuario, reduciendo drásticamente el tiempo de ejecución y la cantidad de errores de usuario. De esta manera IETFEM podría posicionarse como el primer sistema de cálculo de estructuras desarrollado en América Latina, y uno de los muy pocos en el mundo que ejecuta en un ambiente web.
+	
+	Finalmente, cabe destacar que se considera que la herramienta alcanzó niveles de performance altamante satisfactorios, logrando soportar la carga de estructuras de más de 1500 elementos. De esta manera, el equipo se asegura el correcto funcionamiento de IETFEM para los estudiantes que lo utilizarán en el correr del año 2016.
 	
 	\subsection {Trabajo a futuro}
 	
@@ -1001,7 +1024,7 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		Si bien la interfaz cumple con los requisitos y el alcance pretendido para el proyecto, existen ciertos puntos para agregar y mejorar.
 		
-		En primer lugar y quizás como el punto más directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran, por ejemplo, superficies aporticadas.
+		En primer lugar y quizás como el punto más directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran, por ejemplo: estructuras de vigas, pórticos planos, etc.
 		
 		Además se pueden agregar varias funcionalidades accesorias como cámara ortogonal o selección múltiple, enriqueciendo la experiencia con la herramienta e incluso asemejándola a la de programas comerciales con años de desarrollo. Con el fin de mejorar la experiencia es posible dedicar esfuerzo también a detalles estéticos de la interfaz para hacerla aún más atractiva. 
 		
@@ -1343,45 +1366,42 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 
 	  \bibitem{GNUOctave}
 	    \emph{GNU-Octave: } https://www.gnu.org/software/octave/
-	    
-	    
+    
+	   
 	  \bibitem{IETFEMArticle}
-	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - https://www.gnu.org/software/octave
+	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - http://www.ing.unrc.edu.ar/raei/archivos/img/arc\_2015-04-22\_02\_19\_48-07.pdf
+			
+	  \bibitem{SAP2000}
+	    \emph{SAP 2000: } https://www.csiamerica.com/products/sap2000
+			
+	  \bibitem{AxisVM}
+	    \emph{AxisVM: } http://axisvm.eu/index.html
+			
+			\bibitem{MatLab}
+			\emph{MatLab: } http://www.mathworks.com/products/matlab
+			
+			\bibitem{MEF}
+			\emph{Método de los elementos finitos: } http://www.iit.upcomillas.es/~carnicero/Resistencia/Introduccion\_al\_MEF.pdf
+		
+		\bibitem{CsiAmerica}
+			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com
+			
+			\bibitem{160Countries}	
+			\emph{Alcance mundial de SAP2000: } https://www.csiamerica.com/about
+			
+				\bibitem{IdeaStatica}
+			\emph{Idea StatiCa: } https://www.ideastatica.com
 			
 		\bibitem{CloudCalc}
 			\emph{CloudCalc: } http://www.cloudcalc.com
 			
 		\bibitem{SkyCiv}
 			\emph{SkyCiv: } https://skyciv.com
-			
-		\bibitem{IdeaStatica}
-			\emph{Idea StatiCa: } https://www.ideastatica.com
-			
-		\bibitem{CsiAmerica}
-			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com
-			
-		\bibitem{SAP2000}
-			\emph{SAP 2000: } https://www.csiamerica.com/products/sap2000
-			
-		\bibitem{160Countries}	
-			\emph{Alcance mundial de SAP2000: } https://www.csiamerica.com/about
-			
-		\bibitem{MatLab}
-			\emph{MatLab: } http://www.mathworks.com/products/matlab
-			
-		\bibitem{AxisVM}
-			\emph{AxisVM: } http://axisvm.eu/index.html
-			
-		\bibitem{Soft}
-			\emph{Strucutral engineering software: } https://en.wikipedia.org/wiki/Structural\_engineering\_software
-			
-		\bibitem{OpenGLWiki}
-			\emph{OpenGL: } https://es.wikipedia.org/wiki/OpenGL
-			
+		
 		\bibitem{OpenGL}
 			\emph{OpenGL: } https://www.opengl.org/documentation/current\_version
 			
-		\bibitem{LWJGL}
+		\bibitem{JWJGL}
 			\emph{Lightweight Java Game Library 3: } https://www.lwjgl.org
 			
 		\bibitem{JOGL}
@@ -1396,23 +1416,23 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		\bibitem{WebGLWiki}
 			\emph{WebGL: } https://en.wikipedia.org/wiki/WebGL
 			
+			\bibitem{ExperienceCuriosity}
+			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity
+			
+			\bibitem{ThreeJS}
+			\emph{ThreeJS: } http://threejs.org
+			
 		\bibitem{BabylonJS}
 			\emph{BabylonJS: } http://www.babylonjs.com
 			
-		\bibitem{ThreeJS}
-			\emph{ThreeJS: } http://threejs.org
+					\bibitem{Kanban}
+			\emph{Metodología Kanban: } http://kanbantool.com/es/metodologia-kanban
 			
-		\bibitem{ThreeJSWiki}
-			\emph{ThreeJS: } http://www.babylonjs.com
+			\bibitem{Jira}
+			\emph{Jira: } https://es.atlassian.com/software/jira
 			
-		\bibitem{ExperienceCuriosity}
-			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity
-			
-		\bibitem{Shader}
-			\emph{Shader: } https://es.wikipedia.org/wiki/Shader
-			
-		\bibitem{HTML}
-			\emph{HTML: } https://es.wikipedia.org/wiki/HTML
+			\bibitem{TFS}
+			\emph{TFS: } https://www.visualstudio.com/en-us/products/tfs-overview-vs.aspx
 			
 		\bibitem{HTML5}
 			\emph{HTML5: } https://es.wikipedia.org/wiki/HTML5
@@ -1428,30 +1448,13 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			
 		\bibitem{AngularJS}
 			\emph{AngularJS: } https://angularjs.org
-			
-		\bibitem{AngularJSWiki}
-			\emph{AngularJSWiki: } https://en.wikipedia.org/wiki/AngularJS
-			
-		\bibitem{MEF}
-			\emph{Método de los elementos finitos: } http://www.iit.upcomillas.es/~carnicero/Resistencia/Introduccion\_al\_MEF.pdf
-			
+				
 		\bibitem{OptimizingThreeJS}
 			\emph{Optimizing ThreeJS Blog: } http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects
 			
-		\bibitem{Performance Monitor}
+		\bibitem{PerformanceMonitor}
 			\emph{Performance Monitor: } http://learningthreejs.com/blog/2013/06/25/monitor-rendering-performance-within-threejs
 			
-		\bibitem{StackOverflow}
-			\emph{StackOverflow: } http://stackoverflow.com
-			
-		\bibitem{Kanban}
-			\emph{Metodología Kanban: } http://kanbantool.com/es/metodologia-kanban
-			
-			\bibitem{Jira}
-			\emph{Jira: } https://es.atlassian.com/software/jira
-			
-			\bibitem{TFS}
-			\emph{TFS: } https://www.visualstudio.com/en-us/products/tfs-overview-vs.aspx
 	    
 	\end{thebibliography}
 \end{document}
