@@ -381,11 +381,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	Desde un principio se supo que IETFEM era una herramienta robusta, ofreciendo una solución para diferentes problemas posibles. En este sentido, el relevamiento de requerimientos se convirtió en una tarea delicada en dónde debía definirse un número acotado de funcionalidades, para un número acotado de la totalidad de problemas que IETFEM podía resolver.
 	
-	Luego de concretar varias reuniones con los tutores, se decidió que la interfaz pueda resolver problemas de estructuras reticuladas, es decir, estructuras formadas por una serie de barras entrecruzadas y conectadas entre sí por medio de nodos articulados. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
+	Luego de concretar varias reuniones con los tutores, se decidió que la interfaz permita resolver problemas de estructuras reticuladas, es decir, estructuras formadas por una serie de barras entrecruzadas y conectadas entre sí por medio de nodos articulados. Esto implica que para dibujar una estructura desde la interfaz, el usuario sólo tenga que colocar nodos y barras. 
 	
 	El estudiante coloca los nodos en el espacio 3D, y luego define barras entre 2 nodos ya dibujados, asignando para cada barra un material que la conforma y el área de su corte transversal, al que llamaremos sección, ambos previamente definidos. También pueden definirse ciertas propiedades para cada nodo, en particular, pueden definirse fuerzas aplicadas al mismo, condiciones de desplazamiento y resortes. 
 	
-	Una vez finalizado el proceso de dibujado, se extrae la estructura en un formato reconocible por el motor. Luego se ejecuta el mismo, y se analizan los resultados obtenidos. 
+	Una vez finalizado el proceso de dibujado, se extrae la estructura en un formato reconocible por el motor, se ejecuta el mismo, y se analizan los resultados obtenidos. 
 	
 	Destacamos además  como funcionalidades secundarias la posibilidad de definir grillas auxiliares con motivo de facilitar el ingreso de datos y la posibilidad de ocultar elementos adicionales, como por ejemplo, los vectores indicadores de fuerzas aplicadas.
 	
@@ -393,7 +393,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\begin{itemize}  
 
-        \item \textbf{Alta, Baja y Modificación de Materiales:} Los materiales se definen en base a 5 propiedades: Nombre, Modulo de Young, Gamma(?), Alpha(?) y Nu(?).
+        \item \textbf{Alta, Baja y Modificación de Materiales:} Los materiales se definen en base a 5 propiedades: Nombre, Modulo de Young, Gamma($\gamma$), Alpha($\alpha$) y Nu($\nu$).
         \item \textbf{Alta, Baja y Modificación de Secciones:} La sección es el corte transversal de una barra, y para este tipo de problemas solo interesa conocer su área.
         \item \textbf{Alta, Baja y Modificación de Nodos:} Cada nodo tiene asignado un conjunto de coordenadas espaciales $(x,y,z)$. Además es posible asignar al mismo una fuerza aplicada, así tambien como condiciones de desplazamiento y resortes en cada coordenada.
         \item \textbf{Alta, Baja y Modificación de Barras:} Cada barra tiene asignado un nodo inicial, un nodo final, un material y una sección.
@@ -432,23 +432,23 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 			\begin{itemize}  
 
-        \item Los tutores se sienten a gusto con considerar una versión final en la nube, ya que la mayoría de este tipo de sistemas son de escritorio y no para todos los sistemas operativos.
-        \item Existe preocupación con respecto al servidor donde se aloje la aplicación. En particular, preocupa justamente encontrar un servidor gratuito donde alojarse y cómo mantener la aplicación una vez finalizado el proyecto
-        \item Una de las prestaciones actuales del motor de cálculo existente es que al estar desarrollado en GNU-Octave, permite al estudiante ver el funcionamiento interno del código (o incluso programar nuevos cálculos de acuerdo a sus necesidades), enriqueciendo el proceso de aprendizaje de los estudiantes. Dichas características se quieren mantener en la nueva solución.
+        \item Los tutores se sienten a gusto al considerar una versión final en la nube, debido a que la mayoría de este tipo de sistemas son de escritorio y no para todos los sistemas operativos.
+        \item Existe preocupación con respecto al servidor donde se aloje la aplicación. En particular, preocupa justamente encontrar un servidor gratuito donde alojarse y cómo mantener la aplicación una vez finalizado el proyecto.
+        \item Una de las prestaciones actuales del motor de cálculo existente es que al estar desarrollado en GNU-Octave, permite al estudiante ver el funcionamiento interno del código (o incluso programar nuevos cálculos de acuerdo a sus necesidades), enriqueciendo el proceso de aprendizaje. Dichas características se quieren mantener en la nueva solución.
 				\item Se busca reusabilidad en el código de la aplicación, ya que en un futuro se pretende evolucionar la herramienta a un nivel profesional, donde se pretende que la misma posea diferentes características (por ejemplo, no sería deseable en un sistema profesional que se pueda acceder al código del motor de cálculo directamente).
 				
     \end{itemize}
 		
-		Tomando en cuenta las mencionadas premisas, la solución propuesta es la siguiente: Se desarrollará la interfaz como una herramienta web. Sin embargo, no se desplegará la misma en un servidor, sino que se encapsulará la misma en un framework que permita ejecutar la misma como una aplicación de escritorio. A ojos del estudiante, la aplicación parecerá ser de escritorio. 
+		Tomando en cuenta las mencionadas premisas, la solución propuesta consistió en desarrollar la interfaz como una herramienta web. Sin embargo, no se desplegará la misma en un servidor, sino que se encapsulará la misma en un \emph{framework} que permita ejecutar la misma como una aplicación de escritorio. A ojos del estudiante, la aplicación parecerá ser de escritorio. 
 		
 		Una vez finalizado el dibujado de la estructura, el estudiante podrá generar un archivo con al especificación de la estructura, el cual podrá ingresar en el motor de cálculo de manera manual. Luego, puede desde la interfaz procesar la salida del motor para observar sus resultados.
 		
-		De esta manera logramos las siguientes características:
+		De esta manera se logran las siguientes características:
 		
 		\begin{itemize}  
 
-        \item Para la versión inicial, es decir, la versión académica, se ahorra la utilización del servidor, ya que cada sistema ejecutará en la máquina de cada estudiante. Esto implica que el mantenimiento a posteriori sea nulo por parte de los tutores una vez finalizado el proyecto.
-        \item Se desacoplan el motor y la interfaz, o sea, el estudiante puede visualizar los cálculos realizados en el motor, o incluso programar nuevos, sin necesidad de tocar el código de la interfaz. Es más, el archivo generado por la interfaz será en un formato legible, lo que hace que le estudiante pueda editar el archivo en caso de agregar cálculos nuevos.
+        \item Para la versión inicial, es decir, la versión académica, se ahorra la utilización de un servidor, ya que cada sistema ejecutará en la máquina de cada estudiante. Esto implica que el mantenimiento a posteriori sea nulo por parte de los tutores una vez finalizado el proyecto.
+        \item Se desacoplan el motor y la interfaz, o sea, el estudiante puede visualizar los cálculos realizados en el motor, o incluso programar nuevos, sin necesidad de tocar el código de la interfaz. Es más, el archivo generado por la interfaz será en un formato legible, lo que hace que el estudiante pueda editar el archivo en caso de agregar cálculos nuevos.
         \item A su vez, esta solución no solo permite agregar cálculos nuevos a los estudiantes, sino que permite que el desarrollo del motor siga avanzando sin entorpecer la interfaz.
 				\item Se obtiene un código totalmente reusable, ya que si en el futuro se quiere evolucionar la herramienta como un producto profesional en la nube, sólo basta con desplegar el código de la aplicación en un servidor.
 				
@@ -509,7 +509,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\textbf{Modelo:} Expone operaciones básicas para modificar el modelado de la estructura que se está ingresando. Cada vez que otro módulo necesite ingresar, modificar o eliminar un nodo, barra, material o sección, llamará a funciones contenidas en este módulo.
 		
-		\textbf{Deformada:} Expone operaciones básicas para interactuar con la estructura deformada obtenida. Cada vez el módulo de "`Gestión Deformada"' deba mover, colorear o transparentar un nodo o barra, se utilizarán funciones expuestas en este módulo
+		\textbf{Deformada:} Expone operaciones básicas para interactuar con la estructura deformada obtenida. Cada vez que el módulo de "`Gestión Deformada"' deba mover, colorear o transparentar un nodo o barra, se utilizarán funciones expuestas en este módulo
 				
 		\textbf{Escena:} Expone operaciones básicas para interactuar con el espacio 3D. Cada vez que otro módulo necesite agregar o eliminar cualquier tipo de elemento del espacio 3D, se invocarán funciones expuestas en este módulo
 		
@@ -531,23 +531,23 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {HTML5 - JavaScript - CSS3}
 		
-		Dada la elección de utilizar tecnologías web para encarar el desarrollo del proyecto, existen ciertas tecnologías estándar e ineludibles en cualquier aplicación web estas son HTML5, JavaScript y CSS3. A continuación se describen brevemente las mismas.
+		Existen ciertas tecnologías estándar e ineludibles al momento de desarrollar una aplicación web. Éstas son HTML5, JavaScript y CSS3. A continuación se describen brevemente las mismas.
 		
-		\paragraph{HTML} es un lenguaje de marcado para la elaboración de paginas web. Es un estándar que sirve de referencia para la elaboración de paginas web y define una estructura básica y un código para la definición de contenido como texto, imágenes, videos, entre otros. En la actualidad se encuentra en su versión 5 la cual establece una serie de funcionalidades, elementos y atributos que reflejan el uso típico de los sitios web modernos.
+		\paragraph{HTML} es un lenguaje de marcado para la elaboración de páginas web. Es un estándar que sirve de referencia para su elaboración, definiendo una estructura básica y un código para la definición de contenido como texto, imágenes, videos, entre otros. En la actualidad se encuentra en su versión 5 la cual establece una serie de funcionalidades, elementos y atributos que reflejan el uso típico de los sitios web modernos.
 		
-		\paragraph{JavaScript} (abreviado comúnmente "`JS"') es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado y dinámico. Se utiliza principalmente del lado del cliente implementado como parte de los navegadores web, permitiendo mejoras en la interfaz de usuario y aplicaciones web dinámicas.Es el estándar de facto para scripting en la web y es interpretado por todos los navegadores web.
+		\paragraph{JavaScript}, abreviado comúnmente "`JS"', es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado y dinámico. Se utiliza principalmente del lado del cliente implementado como parte de los navegadores web, permitiendo mejoras en la interfaz de usuario y aplicaciones web dinámicas.Es el estándar de facto para scripting en la web y es interpretado por todos los navegadores web.
 		
-		\paragraph{CSS} actualmente en la versión 3 es un lenguaje de estilos que define la presentación de los documentos HTML. Esto abarca cuestiones relativas a fuentes, colores, margenes, altura, ancho, posicionamiento, etc. Una hoja de estilos fue utilizada en el proyecto con el fin de definir algunos estilos de menúes y formularios, esto es en aquellos no definidos o para personalizar los definidos en bootstrap.
+		\paragraph{CSS}, actualmente en la versión 3, es un lenguaje de estilos que define la presentación de los documentos HTML. Esto abarca cuestiones relativas a fuentes, colores, margenes, altura, ancho, posicionamiento, etc. Una hoja de estilos fue utilizada en el proyecto con el fin de definir algunos estilos de menús y formularios, esto es en aquellos no definidos o para personalizar los definidos en BootStrap.
 		
 		
-		\subsubsection {Bootstrap}
+		\subsubsection {BootStrap}
 		
-		Bootstrap \cite{Bootstrap} es un "`front-end framework"' open source, es la más popular de las librerías HTML,CSS y JS para el desarrollo de paginas web responsivas y mobile first, diseñado para ayudar a construir componentes de la interfaz de usuario.
+		Bootstrap \cite{Bootstrap} es un \emph{"`front-end framework"' open source}, es la más popular de las librerías HTML,CSS y JS para el desarrollo de páginas web \emph{responsive} y \emph{mobile first}, diseñado para ayudar a construir componentes de la interfaz de usuario.
 		
-		Las principales características del framework las cuales fueron ampliamente utilizadas en el proyecto son:
+		Las principales características del \emph{framework} -las cuales fueron ampliamente utilizadas en el proyecto- son:
 		
 		\begin{itemize}  
-        \item Sistema de grillas responsive para posicionar todos los elementos de la pagina de una manera sencilla.
+        \item Sistema de grillas \emph{responsive} para posicionar todos los elementos de la página de una manera sencilla.
 				\item Estilos para controles de HTML.
 				\item Componentes personalizados.
 				\item Componentes JavaScript (Ej. Modals).
@@ -555,38 +555,38 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\subsubsection {AngularJS}
 		
-		Es un framework open source mantenido por Google que tiene como objetivo solucionar los principales problemas encontrados en el desarrollo de aplicaciones web dinámicas. 
+		Es un \emph{framework open source} mantenido por Google que tiene como objetivo solucionar los principales problemas encontrados en el desarrollo de aplicaciones web dinámicas. 
 		
 		AngularJs \cite{AngularJS} propone la utilización de programación declarativa para las interfaces de usuario y programación imperativa para lógica de negocio. Implementa el patrón MVC para separar la presentación, datos y lógica. Todo esto da como resultado una aplicación prolija y testeable a nivel de código.
 		
 		Principales características utilizadas:
 		
 		\begin{itemize}  
-        \item Two way data-binding: esto permite mantener el modelo y la vista (DOM) sincronizados sin necesidad de escribir código especial para mantener dicha sincronización.
+        \item emph{Two way data-binding}: esto permite mantener el modelo y la vista (DOM) sincronizados sin necesidad de escribir código especial para mantener dicha sincronización.
 				\item MVC.
-				\item Directivas: sirven para agregar funcionalidad a HTML mediante tags HTML, tanto built-in como personalizados.
+				\item Directivas: sirven para agregar funcionalidad a HTML mediante tags HTML, tanto \emph{built-in} como personalizados.
     \end{itemize}
 		
-		\subsubsection {ThreeJS}
+		\subsubsection {ThreeJs}
 		
-		 Dada la elección de realizar una solución Web, la clara superioridad de WebGL para las características gráficas y la baja productividad y dificultad de desarrollo directamente sobre él, resultó necesario elegir un framework que lo abstraiga.
+		 Dada la elección de realizar una solución web, la clara superioridad de WebGL para las características gráficas, sumado a la baja productividad y dificultad de desarrollo directamente sobre él, resultó necesario elegir un \emph{framework} que lo abstraiga.
 		
-		En este sentido se decidió por ThreeJs por ser un proyecto activo, con la mayor cantidad de funcionalidades, buena documentación, con la mayor comunidad y por consiguiente mayor soporte entre todas las opciones.
+		En este sentido se decidió por ThreeJs por ser un proyecto activo, con la mayor cantidad de funcionalidades, buena documentación y una gran comunidad.
 		
 		 En la sección 2.4.3 se describieron las características principales de este tipo de librerías.
 
 		
 		\subsubsection {Electron}
 		
-		Es un framework que permite escribir aplicaciones de escritorio multiplataforma usando HTML, JavaScript y CSS.
+		Es un \emph{framework} que permite escribir aplicaciones de escritorio multiplataforma usando HTML, JavaScript y CSS.
 		
-		Esta herramienta nos permitirá distribuir la aplicación de una manera más elegante que en una carpeta con código y un archivo index.html para ejecutarlo en un navegador local. A los ojos de los usuarios el producto final es una aplicación nativa corriendo transparentemente una implementación mínima del navegador Chromium, solucionando así también posibles problemas de compatibilidad con algunos navegadores.
+		Esta herramienta permitió distribuir la aplicación de una manera más elegante que en una carpeta con código y un archivo HTML para ejecutarlo en un navegador local. A los ojos de los usuarios el producto final es una aplicación nativa corriendo transparentemente una implementación mínima del navegador Chromium, solucionando así también posibles problemas de compatibilidad con algunos navegadores.
 		
 	\subsection {Manejo del espacio 3D}
 	
 		\subsubsection {Eventos de usuario}
 		
-		El espacio 3D ocupa la mayor parte de la pantalla, y es donde se espera que el usuario realice la mayor parte de interacciones posibles. Se busca que el usuario pueda manejar la escena mediante el uso del mouse, por lo tanto, al inicializar la aplicación se setean EventListenners a la ventana para cada tipo de acción con el mouse. Esto significa que la aplicación estará pendiente de todos los movimientos del mouse dentro de la escena. En particular: se tiene en cuenta el movimiento de la cámara y en qué modo se encuentra la aplicación
+		El espacio 3D ocupa la mayor parte de la pantalla, y es donde se espera que el usuario realice la mayor parte de interacciones posibles. Se busca que el usuario pueda manejar la escena mediante el uso del mouse, por lo tanto, al inicializar la aplicación se setean \emph{EventListeners} a la ventana para cada tipo de acción con el mouse. Esto significa que la aplicación estará pendiente de todos los movimientos del mouse dentro de la escena. En particular, se tiene en cuenta el movimiento de la cámara y en qué modo se encuentra la aplicación
 		
 		Los eventos definidos son los siguientes:
 		
@@ -611,11 +611,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Adición, sustracción y transformación de objetos}
 		
-		El espacio 3D desarrollado se implementó como un objeto de ThreeJs denominado Scene, el cual provee operaciones add() y remove() para agregar y eliminar objetos del mismo. Internamente, una Scene contiene una gran cantidad de atributos, entre los que se encuentran la posición, rotación, escalamiento por coordenada, y una lista de objetos en donde se almacenan los elementos que conforman la escena.
+		El espacio 3D desarrollado se implementó como un objeto de ThreeJs denominado \emph{Scene}, el cual provee operaciones \emph{add()} y \emph{remove()} para agregar y eliminar objetos del mismo. Internamente, una \emph{Scene} contiene una gran cantidad de atributos, entre los que se encuentran la posición, rotación, escalamiento por coordenada, y una lista de objetos en donde se almacenan los elementos que conforman la escena.
 		
-		Una vez definida la escena se agregan los primeros elementos: se utiliza el objeto GridHelper provisto por ThreeJS para definir una grilla auxiliar y se agregan 3 vectores definiendo los ejes $x$, $y$, $z$.
+		Una vez definida la escena se agregan los primeros elementos: se utiliza el objeto \emph{GridHelper} provisto por ThreeJS para definir una grilla auxiliar y se agregan 3 vectores definiendo los ejes $x$, $y$ y $z$.
 		
-		El resto de los objetos que se agregan a la escena se definen como objetos Mesh de ThreeJS, definidos por una geometría y un material:
+		El resto de los objetos que se agregan a la escena se definen como objetos \emph{Mesh} de ThreeJS, definidos por una geometría y un material:
 		
 		\begin{itemize}
 			\item La geometría de un objeto define su figura geométrica, define si se trata de un cilindro, una esfera, etc.
@@ -627,7 +627,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\begin{enumerate}
 			\item Se obtiene el objeto que se quiere modificar de la lista de objetos de la Escena.
 			\item Se genera una nueva geometría, en este caso, una esfera más grande.
-			\item Se genera un nuevo material, en este caso, el mimso que existía pero con un color diferente.
+			\item Se genera un nuevo material, en este caso, el mismo que existía pero con un color diferente.
 			\item Se asignan el material y la geometria nuevos al objeto obtenido en el paso 1.
 			\item Se renderiza la imagen.
     \end{enumerate}
@@ -642,11 +642,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:Camera}
 		\end{figure}
 		
-		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado Camera, el cuál se define asignando el tamaño del viewport, hacia dónde apunta, los planos "`near"' y "`far"' que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc (véase la Figura \ref{fig:Camera}). Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
+		Una de las prestaciones más grandes que fue percibida en ThreeJS al momento de la investigación fue el sencillo manejo de la cámara. Three provee de un objeto denominado \emph{Camera}, el cuál se define asignando el tamaño del \emph{viewport}, hacia dónde apunta, los planos \emph{"`near"'} y \emph{"`far"'} que determinan qué objetos se ven dependiendo de su distancia a la cámara, etc (véase la Figura \ref{fig:Camera}). Incluso permite definir el tipo de perspectiva en que se visualizará el resto del espacio. Una vez definida se setea la misma a la escena, logrando de esta sencilla manera obtener la visualización del espacio 3D.
 		
-		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados "`Controls"'. ThreeJS ofrece en su página Web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, OrbitControls cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agregó dicha clase al proyecto y se seteó a la cámara previamente definida. 
+		Hasta el momento, sólo se colocó la cámara en el espacio, sin resolver aún el problema del movimiento de la misma. Aquí es donde entran en juego los llamados \emph{"`Controls"'}. ThreeJS ofrece en su página web y de manera libre diferentes tipos de controles para la cámara, es decir, movimientos que pueden ser asignados a la misma. En particular, el control \emph{OrbitControls} cumple con todas las características que se buscan para la interfaz: permite rotar la cámara y desplazarla por todo el espacio. Por lo tanto se agregó dicha clase al proyecto y se seteó a la cámara previamente definida. 
 		
-		Al observar la simplicidad del manejo de la cámara utilizando esta herramienta web, se decidió agregar otro juego de cámara-escena en la esquina inferior la cual siempre apunta a los ejes e imita los movimientos de rotación de la principal, de manera de mantener una referencia al usuario en caso que deba alejarse demasiado del origen.
+		Al observar la simplicidad del manejo de la cámara utilizando esta herramienta web, se decidió agregar otro juego de cámara-escena en la esquina inferior, la cual siempre apunta a los ejes e imita los movimientos de rotación de la principal, de manera de mantener una referencia al usuario en caso que deba alejarse demasiado del origen.
 		
 		El resultado puede observarse en la Figura \ref{fig:CamaraPerspectiva}, se utilizó una cámara en perspectiva en conjunto con los controles mencionados.
 		
@@ -670,12 +670,12 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:RayTracing}
 		\end{figure}	
 		
-	ThreeJS provee un objeto denominado RayCaster que traza un rayo	dado un origen y un vector de dirección. Este objeto ofrece el método intersects(), que dada una lista de objetos, retorna la intersección del rayo con los mismos, obteniendo de esta manera el objeto al cual el usuario intenta referirse.
+	ThreeJS provee un objeto denominado \emph{RayCaster} que traza un rayo dado un origen y un vector de dirección. Este objeto expone el método \emph{intersects()}, que dada una lista de objetos, retorna la intersección del rayo con los mismos, obteniendo de esta manera el objeto al cual el usuario intenta referirse.
 		
 	\subsection {Manejo de datos}
 	
 	A pesar de que la estructura se visualiza de manera muy simple en el espacio 3D, se mantiene en segundo plano un complejo modelo que encapsula
-	la información dibujada por el usuario. Es necesario mantener todos los nodos, barras, materiales, secciones, grillas y opciones que el usuario ingresó, ya que en un momento deberá extraer toda la información de la estructura para ingresar en el motor
+	la información dibujada por el usuario. Es necesario mantener todos los nodos, barras, materiales, secciones, grillas y opciones que el usuario ingresó, ya que en un momento deberá extraer toda la información de la estructura para ingresar en el motor.
 	
 		\subsubsection {Entrada y mantenimiento de información}
 		
@@ -699,10 +699,9 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 	\begin{itemize}
 		\item\textbf{Nodos:} \begin{itemize}
-			\item Coordenadas $x$,$y$,$z$.
+			\item Coordenadas $x$,$y$ y $z$.
 			\item Valores de condiciones de desplazamiento para $x$,$y$,$z$.
 			\item Valores de resortes para $x$,$y$,$z$.
-			\item Fuerza aplicada en el punto (coordenadas $x$,$y$,$z$).
 			\item Fuerza aplicada en el punto (coordenadas $x$,$y$,$z$).
 			\item Id de la esfera dibujada en la escena correspondiente al nodo.
 			\item Id del vector dibujado en la escena correspondiente a la fuerza aplicada en el nodo.
@@ -721,13 +720,13 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\item\textbf{Materiales:} \begin{itemize}
 			\item Nombre.
 			\item Modulo de Young.
-			\item Gamma(?).
-			\item Alpha(?).
-			\item Nu(?).
+			\item Gamma($\gamma$).
+			\item Alpha($\alpha$).
+			\item Nu($\nu$).
 		\end{itemize}
 		
 		\item\textbf{Secciones:} \begin{itemize}
-			\item Área(?).
+			\item Área($\mu$).
 		\end{itemize}
 		
 		\item\textbf{Grillas:} \begin{itemize}
@@ -750,11 +749,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Salida de Datos}
 		
-		Una vez finalizado el proceso de dibujo, el usuario debe obtener un documento con la especificación de la estructura, para ser ingresado en el motor. Para comprender la solución propuesta, debe recapitularse hacia el uso del IETFEM antes de la realización de este proyecto. 
+		Una vez finalizado el proceso de dibujo, el usuario debe obtener un documento con la especificación de la estructura que pueda ser ingresado en el motor. Para comprender la solución propuesta, debe recapitularse hacia el uso del IETFEM antes de la realización de este proyecto. 
 		
 		Los estudiantes ingresaban la estructura mediante un archivo de especificación en la que debían escribir la posición de cada nodo, la conectividad de cada uno de ellos, los materiales implicados, secciones, y otros aspectos de la estructura y de configuración. Esto debía hacerse además respetando un formato predefinido el cuál derivaba en un fallo del motor en caso de ser omitido, incluyendo saltos de línea y espacios para separar valores.
 		
-		De esta manera, resultaba extremadamente tedioso para el estudiante lograr finalmente el texto correcto con la estructura deseada. Sin embargo esta propiedad del antiguo IETFEM resultó ser de suma utilidad, ya que, intentando reducir al máximo el trabajo realizado en el motor, se decidió utilizar el mismo archivo de entrada al mismo.
+		De esta manera, resultaba sumamente tedioso para el estudiante lograr finalmente el texto correcto con la estructura deseada. Sin embargo esta propiedad del antiguo IETFEM resultó ser de suma utilidad, ya que, intentando reducir al máximo el trabajo realizado en el motor, se decidió utilizar el mismo archivo de entrada al mismo.
 		
 		Esto quiere decir que la interfaz toma la responsabilidad de generar el archivo de texto que antes debía escribirse a mano, a partir del dibujo realizado por el estudiante. La interfaz recorre cada aspecto del modelo definido y va confeccionando un archivo .txt manteniendo el formato predefinido por el Motor. Además, mantiene un formato legible para el usuario, con títulos y nombres para cada propiedad a definir.
 		
@@ -768,8 +767,8 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		La solución que se implementó consta simplemente de agregar al archivo .txt recibido, dos matrices con los resultados obtenidos de los cálculos realizados:
 		\begin{itemize}
-			\item Una matriz que contiene el desplazamiento de cada nodo en cada coordenada
-			\item Una matriz que contiene los valores de deformación, fuerza y tensión de cada barra
+			\item Una matriz que contiene el desplazamiento de cada nodo en cada coordenada.
+			\item Una matriz que contiene los valores de deformación, fuerza y tensión de cada barra.
 		\end{itemize}
 		
 		Se decidió que en la salida del motor debía incluirse el mismo texto que se recibió, de modo de poder corroborar en la interfaz que se están intentando procesar los resultados de la misma estructura que se generó, evitando así problemas de consistencia y compatibilidad. 
@@ -784,7 +783,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		\subsubsection {Visualización}
 		
-		Finalmente se tiene la estructura deformada dibujada en la escena, a partir de que se incluyen ciertas opciones para comprender mejor el resultado que se está observando:
+		Finalmente se tiene la estructura deformada dibujada en la escena. A partir de este momento, se ofrecen al usuario ciertas opciones para comprender mejor el resultado que se está observando:
 		
 		\begin{itemize}
 			\item\textbf{Transparencia:} El usuario puede elegir transparentar levemente la estructura original o la deformada, de forma de resaltar una u otra de acuerdo a qué se esté analizando.
@@ -802,7 +801,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		El nacimiento de la propuesta del proyecto fue motivada casi en un 100\% en mejorar la usabilidad de una herramienta que ya resolvía de forma altamente satisfactoria los problemas para la que fue diseñada. En este sentido, se logro solucionar varios problemas que atentaban contra la amigabilidad de la herramienta tales como:
 		
 			\begin{itemize}
-			\item Generación automática de la entrada para el motor gráfico en GNU-Octave, evitando realización manual por parte del usuario de un archivo altamente estructurado, en el que se pueden introducir muchos errores y el cual crece rápidamente haciéndolo muy difícil de manejar para estructuras de un tamaño mediano.
+			\item Generación automática de la entrada para el motor gráfico en GNU-Octave, evitando trabajo manual por parte del usuario e archivo altamente estructurado en el que se pueden introducir muchos errores. Además, dicho archivo crece rápidamente, haciéndolo muy difícil de manejar para estructuras de un tamaño mediano.
 			
 			\item Manipulación visual y en tiempo real de la estructura que se esta generando.
 			
@@ -820,7 +819,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		El segundo objetivo planteado en este proyecto trata sobre mejorar la eficiencia del sistema, lo que sin duda representó un desafío tomando en cuenta la potencia con la cual cuenta el motor de cálculo para resolver problemas estructurales.
 		
-		En consecuencia, se buscó reducir en particular el tiempo de ejecución, logrado una significativa mejora que se puede apreciar en los casos de prueba en la siguiente sección. Debido a la presencia de la interfaz, el motor cuenta con ciertas funcionalidades que ya no son requeridas. Para ilustrar este caso, observemos el funcionamiento del antiguo motor y las mejoras que se realizaron:
+		En consecuencia, se buscó reducir en particular el tiempo de ejecución, logrado una significativa mejora que se puede apreciar en los casos de prueba en la siguiente sección. Debido a la presencia de la interfaz, el motor cuenta con ciertas funcionalidades que ya no son requeridas. Para ilustrar este caso, se observa el funcionamiento del antiguo motor y las mejoras que se realizaron:
 		
 		Cuando uno ejecuta el IETFEM antiguo, se le plantean una serie de preguntas iniciales, las cuáles incluyen:
 		
@@ -846,7 +845,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		El primer caso a probar consta de una estructura representando una pequeña torre. La misma se asemeja a las estructuras que se realizan en el curso de Elasticidad en el que se utilizará la herramienta. Cuenta con 10 nodos y 25  barras.
 		
-		La ejecución del mismo se llevó a cabo en etapas tempranas de desarrollo e integración con el motor, ayudando en el proceso de descubrimiento de bugs y resolución de los mismos.
+		La ejecución del mismo se llevó a cabo en etapas tempranas de desarrollo e integración con el motor, ayudando en el proceso de descubrimiento de \emph{bugs} y resolución de los mismos.
 		
 		Una vez finalizada la primer versión, se probaron todos los casos de uso especificados, respondiendo a los mismos con resultados positivos y ejecutando con excelente fluidez. En la Figura \ref{fig:torres} se puede ver la estructura y los resultados obtenidos. Se aprecia la estructura indeformada y la deformada en color púrpura. También se puede ver la torre sometida a un factor de escala de 200, con el fin de apreciar mejor los desplazamientos de la misma. Por último, se coloreó la estructura de acuerdo a la deformación de cada barra, de manera que puede observarse en rojo las barras que se comprimen y en verde las que se traccionan.
 		
@@ -856,7 +855,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 			\label{fig:torres}
 		\end{figure}
 		
-		En cuanto a tiempos de ejecución,  se observa una significativa mejora, consecuencia de eliminar el módulo de generación de imágenes del motor. Si se ejecuta la torre en cuestión en el antiguo IETFEM, los resultados son los siguientes:
+		En cuanto a tiempos de ejecución, se observa una significativa mejora, consecuencia de eliminar el módulo de generación de imágenes del motor. Si se ejecuta la torre en cuestión en el antiguo IETFEM, los resultados son los siguientes:
 		
 		\begin{itemize}
 			\item \textbf{Lectura de datos: }0.227 segundos 
