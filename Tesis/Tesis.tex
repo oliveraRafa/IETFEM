@@ -955,29 +955,31 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		Lo primero que se observó al cargar el modelo en la interfaz, fue una notoria baja calidad en el movimiento en la cámara. Debido a la masividad de objetos ingresados en la escena, el renderizado consumía demasiado tiempo y le quitaba fluidez a la aplicación.
 		
-		Motivados por la experiencia de renderizar una estructura enorme como la Torre Eiffel, se comenzó una investigación por parte del equipo de desarrollo de estrategias para atacar dicho problema y mejorar así el rendimiento de la aplicación. Si bien la mayoría de los fixes no serian realizados debido a que la aplicación ya soporta con creces los casos de uso para los que fue diseñada, dicha investigación resulta útil como base para trabajos futuros y por la adquisición de valioso conocimiento académico.
+		Motivados por la experiencia de renderizar una estructura enorme como la Torre Eiffel, se comenzó una investigación por parte del equipo de desarrollo de estrategias para atacar dicho problema y mejorar así el rendimiento de la aplicación. Si bien la mayoría de los fixes no serían realizados debido a que la aplicación ya soporta con creces los casos de uso para los que fue diseñada, dicha investigación resulta útil como base para trabajos futuros y por la adquisición de valioso conocimiento académico.
 
 Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		\begin{itemize}
 			
-			\item Utilizar threex.rendererstats, un monitor que nos da información útil sobre la escena como draw calls o cantidad de geometrías lo cual nos puede ayudar a tomar medidas correctivas.
+			\item Utilizar threex.rendererstats, un monitor que nos da información útil sobre la escena como \emph{draw calls} o cantidad de geometrías lo cual nos puede ayudar a tomar medidas correctivas.
 			
-			\item Ahorrar en la cantidad de objetos geometría y materiales reutilizando en la medida de lo posible. Existen experiencias en la web que dicen que la velocidad de renderizado se incrementa 4.5 veces para 2000 cubos iguales. (Esta es una medida implementada)
+			\item Ahorrar en la cantidad de geometrías y materiales reutilizando en la medida de lo posible. Existen experiencias en la web que dicen que la velocidad de renderizado se incrementa 4.5 veces para 2000 cubos iguales. (Esta es una medida implementada)
 			
 			\item En el caso de utilizar la geometría esfera, utilizarla con parámetros que deriven en una figura con menor cantidad de caras. Según la investigación la mejora de performance es muy baja.
 
-			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de  mergear  o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta más difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
+			\item En lugar de añadir las geometrías de forma individual en la escena, utilizar la técnica de mergear o unir las mismas en un solo gran objeto. Esta técnica resulta en una mejora substancial en la cantidad de FPS (Frame per second) en la aplicación. De acuerdo a la investigación, se obtiene que se pueden renderizar 120000 cubos a 30FPS mientras que sin esta técnica solo 2000. Aunque la mejora es muy importante, esta forma de trabajo deriva en una complicación a nivel de código importante, debido a que resulta más difícil manipular los objetos individualmente en la escena como en los casos de selección o borrado de objetos. 
 			
 			\item Utilizar estructuras de datos más performantes como el octree para tareas como raycasting.
 			
-			\item Utilizar web workers con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
+			\item Utilizar \emph{web workers} con el fin de paralelizar operaciones de calculo que requieran gran procesamiento con el fin de no interferir con el thread de la UI.
 			
-			\item Utilizar custom shaders en caso de encontrar un caso factible.
+			\item Utilizar \emph{custom shaders} en caso de encontrar un caso factible.
+			
+			\item Eliminar la funcionalidad que implica resaltar barras y nodos al hacer \emph{hover} sobre ellas. Dicha funcionalidad implica un constante \emph{raycasting} de manera de saber que objetos intersectan con la posición del mouse. Esta medida se implementó, logrando una mejora mínima, aunque luego se decidió descartar esta medida debido a que se considera que no vale la pena eliminar esta funcionalidad para mejorar en poca medida casos inalcanzables.
 
     \end{itemize}
 
-		Con respecto a la ejecución del caso en la interfaz, se debe tener en cuenta que además de mantener la escena, el navegador debe mantener por detrás el modelo de la estructura con todas sus característica. Además, una vez que se procesan los resultados del motor, se agregan todos los datos de la deformada, lo que hace que el navegador falle en algunos casos por problemas de memoria. 
+		Con respecto a la ejecución del caso en la interfaz, se debe tener en cuenta que además de mantener la escena, el navegador debe mantener por detrás el modelo de la estructura con todas sus características. Además, una vez que se procesan los resultados del motor, se agregan todos los datos de la deformada, lo que hace que el navegador falle en algunos casos por problemas de memoria. 
 		
 		En una versión futura del sistema, este problema podría arreglarse, por ejemplo, manteniendo la estructura persistida en una base de datos, eliminando carga del navegador. Sin embargo, para la versión académica se conoce que el alcance es mucho menor y que nunca se utilizará una estructura de semejante porte. Por lo tanto, consideramos que el caso estudiado aportó al proyecto al mejorar la performance del mismo, pero se expone como un límite conocido el número de elementos de la estructura, sabiendo que para 1500 elementos(grúa), el sistema funciona perfectamente.
 		
@@ -997,9 +999,9 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		\subsubsection {Trabajo en la interfaz}
 		
-		Si bien la interfaz cumple con los requisitos y el alcance pretendido para el proyecto, existen muchos puntos para agregar y mejorar.
+		Si bien la interfaz cumple con los requisitos y el alcance pretendido para el proyecto, existen ciertos puntos para agregar y mejorar.
 		
-		En primer lugar y quizás como el punto más directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran: pórticos, etc.
+		En primer lugar y quizás como el punto más directo, se encuentra extender las capacidades de la interfaz de usuario para dar soporte a la resolución de el resto de los problemas que actualmente ya es capaz de resolver el motor de calculo IETFEM. Entre estos problemas se encuentran, por ejemplo, superficies aporticadas.
 		
 		Además se pueden agregar varias funcionalidades accesorias como cámara ortogonal o selección múltiple, enriqueciendo la experiencia con la herramienta e incluso asemejándola a la de programas comerciales con años de desarrollo. Con el fin de mejorar la experiencia es posible dedicar esfuerzo también a detalles estéticos de la interfaz para hacerla aún más atractiva. 
 		
@@ -1009,7 +1011,7 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		
 		Si bien la solución presentada fue realizada con tecnologías web, la misma se ejecuta en un entorno local (sin servidor que la despliegue) y con la intervención del usuario para correr los cálculos en el motor en GNU-Octave. Sin embargo esta decisión responde a un requerimiento de los tutores con el argumento de evitar el mantenimiento de servidores. Dicho esto, el diseño completo incluye elementos del lado del servidor que se pasarán a detallar brevemente quedando como trabajo futuro.
 		
-		La solución original plantea un servidor web para el despliegue de la aplicación (interfaz de usuario) y un servidor de aplicaciones con la funcionalidad de ejecutar el código del motor de cálculos con los parámetros recibidos desde la interfaz de usuario y devolver los resultados para que la interfaz los despliegue. Todas las comunicaciones entre servidores e interfaz se realizarían mediante servicios REST.
+		La solución original plantea un servidor web para el despliegue de la aplicación (interfaz de usuario) y un servidor de aplicaciones con la funcionalidad de ejecutar el código del motor de cálculo con los parámetros recibidos desde la interfaz de usuario y devolver los resultados para que la interfaz los despliegue. Todas las comunicaciones entre servidores e interfaz se realizarían mediante servicios REST.
 		
 		De implementarse estos cambios se tendrían varias ventajas para la herramienta y los usuarios de la misma:
 		\begin{itemize}
