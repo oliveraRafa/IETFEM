@@ -163,6 +163,7 @@ angular.module('IETFEM')
 		//Agrega un punto al modelo de las grillas
 	var addGridPointToModel = function(pX,pY,pZ, sceneId, gridInfo) {
 		var point = {};
+		point.type = "POINT"
 		point.sceneId = sceneId;
 		point.coords = {
 			x: pX,
@@ -177,8 +178,19 @@ angular.module('IETFEM')
 	//Agrega una línea al modelo
 	var addGridLineToModel = function(pX1, pY1, pZ1, pX2, pY2, pZ2, lineSceneId,gridInfo) {		
 		var line = {};
+		line.type = "LINE"
 		line.sceneId= lineSceneId;
-
+		line.start = {
+			x: pX1,
+			y: pY1,
+			z: pZ1
+		}
+		line.end = {
+			x: pX2,
+			y: pY2,
+			z: pZ2
+		}
+	
 		gridInfo.objects.push(line);
 	};
 

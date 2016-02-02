@@ -339,6 +339,7 @@ app.controller(
 							intersects[0].object.material = new THREE.MeshBasicMaterial( {color: 0x000000} ); ya no es necesario*/
 							var newNodeId=SpaceService.drawPoint(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, $scope.scene, $scope.spaceAux.scenePoints, DefaultsService.getMaterialNegro() , null);
 							ModelService.addPointToModel(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z, newNodeId, $scope.model);
+							$scope.setScaleValues(intersects[0].object.position.x, intersects[0].object.position.y, intersects[0].object.position.z,false);
 							/*puntosEscena.push(intersects[0].object);	ya no es necesario creamos un nuevo nodo*/
 						}
 					} 
@@ -432,6 +433,49 @@ app.controller(
 				$scope.model.helpObjects.idLastGrilla++;
 			
 			};
+
+			//Funcion para setear valores para calculo de escala de las fuerzas
+			//x,y,z son coordenadas de un nodo
+			$scope.setScaleValues= function(x,y,z,reset){
+				if(reset){//Se utiliza cuando se elimina un nodo
+
+				}else{
+
+					//Seteo los valores si corresponde
+					if(($scope.fuerzas.escala.maxX != null) && (x > $scope.fuerzas.escala.maxX)){
+						$scope.fuerzas.escala.maxX = x;
+						
+					}else if($scope.fuerzas.escala.minX != null && x < $scope.fuerzas.escala.minX){
+						$scope.fuerzas.escala.minX = x;
+					}else{
+						$scope.fuerzas.escala.maxX = x;
+						$scope.fuerzas.escala.minX = x;
+					}
+
+					//Seteo los valores si corresponde
+					if($scope.fuerzas.escala.maxY != null && y > $scope.fuerzas.escala.maxY){
+						$scope.fuerzas.escala.maxY = y;
+					}else if($scope.fuerzas.escala.minY != null && y < $scope.fuerzas.escala.minY){
+						$scope.fuerzas.escala.minY = y;
+					}else{
+						$scope.fuerzas.escala.maxY = y;
+						$scope.fuerzas.escala.minY = y;
+					}
+
+					//Seteo los valores si corresponde
+					if($scope.fuerzas.escala.maxZ != null && z > $scope.fuerzas.escala.maxZ){
+						$scope.fuerzas.escala.maxZ = z;
+					}else if($scope.fuerzas.escala.minZ != null && z < $scope.fuerzas.escala.minZ){
+						$scope.fuerzas.escala.minZ = z;
+					}else{
+						$scope.fuerzas.escala.maxZ = z;
+						$scope.fuerzas.escala.minZ = z;
+					}
+
+				
+				}
+				
+			};
 			
 			//Agrega un punto
 			$scope.addPoint = function(){
@@ -440,6 +484,9 @@ app.controller(
 					var sceneId = SpaceService.drawPoint($scope.posX, $scope.posY, $scope.posZ, $scope.scene, $scope.spaceAux.scenePoints, material, $scope.spaceAux.helpObjects.grilla);
 					
 					ModelService.addPointToModel($scope.posX, $scope.posY, $scope.posZ, sceneId, $scope.model);
+					//Actualizo valores para escala de las fuerzas
+					$scope.setScaleValues($scope.posX, $scope.posY, $scope.posZ,false);
+
 					render();
 					//Reseteo form
 					$scope.nodoCoordenadaForm.$setPristine();
@@ -660,6 +707,7 @@ app.controller(
 					for (i = 0; i < nodeMatrix.length; i++) {
 						var sceneId = SpaceService.drawPoint(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], $scope.scene, $scope.spaceAux.scenePoints, material, null);
 						ModelService.addPointToModel(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2], sceneId, $scope.model);
+						$scope.setScaleValues(nodeMatrix[i][0], nodeMatrix[i][1], nodeMatrix[i][2],false);
 					}
 
 					
@@ -726,7 +774,9 @@ app.controller(
 				PtoSelecService.resetPuntoSeleccionado();
 
 				$scope.fuerzas.visible=false;
-				$scope.fuerzas.escala=1;
+				//maxModule= (Max{DeltaX,DeltaY,DeltaZ}) * 0.2
+				$scope.fuerzas.escala={factorEscala:1,maxModule:1,maxX:null,minX:null,maxY:null,minY:null,maxZ:null,minZ:null};
+
 				$scope.supports.visible=false;
 				$scope.resortes.visible=false;
 
@@ -819,7 +869,26 @@ app.controller(
 					};
 
 					for (var i=0; i < auxModel.helpObjects.grillas.length; i++){
-						$scope.model.helpObjects.grillas.push(auxModel.helpObjects.grillas[i]);
+						var grilla = auxModel.helpObjects.grillas[i];
+						var material = DefaultsService.getMaterialGrilla();
+						for (var j=0; j < grilla.objects.length; j++){
+							if(grilla.objects[j].type == 'POINT'){
+								var sphereGeometry= DefaultsService.getEsferaEstandar();
+								var sphereMaterial = DefaultsService.getMaterialGrilla();
+								var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+								sphere.position.x = grilla.objects[j].coords.x;
+								sphere.position.y = grilla.objects[j].coords.y;
+								sphere.position.z = grilla.objects[j].coords.z;
+								$scope.scene.add(sphere);
+								$scope.spaceAux.helpObjects.grilla.push(sphere);
+								grilla.objects[j].sceneId = sphere.id;
+							} else {
+								var sceneIdGridLine= SpaceService.drawLine(grilla.objects[j].start.x, grilla.objects[j].start.y, grilla.objects[j].start.z, grilla.objects[j].end.x, grilla.objects[j].end.y, grilla.objects[j].end.z, material, 0.01, $scope.scene,null, true);
+								grilla.objects[j].sceneId = sceneIdGridLine;
+							}
+						}
+
+						$scope.model.helpObjects.grillas.push(grilla);
 					};
 
 					for (i=0; i < $scope.model.points.length ; i++){
@@ -912,7 +981,10 @@ app.controller(
 			var firstPointLine = null;
 			var idFirstPoint = 0;
 
-			$scope.fuerzas={visible:true, escala:1};
+			//$scope.fuerzas={visible:true, escala:1};
+			$scope.fuerzas={visible:true};
+			//maxModule= (Max{DeltaX,DeltaY,DeltaZ}) * 0.2
+			$scope.fuerzas.escala={factorEscala:1,maxModule:1,maxX:null,minX:null,maxY:null,minY:null,maxZ:null,minZ:null};
 			$scope.supports={visible:true};
 			$scope.resortes={visible:true};
 

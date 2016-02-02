@@ -478,8 +478,8 @@
 								</br>
 								</br>
 								<span style="">Factor de escala: </span>
-								<input type="range" ng-model="statusFuerzas.escala" min="1" max="10000" ng-change="toggleForces()">
-								<input type="text"  ng-model="statusFuerzas.escala" ng-change="toggleForces()" ng-pattern="/^[0-9]{1,4}$/">
+								<input type="range" ng-model="statusFuerzas.escala.factorEscala" min="1" max="10000" ng-change="toggleForces()">
+								<input type="text"  ng-model="statusFuerzas.escala.factorEscala" ng-change="toggleForces()" ng-pattern="/^[0-9]{1,4}$/">
 								</br>
 								</br>
 								<span style="">Apoyos:  </span>
@@ -562,8 +562,8 @@
 								<div class="panel-heading">Otras opciones</div>
 								<div class="panel-body">
 									<span style="">Factor de escala: </span>
-									<input type="range" ng-model="statusFuerzas.escala" min="1" max="10000" ng-change="toggleForces()">
-									<input type="text"  ng-model="statusFuerzas.escala" ng-change="toggleForces()" ng-pattern="/^[0-9]{1,4}$/">
+									<input type="range" ng-model="statusFuerzas.escala.factorEscala" min="1" max="100" ng-change="toggleForces()">
+									<input type="text"  ng-model="statusFuerzas.escala.factorEscala" ng-change="toggleForces()" ng-pattern="/^[0-9]{1,4}$/">
 									</br></br>
 									<div class="onoffswitch middle-align">
 									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-event" ng-model="statusFuerzas.visible" ng-change="toggleForces()">
@@ -575,8 +575,8 @@
 									<span class="middle-align switch-text">Fuerzas</span>
 									</br></br>
 									<div class="onoffswitch middle-align">
-									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-event2" ng-model="statusSupports.visible" ng-change="toggleSupports()">
-									    <label class="onoffswitch-label" for="toggle-event2">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-Fuerzas1" ng-model="statusSupports.visible" ng-change="toggleSupports()">
+									    <label class="onoffswitch-label" for="toggle-Fuerzas1">
 									        <span class="onoffswitch-inner"></span>
 									        <span class="onoffswitch-switch"></span>
 									    </label>

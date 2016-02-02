@@ -25,6 +25,39 @@ var app = angular.module('IETFEM');
 				return false;
 			}
 		};
+
+		var getMaxForce= function(){//Obtengo la fuerza mas grande para realizar regla de 3 y escalar el resto de las fuerzas
+		var maxFuerza=0;
+		for(var i = 0; i < $scope.model.points.length ;i++){
+			var punto=$scope.model.points[i];
+			if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
+				var xForce = punto.xForce;
+				var yForce = punto.yForce;
+				var zForce = punto.zForce;
+				var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
+				if(largo > maxFuerza){
+					maxFuerza=largo;
+				}
+			}
+		}
+		return maxFuerza;
+		};
+
+
+		//CHANCHISIMO!!
+		var offForces = function(){
+		
+			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
+				var punto=$scope.model.points[i];
+				if(punto.forceArrowId!=0){
+					SpaceService.hideShowObject(punto.forceArrowId,false,$scope.scene);
+				}
+			}
+			
+			$scope.fuerzas.visible=false;
+			$scope.render();
+			$scope.$apply();
+	};
 		
 		this.updatePoint= function(){
 			var puntoModelo= PtoSelecService.getPuntoReal();
@@ -41,9 +74,9 @@ var app = angular.module('IETFEM');
 
 				//Para los calculos de las flechas
 				var auxFlecha={};
-				auxFlecha.xForce= parseFloat($scope.miPunto.xForce)/$scope.statusFuerzas.escala;
-				auxFlecha.yForce= parseFloat($scope.miPunto.yForce)/$scope.statusFuerzas.escala;
-				auxFlecha.zForce= parseFloat($scope.miPunto.zForce)/$scope.statusFuerzas.escala;
+				auxFlecha.xForce= parseFloat($scope.miPunto.xForce);
+				auxFlecha.yForce= parseFloat($scope.miPunto.yForce);
+				auxFlecha.zForce= parseFloat($scope.miPunto.zForce);
 
 				//Seteo fuerzas reales en el modelo
 				puntoModelo.xForce= parseFloat($scope.miPunto.xForce);
@@ -51,16 +84,29 @@ var app = angular.module('IETFEM');
 				puntoModelo.zForce= parseFloat($scope.miPunto.zForce);
 
 				//Actualizo flecha de fuerzas del nodo
+				
 				if($scope.statusFuerzas.visible){
-					var origen= new THREE.Vector3( puntoModelo.coords.x-auxFlecha.xForce, puntoModelo.coords.y-auxFlecha.yForce, puntoModelo.coords.z-auxFlecha.zForce );
-					var largo= Math.sqrt( Math.pow(auxFlecha.xForce,2) + Math.pow(auxFlecha.yForce,2) + Math.pow(auxFlecha.zForce,2))-0.1;
+					//No actualizo las flechas las apago
+					
+					/*var largo= Math.sqrt( Math.pow(auxFlecha.xForce,2) + Math.pow(auxFlecha.yForce,2) + Math.pow(auxFlecha.zForce,2))-0.1;
+					
 					var direccion = new THREE.Vector3( auxFlecha.xForce/ (largo+0.1), auxFlecha.yForce/ (largo+0.1), auxFlecha.zForce/(largo+0.1) );
+
+					var fuerzaMaxima= getMaxForce();
+					largo= (largo * $scope.fuerzas.escala.maxModule) / fuerzaMaxima;
+					largo= largo / $scope.fuerzas.escala.factorEscala;
+
+					var aux= ($scope.fuerzas.escala.maxModule) / (fuerzaMaxima * $scope.fuerzas.escala.factorEscala);
+
+					var origen= new THREE.Vector3( puntoModelo.coords.x-(auxFlecha.xForce * aux), puntoModelo.coords.y-(auxFlecha.yForce * aux), puntoModelo.coords.z-(auxFlecha.zForce * aux) );
+
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(puntoModelo.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(puntoModelo.forceArrowId,$scope.scene);
 					}
 					puntoModelo.forceArrowId= newArrow.id;
-					$scope.scene.add(newArrow);
+					$scope.scene.add(newArrow);*/
+					offForces();
 				}
 				//-----------------------------------------------------
 				//Actualizo piramides de apoyos

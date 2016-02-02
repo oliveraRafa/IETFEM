@@ -35,7 +35,6 @@ app.controller('editLineCtrl',['$scope','ModelService','LineaSelecService','Defa
 			}
 		};
 
-
 		
 		this.updateLine= function(){
 			

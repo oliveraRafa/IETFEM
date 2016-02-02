@@ -17,21 +17,61 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 		$scope.render();
 	};
 
+	var getMaxForce= function(){//Obtengo la fuerza mas grande para realizar regla de 3 y escalar el resto de las fuerzas
+		var maxFuerza=0;
+		for(var i = 0; i < $scope.model.points.length ;i++){
+			var punto=$scope.model.points[i];
+			if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
+				var xForce = punto.xForce;
+				var yForce = punto.yForce;
+				var zForce = punto.zForce;
+				var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
+				if(largo > maxFuerza){
+					maxFuerza=largo;
+				}
+			}
+		}
+		return maxFuerza;
+	};
+
 	$scope.toggleForces = function(){
-		
 		if($scope.statusFuerzas.visible){// Genera las flechas de todos los puntos, si ya tenia la regenera
+
+				//Calculo el maxModule de la fuerza
+				if($scope.fuerzas.escala.maxX != null){//Verifico q haya algun punto ingresado si no fallaria
+					var deltaX= Math.sqrt(Math.pow($scope.fuerzas.escala.maxX-$scope.fuerzas.escala.minX,2));
+					var deltaY= Math.sqrt(Math.pow($scope.fuerzas.escala.maxY-$scope.fuerzas.escala.minY,2));
+					var deltaZ= Math.sqrt(Math.pow($scope.fuerzas.escala.maxZ-$scope.fuerzas.escala.minZ,2));
+
+					var maxDelta= Math.max(deltaX,deltaY,deltaZ);
+
+					$scope.fuerzas.escala.maxModule= maxDelta * 0.2;
+					if($scope.fuerzas.escala.maxModule < 1){
+						$scope.fuerzas.escala.maxModule = 1;
+					}
+				}
+
 			for(var i = 0; i < $scope.model.points.length ;i++){
 				var punto=$scope.model.points[i];
 				if(punto.xForce !=0 || punto.yForce !=0 || punto.zForce !=0){
 
-					var xForce = punto.xForce/$scope.statusFuerzas.escala;
-					var yForce = punto.yForce/$scope.statusFuerzas.escala;
-					var zForce = punto.zForce/$scope.statusFuerzas.escala;
+					var xForce = punto.xForce;
+					var yForce = punto.yForce;
+					var zForce = punto.zForce;
 
-					var origen= new THREE.Vector3( punto.coords.x-xForce, punto.coords.y-yForce, punto.coords.z-zForce );
+					
 					var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
 
 					var direccion = new THREE.Vector3(xForce/ (largo+0.1), yForce/(largo+0.1), zForce/(largo+0.1) );
+
+					var fuerzaMaxima= getMaxForce();
+					largo= (largo * $scope.fuerzas.escala.maxModule) / fuerzaMaxima;
+					largo= largo / $scope.fuerzas.escala.factorEscala;
+
+					var aux= ($scope.fuerzas.escala.maxModule) / (fuerzaMaxima * $scope.fuerzas.escala.factorEscala);
+					var origen= new THREE.Vector3( punto.coords.x-(xForce * aux), punto.coords.y-(yForce * aux), punto.coords.z-(zForce * aux) );
+				
+					
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(punto.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(punto.forceArrowId,$scope.scene);
