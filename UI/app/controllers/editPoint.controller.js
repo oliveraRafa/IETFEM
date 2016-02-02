@@ -42,22 +42,6 @@ var app = angular.module('IETFEM');
 		}
 		return maxFuerza;
 		};
-
-
-		//CHANCHISIMO!!
-		var offForces = function(){
-		
-			for(var i = 0; i < $scope.model.points.length ;i++){//Esconde todas las flechas
-				var punto=$scope.model.points[i];
-				if(punto.forceArrowId!=0){
-					SpaceService.hideShowObject(punto.forceArrowId,false,$scope.scene);
-				}
-			}
-			
-			$scope.fuerzas.visible=false;
-			$scope.render();
-			$scope.$apply();
-	};
 		
 		this.updatePoint= function(){
 			var puntoModelo= PtoSelecService.getPuntoReal();
@@ -106,7 +90,8 @@ var app = angular.module('IETFEM');
 					}
 					puntoModelo.forceArrowId= newArrow.id;
 					$scope.scene.add(newArrow);*/
-					offForces();
+					$( "#toggle-forces" ).trigger( "click" );
+					$( "#toggle-forces" ).trigger( "click" );
 				}
 				//-----------------------------------------------------
 				//Actualizo piramides de apoyos
