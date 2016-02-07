@@ -1,11 +1,7 @@
 var app = angular.module('IETFEM');
 app.controller('SeccionesCtrl',['$scope','ModelService',function($scope,ModelService){
 		$scope.secciones = $scope.model.secciones;
-		$scope.nuevaSeccion={
-			section:0,
-			name:"Nueva Seccion"
-		};
-
+		$scope.nuevaSeccion={};
 		$scope.aEditarSeccionIndex=null;
 		$scope.editando=false;
 

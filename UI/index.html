@@ -298,10 +298,10 @@
 										<form name="seccionForm" ng-submit="addSection()" novalidate>
 											<div class="form-group">
 												<label class="control-label">Nombre</label>
-												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevaSeccion.name" required>
+												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevaSeccion.name" placeholder="Nueva Sección" required>
 
 												 <label class="control-label">Area</label>
-												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" min="0.0000000001" required>
+												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" min="0.0000000001" placeholder="0" required>
 											</div>
 											<div class="form-group" style="color:#a94442" ng-show="existeSeccion() && !isEditing()">
 												 <p>
@@ -324,14 +324,12 @@
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<td>Index</td>
 														<td>Nombre</td>
 														<td>Seccion</td>
 													</tr>
 												</thead>
 												<tbody>
 													<tr ng-repeat="seccion in secciones" ng-click="setSectionToRemove(seccion,$index)" ng-class="{active: $index == getSelectedIndex()}">
-														<td> {{ $index}} </td>
 														<td> {{seccion.name}} </td>
 														<td> {{seccion.section}} </td>
 													</tr>
@@ -363,7 +361,7 @@
 			      		
 			      		<div class="modal-body">
 							<span class="col-md-12 info-mod">Descarga el modelo de la estructura dibujada.</span>
-							<p class="error-msg" ng-show="validModel.emptyStructure"><span class="glyphicon glyphicon-remove error-icon"></span>Debes dibujar una estructura.</p>
+							<p class="error-msg" ng-show="validModel.emptyStructure"><span class="glyphicon glyphicon-remove error-icon"></span>Debes dibujar al menos una barra.</p>
 							<p class="error-msg" ng-show="validModel.invalidStructure"><span class="glyphicon glyphicon-remove error-icon"></span>Todas las barras deben tener un material y una seccion asignados.</p>
 							<div class="btn-group btn-group-justified" role="group">
 								<div class="btn-group" role="group">
@@ -633,7 +631,7 @@
 									<div class="panel-heading">Propiedades</div>
 									<div class="panel-body">
 										<div class="col-md-offset-1 col-md-2">
-											Condiciones Desplazamiento
+											Condiciones Desp.
 										</div>
 										<div class="col-md-offset-1 col-md-2" style="margin-left:12%">
 											Fuerzas Aplicadas
@@ -747,6 +745,24 @@
 						</div>
 					</div>
 
+					<!-- Unidades-->
+					<div style="position:fixed; bottom:0px; width:25%" ng-if="programMode =='CROSSLINK_INPUT'">
+						<div class="col-md-11">
+							<div class="panel panel-primary" >
+								<div class="panel-heading">Unidades</div>
+								<div class="panel-body">
+									<div class="col-md-6" style="text-align: left;">
+										<label>Fuerza:</label>
+							 			<input type="text" ng-model="model.unitForce" style="width: 25px;">
+									</div>
+									<div class="col-md-6">
+										<label>Longitud:</label>
+										<input type="text" ng-model="model.unitLength" style="width: 25px;">
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
 					
 
 				</div>

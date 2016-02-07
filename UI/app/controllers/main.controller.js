@@ -547,8 +547,8 @@ app.controller(
 			}
 			
 			$scope.modelToText = function(){
-				//$scope.validModel = ModelService.validModel($scope.model);
-				//if ($scope.validModel.valid){
+				$scope.validModel = ModelService.validModel($scope.model);
+				if ($scope.validModel.valid){
 					$scope.modelText = ModelService.getText($scope.model)
 
 					var a = window.document.createElement('a');
@@ -560,12 +560,12 @@ app.controller(
 
 					$('#obtenerTextoModal').modal('hide');
 					$('#transitionModal').modal('show');
-				//}		
+				}		
 			}
 
 			$scope.goToDownloadModel = function(){
 				console.log($scope.model);
-				$scope.validModel = {};
+				$scope.validModel = {valid:true};
 				$('#obtenerTextoModal').modal('show');
 			}
 
@@ -610,44 +610,52 @@ app.controller(
 						row = temp[i].split("\t")
 						forcesMatrix.push(row);
 					}
-					
-					for (i = 0; i < displacementMatrix.length; i++) {
+					var end = 0;
+					for (i = 0; end < displacementMatrix.length; i++) {
 						var point = ModelService.getPointById(i+1, $scope.model);
 
-						var displacementX = parseFloat(displacementMatrix[i][0].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][0].split("e")[1]));
-						var displacementY = parseFloat(displacementMatrix[i][1].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][1].split("e")[1]));
-						var displacementZ = parseFloat(displacementMatrix[i][2].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[i][2].split("e")[1]));
+						if (point){
+							var displacementX = parseFloat(displacementMatrix[end][0].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[end][0].split("e")[1]));
+							var displacementY = parseFloat(displacementMatrix[end][1].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[end][1].split("e")[1]));
+							var displacementZ = parseFloat(displacementMatrix[end][2].split("e")[0]) * Math.pow(10,parseFloat(displacementMatrix[end][2].split("e")[1]));
 
-						var pointX = parseFloat(point.coords.x) + displacementX
-						var pointY = parseFloat(point.coords.y) + displacementY
-						var pointZ = parseFloat(point.coords.z) + displacementZ
+							var pointX = parseFloat(point.coords.x) + displacementX
+							var pointY = parseFloat(point.coords.y) + displacementY
+							var pointZ = parseFloat(point.coords.z) + displacementZ
 
-						var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, $scope.spaceAux.scenePoints, material, null);
+							var sceneId = SpaceService.drawPoint(pointX, pointY, pointZ, $scope.scene, $scope.spaceAux.scenePoints, material, null);
 
-						DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
+							DeformedService.addPointToDeformed(point.coords.x, point.coords.z, point.coords.y,displacementX, displacementZ, displacementY, point.id, sceneId, $scope.deformed);
+							end += 1;
+						}
 					}
 					
-
-					for (i = 0; i < forcesMatrix.length; i++) {
+					end = 0;
+					for (i = 0; end < forcesMatrix.length; i++) {
 						var line = $scope.model.lines[i];
-						var point1 = DeformedService.getDeformedPointById(line.start, $scope.deformed);
-						var point2 = DeformedService.getDeformedPointById(line.end, $scope.deformed);
 
-						var a1 = parseFloat(point1.coords.x) + parseFloat(point1.displacements.x);
-						var a2 = parseFloat(point1.coords.z) + parseFloat(point1.displacements.z);
-						var a3 = parseFloat(point1.coords.y) + parseFloat(point1.displacements.y);
-						var b1 = parseFloat(point2.coords.x) + parseFloat(point2.displacements.x);
-						var b2 = parseFloat(point2.coords.z) + parseFloat(point2.displacements.z);
-						var b3 = parseFloat(point2.coords.y) + parseFloat(point2.displacements.y);
-						var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,[]);
+						if (line){
 
-						var deformation = parseFloat(forcesMatrix[i][0].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][0].split("e")[1])); 
-						var force = parseFloat(forcesMatrix[i][1].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][1].split("e")[1])); 
-						var tension = parseFloat(forcesMatrix[i][2].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[i][2].split("e")[1])); 
+							var point1 = DeformedService.getDeformedPointById(line.start, $scope.deformed);
+							var point2 = DeformedService.getDeformedPointById(line.end, $scope.deformed);
 
-						DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, deformation, force, tension,$scope.deformed);
+							var a1 = parseFloat(point1.coords.x) + parseFloat(point1.displacements.x);
+							var a2 = parseFloat(point1.coords.z) + parseFloat(point1.displacements.z);
+							var a3 = parseFloat(point1.coords.y) + parseFloat(point1.displacements.y);
+							var b1 = parseFloat(point2.coords.x) + parseFloat(point2.displacements.x);
+							var b2 = parseFloat(point2.coords.z) + parseFloat(point2.displacements.z);
+							var b3 = parseFloat(point2.coords.y) + parseFloat(point2.displacements.y);
+							var sceneId=SpaceService.drawLine(a1, a2, a3, b1, b2, b3, material, 0.05, $scope.scene,[]);
+
+							var deformation = parseFloat(forcesMatrix[end][0].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[end][0].split("e")[1])); 
+							var force = parseFloat(forcesMatrix[end][1].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[end][1].split("e")[1])); 
+							var tension = parseFloat(forcesMatrix[end][2].split("e")[0]) * Math.pow(10,parseFloat(forcesMatrix[end][2].split("e")[1])); 
+
+							DeformedService.addLineToDeformed(line.start, line.end, line.id, sceneId, deformation, force, tension,$scope.deformed);
+							end += 1;
+						}
 					}
-					
+						
 
 					$('#processOutputModal').modal('hide');
 					
@@ -994,6 +1002,8 @@ app.controller(
 			$scope.model.lines = [];
 			$scope.model.materiales = [];
 			$scope.model.secciones= [];		
+			$scope.model.unitForce= "XX";	
+			$scope.model.unitLength= "XX";	
 
 			$scope.model.helpObjects.grillas=[];//Conjunto de infoGrid tienen info+ array de objetos del modelo
 

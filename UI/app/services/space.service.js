@@ -122,7 +122,7 @@ angular.module('IETFEM')
 		if(isSpring){
 			material = new THREE.MeshBasicMaterial( {color: 0x587272} );
 		}else{
-			material = new THREE.MeshBasicMaterial( {color: 0x610B0B} );
+			material = new THREE.MeshBasicMaterial( {color: 0x0B0B61} );
 		}
 		if(isX){
 			if(x>=0){
