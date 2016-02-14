@@ -3,6 +3,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 
 	$scope.gridInfos= $scope.model.helpObjects.grillas; // gridInfos de las grillas del espacio
 	$scope.statusFuerzas=$scope.fuerzas;
+	$scope.auxFactor=100;
 	$scope.statusSupports=$scope.supports;
 	$scope.statusSprings=$scope.resortes;
 
@@ -25,7 +26,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 				var xForce = punto.xForce;
 				var yForce = punto.yForce;
 				var zForce = punto.zForce;
-				var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2))-0.1;
+				var largo= Math.sqrt( Math.pow(xForce,2) + Math.pow(yForce,2) + Math.pow(zForce,2));
 				if(largo > maxFuerza){
 					maxFuerza=largo;
 				}
@@ -34,7 +35,64 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 		return maxFuerza;
 	};
 
-	$scope.toggleForces = function(){
+	$scope.toggleForces = function(isRange){
+		//Arreglos para slider con distinta escala!! Utilizo valor auxiliar en el range y ajusto el factor de escala real acorde
+		if(!isNaN(parseFloat($scope.statusFuerzas.escala.factorEscala))){
+			$scope.statusFuerzas.escala.factorEscala=parseFloat($scope.statusFuerzas.escala.factorEscala);
+		}
+		if(isRange){
+			if($scope.auxFactor >= 0 && $scope.auxFactor <=10){
+				$scope.statusFuerzas.escala.factorEscala=0.10;
+			}else if($scope.auxFactor > 10  && $scope.auxFactor <=20){
+				$scope.statusFuerzas.escala.factorEscala=0.20;
+			}else if($scope.auxFactor > 20  && $scope.auxFactor <=30){
+				$scope.statusFuerzas.escala.factorEscala=0.30;
+			}else if($scope.auxFactor > 30  && $scope.auxFactor <=40){
+				$scope.statusFuerzas.escala.factorEscala=0.40;
+			}else if($scope.auxFactor > 40  && $scope.auxFactor <=50){
+				$scope.statusFuerzas.escala.factorEscala=0.50;
+			}else if($scope.auxFactor > 50  && $scope.auxFactor <=60){
+				$scope.statusFuerzas.escala.factorEscala=0.60;
+			}else if($scope.auxFactor > 60  && $scope.auxFactor <=70){
+				$scope.statusFuerzas.escala.factorEscala=0.70;
+			}else if($scope.auxFactor > 70  && $scope.auxFactor <=80){
+				$scope.statusFuerzas.escala.factorEscala=0.80;
+			}else if($scope.auxFactor > 80  && $scope.auxFactor <=90){
+				$scope.statusFuerzas.escala.factorEscala=0.90;
+			}else if($scope.auxFactor > 90  && $scope.auxFactor <=100){
+				$scope.statusFuerzas.escala.factorEscala=1;
+			}else{
+				$scope.statusFuerzas.escala.factorEscala=$scope.auxFactor-100;
+			}
+		}else{
+			if($scope.statusFuerzas.escala.factorEscala >= 0 && $scope.statusFuerzas.escala.factorEscala <= 0.10){
+				$scope.auxFactor=0;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.10 && $scope.statusFuerzas.escala.factorEscala <= 0.20){
+				$scope.auxFactor=10;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.20 && $scope.statusFuerzas.escala.factorEscala <= 0.30){
+				$scope.auxFactor=20;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.30 && $scope.statusFuerzas.escala.factorEscala <= 0.40){
+				$scope.auxFactor=30;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.40 && $scope.statusFuerzas.escala.factorEscala <= 0.50){
+				$scope.auxFactor=40;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.50 && $scope.statusFuerzas.escala.factorEscala <= 0.60){
+				$scope.auxFactor=50;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.60 && $scope.statusFuerzas.escala.factorEscala <= 0.70){
+				$scope.auxFactor=60;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.70 && $scope.statusFuerzas.escala.factorEscala <= 0.80){
+				$scope.auxFactor=70;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.80 && $scope.statusFuerzas.escala.factorEscala <= 0.90){
+				$scope.auxFactor=80;
+			}else if($scope.statusFuerzas.escala.factorEscala >= 0.90 && $scope.statusFuerzas.escala.factorEscala <= 1){
+				$scope.auxFactor=100;
+			}
+			else{
+				if($scope.statusFuerzas.escala.factorEscala > 100){
+					$scope.statusFuerzas.escala.factorEscala=100;
+				}
+				$scope.auxFactor=$scope.statusFuerzas.escala.factorEscala+100;
+			}
+		}
 		if($scope.statusFuerzas.visible){// Genera las flechas de todos los puntos, si ya tenia la regenera
 
 				//Calculo el maxModule de la fuerza
@@ -64,6 +122,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 
 					var direccion = new THREE.Vector3(xForce/ (largo+0.1), yForce/(largo+0.1), zForce/(largo+0.1) );
 
+					largo=largo+0.1;
 					var fuerzaMaxima= getMaxForce();
 					largo= (largo * $scope.fuerzas.escala.maxModule) / fuerzaMaxima;
 					largo= largo / $scope.fuerzas.escala.factorEscala;
@@ -71,7 +130,10 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					var aux= ($scope.fuerzas.escala.maxModule) / (fuerzaMaxima * $scope.fuerzas.escala.factorEscala);
 					var origen= new THREE.Vector3( punto.coords.x-(xForce * aux), punto.coords.y-(yForce * aux), punto.coords.z-(zForce * aux) );
 				
-					
+					console.log(($scope.fuerzas.escala.maxModule));
+					console.log((fuerzaMaxima));
+					console.log(($scope.fuerzas.escala.factorEscala));
+					console.log("largo " + largo);
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(punto.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(punto.forceArrowId,$scope.scene);
