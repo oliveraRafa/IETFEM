@@ -375,7 +375,7 @@
 
 			<!-- Fin Modals ----------------------------------- -->
 
-			
+			<!-- <div class="container-fluid"> -->
 			<div class="row">
 
 				<div class="col-md-9">
@@ -476,8 +476,8 @@
 								</br>
 								</br>
 								<span style="">Factor de escala: </span>
-								<input type="range" ng-model="statusFuerzas.escala.factorEscala" min="1" max="10000" ng-change="toggleForces()">
-								<input type="text"  ng-model="statusFuerzas.escala.factorEscala" ng-change="toggleForces()" ng-pattern="/^[0-9]{1,4}$/">
+								<input type="range" ng-model="auxFactor" min="1" max="200" ng-change="toggleForces(true)">
+								<input type="text"  ng-model="statusFuerzas.escala.factorEscala" ng-change="toggleForces(false)" ng-pattern="/^[0-9]{1,4}$/">
 								</br>
 								</br>
 								<span style="">Apoyos:  </span>
@@ -766,8 +766,8 @@
 					
 
 				</div>
-				
 			</div>
+			<!-- </div> -->
 			
 		</div>
 
