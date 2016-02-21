@@ -130,10 +130,7 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					var aux= ($scope.fuerzas.escala.maxModule) / (fuerzaMaxima * $scope.fuerzas.escala.factorEscala);
 					var origen= new THREE.Vector3( punto.coords.x-(xForce * aux), punto.coords.y-(yForce * aux), punto.coords.z-(zForce * aux) );
 				
-					console.log(($scope.fuerzas.escala.maxModule));
-					console.log((fuerzaMaxima));
-					console.log(($scope.fuerzas.escala.factorEscala));
-					console.log("largo " + largo);
+					
 					var newArrow=new THREE.ArrowHelper(direccion, origen, largo, 0x0B3B17);
 					if(punto.forceArrowId != 0){// Si ya tenia la flecha generada la borro para crear la nueva
 						SpaceService.removeObjectById(punto.forceArrowId,$scope.scene);

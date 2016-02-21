@@ -183,6 +183,10 @@ var app = angular.module('IETFEM');
 
 		this.deleteNode = function(){
 			var nodeToRemove= PtoSelecService.getPuntoReal();
+			var coordX= nodeToRemove.coords.x;
+			var coordY= nodeToRemove.coords.y;
+			var coordZ= nodeToRemove.coords.z;
+
 			var sceneObjectFirst = $scope.scene.getObjectById(nodeToRemove.sceneId);
 
 			var lineasImplicadas= getLinesByNode(nodeToRemove.id);
@@ -202,6 +206,12 @@ var app = angular.module('IETFEM');
 				SpaceService.removeObjectById(nodeToRemove.forceArrowId,$scope.scene);
 			}
 			$scope.scene.remove(sceneObjectFirst);
+
+			$scope.setScaleValues(coordX,coordY,coordZ,true);
+			if($scope.statusFuerzas.visible){
+				$( "#toggle-forces" ).trigger( "click" );
+				$( "#toggle-forces" ).trigger( "click" );
+			}
 			$scope.render();
 
 		};

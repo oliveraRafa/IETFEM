@@ -434,10 +434,43 @@ app.controller(
 			
 			};
 
+			var reCalcularEscala= function(){//Obtengo la fuerza mas grande para realizar regla de 3 y escalar el resto de las fuerzas
+				for(var i = 0; i < $scope.model.points.length ;i++){
+					if($scope.fuerzas.escala.maxX != null && $scope.fuerzas.escala.minX !=null && 
+						$scope.fuerzas.escala.maxY != null && $scope.fuerzas.escala.minY !=null && 
+						$scope.fuerzas.escala.maxZ != null && $scope.fuerzas.escala.minZ !=null){
+						//Si no quedan valores en null quiere decir que ya no debo hacer mas calculos
+						break;
+					}
+					var punto=$scope.model.points[i];
+					$scope.setScaleValues(punto.coords.x,punto.coords.y,punto.coords.z,false);
+				}
+			};
+
 			//Funcion para setear valores para calculo de escala de las fuerzas
 			//x,y,z son coordenadas de un nodo
 			$scope.setScaleValues= function(x,y,z,reset){
 				if(reset){//Se utiliza cuando se elimina un nodo
+					//Si alguna de las coordenadas del punto es alguna coordenada max o min del sistema recalculo
+					var cambio=false;
+					if(x == $scope.fuerzas.escala.maxX || x == $scope.fuerzas.escala.minX){
+						$scope.fuerzas.escala.maxX=null;
+						$scope.fuerzas.escala.minX=null;
+						cambio=true;
+					}
+					if(y == $scope.fuerzas.escala.maxY || y == $scope.fuerzas.escala.minY){
+						$scope.fuerzas.escala.maxY=null;
+						$scope.fuerzas.escala.minY=null;
+						cambio=true;
+					}
+					if(z == $scope.fuerzas.escala.maxZ || z == $scope.fuerzas.escala.minZ){
+						$scope.fuerzas.escala.maxZ=null;
+						$scope.fuerzas.escala.minZ=null;
+						cambio=true;
+					}
+					if(cambio){
+						reCalcularEscala();
+					}
 
 				}else{
 
