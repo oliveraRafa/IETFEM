@@ -1,0 +1,141 @@
+Input for a Truss 3D with large deformation (You must respect line breaks):
+
+Force Magnitude
+N
+
+Length Magnitude
+m
+
+Number of degrees of freedom per node
+3
+
+Number of nodes per element
+2
+
+Number of materials
+1
+
+Materials:
+Young Modulus        Gamma         alpha (1/C)    nu
+68947572900      27679.904703          0         0.3
+
+Number of temperature cases
+0
+
+Temperature cases:
+Value
+
+Number of sections
+1
+
+Sections:
+Area  
+0.00193548
+
+Number of nodes
+10
+
+Node matrix
+  Xs              Ys            Zs
+-0.9525	          0	           5.08
+ 0.9525	          0	           5.08
+-0.9525	     0.9525	           2.54
+ 0.9525      0.9525	           2.54
+ 0.9525	    -0.9525	           2.54
+-0.9525	    -0.9525	           2.54
+  -2.54	       2.54	              0
+   2.54	       2.54               0
+   2.54	      -2.54	              0
+  -2.54	      -2.54	              0
+
+Number of elements
+25
+
+Conectivity matrix
+material  section  Tempcase start end
+1	1	0	1	2
+1	1	0	1	4
+1	1	0	2	3
+1	1	0	1	5
+1	1	0	2	6
+1	1	0	2	4
+1	1	0	2	5
+1	1	0	1	3
+1	1	0	1	6
+1	1	0	3	6
+1	1	0	4	5
+1	1	0	3	4
+1	1	0	5	6
+1	1	0	3	10
+1	1	0	6	7
+1	1	0	9	4
+1	1	0	5	8
+1	1	0	7	4
+1	1	0	3	8
+1	1	0	10	5
+1	1	0	9	6
+1	1	0	10	6
+1	1	0	7	3
+1	1	0	8	4
+1	1	0	9	5
+
+Number of displacement conditions nodes
+4
+
+Displacement conditions nodes matrix
+Displacement node  X condition   Y condition   Z condition
+7	0	0	0
+8	0	0	0
+9	0	0	0
+10	0	0	0
+
+Number of puntual load conditions
+4
+
+Puntual loads conditions nodes matrix
+Load node       FX            FY           FZ
+1	4535.9237	45359.237	-22679.6185
+2	0	45359.237	-22679.6185
+3	2267.96185	0	0
+6	2267.96185	0	0
+
+Number of dead volume load conditions
+0
+
+Dead volume loads conditions matrix
+Element           bx                  by                  bz
+
+Number of springs conditions nodes
+0
+
+Springs conditions nodes matrix
+Spring node  X condition   Y condition   Z condition 
+
+Scale Factor
+SD_Deformed   Supports    Areas    Forces    Frames    Numbers   LD_Deformed
+   70           1         1         1         0.05         1          70
+
+What you wanna see? (Yes=1, No=0)
+Indeformed   SD_Deformed   SD_Axial   LD_Deformed    LD_Axial     Convergence
+1                 1            1          1             1              1
+
+Of selectet plots, wich of them you wanna print in a .png image? (Yes=1, No=0)
+Indeformed   SD_Deformed  SD_Axial   LD_Deformed   LD_Axial     Convergence
+1                 1            1          1            1             1
+
+How many images do you wanna see for small deformation?
+SD_Deformed   SD_Axial  
+1               1
+
+What you wanna see in plots? (Yes=1, No=0)
+Supports   Node_Numbers   Elements_Numbers   Forces          Axial_Force_Value
+1               0                0              1                   0
+
+For 3D plots, what you wanna see? (Yes=1, No=0)
+If you choose Dif_View=1 IETFEM use default AZIMUTH and ELEVATION, if you choose Dif_View=0 you must type aximuth and elevation in degrees.
+XY_plane    XZ_plane    YZ_plane    Dif_View   AZIMUTH(degree)   ELEVATION(degree)   
+   1            1           1           0           150               15   
+
+Text output format (Yes=1, No=0)
+TXT  TEX
+1     1
