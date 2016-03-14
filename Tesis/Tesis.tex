@@ -29,12 +29,13 @@
 					Federico García - Rafael Olivera \\
 					
 					\vspace{0.8cm}
-					\textbf{Tutor:} Dr. Ing. Franco Robledo\\
-					\textbf{Co-Tutores:} Dr. Ing. Jorge Pérez - Ing. Pablo Castrillo
+					\textbf{Orientador:} Dr. Ing. Franco Robledo\\
+					\textbf{Co-Orientadores:} Dr. Ing. Jorge Pérez - Ing. Pablo Castrillo\\
+					\textbf{Usuario final:} Grupo de Mecánica de Sólidos Computacional, Facultad de Ingeniería, UdelaR.
 					
 					\vfill
 					
-					\vspace{3.0cm}
+					\vspace{1.5cm}
 					
 					\includegraphics[width=0.4\textwidth]{Graficos/fing}
 					
@@ -82,19 +83,19 @@ $\ $
 
 	\subsection {Definición del problema y motivación}
 	
-	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, puede decirse que se buscó en el fondo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos el comprendimiento del problema y sus posibles soluciones.
+	Desde las primeras casas construidas por el hombre, hasta el edificio más moderno y extravagante que exista en la actualidad, puede decirse que se buscó en el fondo el mismo objetivo: lograr una estructura segura, resistente y funcional. Hoy por hoy, la evolución del conocimiento humano y de la tecnología circundante ha permitido desarrollar a niveles altísimos la comprensión del problema y sus posibles soluciones.
 
-	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de lograr estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma. Debido a estos factores, la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
+	El cálculo de estructuras, en ese sentido, es una rama fundamental dentro de la ingeniería civil. Se trata de una serie de complejos cálculos realizados con la finalidad de diseñar estructuras óptimas con las condiciones descriptas anteriormente. A grandes rasgos, se busca que la estructura pueda soportar tanto su propio peso, como cualquier fuerza externa que pueda ser aplicada a la misma. Debido a estos factores, la estructura puede sufrir ciertas deformaciones antes de alcanzar su punto de equilibrio.
 	
-	La Ingeniería en Computación no ha dejado este problema de lado, ya que existen diversos sistemas informáticos encargados de facilitar el diseño y cálculo de estructuras. Estos sistemas permiten, a grandes rasgos, dibujar una estructura mediante la definición de diferentes elementos estructurales, materiales, secciones, apoyos, fuerzas externas, etc. Finalmente, realizan los cálculos correspondientes, mostrando la estructura en un estado de equilibrio con las solicitaciones y deformaciones ocurridas en el proceso.
+	La Ingeniería en Computación no ha dejado este problema de lado, ya que existen diversos sistemas informáticos encargados de facilitar el diseño y cálculo de estructuras. Estos sistemas permiten, a grandes rasgos, modelar una estructura mediante la definición de diferentes elementos estructurales, materiales, secciones, apoyos, fuerzas externas, etc. Finalmente, realizan los cálculos correspondientes, mostrando la estructura en un estado de equilibrio con las solicitaciones y deformaciones ocurridas en el proceso.
 	
-	Así como existen estos sistemas reconocidos mundialmente, la Facultad de Ingeniería (FIng) cuenta también son su propio sistema de cálculo de estructuras. Su nombre es IETFEM, y fué desarrollado por los Ing. Pablo Castrillo y Jorge Pérez pertenecientes al Instituto de Estructuras y Transporte (IET). Se trata de un motor de cálculo de código abierto desarrollado en GNU-Octave\cite{GNUOctave} que recibe una estructura descripta en formato texto y genera gráficas, imágenes y tablas de resultados. Es un sistema de uso académico que actualmente se utiliza en diversos cursos dictados por el instituto en cuestión.
+	Así como existen estos sistemas reconocidos mundialmente, la Facultad de Ingeniería (FIng) cuenta también son su propia herramienta de cálculo de estructuras. Su nombre es IETFEM, y fué desarrollado por los Ing. Pablo Castrillo y Jorge Pérez pertenecientes al Instituto de Estructuras y Transporte (IET). Se trata de un motor de cálculo de código abierto desarrollado en GNU-Octave\cite{GNUOctave} que recibe una estructura descripta en formato texto y genera gráficas, imágenes y tablas de resultados. Es un sistema de uso académico que actualmente se utiliza en diversos cursos dictados por el instituto en cuestión.
 	
-	En este proyecto, se desarrolló una interfaz gráfica acorde para ser utilizada en conjunto con el motor de cálculo antes mencionado, logrando así un sistema completo de diseño y cálculo de estructuras con un mayor grado de amigabilidad. Se busca, en particular, agregar funciones de dibujado y visualización de resultados que pueden observarse en otros sistemas de la misma índole, acercando al IETFEM a los sistemas comerciales y logrando una mayor usabilidad y eficiencia para los estudiantes que lo utilizarán.
+	En este proyecto, se desarrolló una interfaz gráfica acorde para ser utilizada en conjunto con el motor de cálculo antes mencionado, logrando así un sistema completo de diseño y cálculo de estructuras con un mayor grado de amigabilidad. Se busca, en particular, agregar funciones de dibujado y visualización de resultados que pueden observarse en otras herramientas de la misma índole, acercando al IETFEM a los sistemas comerciales y logrando una mayor usabilidad y eficiencia para los estudiantes que lo utilizarán.
 	
 	\subsection {Desarrollo previo}
 	
-	Como mencionamos anteriormente, la FIng cuenta con un motor de cálculo de estructuras desarrollado por los ingenieros Pablo Castrillo y Jorge Pérez denominado IETFEM\cite{IETFEMArticle}. El mismo resuelve problemas de cálculo de estructuras utilizando el Método de los Elementos Finitos (MEF).
+	Como mencionamos anteriormente, la FIng cuenta con un motor de cálculo de estructuras denominado IETFEM\cite{IETFEMArticle}. El mismo resuelve problemas de cálculo de estructuras utilizando el Método de los Elementos Finitos (MEF).
 	
 	El MEF es, desde mediados del siglo XX, una de las principales herramientas utilizadas por los ingenieros para el análisis de sistemas estructurales, mecánicos, eléctricos, etc. El avance de la computación y la disponibilidad creciente de computadores potentes a bajo costo ha provocado que los programas comerciales de MEF para el cálculo estructural sean utilizados masivamente. De hecho, en los últimos cuarenta años el MEF ha transformado los procedimientos de trabajo de todas las áreas de ingeniería y constituye hoy una de las herramientas indispensables con las que un ingeniero debe contar en el ejercicio de su profesión. Por otra parte, el uso del MEF por parte de profesionales no debidamente capacitados podría eventualmente producir errores en el diseño de estructuras, y por tanto, riesgos para los usuarios.
 	
@@ -102,7 +103,7 @@ $\ $
 	
 	De esta manera surge entre docentes del Instituto de Estructuras y Transporte (IET) la motivación de brindar una solución al problema a través del desarrollo de un \emph{software} educativo y de código abierto: IETFEM.
 	
-	IETFEM comenzó a desarrollarse en 2012 . El primer módulo desarrollado permitió resolver problemas de estructuras de barras articuladas ó aporticadas en el plano con cargas aplicadas en los nodos. Esta primera versión fue utilizada por estudiantes del curso de Elasticidad 2013; luego se incluyó la posibilidad de generar un informe de salida en formato \LaTeX. Posteriormente, la herramienta contó con el aporte del docente del IET, Agustín Spalvier, desarrollando la capacidad de ingresar cargas distribuidas uniformes en elementos de pórtico y el análisis modal de vibraciones de pórticos. Finalmente, a principios de 2014, Castrillo desarrolló un módulo para la resolución de problemas con variaciones de temperatura y fuerza de volumen en barras articuladas.
+	IETFEM comenzó a desarrollarse en 2012. El primer módulo desarrollado permitió resolver problemas de estructuras de barras articuladas ó aporticadas en el plano con cargas aplicadas en los nodos. Esta primera versión fue utilizada por estudiantes del curso de Elasticidad 2013; luego se incluyó la posibilidad de generar un informe de salida en formato \LaTeX. Posteriormente, la herramienta contó con el aporte del docente del IET, Agustín Spalvier, desarrollando la capacidad de ingresar cargas distribuidas uniformes en elementos de pórtico y el análisis modal de vibraciones de pórticos. Finalmente, a principios de 2014, Castrillo desarrolló un módulo para la resolución de problemas con variaciones de temperatura y fuerza de volumen en barras articuladas.
 
 Se buscó una herramienta que sin ser compleja para su aplicación en cursos de grado, permita al estudiante visualizar el funcionamiento interno del método de cálculo. Por ello se optó por la sintaxis de programación de GNU-Octave (herramienta libre de alta compatibilidad con
 Matlab\cite{MatLab}), ya conocida por los estudiantes. Se considera que contar con un \emph{software} abierto donde los estudiantes pueden entender e incluso programar nuevos cálculos de acuerdo a sus necesidades, enriquece el trabajo desde el punto de vista didáctico.
@@ -115,25 +116,25 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 
 	\subsection {Objetivos y resultados esperados}
 	
-	Como mencionamos antes, a pesar de la increíble potencia en la resolución del problema del cálculo de estructuras, IETFEM presenta ciertos puntos a mejorar para ser comparado con otros sistemas del mismo rubro.
+	La herramienta IETFEM permite resolver de forma rápida estructuras de tamaño medio (cientos de barras), lo cual cubre claramente las necesidades para su uso en enseñanza. Por otra parte, la visualización de los resultados es un aspecto a mejorar ya que actualmente se están utilizando funciones de GNU-Octave con limitaciones importantes.
 	
-	A lo largo de este proyecto se persiguirton 2 grandes objetivos que se consideran esenciales para el enriquecimiento del sistema: Mejorar la eficiencia y mejorar la usabilidad.
+	A lo largo de este proyecto se persiguieron 2 grandes objetivos que se consideran esenciales para el enriquecimiento del sistema: Mejorar la eficiencia y mejorar la usabilidad.
 	
 	Para mejorar la usabilidad, se desarrolló una interfaz que permite al usuario dibujar la estructura de manera fluida y amigable. Se trata de un espacio 3D donde el usuario puede moverse libremente utilizando el mouse para desplazarse y rotar la cámara. Permite dibujar la estructura de una manera continua e intuitiva. Además, facilita la comunicación con el motor de cálculo previamente desarrollado y la visualización de los resultados obtenidos.
 	
-	Para mejorar la eficiencia, se redujo el tiempo de ejecución del motor de cálculo, eliminando el proceso de graficación y generación de imágenes, ya que ahora los resultados pueden verse en la nueva interfaz. Como regla básica, buscamos que el usuario pierda el menor tiempo posible en problemas tecnológicos o informáticos y que dirija sus esfuerzos al comprendimiento del problema y su método de resolución.
+	Para mejorar la eficiencia, se redujo el tiempo de ejecución del motor de cálculo, eliminando el proceso de generación de gráficos e imágenes, ya que ahora los resultados pueden verse en la nueva interfaz. Como regla básica, se buscó que el usuario pierda el menor tiempo posible en problemas tecnológicos o informáticos y que dirija sus esfuerzos al comprendimiento del problema y su método de resolución.
 	
-	A modo de resumen, se busca un sistema ágil, de código abierto, que mejore ambos aspectos lo suficiente como para poder ser utilizado sin problemas en el curso de Elasticidad dictado por el IET. Con el fin de verificar el cumplimiento de los objetivos por parte del sistema, una vez finalizado, será evaluado resolviendo ejercicios del curso antes mencionado, realizando comparaciones y análisis del tiempo de ejecución.
+	A modo de resumen, se busca un sistema ágil, de código abierto, que mejore ambos aspectos lo suficiente como para poder ser utilizado sin problemas en los cursos dictados por el IET, siendo el curso más apropiado para comenzar su aplicación el curso de Elasticidad, en el cual se introduce a los estudiantes al Método de los Elementos Finitos. Con el fin de verificar el cumplimiento de los objetivos por parte del sistema, una vez finalizado, será evaluado a través de la resolución de problemas de estructuras de tamaños diversos y un ejercicio típico del curso Elasticidad. Luego e compararán las salidas gráficas y los tiempos de ejecución.
 	
 	\subsection {Desarrollo del proyecto}
 	
-	El proyecto comenzó con una fase fuerte de investigación. Inicialmente se realizaron reuniones ocasionales con los tutores, donde se reunió información valiosa sobre la teoría de cálculo de estructuras y el método de elementos finitos. Además se definió qué tipo de herramienta se quería, qué funcionalidades eran deseadas y qué objetivos se buscaban. Durante esta etapa se utilizó el motor de cálculo directamente para comprender su funcionamiento y compararlo con otras herramientas comerciales.
+	El proyecto comenzó con una fase fuerte de investigación. Inicialmente se realizaron reuniones ocasionales con los tutores, donde se reunió información valiosa sobre la teoría de cálculo de estructuras y el método de elementos finitos. Además se definió qué tipo de herramienta se quería, qué funcionalidades eran deseadas y qué objetivos se buscaban. Durante esta etapa se utilizó el motor de cálculo directamente para comprender su funcionamiento y compararlo con otras herramientas similares, como por ejemplo el software comercial SAP2000.
 	
 	Una vez comprendido el problema, se procedió a buscar herramientas con las cuáles desarrollar la interfaz. Se investigaron librerías y lenguajes de progamación 3D, optando al final por utilizar tecnologías web por su simplicidad de uso, agilidad y portabilidad.
 	
 	Posteriormente se comenzó a diseñar e implementar la herramienta, separando en diferentes módulos que serán descriptos en detalle en el Capítulo 4. Se ejecutaron reuniones quincenales con los tutores para definir detalles, corregir errores, evaluar resultados y tomar decisiones en conjunto. Esta fase ocupó la mayor parte del tiempo del proyecto, debido a la dificultad técnica del mismo.
 	
-	Finalmente, una vez alcanzado un producto inicial que cumplía las espectativas planteadas, se procedió a realizar pruebas sobre el mismo, detectando ciertos errores de performance que fueron solucionados hasta un nivel considerablemente bueno (se hablará de estas medidas en el Capítulo 5).
+	Finalmente, una vez alcanzado un producto inicial que cumplía las espectativas planteadas, se procedió a realizar pruebas sobre el mismo, detectando ciertos errores de performance que fueron solucionados hasta obtener un producto que cumple de forma satisfactoria con las necesidades planteadas por el usuario final en el dictado de cursos. (se hablará de estas medidas en el Capítulo 5).
 	
 	\subsection {Organización del documento}
 	
@@ -155,9 +156,9 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 	
 		\subsubsection {Problema y cálculos implicados}
 		
-		IETFEM fue creado en 2013 por docentes del IET para resolver problemas de pórticos y reticulados planos utilizando el MEF.
+		IETFEM fue creado en 2013  con el objetivo de aportar una herramienta gratuita para el apoyo en la enseñanza de teoría de estructuras y el Método de Elementos Finitos. Los resultados obtenidos durante su aplicación en el dictado de clases fue publicado en [2].
 		
-		El MEF\cite{MEF} es un método numérico general para la aproximación de soluciones de ecuaciones diferenciales parciales. Está pensado para ser usado en computadoras y permite resolver ecuaciones diferenciales asociadas a un problema físico sobre geometrías complicadas. La idea general de este método es la división de un continuo en un conjunto de pequeños elementos interconectados por una serie de puntos llamados nodos. Las ecuaciones que rigen el comportamiento del continuo regirán también el del elemento. De esta forma se consigue pasar de un sistema continuo (infinitos grados de libertad), que es regido por una ecuación diferencial o un sistema de ecuaciones diferenciales, a un sistema con un número de grados de libertad finito cuyo comportamiento se modela por un sistema de ecuaciones, lineales o no.
+		El Método de Elementos Finitos (MEF)\cite{MEF} es un método numérico para la resolución aproximada de Ecuaciones en Derivadas Parciales (EDP) [6]. El mismo fue desarrollado a mitad del siglo XX, siendo una de las aplicaciones más antiguas la resolución de problemas de mecánica de sólidos deformables. De forma simplificada se puede decir que el dominio (o una estructura) es dividido en subregiones o elementos definidos por nodos. La solución de la EDP es hallada en estos nodos con los cuales luego se interpola toda la solución a todo el elemento.
 
 		Este método se usa en el diseño y mejora de productos y aplicaciones industriales, así como en la simulación de sistemas físicos y biológicos complejos. La variedad de problemas a los que puede aplicarse ha crecido enormemente, siendo el requisito básico que las ecuaciones constitutivas y ecuaciones de evolución temporal del problema a considerar sean conocidas de antemano.
 		
@@ -1085,7 +1086,102 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 			\item Evitar el paso manual de instalar y  ejecutar GNU-Octave desde linea de comando siendo esto totalmente transparente para el usuario.
 			\item Capacidad de implementación de funcionalidades apoyándose en las posibilidades que ofrece la infraestructura como autenticación o un espacio de trabajo alojado en el servidor que permita guardar proyectos y resultados en la web.
     \end{itemize}
+		
+\begin{thebibliography}{50}
 
+	  \bibitem{GNUOctave}
+	    \emph{GNU-Octave: } https://www.gnu.org/software/octave/
+    
+	   
+	  \bibitem{IETFEMArticle}
+	    \emph{IETFEM:} J.M. Pérez Zerpa, P. Castrillo, X. Otegui, A. Canelas, IETFEM: Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería, Revista Argentina de Enseñanza de la Ingeniería, 4 (8) ,Abril 2015.
+			
+	  \bibitem{SAP2000}
+	    \emph{SAP 2000: } https://www.csiamerica.com/products/sap2000
+			
+	  \bibitem{AxisVM}
+	    \emph{AxisVM: } http://axisvm.eu/index.html
+			
+			\bibitem{MatLab}
+			\emph{MatLab: } http://www.mathworks.com/products/matlab
+			
+			\bibitem{MEF}
+			\emph{Método de los elementos finitos: } The Finite Element Method: Linear Static and Dynamic Finite Element Analysis. Thomas J. R. Hughes
+		
+		\bibitem{CsiAmerica}
+			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com
+			
+			\bibitem{160Countries}	
+			\emph{Alcance mundial de SAP2000: } https://www.csiamerica.com/about
+			
+				\bibitem{IdeaStatica}
+			\emph{Idea StatiCa: } https://www.ideastatica.com
+			
+		\bibitem{CloudCalc}
+			\emph{CloudCalc: } http://www.cloudcalc.com
+			
+		\bibitem{SkyCiv}
+			\emph{SkyCiv: } https://skyciv.com
+		
+		\bibitem{OpenGL}
+			\emph{OpenGL: } https://www.opengl.org/documentation/current\_version
+			
+		\bibitem{JWJGL}
+			\emph{Lightweight Java Game Library 3: } https://www.lwjgl.org
+			
+		\bibitem{JOGL}
+			\emph{Java OpenGL: } https://www.opengl.org/about/
+			
+		\bibitem{JMonkey}
+			\emph{JMonkey Engine: } http://jmonkeyengine.org/tour/introduction
+			
+		\bibitem{Canvas}
+			\emph{HTML Canvas 2D: } http://www.w3.org/TR/2dcontext
+			
+		\bibitem{WebGLWiki}
+			\emph{WebGL: } https://www.khronos.org/webgl/
+			
+			\bibitem{ExperienceCuriosity}
+			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity
+			
+			\bibitem{ThreeJS}
+			\emph{ThreeJS: } http://threejs.org
+			
+		\bibitem{BabylonJS}
+			\emph{BabylonJS: } http://www.babylonjs.com
+			
+					\bibitem{Kanban}
+			\emph{Metodología Kanban: } http://kanbantool.com/es/metodologia-kanban
+			
+			\bibitem{Jira}
+			\emph{Jira: } https://es.atlassian.com/software/jira
+			
+			\bibitem{TFS}
+			\emph{TFS: } https://www.visualstudio.com/en-us/products/tfs-overview-vs.aspx
+			
+		\bibitem{HTML5}
+			\emph{HTML5: } https://www.w3.org/TR/html5/introduction.html\#introduction
+			
+		\bibitem{JavaScript}
+			\emph{JavaScript: } https://www.javascript.com/
+			
+		\bibitem{CSS3}
+			\emph{CSS3: } https://www.w3.org/Style/CSS/
+			
+		\bibitem{Bootstrap}
+			\emph{Bootstrap: } http://getbootstrap.com
+			
+		\bibitem{AngularJS}
+			\emph{AngularJS: } https://angularjs.org
+				
+		\bibitem{OptimizingThreeJS}
+			\emph{Optimizing ThreeJS Blog: } http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects
+			
+		\bibitem{PerformanceMonitor}
+			\emph{Performance Monitor: } http://learningthreejs.com/blog/2013/06/25/monitor-rendering-performance-within-threejs
+			
+	    
+	\end{thebibliography}
 
 \section {Anexos}
 
@@ -1583,99 +1679,5 @@ Deformación           Fuerza             Tension \\
 	
 	\end{appendices}
 	
-	\begin{thebibliography}{50}
-
-	  \bibitem{GNUOctave}
-	    \emph{GNU-Octave: } https://www.gnu.org/software/octave/
-    
-	   
-	  \bibitem{IETFEMArticle}
-	    \emph{IETFEM:} Una herramienta de código abierto aplicada a la enseñanza del Método de Elementos Finitos en Ingeniería - http://www.ing.unrc.edu.ar/raei/archivos/img/arc\_2015-04-22\_02\_19\_48-07.pdf
-			
-	  \bibitem{SAP2000}
-	    \emph{SAP 2000: } https://www.csiamerica.com/products/sap2000
-			
-	  \bibitem{AxisVM}
-	    \emph{AxisVM: } http://axisvm.eu/index.html
-			
-			\bibitem{MatLab}
-			\emph{MatLab: } http://www.mathworks.com/products/matlab
-			
-			\bibitem{MEF}
-			\emph{Método de los elementos finitos: } http://www.iit.upcomillas.es/~carnicero/Resistencia/Introduccion\_al\_MEF.pdf
-		
-		\bibitem{CsiAmerica}
-			\emph{Computers \& Structures.Inc: } https://www.csiamerica.com
-			
-			\bibitem{160Countries}	
-			\emph{Alcance mundial de SAP2000: } https://www.csiamerica.com/about
-			
-				\bibitem{IdeaStatica}
-			\emph{Idea StatiCa: } https://www.ideastatica.com
-			
-		\bibitem{CloudCalc}
-			\emph{CloudCalc: } http://www.cloudcalc.com
-			
-		\bibitem{SkyCiv}
-			\emph{SkyCiv: } https://skyciv.com
-		
-		\bibitem{OpenGL}
-			\emph{OpenGL: } https://www.opengl.org/documentation/current\_version
-			
-		\bibitem{JWJGL}
-			\emph{Lightweight Java Game Library 3: } https://www.lwjgl.org
-			
-		\bibitem{JOGL}
-			\emph{Java OpenGL: } https://www.opengl.org/about/
-			
-		\bibitem{JMonkey}
-			\emph{JMonkey Engine: } http://jmonkeyengine.org/tour/introduction
-			
-		\bibitem{Canvas}
-			\emph{HTML Canvas 2D: } http://www.w3.org/TR/2dcontext
-			
-		\bibitem{WebGLWiki}
-			\emph{WebGL: } https://www.khronos.org/webgl/
-			
-			\bibitem{ExperienceCuriosity}
-			\emph{Experience Curiosity: } http://eyes.nasa.gov/curiosity
-			
-			\bibitem{ThreeJS}
-			\emph{ThreeJS: } http://threejs.org
-			
-		\bibitem{BabylonJS}
-			\emph{BabylonJS: } http://www.babylonjs.com
-			
-					\bibitem{Kanban}
-			\emph{Metodología Kanban: } http://kanbantool.com/es/metodologia-kanban
-			
-			\bibitem{Jira}
-			\emph{Jira: } https://es.atlassian.com/software/jira
-			
-			\bibitem{TFS}
-			\emph{TFS: } https://www.visualstudio.com/en-us/products/tfs-overview-vs.aspx
-			
-		\bibitem{HTML5}
-			\emph{HTML5: } https://www.w3.org/TR/html5/introduction.html\#introduction
-			
-		\bibitem{JavaScript}
-			\emph{JavaScript: } https://www.javascript.com/
-			
-		\bibitem{CSS3}
-			\emph{CSS3: } https://www.w3.org/Style/CSS/
-			
-		\bibitem{Bootstrap}
-			\emph{Bootstrap: } http://getbootstrap.com
-			
-		\bibitem{AngularJS}
-			\emph{AngularJS: } https://angularjs.org
-				
-		\bibitem{OptimizingThreeJS}
-			\emph{Optimizing ThreeJS Blog: } http://www.ianww.com/blog/2012/11/04/optimizing-three-dot-js-performance-simulating-tens-of-thousands-of-independent-moving-objects
-			
-		\bibitem{PerformanceMonitor}
-			\emph{Performance Monitor: } http://learningthreejs.com/blog/2013/06/25/monitor-rendering-performance-within-threejs
-			
-	    
-	\end{thebibliography}
+	
 \end{document}
