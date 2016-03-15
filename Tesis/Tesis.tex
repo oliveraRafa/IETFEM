@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{lineno}
 \usepackage{appendix}
+\usepackage[section]{placeins}
 
 %\title{Desarrollo de una interfaz gráfica para una herramienta de cálculo de estructuras}
 %\author{Federico García, Rafael Olivera \\Dr. Ing. Franco Robledo, Dr. Ing. Jorge Pérez, Ing. Pablo Castrillo}
@@ -29,6 +30,7 @@
 					Federico García - Rafael Olivera \\
 					
 					\vspace{0.8cm}
+					\normalsize
 					\textbf{Orientador:} Dr. Ing. Franco Robledo\\
 					\textbf{Co-Orientadores:} Dr. Ing. Jorge Pérez - Ing. Pablo Castrillo\\
 					\textbf{Usuario final:} Grupo de Mecánica de Sólidos Computacional, Facultad de Ingeniería, UdelaR.
@@ -59,6 +61,21 @@ $\ $
 \thispagestyle{plain}
 \begin{center}
     \Large
+    Agradecimientos
+		\vspace{0.9cm}
+\end{center}
+Agradecemos especialmente al Dr. Ing. Jorge Pérez y al Ing. Pablo Castrillo, por su paciencia y dedicación al introducirnos en los conceptos relativos al cálculo de estructuras, y por su constante apoyo e interés en lograr un sistema de calidad.
+También debemos nuestro agradecimiento a Dr. Ing. Franco Robledo, quién nos animó a emprender en este proyecto, aportando su conocimiento y experiencia para el desarrollo exitoso del mismo. 
+Agradecemos de igual manera al Dr. Ing. Eduardo Fernández, quién accedió a comienzos de este proyecto a reunirse con nosotros y aportar su experiencia en herramientas de computación gráfica.
+Finalmente, agradecemos a nuestras familias y amigos, ya que sin su constante apoyo hubiese sido imposible lograr los objetivos cumplidos.
+\newpage
+$\ $
+\newpage
+$\ $
+
+\thispagestyle{plain}
+\begin{center}
+    \Large
     \textbf{Desarrollo de una interfaz gráfica para una herramienta de cálculo de estructuras}
     
     \vspace{0.8cm}
@@ -68,7 +85,22 @@ $\ $
     \vspace{0.9cm}
     \textbf{Abstract}
 \end{center}
-Lorem ipsum dolor...
+En este documento se plantea el desarrollo de una interfaz gráfica para la herramienta IETFEM, un motor de cálculo de estructuras desarrollado por el Grupo de Mecánica de Sólidos Computacional de la Facultad de Ingeniería. Actualmente, la interfaz de comunicación entre IETFEM y el usuario se realiza mediante archivos de texto, lo cual conlleva grandes complicaciones para el usuario limitando el potencial de la herramienta.
+
+Para desarrollar la interfaz se eligieron tecnologías web, utilizando como principal aliado para el modelado grafico el innovador WebGL. Este resulta un importante diferencial para la herramienta, donde la gran mayoría del sector opta por un enfoque de escritorio, privativo y no existiendo opciones 3D desarrolladas en Latinoamérica.
+
+Con la propuesta de una interfaz gráfica 3D se pretende potenciar la herramienta, agregando valor en la usabilidad y eficiencia de la misma. De esta forma facilita el crecimiento académico de los estudiantes y usuarios, acercándolos a una interfaz gráfica similar a la de programas comerciales que se encontrarán en el desarrollo de su profesión.
+
+Durante el desarrollo de la interfaz se resolvieron ejercicios reales de los cursos de la facultad, así como estructuras de distintos portes, logrando llevar la interfaz al límite con estructuras enormes como es el caso de la Torre Eiffel.
+
+La herramienta será utilizada en una primera instancia en el curso de Elasticidad durante el año 2016 y quedará a disposición de estudiantes y docentes de la facultad. Se logró un producto que cumple ampliamente con las expectativas iniciales del cliente, aunque también queda lugar para trabajo futuro, principalmente agregando la capacidad de resolver más problemas de este tipo.
+\vspace{0.9cm}
+
+\textbf{Keywords:} Método de Elementos Finitos; Cálculo de Estructuras; Interfaz Gráfica; Computación Gráfica; Programación Web; Espacio 3D.
+\newpage
+$\ $
+\newpage
+$\ $
 
 \tableofcontents
 
@@ -177,6 +209,12 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 		
 	Actualmente en su  versión 18, SAP2000 es una aplicación para computadoras que se ejecuta en ambientes Windows. Cuenta con un entorno gráfico 3D para el modelado y una interfaz de usuario muy completa que puede resultar demasiado compleja para modelar estructuras simples.
 		
+		\begin{figure}
+			\centerline{\includegraphics[width=1.2\textwidth]{Graficos/sap2000}}
+			\caption{SAP2000}
+			\label{fig:sap2000}
+		\end{figure}
+		
 		Entre las características más importantes se encuentran:
 		\begin{itemize}
 		\item Un motor de análisis que puede resolver varios tipos de problemas. 
@@ -195,6 +233,12 @@ Por lo tanto, se desarrolló en este proyecto una interfaz gráfica de código abie
 		Es un \emph{software} comercial desarrollado por la empresa InterCAD Kft. en 1991 y con sede en Hungría. Fue una de las primeras herramientas 3D basada en el método de los elementos finitos.
 		
 		Actualmente en su versión 13, AxisVM requiere computadoras con el sistema operativo Windows. El conjunto de características es muy similar al descripto en la anterior herramienta.
+		
+		\begin{figure}
+			\centerline{\includegraphics[width=1.2\textwidth]{Graficos/axisvm}}
+			\caption{AxisVM}
+			\label{fig:axisVM}
+		\end{figure}
 		
 		Axis cuenta con una versión \emph{light} gratuita con limitaciones en la cantidad de elementos que se pueden construir, ademas de la posibilidad de descargar una versión \emph{trial} por tiempo limitado con el fin de evaluar más intensamente la herramienta.
 		
@@ -743,10 +787,11 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 				\label{fig:escenaModelo2}
 			\end{minipage}
 			\caption{Correspondencia entre dibujo en la escena y el modelo mantenido en segundo plano}
+			\label{fig:escenaModelo}
 		\end{figure}
 		
 		
-		En las Figuras \ref{fig:escenaModelo1} y \ref{fig:escenaModelo1} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará más sobre cómo se almacena la estructura en la siguiente sección.
+		En la Figura \ref{fig:escenaModelo} se puede observar la correspondencia entre el dibujo presentado al usuario y el modelo que se mantiene en segundo plano. Se observan los nodos, barras, materiales, secciones y grillas definidas en el dibujo. Se hablará más sobre cómo se almacena la estructura en la siguiente sección.
 		
 		La entrada de datos mediante el dibujo se realiza elemento por elemento. El usuario siempre ingresa un nodo o barra a la vez, lo que hace que la sincronización entre la escena y el modelo sea realmente sencilla. Sin embargo, cuando se carga una estructura previamente guardada, la misma se vuelve realmente complicada, ya que debe limpiarse tanto la escena como el modelo y cargar ambos con la nueva información, asegurándose de mantener la consistencia entre los mismos. Esto se logra mediante una fuerte relación entre el módulo que manipula el modelo y el que manipula la escena. Cada vez que se modifica cualquier aspecto de la estructura, se invocan operaciones de dichos módulos que no sólo realizan el propio cambio, sino que aseguran mantener la consistencia una vez finalizado. Esto significa, por ejemplo, que cargar una nueva estructura, se traduce internamente en una secuencia finita de llamados a operaciones más sencillas como "`Agregar nodo"' o "`Agregar barra"' las cuales mantienen el sistema en un estado de sincronía.
 			
@@ -851,8 +896,15 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 	
 		\end{itemize}
 
+
 \section {Resultados obtenidos}
 
+\begin{figure}[!htb]
+			\centerline{\includegraphics[width=1.3\textwidth]{Graficos/ietfem}}
+			\caption{IETFEM: Versión final}
+			\label{fig:ietfem}
+		\end{figure}
+		
 	\subsection {Comparación IETFEM con y sin UI}
 	
 		\subsubsection {Análisis del impacto en la usabilidad}
@@ -909,7 +961,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		Una vez finalizada la primer versión, se probaron todos los casos de uso especificados, respondiendo a los mismos con resultados positivos y ejecutando con excelente fluidez. En la Figura \ref{fig:torres} se puede ver la estructura y los resultados obtenidos. Se aprecia la estructura indeformada y la deformada en color púrpura. También se puede ver la torre sometida a un factor de escala de 200, con el fin de apreciar mejor los desplazamientos de la misma. Por último, se coloreó la estructura de acuerdo a la deformación de cada barra, de manera que puede observarse en rojo las barras que se comprimen y en verde las que se traccionan.
 		
 			\begin{figure}
-			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/torres}}
+			\centerline{\includegraphics[width=1.3\textwidth]{Graficos/torres}}
 			\caption{Caso de Estudio: Torre pequeña}
 			\label{fig:torres}
 		\end{figure}
@@ -951,7 +1003,7 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		\subsubsection {Estudio de casos de mediano porte (Grúa)}
 		
 		\begin{figure}
-			\centerline{\includegraphics[width=0.7\textwidth]{Graficos/gruaIndeformada}}
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/gruaIndeformada}}
 			\caption{Caso de Estudio: Grúa}
 			\label{fig:GruaIndeformada}
 		\end{figure}
@@ -962,19 +1014,16 @@ Si bien estos elementos nos permiten estimar una interfaz gráfica completa e int
 		
 		En las figuras \ref{fig:gruaDeformada} y \ref{fig:gruaColoreada} se ven los resultados de su ejecución. Se nota la deformacón obtenida sin necesidad de realizar escalamiento alguno. La colorización de la estructura se logró de manera óptima y es coherente con la defoormación de la misma.
 		
-		\begin{figure}[!tbp]
-			\centering
-			\begin{minipage}[b]{0.49\textwidth}
-				\includegraphics[width=\textwidth]{Graficos/gruaDeformada}
-				\caption{Deformación de la grúa}
-				\label{fig:gruaDeformada}
-			\end{minipage}
-			\hfill
-			\begin{minipage}[b]{0.49\textwidth}
-				\includegraphics[width=\textwidth]{Graficos/gruaColoreada}
-				\caption{Coloración de la grúa}
-				\label{fig:gruaColoreada}
-			\end{minipage}
+	\begin{figure}
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/gruaDeformada}}
+			\caption{Deformación de la grúa}
+			\label{fig:gruaDeformada}
+		\end{figure}
+		
+		\begin{figure}
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/gruaColoreada}}
+			\caption{Coloración de la grúa}
+			\label{fig:gruaColoreada}
 		\end{figure}
 		
 		En cuanto a tiempos de ejecución, en el IETFEM antiguo se obtuvieron los siguientes números:
@@ -1041,6 +1090,116 @@ Derivado de la investigación se presentan algunas medidas que se podrían tomar:
 		Con respecto a la ejecución del caso en la interfaz, se debe tener en cuenta que además de mantener la escena, el navegador debe mantener por detrás el modelo de la estructura con todas sus características. Además, una vez que se procesan los resultados del motor, se agregan todos los datos de la deformada, lo que hace que el navegador falle en algunos casos por problemas de memoria. 
 		
 		En una versión futura del sistema, este problema podría arreglarse, por ejemplo, manteniendo la estructura persistida en una base de datos, eliminando carga del navegador. Sin embargo, para la versión académica se conoce que el alcance es mucho menor y que nunca se utilizará una estructura de semejante porte. Por lo tanto, consideramos que el caso estudiado aportó al proyecto al mejorar la performance del mismo, pero se expone como un límite conocido el número de elementos de la estructura, sabiendo que para 1500 elementos(grúa), el sistema funciona perfectamente.
+		
+		\subsection {Resolución de un ejercicio práctico}
+		
+		En la presente sección se muestra cómo es posible utilizar el IETFEM con el fin de resolver un ejercicio práctico del año 2016 del curso de Elasticidad (perteneciente al examen de diciembre de 2013).
+		
+		\begin{figure}[ht]
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/letraEjercicio}}
+			\caption{Letra de un ejercicio del curso de Elasticidad del 2016}
+			\label{fig:letraEjercicio}
+		\end{figure}
+		
+		En primer lugar el usuario debe modelar la estructura. Esto significa definir los nodos y las barras de la misma, tal como se muestra en la Figura \ref{fig:ejercicio1}
+		
+		\begin{figure}[ht]
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/ejercicio1}}
+			\caption{Definiendo la estructura}
+			\label{fig:ejercicio1}
+		\end{figure}
+		
+		A continuación se definen las propiedades de las barras (materiales y secciones) y nodos (fuerzas, desplazamientos, resortes), tal como se ve en las Figuras \ref{fig:ejercicio2} y \ref{fig:ejercicio3}
+		
+		\begin{figure}[ht]
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/ejercicio2}}
+			\caption{Asignando fuerzas y apoyos a los nodos}
+			\label{fig:ejercicio2}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\centerline{\includegraphics[width=1.0\textwidth]{Graficos/ejercicio3}}
+			\caption{Asignando materiales y secciones a las barras}
+			\label{fig:ejercicio3}
+		\end{figure}
+		
+		Una vez definida la estructura, el usuario presiona el botón "`Ejecutar IETFEM"' obteniendo la entrada para el motor de cálculo.
+		
+El estudiante carga el documento obtenido en el motor, obteniendo así, un nuevo archivo con los resultados de la ejecución. Al ingresar los datos obtenidos en la interfaz, es posible ver tanto la estructura indeformada como la deformada (Figura \ref{fig:ejercicio4}).
+
+El sistema ofrece la opción de resaltar la estructura deformada, donde es posible definir un factor de escala para que sean visibles los desplazamientos ocurridos (Figura \ref{fig:ejercicio5}).
+
+También es posible visualizar los desplazamientos, fuerzas y tensiones aplicadas sobre las barras de le estructura indeformada mediante una escala de colores (Figura \ref{fig:ejercicio6}).
+
+\begin{figure}[ht]
+			\centerline{\includegraphics[width=1.2\textwidth]{Graficos/ejercicio4}}
+			\caption{Vista de la estructura una vez ingresados los resultados del motor}
+			\label{fig:ejercicio4}
+		\end{figure}
+
+\begin{figure}[ht]
+			\centerline{\includegraphics[width=1.2\textwidth]{Graficos/ejercicio5}}
+			\caption{Deformada resaltada, con un factor de escala de 500}
+			\label{fig:ejercicio5}
+		\end{figure}
+
+\begin{figure}[ht]
+			\centerline{\includegraphics[width=1.2\textwidth]{Graficos/ejercicio6}}
+			\caption{Escala de colores: muestra todas las barras en rojo, lo que significa que todas las barras se comprimen,lo cuál es coherente con la estructura deformada}
+			\label{fig:ejercicio6}
+		\end{figure}
+		
+		Comparando esta visualización de resultados, con imágenes obtenidas de la ejecución de la versión anterior del IETFEM, se puede concluir que la interfaz aumentó su valor de usabilidad en una gran medida (Figura \ref{fig:ejercicioViejo})
+		
+		\begin{figure}[!tbp]
+			\centering
+			\begin{minipage}[b]{0.8\textwidth}
+				\fbox{\includegraphics[width=\textwidth]{Graficos/ejercicioViejo1}}
+				\label{fig:ejercicioViejo1}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[b]{0.8\textwidth}
+				\fbox{\includegraphics[width=\textwidth]{Graficos/ejercicioViejo2}}
+				\label{fig:ejercicioViejo2}
+			\end{minipage}
+			\caption{Imágenes obtenidas del ejercicio planteado desde el viejo IETFEM.}
+			\label{fig:ejercicioViejo}
+		\end{figure}
+		
+		\newpage
+$\ $
+		Además de tener un entorno 3D visualmente atractivo con una gran facilidad para el diseño de la estructura, también es significativa la mejora en los tiempos de ejecución. 
+		
+		Con el antiguo IETFEM, se obtuvieron los siguientes tiempos:
+		
+		\begin{itemize}
+			\item \textbf{Lectura de datos: }0.114 segundos 
+			\item \textbf{Cálculo de parámetros internos: }0.004 segundos 
+			\item \textbf{Resolución del problema: }0.024 segundos 
+			\item \textbf{Generación de imágenes: 4.676 segundos}
+			\item \textbf{Generación de TXTs: }0.029 segundos 
+			\item \textbf{Generación de TEXs: }0.084 segundos 
+			\item \textbf{TIEMPO TOTAL: 4.931 segundos }
+		\end{itemize}	
+		
+		Mientras que resolviendo el mismo problema con el motor nuevo utilizando la UI se obtiene:
+
+\begin{itemize}
+			\item \textbf{Lectura de datos: }0.079 segundos 
+			\item \textbf{Cálculo de parámetros internos: }0.004 segundos 
+			\item \textbf{Resolución del problema: }0.003 segundos
+			\item \textbf{TIEMPO TOTAL: 0.086 segundos }
+		\end{itemize}	
+		
+		Además, como en los casos anteriores, sumamos los tiempos de carga y descarga de los archivos:
+		
+		\begin{itemize}
+			\item \textbf{Generación del archivo: }0.089 segundos 
+			\item \textbf{Carga de resultados: }0.113 segundos  
+			\item \textbf{TIEMPO TOTAL: 0.202 segundos }
+		\end{itemize}	
+		
+		Se logra un tiempo total de 0.288 segundos.
 		
 \section {Conclusiones y trabajo futuro}
 
