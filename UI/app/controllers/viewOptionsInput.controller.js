@@ -125,9 +125,9 @@ app.controller('viewOptionsInputCntrl',['$scope','ModelService','SpaceService',f
 					largo=largo+0.1;
 					var fuerzaMaxima= getMaxForce();
 					largo= (largo * $scope.fuerzas.escala.maxModule) / fuerzaMaxima;
-					largo= largo / $scope.fuerzas.escala.factorEscala;
+					largo= largo * $scope.fuerzas.escala.factorEscala;
 
-					var aux= ($scope.fuerzas.escala.maxModule) / (fuerzaMaxima * $scope.fuerzas.escala.factorEscala);
+					var aux= ($scope.fuerzas.escala.maxModule * $scope.fuerzas.escala.factorEscala) / (fuerzaMaxima);
 					var origen= new THREE.Vector3( punto.coords.x-(xForce * aux), punto.coords.y-(yForce * aux), punto.coords.z-(zForce * aux) );
 				
 					
