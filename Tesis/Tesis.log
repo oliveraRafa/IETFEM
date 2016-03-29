@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.11.23)  14 FEB 2016 12:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.11.4)  15 MAR 2016 23:35
 entering extended mode
 **Tesis.tex
 (Tesis.tex
@@ -89,7 +89,7 @@ Package babel Info: Making > an active character on input line 662.
 Package babel Info: Making ' an active character on input line 680.
 ))
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\mathtools\mathtools.sty"
-Package: mathtools 2015/11/12 v1.18 mathematical typesetting tools
+Package: mathtools 2015/06/17 v1.17 mathematical typesetting tools
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
@@ -489,6 +489,9 @@ Package: appendix 2009/09/02 v1.2b extra appendix facilities
 \c@@pps=\count132
 \c@@ppsavesec=\count133
 \c@@ppsaveapp=\count134
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\placeins\placeins.sty"
+Package: placeins 2005/04/18  v 2.2
 ) (Tesis.aux
 LaTeX Info: Redefining \. on input line 7.
 LaTeX Info: Redefining \% on input line 7.
@@ -526,257 +529,324 @@ LaTeX Info: Redefining \% on input line 17.
 \MPnumerator=\count139
 \makeMPintoPDFobject=\count140
 \everyMPtoPDFconversion=\toks35
-) ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 20.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 20.
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 20.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 20.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 20.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 20.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 20.
-
-Overfull \hbox (11.2156pt too wide) in paragraph at lines 20--20
- [][] 
- []
+) ABD: EveryShipout initializing macros <Graficos/fing.jpg, id=4, 291.7299pt x 286.9119pt>
+File: Graficos/fing.jpg Graphic file (type jpg)
+ <use Graficos/fing.jpg>
+Package pdftex.def Info: Graficos/fing.jpg used on input line 42.
+(pdftex.def)             Requested size: 137.9979pt x 135.7198pt.
 
 [1
 
-{C:/Users/Fede/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+{C:/Users/Usuario/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./Graficos/fing.jpg>]
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 57.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 57.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 57.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 57.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 23.
+(Font)              <10> on input line 57.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 23.
+(Font)              <7> on input line 57.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 23.
- [2] (Tesis.toc
+(Font)              <5> on input line 57.
+ [1] [2] [3] [4] [5] (Tesis.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [3])
+ [6])
 \tf@toc=\write4
- [4] [5]
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 36.
+ [7] [8] (Tesis.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
+\tf@lof=\write5
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
+[9] [10]
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 121.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
-<Graficos/Communication.png, id=66, 1704.3675pt x 511.9125pt>
+) [11] [12] [13] [14] [15]
+<Graficos/sap2000.jpg, id=63, 1927.2pt x 1043.9pt>
+File: Graficos/sap2000.jpg Graphic file (type jpg)
+ <use Graficos/sap2000.jpg>
+Package pdftex.def Info: Graficos/sap2000.jpg used on input line 220.
+(pdftex.def)             Requested size: 413.99895pt x 224.24298pt.
+ [16]
+<Graficos/axisvm.jpg, id=67, 1284.8pt x 722.7pt>
+File: Graficos/axisvm.jpg Graphic file (type jpg)
+ <use Graficos/axisvm.jpg>
+Package pdftex.def Info: Graficos/axisvm.jpg used on input line 245.
+(pdftex.def)             Requested size: 413.99895pt x 232.8677pt.
+ [17 <./Graficos/sap2000.jpg>] [18 <./Graficos/axisvm.jpg>] [19] [20] [21] [22] [23] <Graficos/Communication.png, id=90,
+ 1704.3675pt x 511.9125pt>
 File: Graficos/Communication.png Graphic file (type png)
- <use Graficos/Communication.png>
-Package pdftex.def Info: Graficos/Communication.png used on input line 328.
+
+<use Graficos/Communication.png>
+Package pdftex.def Info: Graficos/Communication.png used on input line 425.
 (pdftex.def)             Requested size: 448.50105pt x 134.7032pt.
- [18]
-<Graficos/Kanban.png, id=71, 587.94656pt x 95.6072pt>
+ [24] <Graficos/Kanban.png, id=96, 587.94656pt x 95.6072pt>
 File: Graficos/Kanban.png Graphic file (type png)
  <use Graficos/Kanban.png>
-Package pdftex.def Info: Graficos/Kanban.png used on input line 345.
+Package pdftex.def Info: Graficos/Kanban.png used on input line 442.
 (pdftex.def)             Requested size: 413.99895pt x 67.32137pt.
- [19 <./Graficos/Communication.png>]
-<Graficos/Gantt.png, id=77, 671.50874pt x 166.37157pt>
+
+[25 <./Graficos/Communication.png>] <Graficos/Gantt.png, id=101, 671.50874pt x 166.37157pt>
 File: Graficos/Gantt.png Graphic file (type png)
  <use Graficos/Gantt.png>
-Package pdftex.def Info: Graficos/Gantt.png used on input line 361.
+Package pdftex.def Info: Graficos/Gantt.png used on input line 458.
 (pdftex.def)             Requested size: 448.50105pt x 111.12056pt.
- [20 <./Graficos/Kanban.png> <./Graficos/Gantt.png>] [21] [22] <Graficos/ModeloDominio.png, id=89, 1656.1875pt x 698.61p
-t>
+
+[26 <./Graficos/Kanban.png> <./Graficos/Gantt.png>] [27] [28]
+<Graficos/ModeloDominio.png, id=113, 1656.1875pt x 698.61pt>
 File: Graficos/ModeloDominio.png Graphic file (type png)
  <use Graficos/ModeloDominio.png>
-Package pdftex.def Info: Graficos/ModeloDominio.png used on input line 414.
+Package pdftex.def Info: Graficos/ModeloDominio.png used on input line 511.
 (pdftex.def)             Requested size: 448.50105pt x 189.18153pt.
-
-[23] [24 <./Graficos/ModeloDominio.png>] <Graficos/Flujo.png, id=97, 1915.155pt x 710.655pt>
+ [29] [30 <./Graficos/ModeloDominio.png>] <Graficos/Flujo.png, id=122, 1915.155pt x 710.655pt>
 File: Graficos/Flujo.png Graphic file (type png)
  <use Graficos/Flujo.png>
-Package pdftex.def Info: Graficos/Flujo.png used on input line 460.
+Package pdftex.def Info: Graficos/Flujo.png used on input line 557.
 (pdftex.def)             Requested size: 448.50105pt x 166.41838pt.
-
-[25] <Graficos/Componentes.png, id=102, 1854.93pt x 1734.48pt>
+ [31]
+<Graficos/Componentes.png, id=126, 1854.93pt x 1734.48pt>
 File: Graficos/Componentes.png Graphic file (type png)
  <use Graficos/Componentes.png>
-Package pdftex.def Info: Graficos/Componentes.png used on input line 474.
+Package pdftex.def Info: Graficos/Componentes.png used on input line 571.
 (pdftex.def)             Requested size: 448.50105pt x 419.38023pt.
- [26 <./Graficos/Flujo.png>] [27 <./Graficos/Componentes.png>] [28] [29] <Graficos/FisicaLocal.png, id=117, 1399.2275pt 
-x 907.39pt>
+ [32 <./Graficos/Flujo.png>]
+[33 <./Graficos/Componentes.png>] [34] [35] <Graficos/FisicaLocal.png, id=141, 1399.2275pt x 907.39pt>
 File: Graficos/FisicaLocal.png Graphic file (type png)
 
 <use Graficos/FisicaLocal.png>
-Package pdftex.def Info: Graficos/FisicaLocal.png used on input line 525.
+Package pdftex.def Info: Graficos/FisicaLocal.png used on input line 622.
 (pdftex.def)             Requested size: 345.0pt x 223.71782pt.
- <Graficos/FisicaNube.png, id=118, 2214.2725pt x 1206.5075pt>
+ <Graficos/FisicaNube.png, id=142, 2214.2725pt x 1206.5075pt>
 File: Graficos/FisicaNube.png Graphic file (type png)
 
 <use Graficos/FisicaNube.png>
-Package pdftex.def Info: Graficos/FisicaNube.png used on input line 529.
+Package pdftex.def Info: Graficos/FisicaNube.png used on input line 626.
 (pdftex.def)             Requested size: 448.50105pt x 244.37166pt.
- [30] [31 <./Graficos/FisicaLocal.png> <./Graficos/FisicaNube.png>]
-Overfull \hbox (7.94714pt too wide) in paragraph at lines 571--572
+ [36] [37 <./Graficos/FisicaLocal.png> <./Graficos/FisicaNube.png>]
+Overfull \hbox (7.94714pt too wide) in paragraph at lines 668--669
 []\T1/lmr/m/n/10 Directivas: sir-ven pa-ra agre-gar fun-cio-na-li-dad a HTML me-dian-te tags HTML,
  []
 
-[32]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 602.
+[38]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 699.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 602.
- [33] [34]
-<Graficos/Camera.png, id=138, 364.36125pt x 218.31563pt>
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 699.
+ [39] [40]
+<Graficos/Camera.png, id=162, 364.36125pt x 218.31563pt>
 File: Graficos/Camera.png Graphic file (type png)
  <use Graficos/Camera.png>
-Package pdftex.def Info: Graficos/Camera.png used on input line 644.
+Package pdftex.def Info: Graficos/Camera.png used on input line 741.
 (pdftex.def)             Requested size: 241.49895pt x 144.69836pt.
- [35 <./Graficos/Camera.png>]
-<Graficos/CamaraPerspectiva.png, id=142, 1026.08344pt x 490.08093pt>
+ [41 <./Graficos/Camera.png>]
+<Graficos/CamaraPerspectiva.png, id=166, 1026.08344pt x 490.08093pt>
 File: Graficos/CamaraPerspectiva.png Graphic file (type png)
  <use Graficos/CamaraPerspectiva.png>
-Package pdftex.def Info: Graficos/CamaraPerspectiva.png used on input line 658.
+Package pdftex.def Info: Graficos/CamaraPerspectiva.png used on input line 755.
 (pdftex.def)             Requested size: 448.50105pt x 214.21545pt.
- [36 <./Graficos/CamaraPerspectiva.png>] <Graficos/RayTracing.png, id=146, 349.305pt x 264.99pt>
+ [42 <./Graficos/CamaraPerspectiva.png>] <Graficos/RayTracing.png, id=171, 349.305pt x 264.99pt>
 File: Graficos/RayTracing.png Graphic file (type png)
  <use Graficos/RayTracing.png>
-Package pdftex.def Info: Graficos/RayTracing.png used on input line 672.
+Package pdftex.def Info: Graficos/RayTracing.png used on input line 769.
 (pdftex.def)             Requested size: 241.49895pt x 183.2072pt.
 
-<Graficos/escenaModelo1.png, id=147, 284.06125pt x 446.66875pt>
+<Graficos/escenaModelo1.png, id=172, 284.06125pt x 446.66875pt>
 File: Graficos/escenaModelo1.png Graphic file (type png)
  <use Graficos/escenaModelo1.png>
-Package pdftex.def Info: Graficos/escenaModelo1.png used on input line 691.
+Package pdftex.def Info: Graficos/escenaModelo1.png used on input line 788.
 (pdftex.def)             Requested size: 137.9979pt x 217.00212pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 691--693
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 788--790
 [][]
  []
 
-<Graficos/escenaModelo2.png, id=148, 281.05pt x 450.68375pt>
+<Graficos/escenaModelo2.png, id=173, 281.05pt x 450.68375pt>
 File: Graficos/escenaModelo2.png Graphic file (type png)
  <use Graficos/escenaModelo2.png>
-Package pdftex.def Info: Graficos/escenaModelo2.png used on input line 696.
+Package pdftex.def Info: Graficos/escenaModelo2.png used on input line 793.
 (pdftex.def)             Requested size: 137.9979pt x 221.29083pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 696--698
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 793--795
 [][]
  []
 
-[37 <./Graficos/RayTracing.png>] [38 <./Graficos/escenaModelo1.png> <./Graficos/escenaModelo2.png>] [39] [40] [41]
-[42] [43] [44] <Graficos/torres.png, id=178, 1410.0178pt x 900.36375pt>
+[43 <./Graficos/RayTracing.png>] [44 <./Graficos/escenaModelo1.png> <./Graficos/escenaModelo2.png>] [45] [46] [47]
+<Graficos/ietfem.png, id=192, 691.83469pt x 387.69844pt>
+File: Graficos/ietfem.png Graphic file (type png)
+ <use Graficos/ietfem.png>
+Package pdftex.def Info: Graficos/ietfem.png used on input line 910.
+(pdftex.def)             Requested size: 448.50105pt x 251.33842pt.
+ [48] [49 <./Graficos/ietfem.png>]
+[50] <Graficos/torres.png, id=203, 1410.0178pt x 900.36375pt>
 File: Graficos/torres.png Graphic file (type png)
  <use Graficos/torres.png>
-Package pdftex.def Info: Graficos/torres.png used on input line 866.
-(pdftex.def)             Requested size: 241.49895pt x 154.2001pt.
- [45 <./Graficos/torres.png>] <Graficos/gruaIndeformada.png, id=182, 700.86844pt x 444.91219pt>
+Package pdftex.def Info: Graficos/torres.png used on input line 971.
+(pdftex.def)             Requested size: 448.50105pt x 286.39125pt.
+ [51] [52 <./Graficos/torres.png>] <Graficos/gruaIndeformada.png, id=210, 700.86844pt x 444.91219pt>
 File: Graficos/gruaIndeformada.png Graphic file (type png)
  <use Graficos/gruaIndeformada.png>
-Package pdftex.def Info: Graficos/gruaIndeformada.png used on input line 908.
-(pdftex.def)             Requested size: 241.49895pt x 153.30478pt.
- [46 <./Graficos/gruaIndeformada.png>] <Graficos/gruaDeformada.png, id=186, 700.86844pt x 444.91219pt>
+Package pdftex.def Info: Graficos/gruaIndeformada.png used on input line 1013.
+(pdftex.def)             Requested size: 345.0pt x 219.00682pt.
+ [53]
+<Graficos/gruaDeformada.png, id=214, 700.86844pt x 444.91219pt>
 File: Graficos/gruaDeformada.png Graphic file (type png)
+ <use Graficos/gruaDeformada.png>
+Package pdftex.def Info: Graficos/gruaDeformada.png used on input line 1025.
+(pdftex.def)             Requested size: 345.0pt x 219.00682pt.
 
-<use Graficos/gruaDeformada.png>
-Package pdftex.def Info: Graficos/gruaDeformada.png used on input line 922.
-(pdftex.def)             Requested size: 169.0519pt x 107.31062pt.
- <Graficos/gruaColoreada.png, id=187, 700.86844pt x 444.91219pt>
+<Graficos/gruaColoreada.png, id=215, 700.86844pt x 444.91219pt>
 File: Graficos/gruaColoreada.png Graphic file (type png)
+ <use Graficos/gruaColoreada.png>
+Package pdftex.def Info: Graficos/gruaColoreada.png used on input line 1031.
+(pdftex.def)             Requested size: 345.0pt x 219.00682pt.
+ [54 <./Graficos/gruaIndeformada.png>] [55 <./Graficos/gruaDeformada.png> <./Graficos/gruaColoreada.png>] [56]
+<Graficos/letraEjercicio.png, id=226, 819.8128pt x 441.14813pt>
+File: Graficos/letraEjercicio.png Graphic file (type png)
+ <use Graficos/letraEjercicio.png>
+Package pdftex.def Info: Graficos/letraEjercicio.png used on input line 1106.
+(pdftex.def)             Requested size: 345.0pt x 185.65117pt.
+ [57]
+<Graficos/ejercicio1.png, id=230, 1440.13031pt x 496.10344pt>
+File: Graficos/ejercicio1.png Graphic file (type png)
+ <use Graficos/ejercicio1.png>
+Package pdftex.def Info: Graficos/ejercicio1.png used on input line 1114.
+(pdftex.def)             Requested size: 345.0pt x 118.84015pt.
 
-<use Graficos/gruaColoreada.png>
-Package pdftex.def Info: Graficos/gruaColoreada.png used on input line 928.
-(pdftex.def)             Requested size: 169.0519pt x 107.31062pt.
- [47 <./Graficos/gruaDeformada.png> <./Graficos/gruaColoreada.png>] [48] [49] [50]
-[51] [52] [53] [54] [55] [56] [57] [58] [59]
-Underfull \hbox (badness 10000) in paragraph at lines 1393--1396
+<Graficos/ejercicio2.png, id=231, 1440.13031pt x 624.83438pt>
+File: Graficos/ejercicio2.png Graphic file (type png)
+ <use Graficos/ejercicio2.png>
+Package pdftex.def Info: Graficos/ejercicio2.png used on input line 1122.
+(pdftex.def)             Requested size: 345.0pt x 149.67728pt.
 
+<Graficos/ejercicio3.png, id=232, 1440.88312pt x 478.03593pt>
+File: Graficos/ejercicio3.png Graphic file (type png)
+ <use Graficos/ejercicio3.png>
+Package pdftex.def Info: Graficos/ejercicio3.png used on input line 1128.
+(pdftex.def)             Requested size: 345.0pt x 114.45378pt.
+ [58 <./Graficos/letraEjercicio.png> <./Graficos/ejercicio1.png>] <Graficos/ejercicio4.png, id=236, 425.736pt x 151.767p
+t>
+File: Graficos/ejercicio4.png Graphic file (type png)
+
+<use Graficos/ejercicio4.png>
+Package pdftex.def Info: Graficos/ejercicio4.png used on input line 1142.
+(pdftex.def)             Requested size: 413.99895pt x 147.58664pt.
+ <Graficos/ejercicio5.png, id=237, 1441.63594pt x 509.65407pt>
+File: Graficos/ejercicio5.png Graphic file (type png)
+
+<use Graficos/ejercicio5.png>
+Package pdftex.def Info: Graficos/ejercicio5.png used on input line 1148.
+(pdftex.def)             Requested size: 413.99895pt x 146.35721pt.
+ <Graficos/ejercicio6.png, id=238, 426.7215pt x 148.482pt>
+File: Graficos/ejercicio6.png Graphic file (type png)
+ <use Graficos/ejercicio6.png>
+Package pdftex.def Info: Graficos/ejercicio6.png used on input line 1154.
+(pdftex.def)             Requested size: 413.99895pt x 144.05452pt.
+
+<Graficos/ejercicioViejo1.png, id=239, 214.5105pt x 160.965pt>
+File: Graficos/ejercicioViejo1.png Graphic file (type png)
+ <use Graficos/ejercicioViejo1.png>
+Package pdftex.def Info: Graficos/ejercicioViejo1.png used on input line 1164.
+(pdftex.def)             Requested size: 276.00105pt x 207.11516pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1164--1166
+[][]
+ []
+
+<Graficos/ejercicioViejo2.png, id=240, 211.8825pt x 158.994pt>
+File: Graficos/ejercicioViejo2.png Graphic file (type png)
+ <use Graficos/ejercicioViejo2.png>
+Package pdftex.def Info: Graficos/ejercicioViejo2.png used on input line 1169.
+(pdftex.def)             Requested size: 276.00105pt x 207.1143pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1169--1171
+[][]
+ []
+
+[59 <./Graficos/ejercicio2.png> <./Graficos/ejercicio3.png>] [60 <./Graficos/ejercicio4.png> <./Graficos/ejercicio5.png>
+] [61 <./Graficos/ejercicio6.png>] [62 <./Graficos/ejercicioViejo1.png> <./Graficos/ejercicioViejo2.png>] [63] [64]
+[65]
+Overfull \hbox (1.36673pt too wide) in paragraph at lines 1329--1330
+[]\T1/lmr/m/it/10 HTML5:  \T1/lmr/m/n/10 https://www.w3.org/TR/html5/introduction.html#introduction 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1402--1414
-
- []
-
-[60]
-Underfull \hbox (badness 10000) in paragraph at lines 1420--1447
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1453--1459
-
- []
-
-[61]
-Underfull \hbox (badness 10000) in paragraph at lines 1465--1471
-
- []
-
-[62]
-Underfull \hbox (badness 10000) in paragraph at lines 1496--1508
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1511--1538
-
- []
-
-[63]
-Underfull \hbox (badness 10000) in paragraph at lines 1548--1549
-[]\T1/lmr/m/it/10 IETFEM: \T1/lmr/m/n/10 Una he-rra-mien-ta de có-di-go abier-to apli-ca-da a la
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1548--1549
-\T1/lmr/m/n/10 en-se-ñan-za del Mé-to-do de Ele-men-tos Fi-ni-tos en In-ge-nie-ría
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1548--1549
-\T1/lmr/m/n/10 - http://www.ing.unrc.edu.ar/raei/archivos/img/arc_2015-04-
- []
-
-[64]
-Overfull \hbox (2.74548pt too wide) in paragraph at lines 1620--1621
-[]\T1/lmr/m/it/10 CSS3:  \T1/lmr/m/n/10 https://es.wikipedia.org/wiki/Hoja_de_estilos_en_cascada#CSS3 
- []
-
-
-Overfull \hbox (27.54338pt too wide) in paragraph at lines 1629--1630
+Overfull \hbox (27.54338pt too wide) in paragraph at lines 1344--1345
 []\T1/lmr/m/it/10 Optimizing Th-reeJS Blog:  \T1/lmr/m/n/10 http://www.ianww.com/blog/2012/11/04/optimizing-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1629--1630
+Underfull \hbox (badness 10000) in paragraph at lines 1344--1345
 \T1/lmr/m/n/10 three-dot-js-performance-simulating-tens-of-thousands-of-independent-
  []
 
 
-Overfull \hbox (14.57903pt too wide) in paragraph at lines 1632--1633
+Overfull \hbox (14.57903pt too wide) in paragraph at lines 1347--1348
 []\T1/lmr/m/it/10 Performance Mo-ni-tor:  \T1/lmr/m/n/10 http://learningthreejs.com/blog/2013/06/25/monitor-
  []
 
-[65] (Tesis.aux
+[66] [67] [68] [69] [70] [71] [72] [73]
+Underfull \hbox (badness 10000) in paragraph at lines 1700--1703
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1709--1721
+
+ []
+
+[74]
+Underfull \hbox (badness 10000) in paragraph at lines 1727--1754
+
+ []
+
+[75]
+Underfull \hbox (badness 10000) in paragraph at lines 1760--1766
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1772--1778
+
+ []
+
+[76]
+Underfull \hbox (badness 10000) in paragraph at lines 1803--1815
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1818--1845
+
+ []
+
+[77] [78] (Tesis.aux
 LaTeX Info: Redefining \. on input line 7.
 LaTeX Info: Redefining \% on input line 7.
 ) ) 
 Here is how much of TeX's memory you used:
- 13773 strings out of 493673
- 265374 string characters out of 3141532
- 304176 words of memory out of 3000000
- 16838 multiletter control sequences out of 15000+200000
- 60215 words of font info for 45 fonts, out of 3000000 for 9000
+ 13851 strings out of 493673
+ 267353 string characters out of 3141524
+ 304242 words of memory out of 3000000
+ 16903 multiletter control sequences out of 15000+200000
+ 52412 words of font info for 37 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  55i,10n,54p,1072b,432s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm
@@ -784,13 +854,12 @@ Here is how much of TeX's memory you used:
 enc/dvips/lm/lm-mathit.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files (x86)/M
 iKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Progr
 am Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr12
-.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/p
-ublic/lm/lmr5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
-onts/type1/public/lm/lmri10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on Tesis.pdf (65 pages, 1444871 bytes).
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
+blic/lm/lmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmri10.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/public/lm/lmss8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
+Output written on Tesis.pdf (79 pages, 2831823 bytes).
 PDF statistics:
- 291 PDF objects out of 1000 (max. 8388607)
+ 346 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 163 words of extra memory for PDF output out of 10000 (max. 10000000)
 
