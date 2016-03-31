@@ -411,7 +411,7 @@
 					<!-- Links del menu! -->
 						
 					<!-- FORMULARIO DE NODOS POR COORDENADA-->
-					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos()" ng-submit="nodoCoordenadaForm.$valid && addPoint()" class="col-md-11" novalidate>
+					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos() && programMode === 'CROSSLINK_INPUT'" ng-submit="nodoCoordenadaForm.$valid && addPoint()" class="col-md-11" novalidate>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Agregar nodo</div>
 							<div class="panel-body"></div>
@@ -491,7 +491,7 @@
 					</form>
 
 					<!-- FORMULARIO DE GRILLAS-->
-					<form name="grillaForm" ng-show="dibujandoGrillas()" ng-submit="grillaForm.$valid && addGrid()" class="col-md-11" novalidate>
+					<form name="grillaForm" ng-show="dibujandoGrillas() && programMode === 'CROSSLINK_INPUT'" ng-submit="grillaForm.$valid && addGrid()" class="col-md-11" novalidate>
 						<div class="panel panel-primary">
 							<div class="panel-heading">Origen</div>
 							<div class="panel-body"></div>
@@ -541,7 +541,7 @@
 					</form>
 
 					<!--  Menu Opciones visualizacion -->
-					<div class="collapse in" id="collapseViewOptions" ng-show="viewingOptions()" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
+					<div class="collapse in" id="collapseViewOptions" ng-show="viewingOptions() && programMode === 'CROSSLINK_INPUT'" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
 						<div class="col-md-11">	
 							<div class="panel panel-primary">
 								<div class="panel-heading">Grillas</div>
@@ -713,7 +713,7 @@
 					</div>
 
 					<!--  Menu creacion de lineas -->
-					<div class="collapse in" id="collapseDefaultLinea" ng-show="dibujandoLineas()" ng-controller="editLineCtrl as lineCtrl">
+					<div class="collapse in" id="collapseDefaultLinea" ng-show="dibujandoLineas() && programMode === 'CROSSLINK_INPUT'" ng-controller="editLineCtrl as lineCtrl">
 						<div class="row">	
 							<div class="col-md-11">	
 									<div class="panel panel-primary">
