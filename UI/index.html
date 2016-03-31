@@ -447,8 +447,8 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading">Factor de escala</div>
 							<div class="panel-body">
-								<input class="col-md-10" type="range"  ng-model="scaleStructure" min="1" max="1000"></input>
-								<input style="margin-top:7px;" type="number" ng-value="scaleStructure" disabled></input>
+								<input class="col-md-10" type="range"  ng-model="scaleStructureAux" ng-change="toggleScaleStructure(true)" min="1" max="1000"></input>
+								<input style="margin-top:7px;" type="text" ng-model="scaleStructure" ng-change="toggleScaleStructure(false)"></input>
 							</div>
 						</div>	
 						<div class="panel panel-primary">
