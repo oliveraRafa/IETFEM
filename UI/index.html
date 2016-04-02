@@ -9,7 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-toggle.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
-		<link rel="stylesheet" href="http://css-spinners.com/css/spinner/spinner.css" type="text/css">
 		
 	</head>
 
@@ -30,7 +29,7 @@
 							<li data-toggle="modal" data-target="#newModelModal">Nuevo Modelo</li>
 							<li data-toggle="modal" data-target="#openModelModal">Abrir Modelo</li>
 							<li data-toggle="modal" data-target="#saveModelModal">Guardar Modelo</li>
-							<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>
+							<!--<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>-->
 
 						</ul>
 					</li>
@@ -60,9 +59,21 @@
 									</div>
 									<br/>
 									<div class="row col-md-offset-5 col-md-2" ng-show="importing">
-										<div class="spinner-loader">
-										  Loading…
+										<div class="sk-circle">
+										  <div class="sk-circle1 sk-child"></div>
+										  <div class="sk-circle2 sk-child"></div>
+										  <div class="sk-circle3 sk-child"></div>
+										  <div class="sk-circle4 sk-child"></div>
+										  <div class="sk-circle5 sk-child"></div>
+										  <div class="sk-circle6 sk-child"></div>
+										  <div class="sk-circle7 sk-child"></div>
+										  <div class="sk-circle8 sk-child"></div>
+										  <div class="sk-circle9 sk-child"></div>
+										  <div class="sk-circle10 sk-child"></div>
+										  <div class="sk-circle11 sk-child"></div>
+										  <div class="sk-circle12 sk-child"></div>
 										</div>
+										Cargando…
 									</div>
 								</div>
 						    </div>
@@ -91,9 +102,21 @@
 								<input type="file" onchange="setFile(this)">
 						    </div>
 						    <div class="row col-md-offset-5 col-md-2" style="margin-top:5px" ng-show="opening">
-								<div class="spinner-loader">
-								  Loading…
-								</div>
+								<div class="sk-circle">
+										  <div class="sk-circle1 sk-child"></div>
+										  <div class="sk-circle2 sk-child"></div>
+										  <div class="sk-circle3 sk-child"></div>
+										  <div class="sk-circle4 sk-child"></div>
+										  <div class="sk-circle5 sk-child"></div>
+										  <div class="sk-circle6 sk-child"></div>
+										  <div class="sk-circle7 sk-child"></div>
+										  <div class="sk-circle8 sk-child"></div>
+										  <div class="sk-circle9 sk-child"></div>
+										  <div class="sk-circle10 sk-child"></div>
+										  <div class="sk-circle11 sk-child"></div>
+										  <div class="sk-circle12 sk-child"></div>
+										</div>
+								  Cargando...
 							</div>
 						    <div class="modal-footer">
 							    <div class="btn-group" role="group">
@@ -191,8 +214,25 @@
 					    <div class="modal-footer">
 					    	<button class="btn btn-default" data-toggle="modal" data-target="#processOutputModal">Seguir editando</button>
 						    <div class="btn-group" role="group">
-								<button class="btn btn-primary" ng-click="processOutput()">Procesar</button>
+								<button class="btn btn-primary" ng-click="startProcessOutput()">Procesar</button>
 							</div>
+							<div class="row col-md-offset-5 col-md-2" ng-show="procesing">
+										<div class="sk-circle">
+										  <div class="sk-circle1 sk-child"></div>
+										  <div class="sk-circle2 sk-child"></div>
+										  <div class="sk-circle3 sk-child"></div>
+										  <div class="sk-circle4 sk-child"></div>
+										  <div class="sk-circle5 sk-child"></div>
+										  <div class="sk-circle6 sk-child"></div>
+										  <div class="sk-circle7 sk-child"></div>
+										  <div class="sk-circle8 sk-child"></div>
+										  <div class="sk-circle9 sk-child"></div>
+										  <div class="sk-circle10 sk-child"></div>
+										  <div class="sk-circle11 sk-child"></div>
+										  <div class="sk-circle12 sk-child"></div>
+										</div>
+										Cargando…
+									</div>
 						</div>
 			      	</div>
 			    </div>
@@ -393,12 +433,15 @@
 
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarNodos()" ng-class="{active: dibujandoNodos()}" data-toggle="tooltip" data-placement="right" title="Dibujar Nodos"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
 
-						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarLineas()" ng-class="{active: dibujandoLineas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Lineas"><span class="glyphicon glyphicon-resize-horizontal"  aria-hidden="true"></span></button>
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarLineas()" ng-class="{active: dibujandoLineas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Barras"><span class="glyphicon glyphicon-resize-horizontal"  aria-hidden="true"></span></button>
 
 						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="viewOptions()" ng-class="{active: viewingOptions()}" data-toggle="tooltip" data-placement="right" title="Opciones de Visualiación"><span class="glyphicon glyphicon-eye-open"  aria-hidden="true"></span></button>
 						</div>
-						<div id="viewportAxisContainer" style="width:56px;height:56px;border-style: solid;border-width: 2px;border-color:#BDBDBD;border-right:none;position: fixed;bottom:15px;">
+						<div id="viewportAxisContainer" style="width:56px;height:56px;border-style: solid;border-width: 2px;border-color:#BDBDBD;border-right:none;position: fixed;bottom:20px;">
 							<div id="viewportAxis"></div>
+						</div>
+						<div style="position: fixed;bottom:0px;">
+							<p style="display: inline;margin-right:12px;color:#ff0000">X</p><p style="display: inline;color:#00ff00">Y</p><p style="display: inline;margin-left:12px;color:#0000ff">Z</p>
 						</div>
 					</div>
 					<div id="viewportContainer" class="col-md-11" style="padding:0px;">
@@ -664,8 +707,8 @@
 										<div class="form-group-last">
 											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>
 											<div ng-show="!editCntrl.updated()" style="color:red">UnSync</div>
-											<button id="deleteNodeButton" class="btn btn-danger" ng-click="editCntrl.deleteNode()" ng-disabled="!editCntrl.existsPointToRemove()" > Borrar Nodo</button>
 											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoPuntoForm.$valid" >Actualizar!</button>
+											<button id="deleteNodeButton" class="btn btn-danger" ng-click="editCntrl.deleteNode()" ng-disabled="!editCntrl.existsPointToRemove()" > Borrar Nodo</button>
 										</div>
 									</form>
 								</div>
@@ -702,8 +745,8 @@
 											<div ng-show="miLinea.id == 0" style="color:red">No hay linea seleccionada <span class="glyphicon glyphicon-remove"></span></div>
 											<div ng-show="lineCtrl.updated()" style="color:green">Sync</div>
 											<div ng-show="!lineCtrl.updated()" style="color:red">UnSync</div>
-											<button id="deleteLineButton" class="btn btn-danger" ng-click="lineCtrl.deleteLine()" ng-disabled=" !lineCtrl.existsLineToRemove()" > Borrar Barra</button>
 											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoLineaForm.$valid" >Actualizar!</button>
+											<button id="deleteLineButton" class="btn btn-danger" ng-click="lineCtrl.deleteLine()" ng-disabled=" !lineCtrl.existsLineToRemove()" > Borrar Barra</button>
 										</div>
 									</form>
 									</div>
@@ -728,7 +771,7 @@
 												</div>
 												<div class="row form-group">
 													<label class="col-md-offset-1 col-md-2">Seccion:</label>
-													<select class="col-md-offset-1 col-md-7" ng-model="seccionDefecto" ng-options="seccion.section for seccion in misSecciones track by seccion.section" required>
+													<select class="col-md-offset-1 col-md-7" ng-model="seccionDefecto" ng-options="seccion.name for seccion in misSecciones track by seccion.name" required>
 														<option></option>
 													</select>
 												</div>

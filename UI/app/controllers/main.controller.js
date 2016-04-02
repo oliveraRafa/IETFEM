@@ -280,7 +280,7 @@ app.controller(
 				var isSelectionBlocked=false;
 
 				//FUNCION OBTENGO punto seleccionado
-				if(leftMenuService.getSelecting()){// Si esta en modo seleccion
+				if(leftMenuService.getSelecting() && $scope.programMode === 'CROSSLINK_INPUT'){// Si esta en modo seleccion
 					var pointIntersection = ray.intersectObjects($scope.spaceAux.scenePoints);
 					var puntoModeloSelec;
 					if(pointIntersection.length > 0){
@@ -607,8 +607,12 @@ app.controller(
 				$('#processOutputModal').modal('show');
 			}
 
+			$scope.startProcessOutput= function(){
+					$scope.procesing = true;
+					setTimeout($scope.processOutput,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
+			}
+			
 			$scope.processOutput = function(){
-				
 
 				var outputReader = new FileReader();
 				outputReader.onload = function(){
@@ -691,7 +695,8 @@ app.controller(
 						
 
 					$('#processOutputModal').modal('hide');
-					
+					$scope.procesing = false;
+					$scope.$apply();
 					render();
 				};
 				
@@ -706,7 +711,6 @@ app.controller(
 			$scope.startImportModel= function(){
 				if($scope.theFile!= null){
 					$scope.importing = true;
-					$scope.$apply();
 					setTimeout($scope.importModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
 				}
 			}
@@ -807,27 +811,34 @@ app.controller(
 			};
 
 			$scope.newModel = function(modal){
-
+			
+				var intersected=null;
 				var firstPointLine = null;
 				var idFirstPoint = 0;
 				
 				LineaSelecService.resetLineaSeleccionada();
 				PtoSelecService.resetPuntoSeleccionado();
 
-				$scope.fuerzas.visible=false;
+				$scope.fuerzas={visible:true};
 				//maxModule= (Max{DeltaX,DeltaY,DeltaZ}) * 0.2
 				$scope.fuerzas.escala={factorEscala:1,maxModule:1,maxX:null,minX:null,maxY:null,minY:null,maxZ:null,minZ:null};
 
-				$scope.supports.visible=false;
-				$scope.resortes.visible=false;
+				$scope.supports={visible:true};
+				$scope.resortes={visible:true};
 
-				//$scope.model = {helpObjects: {}};
-				$scope.model.points = [];
-				$scope.model.lines = [];
-				//$scope.model.helpObjects = {};
-				//$scope.model.materiales = [];
-				//$scope.model.secciones= [];		
-
+				$scope.model.unitForce = 'XX'
+				$scope.model.unitLength = 'XX'
+				
+				var largoNodos=$scope.model.points
+				for (var i=0; i<largoNodos; i++){
+					$scope.model.points.pop();
+				};
+				
+				var largoBarras=$scope.model.lines.length
+				for (var i=0; i<largoBarras; i++){
+					$scope.model.lines.pop();
+				};
+				
 				var largoMateriales=$scope.model.materiales.length;
 				for (var i=0; i<largoMateriales; i++){
 					$scope.model.materiales.pop();
@@ -881,7 +892,6 @@ app.controller(
 			$scope.startOpenModel= function(){
 				if($scope.theFile!= null){
 					$scope.opening = true;
-					$scope.$apply();
 					$scope.newModel('');
 					setTimeout($scope.openModel,0);// encolamos el llamado a la funcion para dar tiempo a la UI a renderizarse
 				}
@@ -900,7 +910,9 @@ app.controller(
 					var auxModel = angular.fromJson(text);
 					$scope.model.points = auxModel.points;
 					$scope.model.lines = auxModel.lines;
-
+					$scope.model.unitForce = auxModel.unitForce;
+					$scope.model.unitLength = auxModel.unitLength;
+					
 					for (i=0; i < auxModel.materiales.length ; i++){
 						$scope.model.materiales.push(auxModel.materiales[i])
 					};
@@ -955,9 +967,28 @@ app.controller(
 
 			$scope.returnToEdit = function(){
 				$scope.programMode = "CROSSLINK_INPUT"
-				$scope.deformed = {};
-				$scope.deformed.points = [];
-				$scope.deformed.lines = [];
+				//$scope.deformed = {};
+				
+				var largoNodos=$scope.deformed.points
+				for (var i=0; i<largoNodos; i++){
+					$scope.deformed.points.pop();
+				};
+				
+				var largoBarras=$scope.model.lines
+				for (var i=0; i<largoBarras; i++){
+					$scope.deformed.lines.pop();
+				};
+				//$scope.deformed.points = [];
+				//$scope.deformed.lines = [];
+				
+				var intersected=null;
+				
+				var firstPointLine = null;
+				var idFirstPoint = 0;
+				
+				LineaSelecService.resetLineaSeleccionada();
+				PtoSelecService.resetPuntoSeleccionado();
+				
 
 				//Creo la escena dentro del viewport, pongo grilla auxiliar
 				$scope.scene = new THREE.Scene();
@@ -976,10 +1007,14 @@ app.controller(
 				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), origin, length, 0xff0000 ) );
 				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), origin, length, 0x00ff00 ) );
 				$scope.scene.add( new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), origin, length, 0x0000ff ) );
-
-				SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
 				
+				$scope.spaceAux={helpObjects: {}};
+				$scope.spaceAux.helpObjects.grilla= [];
 
+				$scope.spaceAux.scenePoints = [];
+				$scope.spaceAux.sceneLines = [];
+				
+				SpaceService.drawModel($scope.scene,$scope.model, $scope.spaceAux.scenePoints, $scope.spaceAux.sceneLines, $scope.spaceAux.helpObjects);
 			}
 
 			// Ver si dejamos estas funciones aca o hacemos otro controlador o algo
@@ -1007,8 +1042,6 @@ app.controller(
 				return leftMenuService.getViewOptions();
 			};
 
-			// Variables para progressBar de importar Modelo
-			$scope.progress=0;
 			//----------------------------------------------
 
 			// --- Inicializa variables
@@ -1050,8 +1083,6 @@ app.controller(
 			$scope.deformed.lines = [];
 
 			$scope.programMode = 'CROSSLINK_INPUT';
-
-			
 
 			$scope.render=render;//Para re renderizar desde otros lugares
 
