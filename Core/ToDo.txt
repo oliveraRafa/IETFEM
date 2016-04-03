@@ -1,4 +1,0 @@
-CAMBIAR xz por xy
-generar cubos en grillas
-perspectiva y ortogonal
-opcion solo pntos en la grilla mas cercana
