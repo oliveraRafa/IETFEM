@@ -1,0 +1,51 @@
+Si ya existe una herramienta propia, robusta,que ya se está usando, entonces cual es la motivación de este proyecto?
+
+IETFEM, en su version antigua cuenta con 2 grandes problemas:
+
+A diferencia de otros sistemas del rubro, no cuenta con una interfaz gráfica apropiada. La comunicación con el sistema se realiza mediante archivos de texto, donde se específican todos los aspectos de la estructura, esto es: definir todos los nodos, la conectividad entre ellos, los materiales y secciones. Esto hace, no solo que sea tedioso el ingreso de datos, sino que aumenta la probabilidad de cometer errores de sintaxis, especialmente en extruuturas grandes, ya que el arcivo crece
+
+El 2 problema, reside en la eficiencia del sistema. La generacion de graficos que ofrece octave ocupa mucho tiempo en la ejecucion, y hasta puede llegar a fallar dependiando de la tarjeta de video que tenga el usuario.
+
+Ademas, como todos los parametros de ejecucion se especifican en el archivo de entrada, si se requiere ajustar alguno de ellos, implicaria que se tiene que realizar una nueva ejecución. Y no solo eso, implicaria realizar n ejecuciones hasta encontrar el valor adecuado
+
+
+Por lo tanto, conociendo estos problemas, los objetivos del proyecto son los siguientes:
+
+Mejorar la usabilidad, mediante el desarrollo de una interfaz grafica 3D donde el usuario puede modelar la estructura
+
+mejorar la eficiencia, reduciendo lo mas posible el trabajo del motor, y simplificando la entrada y salida de archivos del mismo
+
+Mantener la premisa de de desarrollar un proyecto de codigo abierto
+
+Y de alguna manera, innovar, buscar una herramienta innovadora
+
+
+definir materiales y secciones, que es algo esencial para comenzar a modelar la estructura, ya que son propiedades obligatotias de las barras que se van a dibujar
+
+abm de nodos y barras, que es basicamente, dibujar la etsructura en el espacio 3d
+
+se desarrollo ademas la posibilidad de ingresar grillas auxiliares , para facilitar el ingreso de la estructura, el funcionamiento de las mismas lo vamos a ver en la demo
+
+opciones de visualiacion se refiera a ocultar ciertos aspectos de la escena para ver una imagen mucho mas limpia de la estructura, por ejemplo, las flechas que indican las fuerzas aplicadas
+
+Abrir, guardar y limpiar la escena para comenzar un nuevo proyectoo seguir trabajando despues
+
+generar esoecificacino constituye, si se quiere, la funcionalidad esencial de la aplicacion, que seria transformar el modelo que se dibujo en el texto que antes debia escribirse a mano, de manera que el motor pueda ejecutarlo
+
+una vez que se ejecuta en el motor la estructura obtenida, en la interfaz tenemos la funcion de procesar el archivo resultante, para mostrar justamente la etsructura deformada. Y ademas, como funcionalidades auxiliares, tenemos la chance de escalar la estructura o de colorearla de acuerdo a los valores obtenidos, esto significa, pintar cada barra en diferentes tonalidades de rojo y verde de acuerdo a si se comprime o se estira
+
+y como se las arregla la aplicacin para manejar todas estas funcionalidades? Como en toda aplicacion hay un modulo principal, desde el cual se delegan funcionalidades a modulos de menor nivel. Hay un pequeño modulo que gestiona, en que modo se encuentra la aplicacion. QUe estoy haciendo ahora? agregando nodos? fuerzas? barras? esta modulo define las acciones que se realizan en cada click dependiendo de que quiere hacer el usuario
+
+los modulos de abajo son bastante intuitivos ya que cada uno ejecuta las funcionalidades que nombra (nombrarlas) y gestion deformada es para gestionar las operaciones que pueden ejecutarse en la etsructura deformada.
+
+Luego en un nivel aun mas abajo, se encuentra, modelo y deformada, que almacenan los datos de la estructura, y de su correspondiente deformada. Esto es, todos los datos de cada barra y nodo
+
+Por ultimo, hay un modulo que maneja la escena, agregar y sacar elementos de la misma, y un pequeño modulo que manjea los movimientos de la camara
+
+todo esto constituye la caja ietfem UI que se comunica con el mototr
+
+y de que manera?
+
+aca mostramso 2 posibles distribuciones fisicas del sistema. La primera constituye una version local, o sea que cada usuario lo ejecuta en su maquina. La interfaz se ejecuta encapsulada en un web framework, que simula la experiencia de una aplicacion de escritorio, y la comunicacion con el motor se hace de manera manual. Esto se decidio asi, para reducir al minimo el mantenimiento post-proyecto para el cliente.
+
+En una version futura, si se logra cinseguir un servidor en la facultas donde alojarla, se puede colocar el motor un servidor de aplicacion. y levantar la interfaz en n servidores web, dependiendo de que nivel de escalabilidad horizontal se quiere y el usuario ingresa al sistema desde el navegador

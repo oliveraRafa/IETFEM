@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<!--<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-toggle.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		
+	</head>
+
+	<body ng-app="IETFEM">
+		<div id="splash">
+			<img src="assets/img/logo.png" id="splashImage">
+			<span id="splashText">Powered by IET-INCO, FING, UdelaR</span>
+		</div>
+		<div id="container animate enter" ng-controller="mainCtrl">
+			
+			<nav class="navbar navbar-default" id="toolbar" style="padding-bottom:0px;margin-bottom:0px">
+				<div class="navbar-header">
+					<img src="assets/img/logo.png" style="height:45px;width:auto;">
+				</div>
+				<ul>
+					<li>Archivo
+						<ul>
+							<li data-toggle="modal" data-target="#newModelModal">Nuevo Modelo</li>
+							<li data-toggle="modal" data-target="#openModelModal">Abrir Modelo</li>
+							<li data-toggle="modal" data-target="#saveModelModal">Guardar Modelo</li>
+							<!--<li data-toggle="modal" data-target="#importModelModal">Importar Modelo</li>-->
+
+						</ul>
+					</li>
+					<li>Definir
+						<ul>
+							<li data-toggle="modal" data-target="#materialesModal">Materiales</li>
+							<li data-toggle="modal" data-target="#seccionesModal">Secciones</li>
+						</ul>
+					</li>
+				</ul>
+				<button class="btn btn-primary" style="float:right;margin-top: 7px;margin-right: 7px;font: bold 12px/18px sans-serif;"  ng-click="goToDownloadModel()" ng-disabled="programMode =='CROSSLINK_OUTPUT'">Ejecutar IETFEM</button>
+			</nav>
+
+			<!-- MODALS----------------------------------------- -->
+			<div class="modal fade" id="importModelModal" tabindex="-1" role="dialog" aria-labelledby="Importar Modelo">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Importar Modelo</h4>
+			      		</div>
+			      		<form name="importModelForm" ng-submit="startImportModel()">
+				      		<div class="modal-body">
+				      			<div class="container-fluid">
+							        <!--Carga de archivo-->
+							        <div class="row">
+										<input type="file" accept='text/plain' onchange="setFile(this)">
+									</div>
+									<br/>
+									<div class="row col-md-offset-5 col-md-2" ng-show="importing">
+										<div class="sk-circle">
+										  <div class="sk-circle1 sk-child"></div>
+										  <div class="sk-circle2 sk-child"></div>
+										  <div class="sk-circle3 sk-child"></div>
+										  <div class="sk-circle4 sk-child"></div>
+										  <div class="sk-circle5 sk-child"></div>
+										  <div class="sk-circle6 sk-child"></div>
+										  <div class="sk-circle7 sk-child"></div>
+										  <div class="sk-circle8 sk-child"></div>
+										  <div class="sk-circle9 sk-child"></div>
+										  <div class="sk-circle10 sk-child"></div>
+										  <div class="sk-circle11 sk-child"></div>
+										  <div class="sk-circle12 sk-child"></div>
+										</div>
+										Cargando…
+									</div>
+								</div>
+						    </div>
+						    
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit">
+										Importar
+									</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="openModelModal" tabindex="-1" role="dialog" aria-labelledby="Abrir Modelo">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Abrir Modelo</h4>
+			      		</div>
+			      		<form name="openModelForm" ng-submit="startOpenModel()">
+				      		<div class="modal-body">
+						        <!--Carga de archivo-->
+								<input type="file" onchange="setFile(this)">
+						    </div>
+						    <div class="row col-md-offset-5 col-md-2" style="margin-top:5px" ng-show="opening">
+								<div class="sk-circle">
+										  <div class="sk-circle1 sk-child"></div>
+										  <div class="sk-circle2 sk-child"></div>
+										  <div class="sk-circle3 sk-child"></div>
+										  <div class="sk-circle4 sk-child"></div>
+										  <div class="sk-circle5 sk-child"></div>
+										  <div class="sk-circle6 sk-child"></div>
+										  <div class="sk-circle7 sk-child"></div>
+										  <div class="sk-circle8 sk-child"></div>
+										  <div class="sk-circle9 sk-child"></div>
+										  <div class="sk-circle10 sk-child"></div>
+										  <div class="sk-circle11 sk-child"></div>
+										  <div class="sk-circle12 sk-child"></div>
+										</div>
+								  Cargando...
+							</div>
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit">
+										Abrir
+									</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="saveModelModal" tabindex="-1" role="dialog" aria-labelledby="Guardar Modelo">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Guardar Modelo</h4>
+			      		</div>
+			      		<form name="importModelForm" ng-submit="saveModel()">
+				      		<div class="modal-body col-md-12">
+									<div class="col-md-2">
+										<label class="control-label" style='padding-top:15%'>Nombre:</label>
+									</div>
+									<div class="col-md-10">
+										<input name="nombreInput" type="text" class="form-control col-md-9" ng-model="modelName" placeholder="Nombre" required>
+									</div>
+							</div>
+						    <div class="modal-footer">
+							    <div class="btn-group" role="group">
+									<button class="btn btn-primary" type="submit" ng-disabled="!importModelForm.$valid">
+										Guardar
+									</button>
+								</div>
+							</div>
+						</form>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="newModelModal" tabindex="-1" role="dialog" aria-labelledby="Atención" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Atención</h4>
+			      		</div>
+			      		<div class="modal-body col-md-12">
+				     		<p>Se limpiará la escena para comenzar un nuevo modelo. ¿Deseas guardar la estructura actual?</p>
+						</div>
+			      		<div class="modal-footer">
+						    <div class="col-md-12 btn-group" role="group">
+								<button class="col-md-2 btn btn-default" type="submit" data-toggle="modal" data-target="#newModelModal">Cancelar</button>
+								<div class="col-md-3"></div>
+								<button class="col-md-2 btn btn-default" type="submit" data-toggle="modal" ng-click="newModel('#newModelModal')">Descartar</button>	
+								<div class="col-md-3"></div>
+								<button class="col-md-2 btn btn-primary" type="submit" ng-click="goToSaveModel()">Guardar</button>
+							</div>
+						</div>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="transitionModal" tabindex="-1" role="dialog" aria-labelledby="Elige una opción" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Elige una opción</h4>
+			      		</div>
+			      		<div class="modal-body col-md-12">
+				      		<div class="info-mod">
+								<span>Ingresa el documento generado en IETFEM. Una vez ejecutado, puedes ingresar la salida aqui para ver la deformacion de la estructura</span>
+							</div>
+						</div>
+			      		<div class="modal-footer">
+						    <div class="col-md-12 btn-group" role="group">
+								<button class="col-md-5 btn btn-default" type="submit" data-toggle="modal" data-target="#transitionModal">Seguir editando</button>
+								<div class="col-md-2"></div>	
+								<button class="col-md-5 btn btn-primary" type="submit" ng-click="goToProcessOutput()">Procesar resultado</button>
+							</div>
+						</div>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="processOutputModal" tabindex="-1" role="dialog" aria-labelledby="Procesar resultado" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Procesar resultado</h4>
+			      		</div>
+			      		<div class="modal-body">
+					        <!--Carga de archivo-->
+							<div class="form-group">
+								<input type="file" accept='text/plain' onchange="setFile(this)" style="margin-bottom:10px">
+								<span>Factor de Escala: <input type="text" ng-model="futureScale" ng-init="1"></span>
+							</div>
+					    </div>
+					    <div class="modal-footer">
+					    	<button class="btn btn-default" data-toggle="modal" data-target="#processOutputModal">Seguir editando</button>
+						    <div class="btn-group" role="group">
+								<button class="btn btn-primary" ng-click="startProcessOutput()">Procesar</button>
+							</div>
+							<div class="row col-md-offset-5 col-md-2" ng-show="procesing">
+										<div class="sk-circle">
+										  <div class="sk-circle1 sk-child"></div>
+										  <div class="sk-circle2 sk-child"></div>
+										  <div class="sk-circle3 sk-child"></div>
+										  <div class="sk-circle4 sk-child"></div>
+										  <div class="sk-circle5 sk-child"></div>
+										  <div class="sk-circle6 sk-child"></div>
+										  <div class="sk-circle7 sk-child"></div>
+										  <div class="sk-circle8 sk-child"></div>
+										  <div class="sk-circle9 sk-child"></div>
+										  <div class="sk-circle10 sk-child"></div>
+										  <div class="sk-circle11 sk-child"></div>
+										  <div class="sk-circle12 sk-child"></div>
+										</div>
+										Cargando…
+									</div>
+						</div>
+			      	</div>
+			    </div>
+			</div>
+
+			<div class="modal fade" id="materialesModal" tabindex="-1" role="dialog" aria-labelledby="Materiales Modal">
+				<div class="modal-dialog modal-lg" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Materiales</h4>
+			      		</div>
+			      		<div class="modal-body" ng-controller="MaterialesCtrl">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-6 define-mod">
+										<form name="materialForm" ng-submit="addMaterial()" novalidate>
+											<div class="form-group">
+												 <label class="control-label">Nombre</label>
+												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevoMaterial.name" placeholder="Nombre" required>
+											</div>
+											<div class="form-group">
+												 <label>Modulo de Young (E)</label>
+												 <input name="ymInput" type="number" class="form-control" ng-model="nuevoMaterial.youngModule" min="0" placeholder="0" required>
+											</div>
+											<div class="form-group">
+												 <label class="control-label">Gamma (&gamma;)</label>
+												 <input name="gInput" type="number" class="form-control" ng-model="nuevoMaterial.gamma" min="0" placeholder="0" required>
+											</div>
+											<div class="form-group">
+												 <label class="control-label">Alpha (&alpha;)</label>
+												 <input name="aInput" type="number" class="form-control" ng-model="nuevoMaterial.alpha" min="0" placeholder="0" required>
+											</div>
+											<div class="form-group">
+												 <label class="control-label">Nu (&nu;)</label>
+												 <input name="eInput" type="number" class="form-control" ng-model="nuevoMaterial.nu" min="-1" max="0.5" placeholder="0" required>
+											</div>
+											<div class="form-group" style="color:#a94442" ng-show="existeMaterial() && !isEditing()">
+												 <p>
+												 	Ya existe un material con el nombre: {{ nuevoMaterial.name +"  "}} <span class="glyphicon glyphicon-remove"></span>
+												 </p>
+											</div>
+											<div class="form-group">
+												  <button class="btn btn-primary" type="submit"  ng-disabled="!materialForm.$valid || existeMaterial()">Agregar Material</button>
+
+												  <button class="btn btn-warning" type="button" ng-click="editMaterial()"  ng-show="!isEditing()" ng-disabled="getSelectedIndex() == null ">Preparar Edicion</button>
+
+												  <button class="btn btn-success" type="button"  ng-click="editMaterial()" ng-show="isEditing()" ng-disabled="!materialForm.$valid">Editar Material</button>
+											</div>
+											
+										</form>
+									</div>
+									<div class="col-md-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Materiales definidos</div>
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<td>Nombre</td>
+														<td>E</td>
+														<td>&gamma;</td>
+														<td>&alpha;</td>
+														<td>&nu;</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="material in materiales" ng-click="setMaterialToRemove(material,$index)" ng-class="{active: $index == getSelectedIndex()}">
+														<td> {{material.name}} </td>
+														<td> {{material.youngModule}} </td>
+														<td> {{material.gamma}} </td>
+														<td> {{material.alpha}} </td>
+														<td> {{material.nu}} </td>
+													</tr>
+												</tbody>
+											</table>
+											<form name="removeMaterialForm" ng-submit="removeMaterial()" class="define-delete-button" novalidate>
+												<div class="form-group-last">
+													  <button class="btn btn-danger" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Material</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal fade" id="seccionesModal" tabindex="-1" role="dialog" aria-labelledby="Secciones Modal">
+				<div class="modal-dialog modal-lg" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel2">Secciones</h4>
+			      		</div>
+			      		<div class="modal-body" ng-controller="SeccionesCtrl">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="define-mod col-md-6">
+										<form name="seccionForm" ng-submit="addSection()" novalidate>
+											<div class="form-group">
+												<label class="control-label">Nombre</label>
+												 <input name="nombreInput" type="text" class="form-control" ng-model="nuevaSeccion.name" placeholder="Nueva Sección" required>
+
+												 <label class="control-label">Area</label>
+												 <input name="nombreInput" type="number" class="form-control" ng-model="nuevaSeccion.section" min="0.0000000001" placeholder="0" required>
+											</div>
+											<div class="form-group" style="color:#a94442" ng-show="existeSeccion() && !isEditing()">
+												 <p>
+												 	Ya existe una seccion con el nombre: {{ nuevaSeccion.name +"  "}} <span class="glyphicon glyphicon-remove"></span>
+												 </p>
+											</div>
+											<div class="form-group">
+												  <button class="btn btn-primary" type="submit"  ng-disabled="!seccionForm.$valid || existeSeccion()">Agregar Seccion</button>
+
+												  <button class="btn btn-warning" type="button" ng-click="editSeccion()"  ng-show="!isEditing()" ng-disabled="getSelectedIndex() == null ">Preparar Edición</button>
+
+												  <button class="btn btn-success" type="button"  ng-click="editSeccion()" ng-show="isEditing()" ng-disabled="!seccionForm.$valid">Editar Sección</button>
+											</div>
+											
+										</form>
+									</div>
+									<div class="col-md-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Secciones definidos</div>
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<td>Nombre</td>
+														<td>Seccion</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="seccion in secciones" ng-click="setSectionToRemove(seccion,$index)" ng-class="{active: $index == getSelectedIndex()}">
+														<td> {{seccion.name}} </td>
+														<td> {{seccion.section}} </td>
+													</tr>
+												</tbody>
+											</table>
+											<form name="removeSectionForm" ng-submit="removeSection()" class="define-delete-button" novalidate>
+												<div class="form-group">
+													  <button class="btn btn-danger" type="submit"  ng-disabled="getSelectedIndex()==null">Eliminar Sección</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="obtenerTextoModal" tabindex="-1" role="dialog" aria-labelledby="Obtener texto Modal">
+				<div class="modal-dialog modal-lg" role="document">
+			    	<div class="define-modal modal-content">
+			      		<div class="modal-header">
+			      			<h4 class="modal-title" id="myModalLabel">Descargar Modelo</h4>
+			      		</div>
+			      		
+			      		<div class="modal-body">
+							<span class="col-md-12 info-mod">Descarga el modelo de la estructura dibujada.</span>
+							<p class="error-msg" ng-show="validModel.emptyStructure"><span class="glyphicon glyphicon-remove error-icon"></span>Debes dibujar al menos una barra.</p>
+							<p class="error-msg" ng-show="validModel.invalidStructure"><span class="glyphicon glyphicon-remove error-icon"></span>Todas las barras deben tener un material y una seccion asignados.</p>
+							<div class="btn-group btn-group-justified" role="group">
+								<div class="btn-group" role="group">
+									<button class="btn btn-primary" ng-click="modelToText()">Descargar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>		
+			</div>
+
+			<!-- Fin Modals ----------------------------------- -->
+
+			<!-- <div class="container-fluid"> -->
+			<div class="row">
+
+				<div class="col-md-9">
+					<div id="menuIzquierda" class="col-md-1" ng-controller="leftMenusCtrl">
+						<br/>
+						<br/>
+						<br/>
+						<div class="btn-group-vertical" role="group" ng-show="programMode==='CROSSLINK_OUTPUT'">
+							<button class="btn btn-default btn-lg botonMenuIzq" data-placement="right" ng-click="returnToEdit()"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></button>
+						</div>	
+						<div class="btn-group-vertical" role="group" ng-show="programMode==='CROSSLINK_INPUT'">
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="seleccionar()" ng-class="{active: seleccionando()}" data-toggle="tooltip" data-placement="right" title="Seleccionar"><span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarGrillas()" ng-class="{active: dibujandoGrillas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Grilla"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarNodos()" ng-class="{active: dibujandoNodos()}" data-toggle="tooltip" data-placement="right" title="Dibujar Nodos"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="dibujarLineas()" ng-class="{active: dibujandoLineas()}" data-toggle="tooltip" data-placement="right" title="Dibujar Barras"><span class="glyphicon glyphicon-resize-horizontal"  aria-hidden="true"></span></button>
+
+						  <button class="btn btn-default btn-lg botonMenuIzq" ng-click="viewOptions()" ng-class="{active: viewingOptions()}" data-toggle="tooltip" data-placement="right" title="Opciones de Visualiación"><span class="glyphicon glyphicon-eye-open"  aria-hidden="true"></span></button>
+						</div>
+						<div id="viewportAxisContainer" style="width:56px;height:56px;border-style: solid;border-width: 2px;border-color:#BDBDBD;border-right:none;position: fixed;bottom:20px;">
+							<div id="viewportAxis"></div>
+						</div>
+						<div style="position: fixed;bottom:0px;">
+							<p style="display: inline;margin-right:12px;color:#ff0000">X</p><p style="display: inline;color:#00ff00">Y</p><p style="display: inline;margin-left:12px;color:#0000ff">Z</p>
+						</div>
+					</div>
+					<div id="viewportContainer" class="col-md-11" style="padding:0px;">
+						<div id="viewport"></div>
+					</div>
+				</div>
+
+				<div id="menu" class="col-md-3" style="padding:0px;overflow-x:hidden;overflow-y:scroll;max-height:800px">
+
+					<!-- Links del menu! -->
+						
+					<!-- FORMULARIO DE NODOS POR COORDENADA-->
+					<form name="nodoCoordenadaForm" ng-show="dibujandoNodos() && programMode === 'CROSSLINK_INPUT'" ng-submit="nodoCoordenadaForm.$valid && addPoint()" class="col-md-11" novalidate>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Agregar nodo</div>
+							<div class="panel-body"></div>
+							<div class="form-group">
+								 <label>X:</label>
+								 <input type="number" ng-model="posX" required>
+							</div>
+							<div class="form-group">
+								<label>Y:</label>
+								<input type="number" ng-model="posY" required>
+							</div>
+							<div class="form-group">
+								<label>Z:</label>
+								<input type="number" ng-model="posZ" required>
+							</div>
+							
+							<div class="form-group-last">
+									<div ng-show="yaExistePunto()" style="color:red">Ya existe un nodo en estas coordenadas <span class="glyphicon glyphicon-remove"></span></div>
+								  <button class="btn btn-success" type="submit" ng-disabled="!nodoCoordenadaForm.$valid || yaExistePunto()">Agregar nodo</button>
+							</div>
+						</div>
+					</form>
+
+					<!-- FORMULARIO DE EDICION DE SALIDA-->
+					<form name="processOutputForm" ng-show="programMode === 'CROSSLINK_OUTPUT'" class="col-md-11" ng-controller="editOutputCtrl" novalidate>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Resaltar</div>
+							<div class="panel-body">
+								<input type="radio" name="structureView" value="normal" ng-model="structureView">Indeformada
+								<input type="radio" name="structureView" value="deform" ng-model="structureView">Deformada
+							</div>
+						</div>	
+						<div class="panel panel-primary">
+							<div class="panel-heading">Factor de escala</div>
+							<div class="panel-body">
+								<input class="col-md-10" type="range"  ng-model="scaleStructureAux" ng-change="toggleScaleStructure(true)" min="1" max="1000"></input>
+								<input style="margin-top:7px;" type="text" ng-model="scaleStructure" ng-change="toggleScaleStructure(false)"></input>
+							</div>
+						</div>	
+						<div class="panel panel-primary">
+							<div class="panel-heading">Coloración</div>
+							<div class="panel-body">
+								<div class="col-md-12">
+									<input type="radio" name="structureColors" value="normal" ng-model="structureColors" ng-disabled="structureView == 'deform'">Ninguna
+								</div>
+								<div class="col-md-12">
+									<input type="radio" name="structureColors" value="deformation" ng-model="structureColors" ng-disabled="structureView == 'deform'">Deformación
+								</div>
+								<div class="col-md-12">
+									<input type="radio" name="structureColors" value="force" ng-model="structureColors" ng-disabled="structureView == 'deform'">Fuerza
+								</div>
+								<div class="col-md-12">	
+									<input type="radio" name="structureColors" value="tension" ng-model="structureColors" ng-disabled="structureView == 'deform'">Tensión
+								</div>	
+							</div>
+						</div>
+						<div class="panel panel-primary" ng-if="false">
+							<div class="panel-heading">Visualizar</div>
+							<div class="panel-body" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
+								<span style="">Fuerzas:  </span>
+								<input id="toggle-event" type="checkbox" ng-model="statusFuerzas.visible" data-toggle="toggle" ng-change="toggleForces()">
+								</br>
+								</br>
+								<span style="">Factor de escala: </span>
+								<input type="range" ng-model="auxFactor" min="1" max="200" ng-change="toggleForces(true)">
+								<input type="text"  ng-model="statusFuerzas.escala.factorEscala" ng-change="toggleForces(false)" ng-pattern="/^[0-9]{1,4}$/">
+								</br>
+								</br>
+								<span style="">Apoyos:  </span>
+								<input id="toggle-event2" type="checkbox" ng-model="statusSupports.visible" data-toggle="toggle" ng-change="toggleSupports()">
+								</br>
+								</br>
+								<span style="">Resortes:  </span>
+								<input id="toggle-event3" type="checkbox" ng-model="statusSprings.visible" data-toggle="toggle" ng-change="toggleSprings()">
+							</div>
+						</div>	
+					</form>
+
+					<!-- FORMULARIO DE GRILLAS-->
+					<form name="grillaForm" ng-show="dibujandoGrillas() && programMode === 'CROSSLINK_INPUT'" ng-submit="grillaForm.$valid && addGrid()" class="col-md-11" novalidate>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Origen</div>
+							<div class="panel-body"></div>
+							<div class="form-group">
+								 <label>X:</label>
+								 <input type="number" ng-model="posX" required>
+							</div>
+							<div class="form-group">
+								<label>Y:</label>
+								<input type="number" ng-model="posY" required>
+							</div>
+							<div class="form-group-last">
+								<label>Z:</label>
+								<input type="number" ng-model="posZ" required>
+							</div>
+						</div>	
+						<div class="panel panel-primary">
+							<div class="panel-heading">Grilla</div>
+							<div class="panel-body">
+								<div class="col-md-offset-2 col-md-4">
+									Lineas
+								</div>
+								<div class="col-md-offset-1 col-md-4">
+									Separaciones
+								</div>
+							</div>
+							<div class="row form-group">
+								  <label class="col-md-2">X:</label>
+								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoX" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorX" min="0.0000000001" required>
+							</div>
+							<div class="row form-group">
+								  <label class="col-md-2">Y:</label>
+								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoY" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorY" min="0.0000000001" required>
+							</div>
+							<div class="row form-group">	  
+								  <label class="col-md-2">Z:</label>
+								  <input class="col-md-4" type="number" class="longGrid" ng-model="largoZ" ng-pattern="/^[0-9]{1,7}$/" required>
+								  <input class="col-md-offset-1 col-md-4" type="number" ng-model="separatorZ" min="0.0000000001" required>
+							</div>
+
+							<div class="form-group-last btn-group" role="group">
+								<button class="btn btn-info" type="submit" ng-disabled="!grillaForm.$valid">Agregar grilla</button>
+							</div> 
+						</div> 
+					</form>
+
+					<!--  Menu Opciones visualizacion -->
+					<div class="collapse in" id="collapseViewOptions" ng-show="viewingOptions() && programMode === 'CROSSLINK_INPUT'" ng-controller="viewOptionsInputCntrl as viewOptCtrl">
+						<div class="col-md-11">	
+							<div class="panel panel-primary">
+								<div class="panel-heading">Grillas</div>
+								<div class="panel-body">
+									<div ng-if="!gridInfos || gridInfos.length == 0">No has ingresado grillas</div>
+									<div ng-repeat="gridInfo in gridInfos">
+										<!-- no funciona el switch pues no lo inicializa, se soluciona con una directive -->
+									    <input type="checkbox" value="{{ gridInfo.gridId }}" ng-model="gridInfo.viewStatus" ng-change="toggleGrid(gridInfo)"> 
+									    <label>Grilla numero {{ gridInfo.gridId }}<label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-11">	
+							<div class="panel panel-primary">
+								<div class="panel-heading">Otras opciones</div>
+								<div class="panel-body">
+									<span style="">Factor de escala: </span>
+									<input type="range" ng-model="auxFactor" min="1" max="200" ng-change="toggleForces(true)">
+									<input type="text"  ng-model="statusFuerzas.escala.factorEscala" ng-change="toggleForces(false)" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/">
+									</br></br>
+									<div class="onoffswitch middle-align">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-forces" ng-model="statusFuerzas.visible" ng-change="toggleForces()">
+									    <label class="onoffswitch-label" for="toggle-forces">
+									        <span class="onoffswitch-inner"></span>
+									        <span class="onoffswitch-switch"></span>
+									    </label>
+									</div>
+									<span class="middle-align switch-text">Fuerzas</span>
+									</br></br>
+									<div class="onoffswitch middle-align">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-supports" ng-model="statusSupports.visible" ng-change="toggleSupports()">
+									    <label class="onoffswitch-label" for="toggle-supports">
+									        <span class="onoffswitch-inner"></span>
+									        <span class="onoffswitch-switch"></span>
+									    </label>
+									</div>
+									<span class="middle-align switch-text">Apoyos</span>
+									</br></br>
+									<div class="onoffswitch middle-align">
+									    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="toggle-springs" ng-model="statusSprings.visible" ng-change="toggleSprings()">
+									    <label class="onoffswitch-label" for="toggle-springs">
+									        <span class="onoffswitch-inner"></span>
+									        <span class="onoffswitch-switch"></span>
+									    </label>
+									</div>
+									<span class="middle-align switch-text">Resortes</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+
+					<!-- Edicion punto seleccionado -->
+					<div class="collapse" id="collapseInfoPunto" ng-class="{in: ultimoSeleccionado()=='NODO'}" ng-show="seleccionando()" ng-controller="editPointCtrl as editCntrl">
+						<div class="row">	
+							<div class="col-md-11">	
+									<div class="panel panel-primary">
+										<div class="panel-heading">Coordenadas</div>
+										<div class="panel-body"></div>
+										<div class="table-responsive">
+											<table id="infoPuntoTable" class="table">
+												<tr>
+													<td></td>
+													<td><span class="label label-default" style="font-size:12px">ID: {{ miPunto.id}}</span></td>
+												</tr>
+												<tr>
+													<td>X</td>
+													<td>Y</td>
+													<td>Z</td>
+												</tr>
+												<tr>
+													<td>{{ miPunto.coords.x }}</td>
+													<td>{{ miPunto.coords.y }}</td>
+													<td>{{ miPunto.coords.z }}</td>
+												</tr>
+												
+											</table> 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-11">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Propiedades</div>
+									<div class="panel-body">
+										<div class="col-md-offset-1 col-md-2">
+											Condiciones Desp.
+										</div>
+										<div class="col-md-offset-1 col-md-2" style="margin-left:12%">
+											Fuerzas Aplicadas
+										</div>
+										<div class="col-md-offset-1 col-md-2">
+											Resortes
+										</div>
+									</div>	
+									<form name="infoPuntoForm" ng-submit="infoPuntoForm.$valid && editCntrl.updatePoint()" novalidate>
+
+										<div class="row form-group">
+											<label class="col-md-2" for="xCondition">X:</label>
+											<input class="col-md-2" type="text" id="xCondition" ng-model="miPunto.xCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="xForce" ng-model="miPunto.xForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="xSpring" ng-model="miPunto.xSpring" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+										</div>
+
+										<div class="row form-group">
+											<label class="col-md-2" for="yCondition">Y:</label>
+											<input class="col-md-2" type="text" id="yCondition" ng-model="miPunto.yCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="yForce" ng-model="miPunto.yForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="ySpring" ng-model="miPunto.ySpring" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+										</div>
+										<div class="row form-group">
+											<label class="col-md-2"for="zCondition">Z:</label>
+											<input class="col-md-2" type="text" id="zCondition" ng-model="miPunto.zCondicion" ng-pattern="/F|^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="zForce" ng-model="miPunto.zForce" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+											<input class="col-md-offset-1 col-md-2" type="text" id="zSpring" ng-model="miPunto.zSpring" ng-pattern="/^-?\d+(,\d+)*(\.\d+(e\d+)?)?$/" required>
+										</div>
+										<div class="form-group-last">
+											<div ng-show="editCntrl.updated()" style="color:green">Sync</div>
+											<div ng-show="!editCntrl.updated()" style="color:red">UnSync</div>
+											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoPuntoForm.$valid" >Actualizar!</button>
+											<button id="deleteNodeButton" class="btn btn-danger" ng-click="editCntrl.deleteNode()" ng-disabled="!editCntrl.existsPointToRemove()" > Borrar Nodo</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+							
+					</div>
+
+
+					<!-- Edicion linea seleccionada -->
+					<div class="collapse" id="collapseInfoLinea" ng-class="{in: ultimoSeleccionado()=='LINEA'}" ng-show="seleccionando()" ng-controller="editLineCtrl as lineCtrl">
+						<div class="row">
+							<div class="col-md-11">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Propiedades</div>
+									<div class="panel-body">
+										<div class="row" style="margin-bottom:6px">
+											<span class="label label-default" style="font-size:12px">ID: {{ miLinea.id}}</span>
+										</div>
+									<form name="infoLineaForm" ng-submit="infoLineaForm.$valid && lineCtrl.updateLine()" novalidate>
+										<div class="row form-group">
+											<label class="col-md-offset-1 col-md-2">Material:</label>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.material" ng-options="material.id as material.name for material in misMateriales" required>
+												<option></option>
+											</select>
+										</div>
+										<div class="row form-group">
+											<label class="col-md-offset-1 col-md-2">Seccion:</label>
+											<select class="col-md-offset-1 col-md-7" ng-model="miLinea.section" ng-options="seccion.id as seccion.name for seccion in misSecciones " required>
+												<option></option>
+											</select>
+										</div>
+										<div class="form-group-last">
+											<div ng-show="miLinea.id == 0" style="color:red">No hay linea seleccionada <span class="glyphicon glyphicon-remove"></span></div>
+											<div ng-show="lineCtrl.updated()" style="color:green">Sync</div>
+											<div ng-show="!lineCtrl.updated()" style="color:red">UnSync</div>
+											<button id="linesButton" class="btn btn-primary" type="submit" ng-disabled="!infoLineaForm.$valid" >Actualizar!</button>
+											<button id="deleteLineButton" class="btn btn-danger" ng-click="lineCtrl.deleteLine()" ng-disabled=" !lineCtrl.existsLineToRemove()" > Borrar Barra</button>
+										</div>
+									</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--  Menu creacion de lineas -->
+					<div class="collapse in" id="collapseDefaultLinea" ng-show="dibujandoLineas() && programMode === 'CROSSLINK_INPUT'" ng-controller="editLineCtrl as lineCtrl">
+						<div class="row">	
+							<div class="col-md-11">	
+									<div class="panel panel-primary">
+										<div class="panel-heading">Propiedades por defecto</div>
+										<div class="panel-body">
+											<form name="defaultsLineaForm" ng-submit="defaultsLineaForm.$valid && lineCtrl.updateDefaults()" novalidate>
+												<div class="row form-group">
+													<label class="col-md-offset-1 col-md-2">Material:</label>
+													<select class="col-md-offset-1 col-md-7" ng-model="materialDefecto" ng-options="material.name for material in misMateriales track by material.name" required>
+														<option></option>
+													</select>
+												</div>
+												<div class="row form-group">
+													<label class="col-md-offset-1 col-md-2">Seccion:</label>
+													<select class="col-md-offset-1 col-md-7" ng-model="seccionDefecto" ng-options="seccion.name for seccion in misSecciones track by seccion.name" required>
+														<option></option>
+													</select>
+												</div>
+												<div class="form-group-last">
+													<div ng-show="lineCtrl.updatedDefaults()" style="color:green">Sync</div>
+													<div ng-show="!lineCtrl.updatedDefaults()" style="color:red">UnSync</div>
+													<button id="linesDefaultButton" class="btn btn-primary" type="submit" ng-disabled="!defaultsLineaForm.$valid" >Actualizar!</button>
+												</div>
+											</form>
+										</div>
+										
+									</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Unidades-->
+					<div style="position:fixed; bottom:0px; width:25%" ng-if="programMode =='CROSSLINK_INPUT'">
+						<div class="col-md-11">
+							<div class="panel panel-primary" >
+								<div class="panel-heading">Unidades</div>
+								<div class="panel-body">
+									<div class="col-md-6" style="text-align: left;">
+										<label>Fuerza:</label>
+							 			<input type="text" ng-model="model.unitForce" style="width: 25px;">
+									</div>
+									<div class="col-md-6">
+										<label>Longitud:</label>
+										<input type="text" ng-model="model.unitLength" style="width: 25px;">
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+			<!-- </div> -->
+			
+		</div>
+
+		<script src="assets/lib/three.min.js"></script>
+		<script src="assets/lib/jquery-2.1.4.min.js"></script>
+		<script src="assets/lib/bootstrap.min.js"></script>
+		<script src="assets/lib/angular.min.js"></script>
+		<script src="assets/lib/bootstrap-toggle.min.js"></script>
+		
+		<script src="app/app.min.js"></script>
+
+
+		
+		
+	</body>
+</html>

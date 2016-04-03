@@ -1,0 +1,115 @@
+Input for a 3D with large deformation (You must respect line breaks):
+
+Force Magnitude
+XX
+
+Length Magnitude
+XX
+
+Number of degrees of freedom per node
+3
+
+Number of nodes per element
+2
+
+Number of materials
+1
+
+Materials:
+Young Modulus	gamma	alpha (1/C)	nu
+210000000000	0	0	0.3
+
+Number of temperature cases
+0
+
+Temperature cases:
+Value
+
+Number of sections
+1
+
+Sections:
+Area
+0.001
+
+Number of nodes
+8
+
+Node matrix 
+Xs     Ys     Zs
+0	0	0
+2.12132034355964	-2.12132034355964	0
+2.12132034355964	2.12132034355964	0
+8.12132034355964	-2.12132034355964	0
+8.12132034355964	2.12132034355964	0
+10.2426406871193	0	0
+2.12132034355964	0	2.12132034355964
+8.12132034355964	0	2.12132034355964
+
+Number of elements
+7
+
+Conectivity matrix
+material     section     tempcase     start     end
+1	1	0	1	7
+1	1	0	2	7
+1	1	0	3	7
+1	1	0	4	8
+1	1	0	6	8
+1	1	0	5	8
+1	1	0	7	8
+
+Number of displacement conditions nodes
+6
+
+Displacement conditions nodes matrix
+Displacement node  X condition   Y condition   Z condition
+1	0	0	0
+2	0	0	0
+3	0	0	0
+4	0	0	0
+5	0	0	0
+6	0	0	0
+
+Number of puntual load conditions
+2
+
+Puntual loads conditions nodes matrix
+Load node       FX            FY           FZ
+7	30000	0	-100000
+8	-30000	0	-100000
+
+Number of dead volume load conditions
+0
+
+Dead volume loads conditions matrix
+Element           bx                  by                  bz
+
+Number of springs conditions nodes
+0
+
+Springs conditions nodes matrix
+Spring node  X condition   Y condition   Z condition 
+
+RESULTADOS
+
+Desplazamientos de los nodos
+u_x	        u_y	        u_z
+0.00e+000	0.00e+000	0.00e+000
+0.00e+000	0.00e+000	0.00e+000
+0.00e+000	0.00e+000	0.00e+000
+0.00e+000	0.00e+000	0.00e+000
+0.00e+000	0.00e+000	0.00e+000
+0.00e+000	0.00e+000	0.00e+000
+6.79e-004	0.00e+000	-1.18e-003
+-6.79e-004	0.00e+000	-1.18e-003
+
+Parametros en barras
+Deformación           Fuerza             Tension
+-1.18e-004	-2.47e+004	-2.47e+007
+-2.78e-004	-5.83e+004	-5.83e+007
+-2.78e-004	-5.83e+004	-5.83e+007
+-2.78e-004	-5.83e+004	-5.83e+007
+-1.18e-004	-2.47e+004	-2.47e+007
+-2.78e-004	-5.83e+004	-5.83e+007
+-2.26e-004	-4.75e+004	-4.75e+007

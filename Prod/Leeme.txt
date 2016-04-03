@@ -1,0 +1,13 @@
+Para ejecutar el IETFEM luego de dibujar la estructura, seguir los siguientes pasos:
+
+1 - Presionar el botón "Ejecutar IETFEM" y luego presionar "Descargar Modelo"
+
+2 - Copiar el archivo descargado hacia la carpeta de entradas del motor (IETFEM -> Core -> input_UI) y ponerle un nombre
+
+3 - Ejecutar desde Octave el archivo ietfem.m e ingresar el nombre del archivo de entrada
+
+4 - La ejecución creará una carpeta nueva dentro de IETFEM -> Core -> output_UI con la resolución del problema
+
+5 - Volver a la interfaz y elegir "Procesar resultado", elegir el archivo "Nombre_UI.txt" (Los otros 2 archivos contienen datos analíticos)
+
+6 - Se verá en pantalla la estructura deformada.

@@ -1,0 +1,74 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducción}{11}
+\contentsline {subsection}{\numberline {1.1}Definición del problema y motivación}{11}
+\contentsline {subsection}{\numberline {1.2}Desarrollo previo}{12}
+\contentsline {subsection}{\numberline {1.3}Objetivos y resultados esperados}{13}
+\contentsline {subsection}{\numberline {1.4}Desarrollo del proyecto}{14}
+\contentsline {subsection}{\numberline {1.5}Organización del documento}{14}
+\contentsline {section}{\numberline {2}Estado del Arte}{15}
+\contentsline {subsection}{\numberline {2.1}Cálculo de estructuras}{15}
+\contentsline {subsubsection}{\numberline {2.1.1}Problema y cálculos implicados}{15}
+\contentsline {subsubsection}{\numberline {2.1.2}IETFEM}{16}
+\contentsline {subsection}{\numberline {2.2}Herramientas comerciales}{16}
+\contentsline {subsubsection}{\numberline {2.2.1}SAP2000}{16}
+\contentsline {subsubsection}{\numberline {2.2.2}AxisVM}{17}
+\contentsline {subsubsection}{\numberline {2.2.3}Herramientas Web}{18}
+\contentsline {subsection}{\numberline {2.3}Desarrollo 3D}{19}
+\contentsline {subsubsection}{\numberline {2.3.1}OpenGL}{19}
+\contentsline {subsubsection}{\numberline {2.3.2}LWJGL y JOGL}{20}
+\contentsline {subsubsection}{\numberline {2.3.3}JMonkeyEngine 3}{20}
+\contentsline {subsection}{\numberline {2.4}Desarrollo 3D en la Web}{20}
+\contentsline {subsubsection}{\numberline {2.4.1}HTML5 - Canvas}{21}
+\contentsline {subsubsection}{\numberline {2.4.2}WebGL}{21}
+\contentsline {subsubsection}{\numberline {2.4.3}Librerías para desarrollo 3D}{21}
+\contentsline {subsection}{\numberline {2.5}Información complementaria}{22}
+\contentsline {subsubsection}{\numberline {2.5.1}Investigación sobre proyectos similares en América Latina}{22}
+\contentsline {subsubsection}{\numberline {2.5.2}Conclusión}{22}
+\contentsline {section}{\numberline {3}Organización del trabajo}{23}
+\contentsline {subsection}{\numberline {3.1}Alcance}{23}
+\contentsline {subsection}{\numberline {3.2}Metodología de trabajo}{24}
+\contentsline {subsection}{\numberline {3.3}Estimación y esfuerzo efectivo}{26}
+\contentsline {section}{\numberline {4}Presentación de la solución}{27}
+\contentsline {subsection}{\numberline {4.1}Análisis y relevamiento de requerimientos}{27}
+\contentsline {subsection}{\numberline {4.2}Diseño de la solución}{29}
+\contentsline {subsection}{\numberline {4.3}Arquitectura}{32}
+\contentsline {subsection}{\numberline {4.4}Tecnologías y herramientas utilizadas}{36}
+\contentsline {subsubsection}{\numberline {4.4.1}HTML5 - JavaScript - CSS3}{36}
+\contentsline {paragraph}{HTML}{36}
+\contentsline {paragraph}{JavaScript}{36}
+\contentsline {paragraph}{CSS}{36}
+\contentsline {subsubsection}{\numberline {4.4.2}BootStrap}{36}
+\contentsline {subsubsection}{\numberline {4.4.3}AngularJS}{38}
+\contentsline {subsubsection}{\numberline {4.4.4}ThreeJs}{38}
+\contentsline {subsubsection}{\numberline {4.4.5}Electron}{39}
+\contentsline {subsection}{\numberline {4.5}Manejo del espacio 3D}{39}
+\contentsline {subsubsection}{\numberline {4.5.1}Eventos de usuario}{39}
+\contentsline {subsubsection}{\numberline {4.5.2}Adición, sustracción y transformación de objetos}{40}
+\contentsline {subsubsection}{\numberline {4.5.3}Manejo de la cámara}{41}
+\contentsline {subsubsection}{\numberline {4.5.4}Trazado de rayos e intersecciones con objetos}{42}
+\contentsline {subsection}{\numberline {4.6}Manejo de datos}{43}
+\contentsline {subsubsection}{\numberline {4.6.1}Entrada y mantenimiento de información}{43}
+\contentsline {subsubsection}{\numberline {4.6.2}Almacenamiento de la estructura}{45}
+\contentsline {subsubsection}{\numberline {4.6.3}Salida de Datos}{46}
+\contentsline {subsection}{\numberline {4.7}Análisis de resultados del Core}{47}
+\contentsline {subsubsection}{\numberline {4.7.1}Generación de resultados}{47}
+\contentsline {subsubsection}{\numberline {4.7.2}Introducción de datos en la UI}{47}
+\contentsline {subsubsection}{\numberline {4.7.3}Visualización}{48}
+\contentsline {section}{\numberline {5}Resultados obtenidos}{49}
+\contentsline {subsection}{\numberline {5.1}Comparación IETFEM con y sin UI}{49}
+\contentsline {subsubsection}{\numberline {5.1.1}Análisis del impacto en la usabilidad}{49}
+\contentsline {subsubsection}{\numberline {5.1.2}Análisis del impacto en el tiempo de ejecución}{50}
+\contentsline {subsection}{\numberline {5.2}Casos de prueba}{51}
+\contentsline {subsubsection}{\numberline {5.2.1}Estudio de casos de pequeño porte (Torre pequeña)}{51}
+\contentsline {subsubsection}{\numberline {5.2.2}Estudio de casos de mediano porte (Grúa)}{53}
+\contentsline {subsubsection}{\numberline {5.2.3}Estudio de casos de gran porte y performance (Torre Eiffel)}{56}
+\contentsline {subsection}{\numberline {5.3}Resolución de un ejercicio práctico}{57}
+\contentsline {section}{\numberline {6}Conclusiones y trabajo futuro}{63}
+\contentsline {subsection}{\numberline {6.1}Conclusiones}{63}
+\contentsline {subsection}{\numberline {6.2}Trabajo a futuro}{64}
+\contentsline {subsubsection}{\numberline {6.2.1}Trabajo en la interfaz}{64}
+\contentsline {subsubsection}{\numberline {6.2.2}Despliegue de la aplicación}{64}
+\contentsline {section}{\numberline {7}Anexos}{66}
+\contentsline {section}{\numberline {A}Especificación de Casos de Uso}{66}
+\contentsline {section}{\numberline {B}Entrada del motor: Torre pequeña}{74}
+\contentsline {section}{\numberline {C}Salida del motor: Torre pequeña}{77}
